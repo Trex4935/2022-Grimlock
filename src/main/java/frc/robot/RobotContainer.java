@@ -6,18 +6,28 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.driveWithController;
 
 public class RobotContainer {
+
+  // subsystem
+  public final Drivetrain drive;
+  public final Drivetrain middle;
+  public static XboxController controller;
+
+
+  // commands
+  private final driveWithController driveWithController;
+
+
   public RobotContainer() {
   // Drivetrain
 drive = new Drivetrain();
 driveWithController = new driveWithController(drive);
 driveWithController.addRequirements(drive);
 drive.setDefaultCommand(driveWithController);
-middle = new Drivetrain;
-dt = new driveWithController(middle);
-dt.addRequirements(middle);
+middle = new Drivetrain();
 
 controller = new XboxController(0);
 
@@ -30,8 +40,9 @@ controller = new XboxController(0);
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {}
-}
+
 
 public Command getAutonomousCommand() {
   return driveWithController;
+  }
 }
