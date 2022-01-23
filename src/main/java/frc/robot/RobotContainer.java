@@ -7,7 +7,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.driveWithController;
+import frc.robot.subsystem.Drivetrain;
+import frc.robot.subsystem.Intake;
 
 public class RobotContainer {
 
@@ -29,6 +32,11 @@ driveWithController.addRequirements(drive);
 drive.setDefaultCommand(driveWithController);
 middle = new Drivetrain();
 
+// Intake and Magazine
+intake = new Intake();
+runIntakeMotor = new runIntakeMotor();
+runMagazineMotors = new runMagazineMotors();
+
 controller = new XboxController(0);
 
   }
@@ -39,7 +47,14 @@ controller = new XboxController(0);
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+  new JoystickButton(controller, XboxController.Button.kB.value).toggleWhenPressed(runIntakeMotor));
+  new JoystickButton(controller, XboxController.Button.kY.value).toggleWhenPressed(runMagazineMotors));
+
+  }
+
+  //.withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
 
 public Command getAutonomousCommand() {

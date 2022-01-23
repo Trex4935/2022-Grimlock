@@ -18,8 +18,11 @@ public class Intake extends SubsystemBase {
   public Intake() {
 
   intakeMotor = new WPI_TalonFX(Constants.intakeMotorCanID);
+  intakeMotor.setInverted(false);
   magazineMotor1 = new WPI_TalonFX(Constants.magazineMotor1CanID);
+  magazineMotor1.setInverted(false);
   magazineMotor2 = new WPI_TalonFX(Constants.magazineMotor2CanID);
+  magazineMotor2.setInverted(false);
 
   }
 
@@ -27,4 +30,18 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+public void runIntakeMotor() {
+
+  intakeMotor.set(Constants.intakeMotorSpeed);
+
+  }
+
+public void runMagazineMotors(){
+
+  magazineMotor1.set(Constants.magazineMotorSpeed);
+  magazineMotor2.set(Constants.magazineMotorSpeed);
+
+}
+
 }

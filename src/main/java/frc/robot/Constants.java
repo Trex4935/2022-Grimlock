@@ -21,6 +21,15 @@ public static final int rightBackCanID = 32;
 public static final int middleLeftCanID = 33;
 public static final int middleRightCanID = 35;
 
+// intake and magazine motors
+public static final int intakeMotorCanID = 1;
+public static final int magazineMotor1CanID = 2;
+public static final int magazineMotor2CanID = 3;
+
+public static final double intakeMotorSpeed = 0.6;
+public static final double magazineMotorSpeed = 0.6;
+
+
 public static final int leftStick = 1;
 public static final int rightStick = 4;
 
@@ -31,8 +40,5 @@ public static final double midMotorSpeed = 0.9;
 public static final double motorStop = 0;
 
 public static final int leftHorizontal = 0;
-
-// talon ids
-    public static final int talon1 = 1;
 
 }
