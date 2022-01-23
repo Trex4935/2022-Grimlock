@@ -45,6 +45,12 @@ rightSide = new MotorControllerGroup(rightFront, rightBack);
 leftSide = new MotorControllerGroup(leftFront, leftBack);
 middleSide = new MotorControllerGroup(middleLeft, middleRight);
 
+    // Invert motors
+  leftSide.setInverted(true);
+  rightSide.setInverted(false);
+  middleLeft.setInverted(false);
+  middleRight.setInverted(false);
+
     // Creating Drive Movement
 drive = new DifferentialDrive(leftSide, rightSide);
   }
