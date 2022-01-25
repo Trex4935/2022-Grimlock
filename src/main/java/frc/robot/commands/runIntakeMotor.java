@@ -6,15 +6,17 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
-import frc.robot.subsystem.Drivetrain;
+import frc.robot.Robot;
+import frc.robot.subsystem.Intake;
 
-public class driveWithController extends CommandBase {
-  private final Drivetrain drive;
+public class runIntakeMotor extends CommandBase {
+  /** Creates a new runIntakeMotors. */
+  private final Intake intake;
 
-  public driveWithController(Drivetrain dt) {
-    drive = dt;
-    addRequirements(drive);
+  public runIntakeMotor(Intake it) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    intake = it;
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -25,13 +27,15 @@ public class driveWithController extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.driveWithController(RobotContainer.controller, Constants.speedLimit);
-    drive.driveMiddleWithController(RobotContainer.controller, Constants.speedLimit);
+
+    intake.runIntakeMotor();
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    intake.intakeMotorStop();
   }
 
   // Returns true when the command should end.
