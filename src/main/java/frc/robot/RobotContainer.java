@@ -41,6 +41,9 @@ public class RobotContainer {
 
     controller = new XboxController(0);
 
+    // Configure the button bindings
+    configureButtonBindings();
+
   }
 
   /**
