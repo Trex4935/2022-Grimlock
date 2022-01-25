@@ -31,13 +31,16 @@ public class RobotContainer {
     // Drivetrain
     drive = new Drivetrain();
     driveWithController = new driveWithController(drive);
+    //driveWithController.addRequirements(drive);
     drive.setDefaultCommand(driveWithController);
     middle = new Drivetrain();
 
     // Intake and Magazine
     intake = new Intake();
     runIntakeMotor = new runIntakeMotor(intake);
+    //runIntakeMotor.addRequirements(intake);
     runMagazineMotors = new runMagazineMotors(intake);
+    //runMagazineMotors.addRequirements(intake);
 
     controller = new XboxController(0);
 

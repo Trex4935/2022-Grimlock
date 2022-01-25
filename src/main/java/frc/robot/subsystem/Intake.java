@@ -44,4 +44,13 @@ public void runMagazineMotors(){
 
 }
 
+public void intakeMotorStop() {
+  intakeMotor.set(Constants.motorStop);
+}
+
+public void magazineMotorStop(){
+  magazineMotor1.set(Constants.motorStop);
+  magazineMotor2.set(Constants.motorStop);
+}
+
 }
