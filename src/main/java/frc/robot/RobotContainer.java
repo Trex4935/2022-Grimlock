@@ -19,16 +19,15 @@ public class RobotContainer {
   // subsystem
   public final Drivetrain drive;
   public final Drivetrain middle;
-  public static XboxController controller;
-
-  // commands
-  private final driveWithController driveWithController;
   public final Intake intake;
 
   // commands
   private final driveWithController driveWithController;
   private final runIntakeMotor runIntakeMotor;
   private final runMagazineMotors runMagazineMotors;
+
+  // Controller
+  public static XboxController controller;
 
   public RobotContainer() {
     // Drivetrain
