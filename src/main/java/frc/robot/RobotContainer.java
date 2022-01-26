@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.driveWithController;
 import frc.robot.commands.runIntakeMotor;
 import frc.robot.commands.runMagazineMotors;
+import frc.robot.commands.turnOnSimpleAutoAim;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
+import frc.robot.subsystem.Turret;
 
 public class RobotContainer {
 
@@ -20,11 +22,13 @@ public class RobotContainer {
   public final Drivetrain drive;
   public final Drivetrain middle;
   public final Intake intake;
+  public final Turret turret;
 
   // commands
   private final driveWithController driveWithController;
   private final runIntakeMotor runIntakeMotor;
   private final runMagazineMotors runMagazineMotors;
+  private final turnOnSimpleAutoAim turnOnSimpleAutoAim;
 
   // Controller
   public static XboxController controller;
@@ -43,6 +47,10 @@ public class RobotContainer {
     //runIntakeMotor.addRequirements(intake);
     runMagazineMotors = new runMagazineMotors(intake);
     //runMagazineMotors.addRequirements(intake);
+
+    // Turret
+    turret = new Turret();
+    turnOnSimpleAutoAim = new turnOnSimpleAutoAim(turret);
 
     controller = new XboxController(0);
 
@@ -63,6 +71,8 @@ public class RobotContainer {
 
     new JoystickButton(controller, XboxController.Button.kB.value).toggleWhenPressed(runIntakeMotor);
     new JoystickButton(controller, XboxController.Button.kY.value).toggleWhenPressed(runMagazineMotors);
+
+    new JoystickButton(controller, XboxController.Button.kA.value).toggleWhenPressed(turnOnSimpleAutoAim);
 
   }
 
