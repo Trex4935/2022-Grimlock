@@ -4,18 +4,25 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystem.Limelight;
 
 public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
+  public Limelight limelight;
 
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    limelight = new Limelight();
   }
 
   @Override
@@ -25,6 +32,11 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    //Updates limelight X values on smart dashboard
+
+    SmartDashboard.putNumber("LimelightX", limelight.getLimelightX());
+    System.out.println(limelight.getLimelightX());
   }
 
   @Override
