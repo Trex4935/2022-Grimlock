@@ -8,16 +8,26 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 
-public class turret extends SubsystemBase {
+public class Turret extends SubsystemBase {
   WPI_TalonFX turretShooter;
   WPI_TalonFX turretRotation;
 
+  Limelight limelight;
+
   /** Creates a new turret. */
-  public turret() {
+  public Turret() {
 
     turretShooter = new WPI_TalonFX(Constants.turretShooterCanID);
     turretRotation = new WPI_TalonFX(Constants.turretRotationCanID);
+    limelight = new Limelight();
+
+  }
+
+  public void turnOnSimpleAutoAim() {
+
+    turretRotation.set(limelight.getLimelightX()/27);
 
   }
 
