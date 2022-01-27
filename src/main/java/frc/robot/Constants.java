@@ -45,8 +45,11 @@ public static double speedLimit = 0.5;
 
 public static final int leftHorizontal = 3;
 
-    // turrent IDs
-    public static final int turretRotationCanID = 98;
+    // turret IDs
+    public static final int turretRotationCanID = 40; //98
     public static final int turretShooterCanID = 99;
+
+    // neo motors
+
 
 }
