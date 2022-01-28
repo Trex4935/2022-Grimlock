@@ -15,14 +15,19 @@ public class Intake extends SubsystemBase {
   WPI_TalonFX magazineMotor1;
   WPI_TalonFX magazineMotor2;
 
+  //// Add 2 smakna
+  //// Add color sensor
+  //// remove motor in the mag (there are only two total)
+
+  // Constructor
   public Intake() {
 
-  intakeMotor = new WPI_TalonFX(Constants.intakeMotorCanID);
-  intakeMotor.setInverted(false);
-  magazineMotor1 = new WPI_TalonFX(Constants.magazineMotor1CanID);
-  magazineMotor1.setInverted(false);
-  magazineMotor2 = new WPI_TalonFX(Constants.magazineMotor2CanID);
-  magazineMotor2.setInverted(false);
+    intakeMotor = new WPI_TalonFX(Constants.intakeMotorCanID);
+    intakeMotor.setInverted(false);
+    magazineMotor1 = new WPI_TalonFX(Constants.magazineMotor1CanID);
+    magazineMotor1.setInverted(false);
+    magazineMotor2 = new WPI_TalonFX(Constants.magazineMotor2CanID);
+    magazineMotor2.setInverted(false);
 
   }
 
@@ -31,26 +36,26 @@ public class Intake extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-public void runIntakeMotor() {
+  public void runIntakeMotor() {
 
-  intakeMotor.set(Constants.intakeMotorSpeed);
+    intakeMotor.set(Constants.intakeMotorSpeed);
 
   }
 
-public void runMagazineMotors(){
+  public void runMagazineMotors() {
 
-  magazineMotor1.set(Constants.magazineMotorSpeed);
-  magazineMotor2.set(Constants.magazineMotorSpeed);
+    magazineMotor1.set(Constants.magazineMotorSpeed);
+    magazineMotor2.set(Constants.magazineMotorSpeed);
 
-}
+  }
 
-public void intakeMotorStop() {
-  intakeMotor.set(Constants.motorStop);
-}
+  public void intakeMotorStop() {
+    intakeMotor.set(Constants.motorStop);
+  }
 
-public void magazineMotorStop(){
-  magazineMotor1.set(Constants.motorStop);
-  magazineMotor2.set(Constants.motorStop);
-}
+  public void magazineMotorStop() {
+    magazineMotor1.set(Constants.motorStop);
+    magazineMotor2.set(Constants.motorStop);
+  }
 
 }
