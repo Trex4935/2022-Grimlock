@@ -18,41 +18,23 @@ import frc.robot.subsystem.Turret;
 
 public class RobotContainer {
 
-  // subsystem
-  public final Drivetrain drive;
-  public final Drivetrain middle;
-  public final Intake intake;
-  public final Turret turret;
-
-  // commands
-  private final driveWithController driveWithController;
-  private final runIntakeMotor runIntakeMotor;
-  private final runMagazineMotors runMagazineMotors;
-  private final turnOnSimpleAutoAim turnOnSimpleAutoAim;
+  // Declare Subsystems
+  private final Drivetrain drive = new Drivetrain();
+  private final Intake intake = new Intake();
+  private final Turret turret = new Turret();
 
   // Controller
-  public static XboxController controller;
+  private static XboxController controller = new XboxController(0);
+  // button variables for the controller
+  private JoystickButton xbox_b, xbox_a, xbox_y;
 
   public RobotContainer() {
     // Drivetrain
-    drive = new Drivetrain();
-    driveWithController = new driveWithController(drive);
-    //driveWithController.addRequirements(drive);
-    drive.setDefaultCommand(driveWithController);
-    middle = new Drivetrain();
 
-    // Intake and Magazine
-    intake = new Intake();
-    runIntakeMotor = new runIntakeMotor(intake);
-    //runIntakeMotor.addRequirements(intake);
-    runMagazineMotors = new runMagazineMotors(intake);
-    //runMagazineMotors.addRequirements(intake);
+    // Setup default drive controls
+    drive.setDefaultCommand(new driveWithController(drive, controller));
 
-    // Turret
-    turret = new Turret();
-    turnOnSimpleAutoAim = new turnOnSimpleAutoAim(turret);
-
-    controller = new XboxController(0);
+    // Setup the controller
 
     // Configure the button bindings
     configureButtonBindings();
@@ -69,16 +51,20 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new JoystickButton(controller, XboxController.Button.kB.value).toggleWhenPressed(runIntakeMotor);
-    new JoystickButton(controller, XboxController.Button.kY.value).toggleWhenPressed(runMagazineMotors);
+    xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    xbox_b.toggleWhenPressed(new runIntakeMotor(intake));
 
-    new JoystickButton(controller, XboxController.Button.kA.value).toggleWhenPressed(turnOnSimpleAutoAim);
+    xbox_y = new JoystickButton(controller,XboxController.Button.kY.value);
+    xbox_y.toggleWhenPressed(new runMagazineMotors(intake));
+
+    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
+    xbox_a.toggleWhenPressed(new turnOnSimpleAutoAim(turret));
 
   }
 
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
   public Command getAutonomousCommand() {
-    return driveWithController;
+    return null;
   }
 }

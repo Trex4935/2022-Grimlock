@@ -4,16 +4,18 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 import frc.robot.subsystem.Drivetrain;
 
 public class driveWithController extends CommandBase {
   private final Drivetrain drive;
+  private final XboxController controller;
 
-  public driveWithController(Drivetrain dt) {
+  public driveWithController(Drivetrain dt,XboxController con) {
     drive = dt;
+    controller = con;
     addRequirements(drive);
   }
 
@@ -25,8 +27,8 @@ public class driveWithController extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.driveWithController(RobotContainer.controller, Constants.speedLimit);
-    drive.driveMiddleWithController(RobotContainer.controller, Constants.speedLimit);
+    drive.driveWithController(controller, Constants.speedLimit);
+    drive.driveMiddleWithController(controller, Constants.speedLimit);
   }
 
   // Called once the command ends or is interrupted.
