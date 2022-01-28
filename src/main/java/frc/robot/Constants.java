@@ -43,7 +43,7 @@ public static double speedLimit = 0.5;
     public static final double midMotorSpeed = 0.9;
     public static final double motorStop = 0;
 
-public static final int leftHorizontal = 3;
+public static final int leftHorizontal = 0;
 
     // turret IDs
     public static final int turretRotationCanID = 40; //98
