@@ -4,17 +4,19 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Intake;
+import frc.robot.Constants;
+import frc.robot.subsystem.Drivetrain;
 
-public class runMagazineMotors extends CommandBase {
-  private final Intake intake;
+public class c_driveWithController extends CommandBase {
+  private final Drivetrain drive;
+  private final XboxController controller;
 
-  /** Creates a new runMagazineMotors. */
-  public runMagazineMotors(Intake it) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    intake = it;
-    addRequirements(intake);
+  public c_driveWithController(Drivetrain dt, XboxController con) {
+    drive = dt;
+    controller = con;
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
@@ -25,15 +27,13 @@ public class runMagazineMotors extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    intake.runMagazineMotors();
-
+    drive.driveWithController(controller, Constants.speedLimit);
+    drive.driveMiddleWithController(controller, Constants.speedLimit);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.magazineMotorStop();
   }
 
   // Returns true when the command should end.

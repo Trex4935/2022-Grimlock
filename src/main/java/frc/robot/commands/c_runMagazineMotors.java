@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystem.Intake;
 
-public class runIntakeMotor extends CommandBase {
-  /** Creates a new runIntakeMotors. */
+public class c_runMagazineMotors extends CommandBase {
   private final Intake intake;
 
-  public runIntakeMotor(Intake it) {
+  /** Creates a new runMagazineMotors. */
+  public c_runMagazineMotors(Intake it) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = it;
     addRequirements(intake);
@@ -26,14 +26,14 @@ public class runIntakeMotor extends CommandBase {
   @Override
   public void execute() {
 
-    intake.runIntakeMotor();
+    intake.runMagazineMotors();
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.intakeMotorStop();
+    intake.magazineMotorStop();
   }
 
   // Returns true when the command should end.
