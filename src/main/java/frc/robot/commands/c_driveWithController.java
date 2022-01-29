@@ -27,8 +27,8 @@ public class c_driveWithController extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.driveWithController(controller, Constants.speedLimit);
-    drive.driveMiddleWithController(controller, Constants.speedLimit);
+    drive.driveWithController(controller, Constants.driveSpeedLimit);
+    drive.driveMiddleWithController(controller, Constants.driveSpeedLimit);
   }
 
   // Called once the command ends or is interrupted.
