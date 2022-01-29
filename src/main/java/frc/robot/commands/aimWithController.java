@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystem.Turret;
 
 public class aimWithController extends CommandBase {
-  private final Turret aiming;
+  private final Turret turret;
   private final XboxController controller;
 
   /** Creates a new manualTurretAim. */
-  public aimWithController(Turret aim,XboxController con) {
-    aiming = aim; 
+  public aimWithController(Turret trt,XboxController con) {
+    turret = trt; 
     controller = con;
-    addRequirements(aiming);
+    addRequirements(turret);
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -31,12 +31,14 @@ public class aimWithController extends CommandBase {
   @Override
   public void execute() {
 
-    aiming.aimWithController(controller);
+    turret.aimWithController(controller);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    turret.stopRotationMotor();
+  }
 
   // Returns true when the command should end.
   @Override

@@ -36,8 +36,8 @@ public static final double magazineMotorSpeed = 0.6;
 
     public static final int leftStick = 1;
     public static final int rightStick = 4;
-    public static final int leftTrigger = 998;
-    public static final int rightTrigger = 999;
+    public static final int leftTrigger = 2;
+    public static final int rightTrigger = 3;
 
 public static double speedLimit = 0.5;
 
