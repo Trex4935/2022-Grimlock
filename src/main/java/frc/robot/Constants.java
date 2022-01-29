@@ -27,6 +27,7 @@ public final class Constants {
     public static final int middleRightCanID = 35;
 
     public static final int leftVertical = 1;
+    public static final int leftHorizontal = 0;
     public static final int rightHorizontal = 4;
 
     public static double driveSpeedLimit = 0.5;
@@ -36,19 +37,16 @@ public final class Constants {
     public static final int magazineMotor1CanID = 2;
     public static final int magazineMotor2CanID = 3;
 
-    public static final int leftStick = 1;
-    public static final int rightStick = 4;
+    public static final double magazineMotorSpeed = 0.5;
+    public static final double intakeMotorSpeed = 0.5;
+
+    // Turret
+    public static final int turretRotationCanID = 40;
+    public static final int turretShooterCanID = 41;
+
     public static final int leftTrigger = 2;
     public static final int rightTrigger = 3;
 
-    // Turret
     public static final double midMotorSpeed = 0.9;
-    public static final int leftHorizontal = 0;
-
-    // turret IDs
-    public static final int turretRotationCanID = 40;
-    public static final int turretShooterCanID = 99;
-    public static final double magazineMotorSpeed = 0;
-    public static final double intakeMotorSpeed = 0;
 
 }
