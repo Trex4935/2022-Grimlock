@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystem.Turret;
 
-public class aimWithController extends CommandBase {
+public class c_aimWithController extends CommandBase {
   private final Turret turret;
   private final XboxController controller;
 
   /** Creates a new manualTurretAim. */
-  public aimWithController(Turret trt,XboxController con) {
-    turret = trt; 
+  public c_aimWithController(Turret trt, XboxController con) {
+    turret = trt;
     controller = con;
     addRequirements(turret);
 
@@ -24,7 +24,7 @@ public class aimWithController extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.

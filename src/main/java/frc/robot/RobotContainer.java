@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.aimWithController;
+import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_runIntakeMotor;
 import frc.robot.commands.c_runMagazineMotors;
@@ -32,8 +32,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Setup default drive controls
     drive.setDefaultCommand(new c_driveWithController(drive, controller));
-    turret.setDefaultCommand(new aimWithController(turret, controller));
-    
+    turret.setDefaultCommand(new c_aimWithController(turret, controller));
+
     // Configure the button bindings
     configureButtonBindings();
 
@@ -47,8 +47,6 @@ public class RobotContainer {
    * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-
-
 
   private void configureButtonBindings() {
 
