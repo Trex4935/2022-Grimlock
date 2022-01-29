@@ -11,7 +11,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class Turret extends SubsystemBase {
   
@@ -25,29 +24,32 @@ public class Turret extends SubsystemBase {
   /** Creates a new turret. */
   public Turret() {
 
+    // Init motors
     turretShooter = new WPI_TalonFX(Constants.turretShooterCanID);
-    //turretRotation = new WPI_TalonFX(Constants.turretRotationCanID);
-    
-    
-    limelight = new Limelight();
     turretRotation = new CANSparkMax(Constants.turretRotationCanID, MotorType.kBrushless);
-
-
-  }
-
-  public void turnOnSimpleAutoAim() {
-
-    turretRotation.set(limelight.getLimelightX()/270);
     
+    // Init Limelight
+    limelight = new Limelight();
 
   }
 
+  // Uses limelight output to move rotation motor directly
+  public void turnOnSimpleAutoAim() {
+    turretRotation.set(limelight.getLimelightX()/270);
+  }
+
+// Moves the rotation motor based on controller input
   public void aimWithController(XboxController controller){
 
     double LT = controller.getRawAxis(Constants.leftTrigger);
     double RT = controller.getRawAxis(Constants.rightTrigger) * -1;
-    turretRotation.set(LT + RT);
+    turretRotation.set((LT + RT)/25);
+    // System.out.print(LT + RT);
   } 
+
+  public void stopRotationMotor(){
+    turretRotation.stopMotor();
+  }
 
   @Override
   public void periodic() {
