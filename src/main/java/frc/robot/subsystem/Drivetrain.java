@@ -20,7 +20,8 @@ public class Drivetrain extends SubsystemBase {
   WPI_TalonFX rightFront;
   WPI_TalonFX rightBack;
 
-  WPI_TalonFX middleLeft; //Look at the front of the robot and then rotate the robot 90 degrees clockwise to determine left and right
+  WPI_TalonFX middleLeft; // Look at the front of the robot and then rotate the robot 90 degrees clockwise
+                          // to determine left and right
   WPI_TalonFX middleRight;
 
   // Declaring motor groups
@@ -52,8 +53,6 @@ public class Drivetrain extends SubsystemBase {
     middleLeft.setInverted(true);
     middleRight.setInverted(false);
 
-
-
     // Creating Drive Movement
     drive = new DifferentialDrive(leftSide, rightSide);
   }
@@ -65,15 +64,16 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void middleStop() {
-    middleLeft.set(Constants.motorStop);
-    middleRight.set(Constants.motorStop);
+    middleLeft.stopMotor();
+    middleRight.stopMotor();
   }
-  
+
   @Override
   public void periodic() {
   }
 
   public void driveWithController(XboxController controller, double speedLimiter) {
-    drive.arcadeDrive(controller.getRawAxis(Constants.rightStick) * speedLimiter, controller.getRawAxis(Constants.leftStick) * speedLimiter * -1);
+    drive.arcadeDrive(controller.getRawAxis(Constants.rightHorizontal) * speedLimiter,
+        controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
   }
 }

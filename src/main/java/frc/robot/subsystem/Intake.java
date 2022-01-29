@@ -50,12 +50,12 @@ public class Intake extends SubsystemBase {
   }
 
   public void intakeMotorStop() {
-    intakeMotor.set(Constants.motorStop);
+    intakeMotor.stopMotor();
   }
 
   public void magazineMotorStop() {
-    magazineMotor1.set(Constants.motorStop);
-    magazineMotor2.set(Constants.motorStop);
+    magazineMotor1.stopMotor();
+    magazineMotor2.stopMotor();
   }
 
 }
