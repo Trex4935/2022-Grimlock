@@ -32,8 +32,8 @@ public class Robot extends TimedRobot {
 
     //Updates limelight X values on smart dashboard
 
-    SmartDashboard.putNumber("LimelightX", limelight.getLimelightX());
-    System.out.println(limelight.getLimelightX());
+    // SmartDashboard.putNumber("LimelightX", limelight.getLimelightX());
+    // System.out.println(limelight.getLimelightX());
   }
 
   @Override

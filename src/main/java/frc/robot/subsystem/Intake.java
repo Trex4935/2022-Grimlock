@@ -30,32 +30,33 @@ public class Intake extends SubsystemBase {
     magazineMotor2.setInverted(false);
 
   }
+  public void runIntakeMotor() {
+
+    intakeMotor.set(Constants.intakeMotorSpeed);
+  
+    }
+  
+  public void runMagazineMotors(){
+  
+    magazineMotor1.set(Constants.magazineMotorSpeed);
+    magazineMotor2.set(Constants.magazineMotorSpeed);
+  
+  }
+  
+  public void intakeMotorStop() {
+    intakeMotor.set(Constants.motorStop);
+  }
+  
+  public void magazineMotorStop(){
+    magazineMotor1.set(Constants.motorStop);
+    magazineMotor2.set(Constants.motorStop);
+  }
+  
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
 
-  public void runIntakeMotor() {
-
-    intakeMotor.set(Constants.intakeMotorSpeed);
-
-  }
-
-  public void runMagazineMotors() {
-
-    magazineMotor1.set(Constants.magazineMotorSpeed);
-    magazineMotor2.set(Constants.magazineMotorSpeed);
-
-  }
-
-  public void intakeMotorStop() {
-    intakeMotor.stopMotor();
-  }
-
-  public void magazineMotorStop() {
-    magazineMotor1.stopMotor();
-    magazineMotor2.stopMotor();
-  }
 
 }
