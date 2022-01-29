@@ -59,7 +59,6 @@ public class RobotContainer {
 
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
     xbox_a.toggleWhenPressed(new turnOnSimpleAutoAim(turret));
-
   }
 
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));

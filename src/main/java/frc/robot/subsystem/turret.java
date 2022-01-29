@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -40,6 +41,13 @@ public class Turret extends SubsystemBase {
     
 
   }
+
+  public void aimWithController(XboxController controller){
+
+    double LT = controller.getRawAxis(Constants.leftTrigger);
+    double RT = controller.getRawAxis(Constants.rightTrigger) * -1;
+    turretRotation.set(LT + RT);
+  } 
 
   @Override
   public void periodic() {

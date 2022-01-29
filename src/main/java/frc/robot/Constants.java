@@ -36,6 +36,8 @@ public static final double magazineMotorSpeed = 0.6;
 
     public static final int leftStick = 1;
     public static final int rightStick = 4;
+    public static final int leftTrigger = 998;
+    public static final int rightTrigger = 999;
 
 public static double speedLimit = 0.5;
 
@@ -46,7 +48,7 @@ public static double speedLimit = 0.5;
 public static final int leftHorizontal = 0;
 
     // turret IDs
-    public static final int turretRotationCanID = 40; //98
+    public static final int turretRotationCanID = 40;
     public static final int turretShooterCanID = 99;
 
     // neo motors
