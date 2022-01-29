@@ -10,14 +10,12 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;
 
 public class Turret extends SubsystemBase {
-  
+
   WPI_TalonFX turretShooter;
   CANSparkMax turretRotation;
   public CANSparkMax m_leftMotor;
-
 
   Limelight limelight;
 
@@ -25,19 +23,16 @@ public class Turret extends SubsystemBase {
   public Turret() {
 
     turretShooter = new WPI_TalonFX(Constants.turretShooterCanID);
-    //turretRotation = new WPI_TalonFX(Constants.turretRotationCanID);
-    
-    
+    // turretRotation = new WPI_TalonFX(Constants.turretRotationCanID);
+
     limelight = new Limelight();
     turretRotation = new CANSparkMax(Constants.turretRotationCanID, MotorType.kBrushless);
-
 
   }
 
   public void turnOnSimpleAutoAim() {
 
-    turretRotation.set(limelight.getLimelightX()/270);
-    
+    turretRotation.set(limelight.getLimelightX() / 270);
 
   }
 
