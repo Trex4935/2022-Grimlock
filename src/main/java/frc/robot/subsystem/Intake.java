@@ -30,12 +30,14 @@ public class Intake extends SubsystemBase {
     magazineMotor2.setInverted(false);
 
   }
+  // eun intake motor
   public void runIntakeMotor() {
 
     intakeMotor.set(Constants.intakeMotorSpeed);
   
     }
   
+  //run magazine motor
   public void runMagazineMotors(){
   
     magazineMotor1.set(Constants.magazineMotorSpeed);
@@ -43,13 +45,15 @@ public class Intake extends SubsystemBase {
   
   }
   
+  //stop intake motor
   public void intakeMotorStop() {
-    intakeMotor.set(Constants.motorStop);
+    intakeMotor.stopMotor();
   }
   
+  //stop magazine motor
   public void magazineMotorStop(){
-    magazineMotor1.set(Constants.motorStop);
-    magazineMotor2.set(Constants.motorStop);
+    magazineMotor1.stopMotor();
+    magazineMotor2.stopMotor();
   }
   
 
