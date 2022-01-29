@@ -16,13 +16,14 @@ import frc.robot.commands.c_turnOnSimpleAutoAim;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Turret;
+import frc.robot.subsystem.TurretPID;
 
 public class RobotContainer {
 
   // Declare Subsystems
   private final Drivetrain drive = new Drivetrain();
   private final Intake intake = new Intake();
-  private final Turret turret = new Turret();
+  private final TurretPID turret = new TurretPID();
 
   // Controller
   private static XboxController controller = new XboxController(0);

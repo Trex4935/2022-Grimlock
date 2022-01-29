@@ -6,14 +6,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Turret;
+import frc.robot.subsystem.TurretPID;
 
 public class c_aimWithController extends CommandBase {
-  private final Turret turret;
+  private final TurretPID turret;
   private final XboxController controller;
 
   /** Creates a new manualTurretAim. */
-  public c_aimWithController(Turret trt, XboxController con) {
+  public c_aimWithController(TurretPID trt, XboxController con) {
     turret = trt;
     controller = con;
     addRequirements(turret);
