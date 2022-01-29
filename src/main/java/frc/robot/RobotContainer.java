@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.driveWithController;
-import frc.robot.commands.runIntakeMotor;
-import frc.robot.commands.runMagazineMotors;
-import frc.robot.commands.turnOnSimpleAutoAim;
+import frc.robot.commands.c_driveWithController;
+import frc.robot.commands.c_runIntakeMotor;
+import frc.robot.commands.c_runMagazineMotors;
+import frc.robot.commands.c_turnOnSimpleAutoAim;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Turret;
@@ -32,7 +32,7 @@ public class RobotContainer {
     // Drivetrain
 
     // Setup default drive controls
-    drive.setDefaultCommand(new driveWithController(drive, controller));
+    drive.setDefaultCommand(new c_driveWithController(drive, controller));
 
     // Setup the controller
 
@@ -52,13 +52,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
-    xbox_b.toggleWhenPressed(new runIntakeMotor(intake));
+    xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
-    xbox_y = new JoystickButton(controller,XboxController.Button.kY.value);
-    xbox_y.toggleWhenPressed(new runMagazineMotors(intake));
+    xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
+    xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));
 
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    xbox_a.toggleWhenPressed(new turnOnSimpleAutoAim(turret));
+    xbox_a.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
 
   }
 
