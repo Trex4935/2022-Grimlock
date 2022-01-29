@@ -18,38 +18,32 @@ package frc.robot;
  */
 public final class Constants {
 
-public static final int leftFrontCanID = 34;
-public static final int leftBackCanID = 30;
-public static final int rightFrontCanID = 31;
-public static final int rightBackCanID = 32;
-public static final int middleLeftCanID = 33;
-public static final int middleRightCanID = 35;
+    // DriveTrain
+    public static final int leftFrontCanID = 34;
+    public static final int leftBackCanID = 30;
+    public static final int rightFrontCanID = 31;
+    public static final int rightBackCanID = 32;
+    public static final int middleLeftCanID = 33;
+    public static final int middleRightCanID = 35;
 
-// intake and magazine motors
-public static final int intakeMotorCanID = 1;
-public static final int magazineMotor1CanID = 2;
-public static final int magazineMotor2CanID = 3;
+    public static final int leftVertical = 1;
+    public static final int rightHorizontal = 4;
 
-public static final double intakeMotorSpeed = 0.6;
-public static final double magazineMotorSpeed = 0.6;
+    public static double driveSpeedLimit = 0.5;
 
+    // Intake & Magazine
+    public static final int intakeMotorCanID = 1;
+    public static final int magazineMotor1CanID = 2;
+    public static final int magazineMotor2CanID = 3;
 
-    public static final int leftStick = 1;
-    public static final int rightStick = 4;
+    public static final double intakeMotorSpeed = 0.6;
+    public static final double magazineMotorSpeed = 0.6;
 
-public static double speedLimit = 0.5;
-
-    // H drive speed
+    // Turret
     public static final double midMotorSpeed = 0.9;
-    public static final double motorStop = 0;
+    public static final int leftHorizontal = 0;
 
-public static final int leftHorizontal = 0;
-
-    // turret IDs
-    public static final int turretRotationCanID = 40; //98
+    public static final int turretRotationCanID = 40; // 98
     public static final int turretShooterCanID = 99;
-
-    // neo motors
-
 
 }
