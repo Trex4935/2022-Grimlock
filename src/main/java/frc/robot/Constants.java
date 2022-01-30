@@ -49,5 +49,8 @@ public final class Constants {
     public static final int rightTrigger = 3;
 
     public static final double midMotorSpeed = 0.9;
+    public static final int climbMotorCanID = 0;
+    public static final int rotationmotorCanID = 0;
+    public static final int pinMotorCanID = 0;
 
 }
