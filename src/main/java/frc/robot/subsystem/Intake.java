@@ -6,14 +6,19 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Extensions.multiplexedColorSensor;
 
 public class Intake extends SubsystemBase {
 
   WPI_TalonFX intakeMotor;
   WPI_TalonFX magazineMotor1;
   WPI_TalonFX magazineMotor2;
+
+  //intake color sensor
+  private multiplexedColorSensor sensor2;
 
   //// Add 2 smakna
   //// Add color sensor
@@ -28,6 +33,8 @@ public class Intake extends SubsystemBase {
     magazineMotor1.setInverted(false);
     magazineMotor2 = new WPI_TalonFX(Constants.magazineMotor2CanID);
     magazineMotor2.setInverted(false);
+
+    sensor2 = new multiplexedColorSensor(I2C.Port.kOnboard, 2);
 
   }
   // eun intake motor
@@ -56,6 +63,20 @@ public class Intake extends SubsystemBase {
     magazineMotor2.stopMotor();
   }
   
+
+  public void readSensor(){
+    if (sensor2.getRed() > Constants.sensorRequiredValue && sensor2.getBlue() < Constants.sensorRequiredValue) {
+      System.out.println("Red");
+    }
+    else if (sensor2.getBlue() > Constants.sensorRequiredValue && sensor2.getRed() < Constants.sensorRequiredValue) {
+      System.out.println("Blue");
+    }  
+    else {
+      System.out.println("X");
+    }
+  }
+    
+
 
   @Override
   public void periodic() {
