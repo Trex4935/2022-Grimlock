@@ -4,17 +4,17 @@
 
 package frc.robot.subsystem;
 
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 
 public class TurretPID extends PIDSubsystem {
 
-  CANSparkMax turretRotation;
+  PWMSparkMax turretRotation;
 
   Limelight limelight;
 
@@ -27,7 +27,7 @@ public class TurretPID extends PIDSubsystem {
 
 
         limelight = new Limelight();
-      turretRotation = new CANSparkMax(Constants.turretRotationCanID, MotorType.kBrushless);
+      turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
   
     }
 

@@ -41,7 +41,7 @@ public final class Constants {
     public static final double intakeMotorSpeed = 0.5;
 
     // Turret
-    public static final int turretRotationCanID = 40;
+    public static final int turretRotationPWMID = 0;
     public static final int turretShooterCanID = 41;
 
     public static final int leftTrigger = 2;

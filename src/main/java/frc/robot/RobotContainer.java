@@ -25,7 +25,8 @@ public class RobotContainer {
   // Declare Subsystems
   private final Drivetrain drive = new Drivetrain();
   private final Intake intake = new Intake();
-  private final TurretPID turret = new TurretPID();
+  // private final TurretPID turretPID = new TurretPID();
+  private final Turret turret = new Turret();
 
   // Controller
   private static XboxController controller = new XboxController(0);
@@ -59,11 +60,11 @@ public class RobotContainer {
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));
 
-    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    xbox_a.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
+   // xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
+   // xbox_a.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
 
-    xbox_x = new JoystickButton(controller,XboxController.Button.kX.value);
-    xbox_x.toggleWhenPressed(new InstantCommand(turret::enable, turret));
+    //xbox_x = new JoystickButton(controller,XboxController.Button.kX.value);
+    //xbox_x.toggleWhenPressed(new InstantCommand(turret::enable, turret));
   }
 
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));

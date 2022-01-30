@@ -5,18 +5,17 @@
 package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Turret extends SubsystemBase {
 
   WPI_TalonFX turretShooter;
-  CANSparkMax turretRotation;
-  public CANSparkMax m_leftMotor;
+  PWMSparkMax turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
+  
 
   Limelight limelight;
 
@@ -28,7 +27,6 @@ public class Turret extends SubsystemBase {
     // turretRotation = new WPI_TalonFX(Constants.turretRotationCanID);
 
     limelight = new Limelight();
-    turretRotation = new CANSparkMax(Constants.turretRotationCanID, MotorType.kBrushless);
 
   }
 
