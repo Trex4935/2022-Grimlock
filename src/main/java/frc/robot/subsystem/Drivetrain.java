@@ -53,8 +53,18 @@ public class Drivetrain extends SubsystemBase {
     middleLeft.setInverted(true);
     middleRight.setInverted(false);
 
+    // Ramp speeds
+  leftFront.configOpenloopRamp(Constants.RampLimiter);
+  leftBack.configOpenloopRamp(Constants.RampLimiter);
+  rightFront.configOpenloopRamp(Constants.RampLimiter);
+  rightBack.configOpenloopRamp(Constants.RampLimiter);
+  middleLeft.configOpenloopRamp(1);
+  middleRight.configOpenloopRamp(1);
+
+
     // Creating Drive Movement
     drive = new DifferentialDrive(leftSide, rightSide);
+
   }
 
   // Move mid motor

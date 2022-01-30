@@ -31,6 +31,7 @@ public final class Constants {
     public static final int rightHorizontal = 4;
 
     public static double driveSpeedLimit = 0.5;
+    public static double RampLimiter = 0.5;
 
     // Intake & Magazine
     public static final int intakeMotorCanID = 1;
