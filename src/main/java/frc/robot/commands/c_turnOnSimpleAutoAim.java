@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Turret;
+import frc.robot.subsystem.TurretPID;
 
 public class c_turnOnSimpleAutoAim extends CommandBase {
-  private final Turret turret;
+  private final TurretPID turret;
 
   /** Creates a new turnOnSimpleAutoAim. */
-  public c_turnOnSimpleAutoAim(Turret trt) {
+  public c_turnOnSimpleAutoAim(TurretPID trt) {
     turret = trt;
     addRequirements(turret);
     // Use addRequirements() here to declare subsystem dependencies.
