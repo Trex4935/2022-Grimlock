@@ -65,8 +65,18 @@ public class Intake extends SubsystemBase {
   
 
   public void readSensor(){
-    System.out.println(sensor2.getRed() + "," + sensor2.getGreen() + "," + sensor2.getBlue());
+    if (sensor2.getRed() > Constants.sensorRequiredValue && sensor2.getBlue() < Constants.sensorRequiredValue) {
+      System.out.println("Red");
+    }
+    else if (sensor2.getBlue() > Constants.sensorRequiredValue && sensor2.getRed() < Constants.sensorRequiredValue) {
+      System.out.println("Blue");
+    }  
+    else {
+      System.out.println("X");
+    }
   }
+    
+
 
   @Override
   public void periodic() {
