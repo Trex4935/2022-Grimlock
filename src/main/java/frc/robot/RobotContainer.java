@@ -24,7 +24,7 @@ import frc.robot.subsystem.TurretPID;
 public class RobotContainer {
 
   // Declare Subsystems
-//  private final Drivetrain drive = new Drivetrain();
+  private final Drivetrain drive = new Drivetrain();
   private final Intake intake = new Intake();
   // private final TurretPID turretPID = new TurretPID();
   private final Turret turret = new Turret();
@@ -36,7 +36,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     // Setup default drive controls
-//    drive.setDefaultCommand(new c_driveWithController(drive, controller));
+    drive.setDefaultCommand(new c_driveWithController(drive, controller));
     turret.setDefaultCommand(new c_aimWithController(turret, controller));
     intake.setDefaultCommand(new c_readSensor(intake));
 
