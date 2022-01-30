@@ -5,8 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_driveWithController;
@@ -28,7 +30,7 @@ public class RobotContainer {
   // Controller
   private static XboxController controller = new XboxController(0);
   // button variables for the controller
-  private JoystickButton xbox_b, xbox_a, xbox_y;
+  private JoystickButton xbox_b, xbox_a, xbox_y, xbox_x;
 
   public RobotContainer() {
     // Setup default drive controls
@@ -59,6 +61,9 @@ public class RobotContainer {
 
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
     xbox_a.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
+
+    xbox_x = new JoystickButton(controller,XboxController.Button.kX.value);
+    xbox_x.toggleWhenPressed(new InstantCommand(turret::enable, turret));
   }
 
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));

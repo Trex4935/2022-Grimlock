@@ -21,7 +21,10 @@ public class TurretPID extends PIDSubsystem {
   public TurretPID() {
     super(
         // The PIDController used by the subsystem
-        new PIDController(0, 0, 0));
+        new PIDController(1, 0, 0));
+        setSetpoint(0);
+        getController().setTolerance(0.05);
+
 
         limelight = new Limelight();
       turretRotation = new CANSparkMax(Constants.turretRotationCanID, MotorType.kBrushless);
@@ -49,11 +52,13 @@ public class TurretPID extends PIDSubsystem {
   @Override
   public void useOutput(double output, double setpoint) {
     // Use the output here
+    turretRotation.set(output);
   }
 
   @Override
   public double getMeasurement() {
+    double angle = limelight.getLimelightX()/270;
     // Return the process variable measurement here
-    return 0;
+    return angle;
   }
 }
