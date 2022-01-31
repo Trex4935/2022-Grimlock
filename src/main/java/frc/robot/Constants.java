@@ -43,6 +43,7 @@ public final class Constants {
 
     //color sensor required value to detect a color
     public static final int sensorRequiredValue = 1000;
+    
 
     // Turret
     public static final int turretRotationPWMID = 0;

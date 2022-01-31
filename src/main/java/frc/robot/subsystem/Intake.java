@@ -17,7 +17,7 @@ public class Intake extends SubsystemBase {
   WPI_TalonFX magazineMotor1;
   WPI_TalonFX magazineMotor2;
 
-  //intake color sensor
+  // intake color sensor
   private multiplexedColorSensor sensor2;
 
   //// Add 2 smakna
@@ -37,51 +37,58 @@ public class Intake extends SubsystemBase {
     sensor2 = new multiplexedColorSensor(I2C.Port.kOnboard, 2);
 
   }
+
   // eun intake motor
   public void runIntakeMotor() {
 
     intakeMotor.set(Constants.intakeMotorSpeed);
-  
-    }
-  
-  //run magazine motor
-  public void runMagazineMotors(){
-  
+
+  }
+
+  // run magazine motor
+  public void runMagazineMotors() {
+
     magazineMotor1.set(Constants.magazineMotorSpeed);
     magazineMotor2.set(Constants.magazineMotorSpeed);
-  
+
   }
-  
-  //stop intake motor
+
+  // stop intake motor
   public void intakeMotorStop() {
     intakeMotor.stopMotor();
   }
-  
-  //stop magazine motor
-  public void magazineMotorStop(){
+
+  // stop magazine motor
+  public void magazineMotorStop() {
     magazineMotor1.stopMotor();
     magazineMotor2.stopMotor();
   }
-  
 
-  public void readSensor(){
+  public int readSensor() {
     if (sensor2.getRed() > Constants.sensorRequiredValue && sensor2.getBlue() < Constants.sensorRequiredValue) {
       System.out.println("Red");
-    }
-    else if (sensor2.getBlue() > Constants.sensorRequiredValue && sensor2.getRed() < Constants.sensorRequiredValue) {
+      return 1;
+    } else if (sensor2.getBlue() > Constants.sensorRequiredValue && sensor2.getRed() < Constants.sensorRequiredValue) {
       System.out.println("Blue");
-    }  
-    else {
+      return 2;
+    } else {
       System.out.println("X");
+      return 3;
     }
   }
-    
 
+  public void redBlueDecision() {
+    runIntakeMotor();
+    runMagazineMotors();
+    if (readSensor() == 1) {
+      intakeMotorStop();
+    }
+
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
-
 
 }
