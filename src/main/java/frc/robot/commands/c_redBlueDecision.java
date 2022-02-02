@@ -6,15 +6,20 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystem.Intake;
+import frc.robot.subsystem.Turret;
 
 public class c_redBlueDecision extends CommandBase {
   /** Creates a new c_redBlueDecision. */
   private final Intake intake;
-  public c_redBlueDecision(Intake it) {
+  private final Turret turret;
+  public c_redBlueDecision(Intake it, Turret trt) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = it;
-    addRequirements(intake);
+    turret = trt;
+    addRequirements(intake, turret);
   }
+
+  
 
   // Called when the command is initially scheduled.
   @Override
@@ -23,12 +28,14 @@ public class c_redBlueDecision extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.redBlueDecision(intake.readSensor());
+    turret.runTurretShooter(intake.redBlueDecision(intake.readSensor()));
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    turret.stopShooterMotor();
+  }
 
   // Returns true when the command should end.
   @Override

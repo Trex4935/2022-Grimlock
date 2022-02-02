@@ -96,20 +96,18 @@ public class Intake extends SubsystemBase {
   }
 
   //determine what to do with ball based on color
-  public void redBlueDecision(BallColor color) {
-
+  public double redBlueDecision(BallColor color) {
+    
     //switch statement to decide what to do depending on ball color
     switch (color) {
       case NONE:
-        System.out.println("X");
-        break;
+        return 0.6;
       case RED:
-        System.out.println("Red");
-        intakeMotorStop();
-        break;
+        return 0.8;
       case BLUE:
-        System.out.println("Blue");
-
+        return 0.4;
+      default:
+        return 0.6;
     }
 
   }
