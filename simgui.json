@@ -8,6 +8,13 @@
       "/LiveWindow/Turret": "Subsystem",
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
+    },
+    "windows": {
+      "/LiveWindow/Limelight": {
+        "window": {
+          "visible": true
+        }
+      }
     }
   }
 }

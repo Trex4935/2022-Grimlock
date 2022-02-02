@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_driveWithController;
+import frc.robot.commands.c_readSensor;
+import frc.robot.commands.c_redBlueDecision;
 import frc.robot.commands.c_runIntakeMotor;
 import frc.robot.commands.c_runMagazineMotors;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
@@ -37,6 +39,8 @@ public class RobotContainer {
     // Setup default drive controls
     drive.setDefaultCommand(new c_driveWithController(drive, controller));
     turret.setDefaultCommand(new c_aimWithController(turret, controller));
+    intake.setDefaultCommand(new c_readSensor(intake));
+
 
     // Configure the button bindings
     configureButtonBindings();
