@@ -34,7 +34,7 @@ public final class Constants {
     public static double RampLimiter = 0.5;
 
     // Intake & Magazine
-    public static final int intakeMotorCanID = 1;
+    public static final int intakeMotorCanID = 6;
     public static final int magazineMotor1CanID = 2;
     public static final int magazineMotor2CanID = 3;
 
