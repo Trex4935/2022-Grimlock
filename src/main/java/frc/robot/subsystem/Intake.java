@@ -6,6 +6,9 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -19,6 +22,10 @@ public class Intake extends SubsystemBase {
 
   // intake color sensor
   private multiplexedColorSensor sensor2;
+
+  // initializing the color sensor table
+  public NetworkTable color_table;
+  public NetworkTableEntry received_color;
 
   //// Add 2 smakna
   //// Add color sensor
@@ -35,6 +42,10 @@ public class Intake extends SubsystemBase {
     magazineMotor2.setInverted(false);
 
     sensor2 = new multiplexedColorSensor(I2C.Port.kOnboard, 2);
+
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    NetworkTable color_table = inst.getTable("Intake");
+    received_color = color_table.getEntry("color");
 
   }
 
@@ -75,6 +86,12 @@ public class Intake extends SubsystemBase {
       System.out.println("X");
       return 3;
     }
+  }
+
+  public double dash_Color(){
+
+    double x = received_color.getDouble(0.0);
+    return x;
   }
 
   public void redBlueDecision() {

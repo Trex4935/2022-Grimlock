@@ -39,7 +39,7 @@ public class RobotContainer {
     // Setup default drive controls
     drive.setDefaultCommand(new c_driveWithController(drive, controller));
     turret.setDefaultCommand(new c_aimWithController(turret, controller));
-    intake.setDefaultCommand(new c_redBlueDecision(intake));
+    intake.setDefaultCommand(new c_readSensor(intake));
 
 
     // Configure the button bindings
