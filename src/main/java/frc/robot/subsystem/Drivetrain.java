@@ -4,8 +4,8 @@
 
 package frc.robot.subsystem;
 
+// Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -20,14 +20,15 @@ public class Drivetrain extends SubsystemBase {
   WPI_TalonFX rightFront;
   WPI_TalonFX rightBack;
 
-  WPI_TalonFX middleLeft; // Look at the front of the robot and then rotate the robot 90 degrees clockwise
-                          // to determine left and right
+  // Look at the front of the robot and then rotate the robot 90 degrees clockwise
+  // to determine left and right
+  WPI_TalonFX middleLeft;
   WPI_TalonFX middleRight;
 
   // Declaring motor groups
-  MotorControllerGroup rightSide;
-  MotorControllerGroup leftSide;
-  MotorControllerGroup middleSide;
+  MotorControllerGroup rightMotorGroup;
+  MotorControllerGroup leftMotorGroup;
+  MotorControllerGroup centerMotorGroup;
 
   // Drives
   DifferentialDrive drive;
@@ -43,49 +44,63 @@ public class Drivetrain extends SubsystemBase {
     middleRight = new WPI_TalonFX(Constants.middleRightCanID);
 
     // Creating Motor Groups
-    rightSide = new MotorControllerGroup(rightFront, rightBack);
-    leftSide = new MotorControllerGroup(leftFront, leftBack);
-    middleSide = new MotorControllerGroup(middleLeft, middleRight);
+    rightMotorGroup = new MotorControllerGroup(rightFront, rightBack);
+    leftMotorGroup = new MotorControllerGroup(leftFront, leftBack);
+    centerMotorGroup = new MotorControllerGroup(middleLeft, middleRight);
 
-    // Invert motors
-    leftSide.setInverted(false);
-    rightSide.setInverted(false);
+    // Invert motors as needed
+    leftMotorGroup.setInverted(false);
+    rightMotorGroup.setInverted(false);
     middleLeft.setInverted(true);
     middleRight.setInverted(false);
 
-    // Ramp speeds
-  leftFront.configOpenloopRamp(Constants.RampLimiter);
-  leftBack.configOpenloopRamp(Constants.RampLimiter);
-  rightFront.configOpenloopRamp(Constants.RampLimiter);
-  rightBack.configOpenloopRamp(Constants.RampLimiter);
-  middleLeft.configOpenloopRamp(1);
-  middleRight.configOpenloopRamp(1);
+    // Ramp speeds, how fast the motors take to get to full speed
+    leftFront.configOpenloopRamp(Constants.RampLimiter);
+    leftBack.configOpenloopRamp(Constants.RampLimiter);
+    rightFront.configOpenloopRamp(Constants.RampLimiter);
+    rightBack.configOpenloopRamp(Constants.RampLimiter);
+    middleLeft.configOpenloopRamp(Constants.RampLimiter);
+    middleRight.configOpenloopRamp(Constants.RampLimiter);
 
-
-    // Creating Drive Movement
-    drive = new DifferentialDrive(leftSide, rightSide);
+    // Creating Drive Object
+    drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
   }
 
-  // Move mid motor
+  // Move center motors
   public void driveMiddleWithController(XboxController controller, double speedLimiter) {
     middleLeft.set(controller.getRawAxis(Constants.leftHorizontal) * speedLimiter);
     middleRight.set(controller.getRawAxis(Constants.leftHorizontal) * speedLimiter);
   }
 
-  public void middleStop() {
+  // Controls for the outside wheels using built in arcadeDrive
+  public void driveWithController(XboxController controller, double speedLimiter) {
+    drive.arcadeDrive(controller.getRawAxis(Constants.rightHorizontal) * speedLimiter,
+        controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
+  }
+
+  // Stop the center motors
+  public void stopMiddleDriveMotors() {
     middleLeft.stopMotor();
     middleRight.stopMotor();
+  }
+
+  // stop the outside four drive motors
+  public void stopOutsideDriveMotors() {
+    leftFront.stopMotor();
+    leftBack.stopMotor();
+    rightFront.stopMotor();
+    rightBack.stopMotor();
+  }
+
+  // stop all drive motors
+  public void stopAllDriveMotors() {
+    stopMiddleDriveMotors();
+    stopOutsideDriveMotors();
   }
 
   @Override
   public void periodic() {
   }
 
-  public void driveWithController(XboxController controller, double speedLimiter) {
-    drive.arcadeDrive(controller.getRawAxis(Constants.rightHorizontal) * speedLimiter,
-        controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
-  }
-
-  
 }
