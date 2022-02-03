@@ -37,6 +37,7 @@ public final class Constants {
     public static double driveSpeedLimit = 0.5;
     public static double RampLimiter = 0.5;
 
+
     // endregion
     // --------------------------------------------------------
 
@@ -44,6 +45,7 @@ public final class Constants {
 
     // Motor Can IDs
     public static final int intakeMotorCanID = 1;
+
     public static final int magazineMotor1CanID = 2;
     public static final int magazineMotor2CanID = 3;
 
