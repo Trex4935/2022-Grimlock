@@ -35,6 +35,11 @@ public class Turret extends SubsystemBase {
     turretRotation.set(limelight.getLimelightX() / 270);
   }
 
+  //runs the turret shooter with a given speed
+  public void runTurretShooter(double turretShooterSpeed) {
+    turretShooter.set(turretShooterSpeed);
+  }
+
   // Moves the rotation motor based on controller input
   public void aimWithController(XboxController controller) {
 
@@ -43,9 +48,13 @@ public class Turret extends SubsystemBase {
     turretRotation.set((LT + RT) / 25);
   }
 
-  // Stop the rotation moto
+  // Stop the rotation motor
   public void stopRotationMotor() {
     turretRotation.stopMotor();
+  }
+  // Stop shooter motor
+  public void stopShooterMotor() {
+    turretShooter.stopMotor();
   }
 
   @Override
@@ -53,3 +62,8 @@ public class Turret extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 }
+
+
+
+
+//hello

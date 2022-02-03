@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Extensions.BallColor;
 import frc.robot.Extensions.multiplexedColorSensor;
 
 public class Intake extends SubsystemBase {
@@ -75,30 +76,38 @@ public class Intake extends SubsystemBase {
     magazineMotor2.stopMotor();
   }
 
-  public int readSensor() {
+  public BallColor readSensor() {
     if (sensor2.getRed() > Constants.sensorRequiredValue && sensor2.getBlue() < Constants.sensorRequiredValue) {
       System.out.println("Red");
-      return 1;
+      return BallColor.RED;
     } else if (sensor2.getBlue() > Constants.sensorRequiredValue && sensor2.getRed() < Constants.sensorRequiredValue) {
       System.out.println("Blue");
-      return 2;
+      return BallColor.BLUE;
     } else {
       System.out.println("X");
-      return 3;
+      return BallColor.NONE;
     }
   }
 
-  public double dash_Color(){
+  public double dash_Color() {
 
     double x = received_color.getDouble(0.0);
     return x;
   }
 
-  public void redBlueDecision() {
-    runIntakeMotor();
-    runMagazineMotors();
-    if (readSensor() == 1) {
-      intakeMotorStop();
+  //determine what to do with ball based on color
+  public double redBlueDecision(BallColor color) {
+    
+    //switch statement to decide what to do depending on ball color
+    switch (color) {
+      case NONE:
+        return 0.6;
+      case RED:
+        return 0.8;
+      case BLUE:
+        return 0.4;
+      default:
+        return 0.6;
     }
 
   }
