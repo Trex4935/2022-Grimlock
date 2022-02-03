@@ -48,43 +48,59 @@ public class Drivetrain extends SubsystemBase {
     leftMotorGroup = new MotorControllerGroup(leftFront, leftBack);
     centerMotorGroup = new MotorControllerGroup(middleLeft, middleRight);
 
-    // Invert motors
+    // Invert motors as needed
     leftMotorGroup.setInverted(false);
     rightMotorGroup.setInverted(false);
     middleLeft.setInverted(true);
     middleRight.setInverted(false);
 
-    // Ramp speeds
+    // Ramp speeds, how fast the motors take to get to full speed
     leftFront.configOpenloopRamp(Constants.RampLimiter);
     leftBack.configOpenloopRamp(Constants.RampLimiter);
     rightFront.configOpenloopRamp(Constants.RampLimiter);
     rightBack.configOpenloopRamp(Constants.RampLimiter);
-    middleLeft.configOpenloopRamp(1);
-    middleRight.configOpenloopRamp(1);
+    middleLeft.configOpenloopRamp(Constants.RampLimiter);
+    middleRight.configOpenloopRamp(Constants.RampLimiter);
 
-    // Creating Drive Movement
+    // Creating Drive Object
     drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
   }
 
-  // Move mid motor
+  // Move center motors
   public void driveMiddleWithController(XboxController controller, double speedLimiter) {
     middleLeft.set(controller.getRawAxis(Constants.leftHorizontal) * speedLimiter);
     middleRight.set(controller.getRawAxis(Constants.leftHorizontal) * speedLimiter);
   }
 
-  public void middleStop() {
+  // Controls for the outside wheels using built in arcadeDrive
+  public void driveWithController(XboxController controller, double speedLimiter) {
+    drive.arcadeDrive(controller.getRawAxis(Constants.rightHorizontal) * speedLimiter,
+        controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
+  }
+
+  // Stop the center motors
+  public void stopMiddleDriveMotors() {
     middleLeft.stopMotor();
     middleRight.stopMotor();
   }
 
-  @Override
-  public void periodic() {
+  // stop the outside four drive motors
+  public void stopOutsideDriveMotors() {
+    leftFront.stopMotor();
+    leftBack.stopMotor();
+    rightFront.stopMotor();
+    rightBack.stopMotor();
   }
 
-  public void driveWithController(XboxController controller, double speedLimiter) {
-    drive.arcadeDrive(controller.getRawAxis(Constants.rightHorizontal) * speedLimiter,
-        controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
+  // stop all drive motors
+  public void stopAllDriveMotors() {
+    stopMiddleDriveMotors();
+    stopOutsideDriveMotors();
+  }
+
+  @Override
+  public void periodic() {
   }
 
 }
