@@ -4,8 +4,8 @@
 
 package frc.robot.subsystem;
 
+// Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -20,14 +20,15 @@ public class Drivetrain extends SubsystemBase {
   WPI_TalonFX rightFront;
   WPI_TalonFX rightBack;
 
-  WPI_TalonFX middleLeft; // Look at the front of the robot and then rotate the robot 90 degrees clockwise
-                          // to determine left and right
+  // Look at the front of the robot and then rotate the robot 90 degrees clockwise
+  // to determine left and right
+  WPI_TalonFX middleLeft;
   WPI_TalonFX middleRight;
 
   // Declaring motor groups
-  MotorControllerGroup rightSide;
-  MotorControllerGroup leftSide;
-  MotorControllerGroup middleSide;
+  MotorControllerGroup rightMotorGroup;
+  MotorControllerGroup leftMotorGroup;
+  MotorControllerGroup centerMotorGroup;
 
   // Drives
   DifferentialDrive drive;
@@ -43,27 +44,26 @@ public class Drivetrain extends SubsystemBase {
     middleRight = new WPI_TalonFX(Constants.middleRightCanID);
 
     // Creating Motor Groups
-    rightSide = new MotorControllerGroup(rightFront, rightBack);
-    leftSide = new MotorControllerGroup(leftFront, leftBack);
-    middleSide = new MotorControllerGroup(middleLeft, middleRight);
+    rightMotorGroup = new MotorControllerGroup(rightFront, rightBack);
+    leftMotorGroup = new MotorControllerGroup(leftFront, leftBack);
+    centerMotorGroup = new MotorControllerGroup(middleLeft, middleRight);
 
     // Invert motors
-    leftSide.setInverted(false);
-    rightSide.setInverted(false);
+    leftMotorGroup.setInverted(false);
+    rightMotorGroup.setInverted(false);
     middleLeft.setInverted(true);
     middleRight.setInverted(false);
 
     // Ramp speeds
-  leftFront.configOpenloopRamp(Constants.RampLimiter);
-  leftBack.configOpenloopRamp(Constants.RampLimiter);
-  rightFront.configOpenloopRamp(Constants.RampLimiter);
-  rightBack.configOpenloopRamp(Constants.RampLimiter);
-  middleLeft.configOpenloopRamp(1);
-  middleRight.configOpenloopRamp(1);
-
+    leftFront.configOpenloopRamp(Constants.RampLimiter);
+    leftBack.configOpenloopRamp(Constants.RampLimiter);
+    rightFront.configOpenloopRamp(Constants.RampLimiter);
+    rightBack.configOpenloopRamp(Constants.RampLimiter);
+    middleLeft.configOpenloopRamp(1);
+    middleRight.configOpenloopRamp(1);
 
     // Creating Drive Movement
-    drive = new DifferentialDrive(leftSide, rightSide);
+    drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
   }
 
@@ -87,5 +87,4 @@ public class Drivetrain extends SubsystemBase {
         controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
   }
 
-  
 }
