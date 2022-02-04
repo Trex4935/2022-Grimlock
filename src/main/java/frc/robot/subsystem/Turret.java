@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Turret extends SubsystemBase {
 
@@ -18,6 +19,11 @@ public class Turret extends SubsystemBase {
   
 
   Limelight limelight;
+
+  //magnet sensors
+  private static DigitalInput leftMagLimit;
+  private static DigitalInput middleMag;
+  private static DigitalInput rightMagLimit;
 
   /** Creates a new turret. */
   public Turret() {
@@ -31,8 +37,17 @@ public class Turret extends SubsystemBase {
   }
 
   // Uses limelight output to move rotation motor directly
+  // Uses magnets to detect if it is and prevent it from rotating too far left or right
   public void turnOnSimpleAutoAim() {
-    turretRotation.set(limelight.getLimelightX() / 270);
+    if (leftMagLimit.get() == true && (limelight.getLimelightX() / 270) <= 0) {
+      turretRotation.set(0);
+    }
+    else if (rightMagLimit.get() == true && (limelight.getLimelightX() / 270) >= 0) {
+      turretRotation.set(0);
+    }
+    else {
+      turretRotation.set(limelight.getLimelightX() / 270);
+    }
   }
 
   //runs the turret shooter with a given speed
