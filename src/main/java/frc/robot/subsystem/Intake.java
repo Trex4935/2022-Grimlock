@@ -9,6 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,6 +24,9 @@ public class Intake extends SubsystemBase {
 
   // intake color sensor
   private multiplexedColorSensor sensor2;
+
+  // magazine smacna
+  private static DigitalInput magazineSensor;
 
   // initializing the color sensor table
   public NetworkTable color_table;
@@ -41,6 +45,8 @@ public class Intake extends SubsystemBase {
     magazineMotor1.setInverted(false);
     magazineMotor2 = new WPI_TalonFX(Constants.magazineMotor2CanID);
     magazineMotor2.setInverted(false);
+
+    magazineSensor = new DigitalInput(Constants.magazineSensorDIO);
 
     sensor2 = new multiplexedColorSensor(I2C.Port.kOnboard, 2);
 
@@ -95,10 +101,10 @@ public class Intake extends SubsystemBase {
     return x;
   }
 
-  //determine what to do with ball based on color
+  // determine what to do with ball based on color
   public double redBlueDecision(BallColor color) {
-    
-    //switch statement to decide what to do depending on ball color
+
+    // switch statement to decide what to do depending on ball color
     switch (color) {
       case NONE:
         return 0.6;
@@ -111,6 +117,26 @@ public class Intake extends SubsystemBase {
     }
 
   }
+
+  public boolean readProxColorSensor() {
+    if (sensor2.getProximity() > Constants.proxSensor1 && sensor2.getProximity() < Constants.proxSensor2) {
+      return true;
+    }
+    return false;
+  }
+
+  // Get the value of the magazine sensor
+  public static boolean getMagazineSensor() {
+    boolean a = magazineSensor.get();
+    return (!a);
+  }
+
+  // When the magazine sensor sees a ball run the HB
+  public void singulateBall() {
+    if (getMagazineSensor() and readProxColorSensor() == 1) {
+      
+    }
+    }
 
   @Override
   public void periodic() {

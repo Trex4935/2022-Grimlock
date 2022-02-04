@@ -41,9 +41,14 @@ public final class Constants {
     public static final double magazineMotorSpeed = 0.5;
     public static final double intakeMotorSpeed = 0.5;
 
+    public static final int magazineSensorDIO = 0;
+
     //color sensor required value to detect a color
     public static final int sensorRequiredValue = 1000;
-    
+    public static final int proxSensor1 = 0;
+    public static final int proxSensor2 = 0;
+    public static final int proxSensor3 = 0;
+    public static final int proxSensor4 = 0;
 
     // Turret
     public static final int turretRotationPWMID = 0;
@@ -56,5 +61,4 @@ public final class Constants {
     public static final int climbMotorCanID = 0;
     public static final int rotationmotorCanID = 0;
     public static final int pinMotorCanID = 0;
-
 }
