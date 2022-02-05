@@ -77,6 +77,12 @@ public final class Constants {
     public static final int leftTrigger = 2;
     public static final int rightTrigger = 3;
 
+    // Motor speeds
+    public static double returnToMiddleSpeed = 0.5;
+
+    // Mode toggle
+    public static boolean toggleAutoAimToMid = true;
+
     // endregion
     // --------------------------------------------------------
 
