@@ -126,17 +126,22 @@ public class Intake extends SubsystemBase {
   }
 
   // Get the value of the magazine sensor
-  public static boolean getMagazineSensor() {
+  public boolean getMagazineSensor() {
     boolean a = magazineSensor.get();
     return (!a);
   }
 
   // When the magazine sensor sees a ball run the HB
-  public void singulateBall() {
-    if (getMagazineSensor() and readProxColorSensor() == 1) {
-      
+  public boolean singulateBall() {
+    if (getMagazineSensor() && readProxColorSensor() == true) {
+
+     intakeMotorStop();
+     magazineMotorStop();
+     
+      return true;
     }
-    }
+    return false;
+  }
 
   @Override
   public void periodic() {
