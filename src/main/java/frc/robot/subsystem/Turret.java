@@ -16,11 +16,10 @@ public class Turret extends SubsystemBase {
 
   WPI_TalonFX turretShooter;
   PWMSparkMax turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
-  
 
   Limelight limelight;
 
-  //magnet sensors
+  // magnet sensors
   private static DigitalInput leftMagLimit;
   private static DigitalInput middleMag;
   private static DigitalInput rightMagLimit;
@@ -37,20 +36,39 @@ public class Turret extends SubsystemBase {
   }
 
   // Uses limelight output to move rotation motor directly
-  // Uses magnets to detect if it is and prevent it from rotating too far left or right
+  // Uses magnets to detect if it is and prevent it from rotating too far left or
+  // right
   public void turnOnSimpleAutoAim() {
     if (leftMagLimit.get() == true && (limelight.getLimelightX() / 270) <= 0) {
       turretRotation.set(0);
-    }
-    else if (rightMagLimit.get() == true && (limelight.getLimelightX() / 270) >= 0) {
+    } else if (rightMagLimit.get() == true && (limelight.getLimelightX() / 270) >= 0) {
       turretRotation.set(0);
-    }
-    else {
+    } else {
       turretRotation.set(limelight.getLimelightX() / 270);
     }
   }
 
-  //runs the turret shooter with a given speed
+  // Returns the rotation motor to the middle by turning it to the right until it
+  // reaches the middle.
+  // If it rotates all the way to the far right instead the motor will reverse
+  // directions until it reaches the middle.
+  // When the rotation motor reaches the middle it will stop moving.
+  public boolean returnToMiddle() {
+    if (rightMagLimit.get() == false) {
+      if (middleMag.get() == false) {
+        return false;
+      } else {
+        turretRotation.set(0);
+        return true;
+      }
+    } else {
+      Constants.returnToMiddleSpeed = (Math.abs(Constants.returnToMiddleSpeed) * -1);
+      turretRotation.set(Constants.returnToMiddleSpeed);
+      return false;
+    }
+  }
+
+  // runs the turret shooter with a given speed
   public void runTurretShooter(double turretShooterSpeed) {
     turretShooter.set(turretShooterSpeed);
   }
@@ -67,6 +85,7 @@ public class Turret extends SubsystemBase {
   public void stopRotationMotor() {
     turretRotation.stopMotor();
   }
+
   // Stop shooter motor
   public void stopShooterMotor() {
     turretShooter.stopMotor();
@@ -78,7 +97,4 @@ public class Turret extends SubsystemBase {
   }
 }
 
-
-
-
-//hello
+// hello

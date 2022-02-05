@@ -14,13 +14,13 @@ import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_readSensor;
 import frc.robot.commands.c_redBlueDecision;
+import frc.robot.commands.c_returnToMiddle;
 import frc.robot.commands.c_runIntakeMotor;
 import frc.robot.commands.c_runMagazineMotors;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Turret;
-import frc.robot.subsystem.TurretPID;
 
 public class RobotContainer {
 
@@ -64,8 +64,8 @@ public class RobotContainer {
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));
 
-   // xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-   // xbox_a.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
+    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
+    xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
 
     //xbox_x = new JoystickButton(controller,XboxController.Button.kX.value);
     //xbox_x.toggleWhenPressed(new InstantCommand(turret::enable, turret));

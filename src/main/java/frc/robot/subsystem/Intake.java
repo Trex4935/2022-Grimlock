@@ -78,13 +78,13 @@ public class Intake extends SubsystemBase {
 
   public BallColor readSensor() {
     if (sensor2.getRed() > Constants.sensorRequiredValue && sensor2.getBlue() < Constants.sensorRequiredValue) {
-      System.out.println("Red");
+      //System.out.println("Red");
       return BallColor.RED;
     } else if (sensor2.getBlue() > Constants.sensorRequiredValue && sensor2.getRed() < Constants.sensorRequiredValue) {
-      System.out.println("Blue");
+      //System.out.println("Blue");
       return BallColor.BLUE;
     } else {
-      System.out.println("X");
+      //System.out.println("X");
       return BallColor.NONE;
     }
   }
