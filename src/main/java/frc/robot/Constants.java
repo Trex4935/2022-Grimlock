@@ -18,7 +18,9 @@ package frc.robot;
  */
 public final class Constants {
 
-    // DriveTrain
+    // region DriveTrain
+
+    // Motor IDs
     public static final int leftFrontCanID = 34;
     public static final int leftBackCanID = 30;
     public static final int rightFrontCanID = 31;
@@ -26,21 +28,33 @@ public final class Constants {
     public static final int middleLeftCanID = 33;
     public static final int middleRightCanID = 35;
 
+    // Xbox controller input IDs
     public static final int leftVertical = 1;
     public static final int leftHorizontal = 0;
     public static final int rightHorizontal = 4;
 
+    // DriveTrain limits
     public static double driveSpeedLimit = 0.5;
     public static double RampLimiter = 0.5;
 
-    // Intake & Magazine
-    public static final int intakeMotorCanID = 6;
+
+    // endregion
+    // --------------------------------------------------------
+
+    // region Intake
+
+    // Motor Can IDs
+    public static final int intakeMotorCanID = 1;
+
     public static final int magazineMotor1CanID = 2;
     public static final int magazineMotor2CanID = 3;
 
+    // Motor speeds
     public static final double magazineMotorSpeed = 0.5;
     public static final double intakeMotorSpeed = 0.5;
 
+    // threshold for a ball to be X color
+    
     public static final int magazineSensorDIO = 0;
 
     //color sensor required value to detect a color
@@ -50,15 +64,30 @@ public final class Constants {
     public static final int proxSensor3 = 0;
     public static final int proxSensor4 = 0;
 
-    // Turret
+    // endregion
+    // --------------------------------------------------------
+
+    // region Turret
+
+    // Motor IDs
     public static final int turretRotationPWMID = 0;
     public static final int turretShooterCanID = 41;
 
+    // Xbox controller trigger IDs
     public static final int leftTrigger = 2;
     public static final int rightTrigger = 3;
 
-    public static final double midMotorSpeed = 0.9;
+    // endregion
+    // --------------------------------------------------------
+
+    // region Climber
+
+    // Motor IDs
     public static final int climbMotorCanID = 0;
     public static final int rotationmotorCanID = 0;
     public static final int pinMotorCanID = 0;
+
+    // endregion
+    // --------------------------------------------------------
+
 }
