@@ -83,6 +83,12 @@ public final class Constants {
     // Mode toggle
     public static boolean toggleAutoAimToMid = true;
 
+    // Distance Estimation
+
+    public static final double h2 = 2;
+    public static final double angle1 = 1;
+    public static final double h1 = 1;
+
     // endregion
     // --------------------------------------------------------
 

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Limelight extends SubsystemBase {
 
   public NetworkTableEntry tx;
+  public NetworkTableEntry ty;
   public NetworkTable table;
 
   /** Creates a new Limelight. */
@@ -19,6 +20,7 @@ public class Limelight extends SubsystemBase {
 
     table = NetworkTableInstance.getDefault().getTable("limelight");
     tx = table.getEntry("tx");
+    ty = table.getEntry("ty");
 
   }
 
@@ -26,6 +28,12 @@ public class Limelight extends SubsystemBase {
 
     double x = tx.getDouble(0.0);
     return x;
+  }
+
+  public double getLimelightY() {
+
+    double y = ty.getDouble(0.0);
+    return y;
   }
 
   @Override

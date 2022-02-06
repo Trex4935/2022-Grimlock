@@ -28,10 +28,10 @@ public class Turret extends PIDSubsystem {
   /** Creates a new turret. */
   public Turret() {
     super(
-      // The PIDController used by the subsystem
-      new PIDController(1, 0, 0));
-      setSetpoint(0);
-      getController().setTolerance(0.05);
+        // The PIDController used by the subsystem
+        new PIDController(1, 0, 0));
+    setSetpoint(0);
+    getController().setTolerance(0.05);
 
     // Init motors
     turretShooter = new WPI_TalonFX(Constants.turretShooterCanID);
@@ -93,6 +93,12 @@ public class Turret extends PIDSubsystem {
     turretRotation.stopMotor();
   }
 
+  public double getDistance() {
+    double angle2 = limelight.getLimelightY();
+    double d = (Constants.h2 - Constants.h1) / Math.tan(Constants.angle1 + angle2);
+    return d;
+  }
+
   // Stop shooter motor
   public void stopShooterMotor() {
     turretShooter.stopMotor();
@@ -106,7 +112,7 @@ public class Turret extends PIDSubsystem {
 
   @Override
   public double getMeasurement() {
-    double angle = limelight.getLimelightX()/270;
+    double angle = limelight.getLimelightX() / 270;
     // Return the process variable measurement here
     return angle;
   }
