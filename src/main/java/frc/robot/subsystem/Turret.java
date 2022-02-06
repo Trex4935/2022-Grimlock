@@ -94,7 +94,8 @@ public class Turret extends PIDSubsystem {
   }
 
   public double getDistance() {
-    double d = (h2 - h1) / tan(a1 + a2);
+    double angle2 = limelight.getLimelightY();
+    double d = (Constants.h2 - Constants.h1) / Math.tan(Constants.angle1 + angle2);
     return d;
   }
 
