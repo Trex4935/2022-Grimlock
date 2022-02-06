@@ -6,16 +6,17 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.DigitalInput;
 
-public class Turret extends SubsystemBase {
+public class Turret extends PIDSubsystem {
 
   WPI_TalonFX turretShooter;
-  PWMSparkMax turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
+  PWMSparkMax turretRotation;
 
   Limelight limelight;
 
@@ -26,10 +27,16 @@ public class Turret extends SubsystemBase {
 
   /** Creates a new turret. */
   public Turret() {
+    super(
+      // The PIDController used by the subsystem
+      new PIDController(1, 0, 0));
+      setSetpoint(0);
+      getController().setTolerance(0.05);
 
     // Init motors
     turretShooter = new WPI_TalonFX(Constants.turretShooterCanID);
     // turretRotation = new WPI_TalonFX(Constants.turretRotationCanID);
+    turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
 
     limelight = new Limelight();
 
@@ -92,8 +99,16 @@ public class Turret extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void useOutput(double output, double setpoint) {
+    // Use the output here
+    turretRotation.set(output);
+  }
+
+  @Override
+  public double getMeasurement() {
+    double angle = limelight.getLimelightX()/270;
+    // Return the process variable measurement here
+    return angle;
   }
 }
 
