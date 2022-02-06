@@ -89,6 +89,7 @@ public final class Constants {
     public static final double h1 = 1;
     public static double shooterA = 1;
     public static double shooterB = 2;
+    public static double shooterSpeed = 0.6;
 
     // endregion
     // --------------------------------------------------------
