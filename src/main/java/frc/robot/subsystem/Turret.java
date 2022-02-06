@@ -4,6 +4,7 @@
 
 package frc.robot.subsystem;
 
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -97,6 +98,11 @@ public class Turret extends PIDSubsystem {
     double angle2 = limelight.getLimelightY();
     double d = (Constants.h2 - Constants.h1) / Math.tan(Constants.angle1 + angle2);
     return d;
+  }
+
+  public void shootBallWithVision() {
+    double motorSpeed = Constants.shooterA * getDistance() + Constants.shooterB;
+    turretShooter.set(TalonFXControlMode.Velocity, motorSpeed);
   }
 
   // Stop shooter motor

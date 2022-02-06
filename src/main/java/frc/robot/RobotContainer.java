@@ -17,6 +17,7 @@ import frc.robot.commands.c_redBlueDecision;
 import frc.robot.commands.c_returnToMiddle;
 import frc.robot.commands.c_runIntakeMotor;
 import frc.robot.commands.c_runMagazineMotors;
+import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
@@ -40,7 +41,6 @@ public class RobotContainer {
     drive.setDefaultCommand(new c_driveWithController(drive, controller));
     turret.setDefaultCommand(new c_aimWithController(turret, controller));
     intake.setDefaultCommand(new c_readSensor(intake));
-
 
     // Configure the button bindings
     configureButtonBindings();
@@ -67,8 +67,11 @@ public class RobotContainer {
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
     xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
 
-    //xbox_x = new JoystickButton(controller,XboxController.Button.kX.value);
-    //xbox_x.toggleWhenPressed(new InstantCommand(turret::enable, turret));
+    // xbox_x = new JoystickButton(controller,XboxController.Button.kX.value);
+    // xbox_x.toggleWhenPressed(new InstantCommand(turret::enable, turret));
+
+    xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
+    xbox_x.toggleWhenPressed(new c_shootBall(turret));
   }
 
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
