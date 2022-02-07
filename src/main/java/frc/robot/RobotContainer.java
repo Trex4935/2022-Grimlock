@@ -21,6 +21,7 @@ import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
+import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Turret;
 
 public class RobotContainer {
@@ -28,8 +29,8 @@ public class RobotContainer {
   // Declare Subsystems
   private final Drivetrain drive = new Drivetrain();
   private final Intake intake = new Intake();
-  // private final TurretPID turretPID = new TurretPID();
   private final Turret turret = new Turret();
+  private final Shooter shooter = new Shooter();
 
   // Controller
   private static XboxController controller = new XboxController(0);
@@ -67,11 +68,8 @@ public class RobotContainer {
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
     xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
 
-    // xbox_x = new JoystickButton(controller,XboxController.Button.kX.value);
-    // xbox_x.toggleWhenPressed(new InstantCommand(turret::enable, turret));
-
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
-    xbox_x.toggleWhenPressed(new c_shootBall(turret));
+    xbox_x.toggleWhenPressed(new c_shootBall(shooter));
   }
 
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));

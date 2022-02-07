@@ -70,7 +70,7 @@ public final class Constants {
 
     // Motor IDs
     public static final int turretRotationPWMID = 0;
-    public static final int turretShooterCanID = 41;
+    public static final int shooterMotorCanID = 41;
 
     // Xbox controller trigger IDs
     public static final int leftTrigger = 2;

@@ -8,6 +8,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Limelight extends SubsystemBase {
 
@@ -24,16 +25,25 @@ public class Limelight extends SubsystemBase {
 
   }
 
+  // Pull TX from the limelight
   public double getLimelightX() {
 
     double x = tx.getDouble(0.0);
     return x;
   }
 
+  // Pull TY from the limelight
   public double getLimelightY() {
 
     double y = ty.getDouble(0.0);
     return y;
+  }
+
+  // Distance to the target
+  public double getDistance() {
+    double angle2 = getLimelightY();
+    double distance = (Constants.h2 - Constants.h1) / Math.tan(Constants.angle1 + angle2);
+    return distance;
   }
 
   @Override
