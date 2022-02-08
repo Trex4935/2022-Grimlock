@@ -2,15 +2,14 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystem;
+package frc.robot.Extensions;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Limelight extends SubsystemBase {
+public class Limelight {
 
   public NetworkTableEntry tx;
   public NetworkTableEntry ty;
@@ -44,10 +43,5 @@ public class Limelight extends SubsystemBase {
     double angle2 = getLimelightY();
     double distance = (Constants.h2 - Constants.h1) / Math.tan(Constants.angle1 + angle2);
     return distance;
-  }
-
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
   }
 }

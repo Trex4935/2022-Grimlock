@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystem.Limelight;
+import frc.robot.Extensions.Limelight;
 
 public class Robot extends TimedRobot {
 
@@ -21,7 +21,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
     limelight = new Limelight();
   }
-  
+
   @Override
   public void robotPeriodic() {
     // Runs the Scheduler. This is responsible for polling buttons, adding

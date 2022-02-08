@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Limelight;
+import frc.robot.Extensions.Limelight;
 import frc.robot.subsystem.Shooter;
 
 public class c_shootWithVision extends CommandBase {
@@ -13,11 +13,10 @@ public class c_shootWithVision extends CommandBase {
   Limelight limelight;
 
   /** Creates a new c_shootWithVision. */
-  public c_shootWithVision(Shooter sh, Limelight ll) {
+  public c_shootWithVision(Shooter sh) {
     // Use addRequirements() here to declare subsystem dependencies.
     shooter = sh;
-    limelight = ll;
-    addRequirements(shooter, limelight);
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
