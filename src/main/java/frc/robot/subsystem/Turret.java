@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Turret extends PIDSubsystem {
 
-  WPI_TalonFX turretShooter;
+  // Motors
   PWMSparkMax turretRotation;
 
   // magnet sensors
@@ -30,8 +30,7 @@ public class Turret extends PIDSubsystem {
     setSetpoint(0);
     getController().setTolerance(0.05);
 
-    // Init motors
-    turretShooter = new WPI_TalonFX(Constants.shooterMotorCanID);
+    // Init motor
     turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
 
   }
