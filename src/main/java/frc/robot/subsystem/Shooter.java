@@ -17,6 +17,12 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
     shooterMotor.setInverted(true);
+
+    // PID configs
+    shooterMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkP(), Constants.kTimeoutMs);
+    shooterMotor.config_kI(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkI(), Constants.kTimeoutMs);
+    shooterMotor.config_kD(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkD(), Constants.kTimeoutMs);
+    shooterMotor.config_kF(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkF(), Constants.kTimeoutMs);
   }
 
   // runs the turret shooter with a given speed

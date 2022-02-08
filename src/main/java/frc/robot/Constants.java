@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import frc.robot.Extensions.PID;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -90,6 +92,12 @@ public final class Constants {
     public static double shooterA = 1;
     public static double shooterB = 2;
     public static double shooterSpeed = 0.6;
+
+    // Shooter PID 
+
+    public static PID kGains_Velocity_Shooter = new PID(1, 1/100, 0, 0) ; //Good start value per CTRE docs.
+    public static int kTimeoutMs = 20;
+    public static int kPIDLoopIdx =0;
 
     // endregion
     // --------------------------------------------------------
