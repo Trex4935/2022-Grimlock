@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.Extensions.PID;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 /**
@@ -97,6 +98,12 @@ public final class Constants {
     public static double shooterA = 1;
     public static double shooterB = 2;
     public static double shooterSpeed = 0.3;
+
+    // Shooter PID 
+
+    public static PID kGains_Velocity_Shooter = new PID(1, 1/100, 0, 0) ; //Good start value per CTRE docs.
+    public static int kTimeoutMs = 20;
+    public static int kPIDLoopIdx =0;
 
     // endregion
     // --------------------------------------------------------
