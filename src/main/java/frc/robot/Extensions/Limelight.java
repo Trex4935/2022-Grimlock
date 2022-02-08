@@ -17,29 +17,22 @@ public class Limelight {
 
   /** Creates a new Limelight. */
   public Limelight() {
-
-    table = NetworkTableInstance.getDefault().getTable("limelight");
-    tx = table.getEntry("tx");
-    ty = table.getEntry("ty");
-
   }
 
   // Pull TX from the limelight
-  public double getLimelightX() {
-
-    double x = tx.getDouble(0.0);
-    return x;
+  public static double getLimelightX() {
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0.0);
   }
 
   // Pull TY from the limelight
-  public double getLimelightY() {
+  public static double getLimelightY() {
 
-    double y = ty.getDouble(0.0);
-    return y;
+    return NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0.0);
+
   }
 
   // Distance to the target
-  public double getDistance() {
+  public static double getDistance() {
     double angle2 = getLimelightY();
     double distance = (Constants.h2 - Constants.h1) / Math.tan(Constants.angle1 + angle2);
     return distance;

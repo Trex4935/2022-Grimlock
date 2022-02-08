@@ -18,8 +18,6 @@ public class Turret extends PIDSubsystem {
   WPI_TalonFX turretShooter;
   PWMSparkMax turretRotation;
 
-  Limelight limelight;
-
   // magnet sensors
   private static DigitalInput leftMagLimit;
   private static DigitalInput middleMag;
@@ -35,7 +33,6 @@ public class Turret extends PIDSubsystem {
     // Init motors
     turretShooter = new WPI_TalonFX(Constants.shooterMotorCanID);
     turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
-    limelight = new Limelight();
 
   }
 
@@ -43,12 +40,12 @@ public class Turret extends PIDSubsystem {
   // Uses magnets to detect if it is and prevent it from rotating too far left or
   // right
   public void turnOnSimpleAutoAim() {
-    if (leftMagLimit.get() == true && (limelight.getLimelightX() / 270) <= 0) {
+    if (leftMagLimit.get() == true && (Limelight.getLimelightX() / 270) <= 0) {
       turretRotation.set(0);
-    } else if (rightMagLimit.get() == true && (limelight.getLimelightX() / 270) >= 0) {
+    } else if (rightMagLimit.get() == true && (Limelight.getLimelightX() / 270) >= 0) {
       turretRotation.set(0);
     } else {
-      turretRotation.set(limelight.getLimelightX() / 270);
+      turretRotation.set(Limelight.getLimelightX() / 270);
     }
   }
 
@@ -95,7 +92,7 @@ public class Turret extends PIDSubsystem {
   public double getMeasurement() {
     // gather and return the value that will be used to calculate the PID (i.e.
     // sensor output)
-    double angle = limelight.getLimelightX() / 270;
+    double angle = Limelight.getLimelightX() / 270;
     return angle;
   }
 }
