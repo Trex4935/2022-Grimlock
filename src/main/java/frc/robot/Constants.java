@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -35,7 +37,12 @@ public final class Constants {
 
     // DriveTrain limits
     public static double driveSpeedLimit = 0.5;
-    public static double RampLimiter = 0.5;
+
+    public static double outsideRampLimiter = 0.5;
+    public static double middleRampLimiter = 0.5;
+
+    public static final NeutralMode outsideBrakeMode = NeutralMode.Brake;
+    public static final NeutralMode middleBreakMode = NeutralMode.Coast;
 
     // endregion
     // --------------------------------------------------------
