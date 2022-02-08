@@ -4,6 +4,9 @@
 
 package frc.robot.subsystem;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonFXPIDSetConfiguration;
 // Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.XboxController;
@@ -55,12 +58,20 @@ public class Drivetrain extends SubsystemBase {
     middleRight.setInverted(false);
 
     // Ramp speeds, how fast the motors take to get to full speed
-    leftFront.configOpenloopRamp(Constants.RampLimiter);
-    leftBack.configOpenloopRamp(Constants.RampLimiter);
-    rightFront.configOpenloopRamp(Constants.RampLimiter);
-    rightBack.configOpenloopRamp(Constants.RampLimiter);
-    middleLeft.configOpenloopRamp(Constants.RampLimiter);
-    middleRight.configOpenloopRamp(Constants.RampLimiter);
+    leftFront.configOpenloopRamp(Constants.outsideRampLimiter);
+    leftBack.configOpenloopRamp(Constants.outsideRampLimiter);
+    rightFront.configOpenloopRamp(Constants.outsideRampLimiter);
+    rightBack.configOpenloopRamp(Constants.outsideRampLimiter);
+    middleLeft.configOpenloopRamp(Constants.middleRampLimiter);
+    middleRight.configOpenloopRamp(Constants.middleRampLimiter);
+
+    // Set brake mode
+    leftFront.setNeutralMode(Constants.outsideBrakeMode);
+    leftBack.setNeutralMode(Constants.outsideBrakeMode);
+    rightFront.setNeutralMode(Constants.outsideBrakeMode);
+    rightBack.setNeutralMode(Constants.outsideBrakeMode);
+    middleLeft.setNeutralMode(Constants.middleBreakMode);
+    middleRight.setNeutralMode(Constants.middleBreakMode);
 
     // Creating Drive Object
     drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
