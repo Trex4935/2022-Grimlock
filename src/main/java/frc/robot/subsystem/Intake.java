@@ -40,11 +40,11 @@ public class Intake extends SubsystemBase {
   public Intake() {
 
     intakeMotor = new WPI_TalonFX(Constants.intakeMotorCanID);
-    intakeMotor.setInverted(false);
+    intakeMotor.setInverted(true);
     magazineMotor1 = new WPI_TalonFX(Constants.magazineMotor1CanID);
-    magazineMotor1.setInverted(false);
+    magazineMotor1.setInverted(true);
     magazineMotor2 = new WPI_TalonFX(Constants.magazineMotor2CanID);
-    magazineMotor2.setInverted(false);
+    magazineMotor2.setInverted(true);
 
     magazineSensor = new DigitalInput(Constants.magazineSensorDIO);
 
@@ -84,13 +84,13 @@ public class Intake extends SubsystemBase {
 
   public BallColor readSensor() {
     if (sensor2.getRed() > Constants.sensorRequiredValue && sensor2.getBlue() < Constants.sensorRequiredValue) {
-      //System.out.println("Red");
+      // System.out.println("Red");
       return BallColor.RED;
     } else if (sensor2.getBlue() > Constants.sensorRequiredValue && sensor2.getRed() < Constants.sensorRequiredValue) {
-      //System.out.println("Blue");
+      // System.out.println("Blue");
       return BallColor.BLUE;
     } else {
-      //System.out.println("X");
+      // System.out.println("X");
       return BallColor.NONE;
     }
   }
@@ -135,9 +135,9 @@ public class Intake extends SubsystemBase {
   public boolean singulateBall() {
     if (getMagazineSensor() && readProxColorSensor() == true) {
 
-     intakeMotorStop();
-     magazineMotorStop();
-     
+      intakeMotorStop();
+      magazineMotorStop();
+
       return true;
     }
     return false;

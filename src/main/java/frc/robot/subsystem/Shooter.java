@@ -16,11 +16,13 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
   public Shooter() {
     shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
+    shooterMotor.setInverted(true);
   }
 
   // runs the turret shooter with a given speed
   public void runShooter(double turretShooterSpeed) {
     shooterMotor.set(turretShooterSpeed);
+
   }
 
   // Determine motor speed based on distance and linear equation for speed vs

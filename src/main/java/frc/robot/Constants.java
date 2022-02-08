@@ -49,8 +49,8 @@ public final class Constants {
     public static final int magazineMotor2CanID = 3;
 
     // Motor speeds
-    public static final double magazineMotorSpeed = 0.5;
-    public static final double intakeMotorSpeed = 0.5;
+    public static final double magazineMotorSpeed = 0.8;
+    public static final double intakeMotorSpeed = 0.8;
 
     // threshold for a ball to be X color
 
@@ -70,7 +70,7 @@ public final class Constants {
 
     // Motor IDs
     public static final int turretRotationPWMID = 0;
-    public static final int shooterMotorCanID = 41;
+    public static final int shooterMotorCanID = 21;
 
     // Xbox controller trigger IDs
     public static final int leftTrigger = 2;
@@ -89,7 +89,7 @@ public final class Constants {
     public static final double h1 = 1;
     public static double shooterA = 1;
     public static double shooterB = 2;
-    public static double shooterSpeed = 0.6;
+    public static double shooterSpeed = 0.3;
 
     // endregion
     // --------------------------------------------------------
