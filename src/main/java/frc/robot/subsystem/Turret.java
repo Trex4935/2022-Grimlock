@@ -4,22 +4,19 @@
 
 package frc.robot.subsystem;
 
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
+import frc.robot.Extensions.Limelight;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Turret extends PIDSubsystem {
 
-  WPI_TalonFX turretShooter;
+  // Motors
   PWMSparkMax turretRotation;
-
-  Limelight limelight;
 
   // magnet sensors
   private static DigitalInput leftMagLimit;
@@ -28,18 +25,13 @@ public class Turret extends PIDSubsystem {
 
   /** Creates a new turret. */
   public Turret() {
-    super(
-        // The PIDController used by the subsystem
-        new PIDController(1, 0, 0));
+    // The PIDController used by the subsystem
+    super(new PIDController(1, 0, 0));
     setSetpoint(0);
     getController().setTolerance(0.05);
 
-    // Init motors
-    turretShooter = new WPI_TalonFX(Constants.turretShooterCanID);
-    // turretRotation = new WPI_TalonFX(Constants.turretRotationCanID);
+    // Init motor
     turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
-
-    limelight = new Limelight();
 
   }
 
@@ -47,12 +39,12 @@ public class Turret extends PIDSubsystem {
   // Uses magnets to detect if it is and prevent it from rotating too far left or
   // right
   public void turnOnSimpleAutoAim() {
-    if (leftMagLimit.get() == true && (limelight.getLimelightX() / 270) <= 0) {
+    if (leftMagLimit.get() == true && (Limelight.getLimelightX() / 270) <= 0) {
       turretRotation.set(0);
-    } else if (rightMagLimit.get() == true && (limelight.getLimelightX() / 270) >= 0) {
+    } else if (rightMagLimit.get() == true && (Limelight.getLimelightX() / 270) >= 0) {
       turretRotation.set(0);
     } else {
-      turretRotation.set(limelight.getLimelightX() / 270);
+      turretRotation.set(Limelight.getLimelightX() / 270);
     }
   }
 
@@ -76,17 +68,12 @@ public class Turret extends PIDSubsystem {
     }
   }
 
-  // runs the turret shooter with a given speed
-  public void runTurretShooter(double turretShooterSpeed) {
-    turretShooter.set(turretShooterSpeed);
-  }
-
   // Moves the rotation motor based on controller input
   public void aimWithController(XboxController controller) {
 
-    double LT = controller.getRawAxis(Constants.leftTrigger);
-    double RT = controller.getRawAxis(Constants.rightTrigger) * -1;
-    turretRotation.set((LT + RT) / 25);
+    double leftTrigger = controller.getRawAxis(Constants.leftTrigger);
+    double rightTrigger = controller.getRawAxis(Constants.rightTrigger) * -1;
+    turretRotation.set((leftTrigger + rightTrigger) / 25);
   }
 
   // Stop the rotation motor
@@ -94,32 +81,17 @@ public class Turret extends PIDSubsystem {
     turretRotation.stopMotor();
   }
 
-  public double getDistance() {
-    double angle2 = limelight.getLimelightY();
-    double d = (Constants.h2 - Constants.h1) / Math.tan(Constants.angle1 + angle2);
-    return d;
-  }
-
-  public void shootBallWithVision() {
-    double motorSpeed = Constants.shooterA * getDistance() + Constants.shooterB;
-    turretShooter.set(TalonFXControlMode.Velocity, motorSpeed);
-  }
-
-  // Stop shooter motor
-  public void stopShooterMotor() {
-    turretShooter.stopMotor();
-  }
-
   @Override
   public void useOutput(double output, double setpoint) {
-    // Use the output here
+    // Use output to take action on the turret motor (i.e. make it move)
     turretRotation.set(output);
   }
 
   @Override
   public double getMeasurement() {
-    double angle = limelight.getLimelightX() / 270;
-    // Return the process variable measurement here
+    // gather and return the value that will be used to calculate the PID (i.e.
+    // sensor output)
+    double angle = Limelight.getLimelightX() / 270;
     return angle;
   }
 }
