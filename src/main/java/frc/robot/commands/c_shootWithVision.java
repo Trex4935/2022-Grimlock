@@ -10,7 +10,6 @@ import frc.robot.subsystem.Shooter;
 
 public class c_shootWithVision extends CommandBase {
   Shooter shooter;
-  Limelight limelight;
 
   /** Creates a new c_shootWithVision. */
   public c_shootWithVision(Shooter sh) {
@@ -27,7 +26,7 @@ public class c_shootWithVision extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.shootBallWithVision(limelight.getDistance());
+    shooter.shootBallWithVision(Limelight.getDistance());
   }
 
   // Called once the command ends or is interrupted.
