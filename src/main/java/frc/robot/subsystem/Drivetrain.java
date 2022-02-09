@@ -6,11 +6,14 @@ package frc.robot.subsystem;
 
 // Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -29,6 +32,9 @@ public class Drivetrain extends SubsystemBase {
   MotorControllerGroup rightMotorGroup;
   MotorControllerGroup leftMotorGroup;
   MotorControllerGroup centerMotorGroup;
+
+  // Gyro
+  public static AHRS ahrs;
 
   // Drives
   DifferentialDrive drive;
@@ -65,6 +71,20 @@ public class Drivetrain extends SubsystemBase {
     // Creating Drive Object
     drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);
 
+    // Initializing gyro
+    ahrs = new AHRS(SPI.Port.kMXP);
+  }
+
+  public void resetGyro() {
+    ahrs.reset();
+  }
+
+  public double getGyroAngle() {
+    return ahrs.getAngle();
+  }
+
+  public boolean checkCalibrationStatus() {
+    return ahrs.isCalibrating();
   }
 
   // Move center motors
