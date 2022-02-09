@@ -18,6 +18,15 @@ public class Shooter extends SubsystemBase {
     shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
     shooterMotor.setInverted(true);
 
+    // Set motor limits
+    //// normal output forward and reverse = 0% ... i.e. stopped
+    shooterMotor.configNominalOutputForward(0, Constants.kTimeoutMs);
+    shooterMotor.configNominalOutputReverse(0, Constants.kTimeoutMs);
+
+    //// Max output forward and reverse = 100%
+    shooterMotor.configPeakOutputForward(1, Constants.kTimeoutMs);
+    shooterMotor.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+
     // PID configs
     shooterMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkP(), Constants.kTimeoutMs);
     shooterMotor.config_kI(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkI(), Constants.kTimeoutMs);
