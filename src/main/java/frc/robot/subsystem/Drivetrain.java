@@ -57,6 +57,14 @@ public class Drivetrain extends SubsystemBase {
     leftMotorGroup = new MotorControllerGroup(leftFront, leftBack);
     centerMotorGroup = new MotorControllerGroup(middleLeft, middleRight);
 
+    // set all motors to factory default to avoid possible config issues
+    leftFront.configFactoryDefault();
+    leftBack.configFactoryDefault();
+    rightFront.configFactoryDefault();
+    rightBack.configFactoryDefault();
+    middleLeft.configFactoryDefault();
+    middleRight.configFactoryDefault();
+
     // Invert motors as needed
     leftMotorGroup.setInverted(false);
     rightMotorGroup.setInverted(false);

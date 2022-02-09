@@ -34,6 +34,7 @@ public class c_driveWithController extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    drive.stopAllDriveMotors();
   }
 
   // Returns true when the command should end.
