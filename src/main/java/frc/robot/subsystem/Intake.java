@@ -19,7 +19,7 @@ import frc.robot.Extensions.multiplexedColorSensor;
 public class Intake extends SubsystemBase {
 
   WPI_TalonFX intakeMotor;
-  WPI_TalonFX magazineMotor1;
+  WPI_TalonFX magazineMotor;
 
   // intake color sensor
   private multiplexedColorSensor sensor2;
@@ -40,8 +40,8 @@ public class Intake extends SubsystemBase {
 
     intakeMotor = new WPI_TalonFX(Constants.intakeMotorCanID);
     intakeMotor.setInverted(true);
-    magazineMotor1 = new WPI_TalonFX(Constants.magazineMotor1CanID);
-    magazineMotor1.setInverted(true);
+    magazineMotor = new WPI_TalonFX(Constants.magazineMotor1CanID);
+    magazineMotor.setInverted(true);
 
     magazineSensor = new DigitalInput(Constants.magazineSensorDIO);
 
@@ -63,7 +63,7 @@ public class Intake extends SubsystemBase {
   // run magazine motor
   public void runMagazineMotors() {
 
-    magazineMotor1.set(Constants.magazineMotorSpeed);
+    magazineMotor.set(Constants.magazineMotorSpeed);
 
   }
 
@@ -74,7 +74,7 @@ public class Intake extends SubsystemBase {
 
   // stop magazine motor
   public void magazineMotorStop() {
-    magazineMotor1.stopMotor();
+    magazineMotor.stopMotor();
 
   }
 
