@@ -114,8 +114,10 @@ public class Intake extends SubsystemBase {
 
   }
 
+  // Checks prox. color sens. for its value and if in range, returns true
   public boolean readProxColorSensor() {
-    if (sensor2.getProximity() > Constants.proxSensor1 && sensor2.getProximity() < Constants.proxSensor2) {
+    double prox_value = sensor2.getProximity();
+    if (prox_value > Constants.proxSensorMin && prox_value < Constants.proxSensorMax) {
       return true;
     }
     return false;

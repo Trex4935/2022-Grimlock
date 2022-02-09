@@ -64,6 +64,10 @@ public final class Constants {
     // color sensor required value to detect a color
     public static final int sensorRequiredValue = 1000;
 
+    // prox sensor max and min values for ball detection
+    public static final int proxSensorMax = 0;
+    public static final int proxSensorMin = 0;
+
     // endregion
     // --------------------------------------------------------
 
