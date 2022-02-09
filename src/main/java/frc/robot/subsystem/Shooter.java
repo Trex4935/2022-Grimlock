@@ -68,6 +68,16 @@ public class Shooter extends SubsystemBase {
     shooterMotor.stopMotor();
   }
 
+  // Stop shooter motor
+  public double getSpeed() {
+    return 1;//TODO
+  }
+
+  // Stop shooter motor
+  public double getPosition() {
+    return 1;//TODO
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
