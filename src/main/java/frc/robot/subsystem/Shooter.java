@@ -5,6 +5,8 @@
 package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,6 +20,14 @@ public class Shooter extends SubsystemBase {
     shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
     shooterMotor.setInverted(true);
 
+    //  
+    TalonFXConfiguration config = new TalonFXConfiguration();
+    config.supplyCurrLimit.enable = true;
+    config.supplyCurrLimit.triggerThresholdCurrent = 40; // the peak supply current, in amps
+    config.supplyCurrLimit.triggerThresholdTime = 1.5; // the time at the peak supply current before the limit triggers, in sec
+    config.supplyCurrLimit.currentLimit = 30; // the current to maintain if the peak supply limit is triggered
+    shooterMotor.configAllSettings(config); // apply the config settings; this selects the quadrature encoder  
+
     // Set motor limits
     //// normal output forward and reverse = 0% ... i.e. stopped
     shooterMotor.configNominalOutputForward(0, Constants.kTimeoutMs);
@@ -28,6 +38,11 @@ public class Shooter extends SubsystemBase {
     shooterMotor.configPeakOutputReverse(-1, Constants.kTimeoutMs);
 
     // PID configs
+    
+    // setting up the pid
+    shooterMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx,
+        Constants.kTimeoutMs);
+
     shooterMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkP(), Constants.kTimeoutMs);
     shooterMotor.config_kI(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkI(), Constants.kTimeoutMs);
     shooterMotor.config_kD(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkD(), Constants.kTimeoutMs);
