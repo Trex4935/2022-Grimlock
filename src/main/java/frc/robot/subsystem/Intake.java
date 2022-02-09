@@ -20,7 +20,6 @@ public class Intake extends SubsystemBase {
 
   WPI_TalonFX intakeMotor;
   WPI_TalonFX magazineMotor1;
-  WPI_TalonFX magazineMotor2;
 
   // intake color sensor
   private multiplexedColorSensor sensor2;
@@ -43,8 +42,6 @@ public class Intake extends SubsystemBase {
     intakeMotor.setInverted(true);
     magazineMotor1 = new WPI_TalonFX(Constants.magazineMotor1CanID);
     magazineMotor1.setInverted(true);
-    magazineMotor2 = new WPI_TalonFX(Constants.magazineMotor2CanID);
-    magazineMotor2.setInverted(true);
 
     magazineSensor = new DigitalInput(Constants.magazineSensorDIO);
 
@@ -67,7 +64,6 @@ public class Intake extends SubsystemBase {
   public void runMagazineMotors() {
 
     magazineMotor1.set(Constants.magazineMotorSpeed);
-    magazineMotor2.set(Constants.magazineMotorSpeed);
 
   }
 
@@ -79,7 +75,7 @@ public class Intake extends SubsystemBase {
   // stop magazine motor
   public void magazineMotorStop() {
     magazineMotor1.stopMotor();
-    magazineMotor2.stopMotor();
+
   }
 
   public BallColor readSensor() {
