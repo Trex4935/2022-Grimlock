@@ -41,6 +41,8 @@ public final class Constants {
 
     public static double outsideRampLimiter = 0.5;
     public static double middleRampLimiter = 1.0;
+    
+    public static double kPDt = 1/360; // gyro gives angle in degree. kP/360.
 
     public static final NeutralMode outsideBrakeMode = NeutralMode.Brake;
     public static final NeutralMode middleBreakMode = NeutralMode.Coast;

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Extensions.Limelight;
 import frc.robot.commands.c_aimWithController;
+import frc.robot.commands.c_driveStraightAuto;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_readSensor;
 import frc.robot.commands.c_redBlueDecision;
@@ -39,8 +40,11 @@ public class RobotContainer {
   // button variables for the controller
   private JoystickButton xbox_b, xbox_a, xbox_y, xbox_x;
 
+  c_driveStraightAuto auto;
+
   public RobotContainer() {
     // Setup default drive controls
+    auto = new c_driveStraightAuto(drive);
     drive.setDefaultCommand(new c_driveWithController(drive, controller));
     turret.setDefaultCommand(new c_aimWithController(turret, controller));
     intake.setDefaultCommand(new c_readSensor(intake));
@@ -77,6 +81,6 @@ public class RobotContainer {
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
   public Command getAutonomousCommand() {
-    return null;
+    return auto.withTimeout(10);
   }
 }
