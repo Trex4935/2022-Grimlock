@@ -45,6 +45,9 @@ public final class Constants {
     public static final NeutralMode outsideBrakeMode = NeutralMode.Brake;
     public static final NeutralMode middleBreakMode = NeutralMode.Coast;
 
+    // Sensors
+    public static final int sensorIRBlackValue = 6;
+
     // endregion
     // --------------------------------------------------------
 
@@ -99,11 +102,11 @@ public final class Constants {
     public static double shooterB = 2;
     public static double shooterSpeed = 0.3;
 
-    // Shooter PID 
+    // Shooter PID
 
-    public static PID kGains_Velocity_Shooter = new PID(1, 1/100, 0, 0) ; //Good start value per CTRE docs.
+    public static PID kGains_Velocity_Shooter = new PID(1, 1 / 100, 0, 0); // Good start value per CTRE docs.
     public static int kTimeoutMs = 20;
-    public static int kPIDLoopIdx =0;
+    public static int kPIDLoopIdx = 0;
 
     // endregion
     // --------------------------------------------------------

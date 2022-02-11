@@ -16,6 +16,8 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Extensions.multiplexedColorSensor;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
@@ -27,7 +29,7 @@ public class Drivetrain extends SubsystemBase {
   WPI_TalonFX rightBack;
 
   // Look at the front of the robot and then rotate the robot 90 degrees clockwise
-  // to determine left and right
+  // to determine middle left and right
   WPI_TalonFX middleLeft;
   WPI_TalonFX middleRight;
 
@@ -41,6 +43,10 @@ public class Drivetrain extends SubsystemBase {
 
   // Drives
   DifferentialDrive drive;
+
+  // Sensors
+  private multiplexedColorSensor lineSensorLeft;
+  private multiplexedColorSensor lineSensorRight;
 
   public Drivetrain() {
 
@@ -84,6 +90,10 @@ public class Drivetrain extends SubsystemBase {
 
     // Initializing gyro
     ahrs = new AHRS(SPI.Port.kMXP);
+
+    // Sensors
+    lineSensorLeft = new multiplexedColorSensor(I2C.Port.kOnboard, 3);
+    lineSensorRight = new multiplexedColorSensor(I2C.Port.kOnboard, 4);
   }
 
   public void resetGyro() {
@@ -108,6 +118,26 @@ public class Drivetrain extends SubsystemBase {
   public void driveWithController(XboxController controller, double speedLimiter) {
     drive.arcadeDrive(controller.getRawAxis(Constants.rightHorizontal) * speedLimiter,
         controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
+  }
+
+  public void moveToLineLeft() {
+    if (Constants.sensorIRBlackValue >= lineSensorLeft.getIR()) {
+      leftFront.stopMotor();
+      leftBack.stopMotor();
+    } else {
+      leftFront.set(.25);
+      leftBack.set(.25);
+    }
+  }
+
+  public void moveToLineRight() {
+    if (Constants.sensorIRBlackValue >= lineSensorRight.getIR()) {
+      rightFront.stopMotor();
+      rightBack.stopMotor();
+    } else {
+      rightFront.set(.25);
+      rightBack.set(.25);
+    }
   }
 
   // Stop the center motors
