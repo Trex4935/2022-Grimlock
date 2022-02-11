@@ -10,16 +10,22 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.Extensions.Limelight;
 import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_driveWithController;
+import frc.robot.commands.c_motorClimbDown;
+import frc.robot.commands.c_motorClimbUp;
 import frc.robot.commands.c_readSensor;
 import frc.robot.commands.c_redBlueDecision;
 import frc.robot.commands.c_returnToMiddle;
+import frc.robot.commands.c_rotateClimbLeft;
+import frc.robot.commands.c_rotateClimbRight;
 import frc.robot.commands.c_runIntakeMotor;
 import frc.robot.commands.c_runMagazineMotors;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
+import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
@@ -32,12 +38,14 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Turret turret = new Turret();
   private final Shooter shooter = new Shooter();
+  private final Climber climber = new Climber();
 
   // Controller
   private static XboxController controller = new XboxController(0);
 
   // button variables for the controller
   private JoystickButton xbox_b, xbox_a, xbox_y, xbox_x;
+  private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
   public RobotContainer() {
     // Setup default drive controls
@@ -72,6 +80,19 @@ public class RobotContainer {
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
     xbox_x.toggleWhenPressed(new c_shootBall(shooter));
+
+    xbox_pov_down = new POVButton(controller, 180);
+    xbox_pov_down.whileHeld(new c_motorClimbDown(climber));
+
+    xbox_pov_up = new POVButton(controller, 0);
+    xbox_pov_up.whileHeld(new c_motorClimbUp(climber));
+
+    xbox_pov_left = new POVButton(controller, 270);
+    xbox_pov_left.whileHeld(new c_rotateClimbLeft(climber));
+
+    xbox_pov_right = new POVButton(controller, 90);
+    xbox_pov_right.whileHeld(new c_rotateClimbRight(climber));
+
   }
 
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
