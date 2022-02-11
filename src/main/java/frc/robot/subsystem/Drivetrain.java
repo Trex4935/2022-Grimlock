@@ -90,14 +90,17 @@ public class Drivetrain extends SubsystemBase {
     ahrs = new AHRS(SPI.Port.kMXP);
   }
 
+  // Reset the gyro
   public void resetGyro() {
     ahrs.reset();
   }
 
+  // get the gyro angle
   public double getGyroAngle() {
     return ahrs.getAngle();
   }
 
+  // check if gyro is calibrating
   public boolean checkCalibrationStatus() {
     return ahrs.isCalibrating();
   }
