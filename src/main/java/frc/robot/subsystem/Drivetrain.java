@@ -4,13 +4,9 @@
 
 package frc.robot.subsystem;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonFXPIDSetConfiguration;
 // Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -94,14 +90,17 @@ public class Drivetrain extends SubsystemBase {
     ahrs = new AHRS(SPI.Port.kMXP);
   }
 
+  // Reset the gyro
   public void resetGyro() {
     ahrs.reset();
   }
 
+  // get the gyro angle
   public double getGyroAngle() {
     return ahrs.getAngle();
   }
 
+  // check if gyro is calibrating
   public boolean checkCalibrationStatus() {
     return ahrs.isCalibrating();
   }
