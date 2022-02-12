@@ -96,8 +96,8 @@ public class Drivetrain extends SubsystemBase {
     ahrs = new AHRS(SPI.Port.kMXP);
 
     // Sensors
-    lineSensorLeft = new multiplexedColorSensor(I2C.Port.kOnboard, 3);
-    lineSensorRight = new multiplexedColorSensor(I2C.Port.kOnboard, 4);
+    lineSensorLeft = new multiplexedColorSensor(I2C.Port.kOnboard, 7);
+    lineSensorRight = new multiplexedColorSensor(I2C.Port.kOnboard, 8);
   }
 
   // Reset the gyro

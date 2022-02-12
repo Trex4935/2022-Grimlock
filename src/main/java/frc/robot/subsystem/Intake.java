@@ -45,7 +45,7 @@ public class Intake extends SubsystemBase {
 
     magazineSensor = new DigitalInput(Constants.magazineSensorDIO);
 
-    sensor2 = new multiplexedColorSensor(I2C.Port.kOnboard, 2);
+    sensor2 = new multiplexedColorSensor(I2C.Port.kOnboard, 4);
 
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
     NetworkTable color_table = inst.getTable("Intake");
@@ -79,14 +79,15 @@ public class Intake extends SubsystemBase {
   }
 
   public BallColor readSensor() {
+    System.out.println(sensor2.getRed() + ";" + sensor2.getBlue());
     if (sensor2.getRed() > Constants.sensorRequiredValue && sensor2.getBlue() < Constants.sensorRequiredValue) {
-      // System.out.println("Red");
+      System.out.println("Red");
       return BallColor.RED;
     } else if (sensor2.getBlue() > Constants.sensorRequiredValue && sensor2.getRed() < Constants.sensorRequiredValue) {
-      // System.out.println("Blue");
+      System.out.println("Blue");
       return BallColor.BLUE;
     } else {
-      // System.out.println("X");
+      System.out.println("X");
       return BallColor.NONE;
     }
   }
