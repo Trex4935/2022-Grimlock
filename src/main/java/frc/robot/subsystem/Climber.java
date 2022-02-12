@@ -39,40 +39,55 @@ public class Climber extends SubsystemBase {
     pinMotor.stopMotor();
   }
 
+  // Moves the pin motor for a second and then stops it. (might be wonky)
   public void pinRotate() throws InterruptedException {
     pinMotor.set(Constants.pinMotorSpeed);
     wait(1000);
     pinMotor.stopMotor();
   }
 
+  // The rotating climber motor goes left (test for correct direction then change
+  // inverse if its the wrong way?)
+  // then prints what POV direction was pressed
   public void rotateClimbLeft() {
     climbMotor.setInverted(false);
     climbMotor.set(Constants.climbRotateSpeed);
     System.out.println("left");
   }
 
+  // The rotating climber motor goes right (test for correct direction then change
+  // inverse if its the wrong way?)
+  // then prints what POV direction was pressed
   public void rotateClimbRight() {
     climbMotor.setInverted(true);
     climbMotor.set(Constants.climbRotateSpeed);
     System.out.println("right");
   }
 
+  // Stops the rotating climber motor
   public void stopClimbRotate() {
     climbMotor.stopMotor();
   }
 
+  // The default climber motor goes up (test for correct direction then change
+  // inverse if its the wrong way?)
+  // then prints what POV direction was pressed
   public void motorClimbUp() {
     climbMotor.setInverted(false);
     climbMotor.set(Constants.climbMotorSpeed);
     System.out.println("up");
   }
 
+  // The default climber motor goes down (test for correct direction then change
+  // inverse if its the wrong way?)
+  // then prints what POV direction was pressed
   public void motorClimbDown() {
     climbMotor.setInverted(true);
     climbMotor.set(Constants.climbMotorSpeed);
     System.out.println("down");
   }
 
+  // Stops the default climber motor
   public void stopClimbMotor() {
     climbMotor.stopMotor();
   }
