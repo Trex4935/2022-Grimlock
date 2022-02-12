@@ -93,6 +93,34 @@ public class RobotContainer {
     xbox_pov_right = new POVButton(controller, 90);
     xbox_pov_right.whileHeld(new c_rotateClimbRight(climber));
 
+    /// CONTROLLER MAP
+    //
+    // A - Return turret to middle
+    // B - Toggle Intake
+    // X - Tooggle shooter
+    // Y - Toggle Magazine
+    //
+    // LT - Move turret Left
+    // RT - Move turret Right
+    //
+    // LB -
+    // RB - Toggle turret autoaim
+    //
+    // LStick Vertical - Drive forward/backward
+    // LStick Horizontal - H Drive Left/Right (Strafe)
+    // RStick - Rotate left/right
+    //
+    // Start -
+    // Select -
+    //
+    // D-Pad
+    // Up - Climber Arms up (robot down)
+    // Right - Rotate climber arms right
+    // Down - Climber arms down (robot up)
+    // Left - Rotate climber arms left
+    //
+    /// END MAP
+
   }
 
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
