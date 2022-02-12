@@ -4,19 +4,17 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystem.Drivetrain;
+import frc.robot.subsystem.Climber;
 
-public class c_driveWithController extends CommandBase {
-  private final Drivetrain drive;
-  private final XboxController controller;
+public class c_rotateClimbLeft extends CommandBase {
+  /** Creates a new runIntakeMotors. */
+  private final Climber climber;
 
-  public c_driveWithController(Drivetrain dt, XboxController con) {
-    drive = dt;
-    controller = con;
-    addRequirements(drive);
+  public c_rotateClimbLeft(Climber cl) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    climber = cl;
+    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
@@ -27,14 +25,15 @@ public class c_driveWithController extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.driveWithController(controller, Constants.driveSpeedLimit);
-    drive.driveMiddleWithController(controller, Constants.driveSpeedLimit);
+
+    climber.rotateClimbLeft();
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive.stopAllDriveMotors();
+    climber.stopClimbRotate();
   }
 
   // Returns true when the command should end.

@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystem.Turret;
 
 public class c_turnOnSimpleAutoAim extends CommandBase {
@@ -27,13 +26,11 @@ public class c_turnOnSimpleAutoAim extends CommandBase {
   @Override
   public void execute() {
     turret.turnOnSimpleAutoAim();
-    Constants.toggleAutoAimToMid = false;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Constants.toggleAutoAimToMid = true;
     turret.stopRotationMotor();
   }
 

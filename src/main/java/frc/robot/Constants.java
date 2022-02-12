@@ -40,7 +40,7 @@ public final class Constants {
     public static double driveSpeedLimit = 0.5;
 
     public static double outsideRampLimiter = 0.5;
-    public static double middleRampLimiter = 0.5;
+    public static double middleRampLimiter = 1.0;
 
     public static final NeutralMode outsideBrakeMode = NeutralMode.Brake;
     public static final NeutralMode middleBreakMode = NeutralMode.Coast;
@@ -55,24 +55,21 @@ public final class Constants {
 
     // Motor Can IDs
     public static final int intakeMotorCanID = 1;
-
     public static final int magazineMotor1CanID = 2;
-    public static final int magazineMotor2CanID = 3;
 
     // Motor speeds
     public static final double magazineMotorSpeed = 0.8;
     public static final double intakeMotorSpeed = 0.8;
 
-    // threshold for a ball to be X color
-
+    // Smakna sensor ids
     public static final int magazineSensorDIO = 0;
 
     // color sensor required value to detect a color
     public static final int sensorRequiredValue = 1000;
-    public static final int proxSensor1 = 0;
-    public static final int proxSensor2 = 0;
-    public static final int proxSensor3 = 0;
-    public static final int proxSensor4 = 0;
+
+    // prox sensor max and min values for ball detection
+    public static final int proxSensorMax = 0;
+    public static final int proxSensorMin = 0;
 
     // endregion
     // --------------------------------------------------------
@@ -81,7 +78,6 @@ public final class Constants {
 
     // Motor IDs
     public static final int turretRotationPWMID = 0;
-    public static final int shooterMotorCanID = 21;
 
     // Xbox controller trigger IDs
     public static final int leftTrigger = 2;
@@ -90,11 +86,27 @@ public final class Constants {
     // Motor speeds
     public static double returnToMiddleSpeed = 0.5;
 
-    // Mode toggle
-    public static boolean toggleAutoAimToMid = true;
+    // endregion
+    // --------------------------------------------------------
+
+    // region Climber
+
+    // Motor IDs
+    public static final int climbMotorCanID = 0;
+    public static final int rotationMotorCanID = 0;
+    public static final int pinMotorCanID = 0;
+
+    public static final double pinMotorSpeed = 0.7;
+    public static final double climbRotateSpeed = 0.6;
+    public static final double climbMotorSpeed = 0.6;
+
+    // endregion
+    // --------------------------------------------------------
+
+    // region Shooter
+    public static final int shooterMotorCanID = 21;
 
     // Distance Estimation
-
     public static final double h2 = 2;
     public static final double angle1 = 1;
     public static final double h1 = 1;
@@ -103,7 +115,6 @@ public final class Constants {
     public static double shooterSpeed = 0.3;
 
     // Shooter PID
-
     public static PID kGains_Velocity_Shooter = new PID(1, 1 / 100, 0, 0); // Good start value per CTRE docs.
     public static int kTimeoutMs = 20;
     public static int kPIDLoopIdx = 0;
@@ -117,6 +128,7 @@ public final class Constants {
     public static final int climbMotorCanID = 0;
     public static final int rotationmotorCanID = 0;
     public static final int pinMotorCanID = 0;
+
 
     // endregion
     // --------------------------------------------------------
