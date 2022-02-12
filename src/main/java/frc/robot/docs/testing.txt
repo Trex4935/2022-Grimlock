@@ -1,0 +1,10 @@
+DriveTrain
+
+1) Arcade Drive
+- Left stick forward and back == moves robot forward and back
+- Right stick left and right == rotates robot left and right
+
+2) H Drive
+- Left stick left and right == moves robot side to side
+
+
