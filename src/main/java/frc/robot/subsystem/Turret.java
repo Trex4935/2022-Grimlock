@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
-import frc.robot.Extensions.Limelight;
+import frc.robot.extensions.Limelight;
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Turret extends PIDSubsystem {

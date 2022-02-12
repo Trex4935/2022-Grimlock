@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.Extensions.Limelight;
 import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_motorClimbDown;
@@ -25,6 +24,7 @@ import frc.robot.commands.c_runIntakeMotor;
 import frc.robot.commands.c_runMagazineMotors;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
+import frc.robot.extensions.Limelight;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
@@ -92,6 +92,34 @@ public class RobotContainer {
 
     xbox_pov_right = new POVButton(controller, 90);
     xbox_pov_right.whileHeld(new c_rotateClimbRight(climber));
+
+    /// CONTROLLER MAP
+    //
+    // A - Return turret to middle
+    // B - Toggle Intake
+    // X - Tooggle shooter
+    // Y - Toggle Magazine
+    //
+    // LT - Move turret Left
+    // RT - Move turret Right
+    //
+    // LB -
+    // RB - Toggle turret autoaim
+    //
+    // LStick Vertical - Drive forward/backward
+    // LStick Horizontal - H Drive Left/Right (Strafe)
+    // RStick - Rotate left/right
+    //
+    // Start -
+    // Select -
+    //
+    // D-Pad
+    // Up - Climber Arms up (robot down)
+    // Right - Rotate climber arms right
+    // Down - Climber arms down (robot up)
+    // Left - Rotate climber arms left
+    //
+    /// END MAP
 
   }
 

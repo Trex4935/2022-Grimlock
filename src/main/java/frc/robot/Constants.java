@@ -4,8 +4,9 @@
 
 package frc.robot;
 
-import frc.robot.Extensions.PID;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+
+import frc.robot.extensions.PID;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide

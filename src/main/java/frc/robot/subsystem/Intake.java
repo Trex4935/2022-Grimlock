@@ -13,8 +13,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Extensions.BallColor;
-import frc.robot.Extensions.multiplexedColorSensor;
+import frc.robot.extensions.BallColor;
+import frc.robot.extensions.multiplexedColorSensor;
 
 public class Intake extends SubsystemBase {
 
