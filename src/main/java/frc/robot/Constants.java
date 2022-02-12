@@ -45,6 +45,9 @@ public final class Constants {
     public static final NeutralMode outsideBrakeMode = NeutralMode.Brake;
     public static final NeutralMode middleBreakMode = NeutralMode.Coast;
 
+    // Sensors
+    public static final int sensorIRBlackValue = 6;
+
     // endregion
     // --------------------------------------------------------
 
@@ -115,6 +118,17 @@ public final class Constants {
     public static PID kGains_Velocity_Shooter = new PID(1, 1 / 100, 0, 0); // Good start value per CTRE docs.
     public static int kTimeoutMs = 20;
     public static int kPIDLoopIdx = 0;
+
+    // endregion
+    // --------------------------------------------------------
+
+    // region Climber
+
+    // Motor IDs
+    public static final int climbMotorCanID = 0;
+    public static final int rotationmotorCanID = 0;
+    public static final int pinMotorCanID = 0;
+
 
     // endregion
     // --------------------------------------------------------
