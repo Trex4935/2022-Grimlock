@@ -68,10 +68,10 @@ public class Drivetrain extends SubsystemBase {
     middleRight.configFactoryDefault();
 
     // Invert motors as needed
-    leftMotorGroup.setInverted(false);
-    rightMotorGroup.setInverted(false);
-    middleLeft.setInverted(true);
-    middleRight.setInverted(false);
+    leftMotorGroup.setInverted(true);
+    rightMotorGroup.setInverted(true);
+    middleLeft.setInverted(false);
+    middleRight.setInverted(true);
 
     // Ramp speeds, how fast the motors take to get to full speed
     leftFront.configOpenloopRamp(Constants.outsideRampLimiter);

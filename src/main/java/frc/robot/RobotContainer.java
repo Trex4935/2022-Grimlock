@@ -34,7 +34,7 @@ import frc.robot.subsystem.Turret;
 public class RobotContainer {
 
   // Declare Subsystems
-  // private final Drivetrain drive = new Drivetrain();
+  private final Drivetrain drive = new Drivetrain();
   private final Intake intake = new Intake();
   private final Turret turret = new Turret();
   private final Shooter shooter = new Shooter();
@@ -49,7 +49,7 @@ public class RobotContainer {
 
   public RobotContainer() {
     // Setup default drive controls
-    // drive.setDefaultCommand(new c_driveWithController(drive, controller));
+    drive.setDefaultCommand(new c_driveWithController(drive, controller));
     turret.setDefaultCommand(new c_aimWithController(turret, controller));
     intake.setDefaultCommand(new c_readSensor(intake));
 
@@ -72,8 +72,8 @@ public class RobotContainer {
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
     xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
-    xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));
+    // xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
+    // xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));
 
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
     xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));

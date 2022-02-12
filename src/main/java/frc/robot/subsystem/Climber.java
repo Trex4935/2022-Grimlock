@@ -49,7 +49,7 @@ public class Climber extends SubsystemBase {
   public void rotateClimbLeft() {
     climbMotor.setInverted(false);
     climbMotor.set(Constants.climbRotateSpeed);
-    System.out.println("left");
+    // System.out.println("left");
   }
 
   // The rotating climber motor goes right (test for correct direction then change
@@ -58,7 +58,7 @@ public class Climber extends SubsystemBase {
   public void rotateClimbRight() {
     climbMotor.setInverted(true);
     climbMotor.set(Constants.climbRotateSpeed);
-    System.out.println("right");
+    // System.out.println("right");
   }
 
   // Stops the rotating climber motor
@@ -72,7 +72,7 @@ public class Climber extends SubsystemBase {
   public void motorClimbUp() {
     climbMotor.setInverted(false);
     climbMotor.set(Constants.climbMotorSpeed);
-    System.out.println("up");
+    //System.out.println("up");
   }
 
   // The default climber motor goes down (test for correct direction then change
@@ -81,7 +81,7 @@ public class Climber extends SubsystemBase {
   public void motorClimbDown() {
     climbMotor.setInverted(true);
     climbMotor.set(Constants.climbMotorSpeed);
-    System.out.println("down");
+    //System.out.println("down");
   }
 
   // Stops the default climber motor

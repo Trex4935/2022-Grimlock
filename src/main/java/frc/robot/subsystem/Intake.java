@@ -39,7 +39,7 @@ public class Intake extends SubsystemBase {
   public Intake() {
 
     intakeMotor = new WPI_TalonFX(Constants.intakeMotorCanID);
-    intakeMotor.setInverted(true);
+    intakeMotor.setInverted(false);
     magazineMotor = new WPI_TalonFX(Constants.magazineMotor1CanID);
     magazineMotor.setInverted(true);
 
@@ -57,15 +57,16 @@ public class Intake extends SubsystemBase {
   public void runIntakeMotor() {
 
     intakeMotor.set(Constants.intakeMotorSpeed);
+    magazineMotor.set(Constants.magazineMotorSpeed);
 
   }
 
   // run magazine motor
-  public void runMagazineMotors() {
+  // public void runMagazineMotors() {
 
-    magazineMotor.set(Constants.magazineMotorSpeed);
+  // magazineMotor.set(Constants.magazineMotorSpeed);
 
-  }
+  // }
 
   // stop intake motor
   public void intakeMotorStop() {
@@ -79,15 +80,15 @@ public class Intake extends SubsystemBase {
   }
 
   public BallColor readSensor() {
-    System.out.println(sensor2.getRed() + ";" + sensor2.getBlue());
+    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue());
     if (sensor2.getRed() > Constants.sensorRequiredValue && sensor2.getBlue() < Constants.sensorRequiredValue) {
-      System.out.println("Red");
+      // System.out.println("Red");
       return BallColor.RED;
     } else if (sensor2.getBlue() > Constants.sensorRequiredValue && sensor2.getRed() < Constants.sensorRequiredValue) {
-      System.out.println("Blue");
+      // System.out.println("Blue");
       return BallColor.BLUE;
     } else {
-      System.out.println("X");
+      // System.out.println("X");
       return BallColor.NONE;
     }
   }

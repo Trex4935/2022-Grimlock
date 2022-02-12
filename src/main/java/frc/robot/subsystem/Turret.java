@@ -72,7 +72,7 @@ public class Turret extends PIDSubsystem {
 
     double leftTrigger = controller.getRawAxis(Constants.leftTrigger);
     double rightTrigger = controller.getRawAxis(Constants.rightTrigger) * -1;
-    turretRotation.set((leftTrigger + rightTrigger) / 25);
+    turretRotation.set((leftTrigger + rightTrigger) / 10);
   }
 
   // Stop the rotation motor

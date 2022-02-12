@@ -26,7 +26,7 @@ public class c_runMagazineMotors extends CommandBase {
   @Override
   public void execute() {
 
-    intake.runMagazineMotors();
+    //intake.runMagazineMotors();
 
   }
 

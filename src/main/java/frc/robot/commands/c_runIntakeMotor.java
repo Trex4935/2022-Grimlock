@@ -34,6 +34,7 @@ public class c_runIntakeMotor extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intake.intakeMotorStop();
+    intake.magazineMotorStop();
   }
 
   // Returns true when the command should end.

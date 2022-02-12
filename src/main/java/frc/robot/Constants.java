@@ -38,10 +38,10 @@ public final class Constants {
     public static final int rightHorizontal = 4;
 
     // DriveTrain limits
-    public static double driveSpeedLimit = 0.5;
+    public static double driveSpeedLimit = 0.75;
 
-    public static double outsideRampLimiter = 0.5;
-    public static double middleRampLimiter = 1.0;
+    public static double outsideRampLimiter = 0.75;
+    public static double middleRampLimiter = 1.25;
 
     public static final NeutralMode outsideBrakeMode = NeutralMode.Brake;
     public static final NeutralMode middleBreakMode = NeutralMode.Coast;
@@ -55,12 +55,12 @@ public final class Constants {
     // region Intake
 
     // Motor Can IDs
-    public static final int intakeMotorCanID = 1;
-    public static final int magazineMotor1CanID = 2;
+    public static final int intakeMotorCanID = 3;
+    public static final int magazineMotor1CanID = 1;
 
     // Motor speeds
     public static final double magazineMotorSpeed = 0.8;
-    public static final double intakeMotorSpeed = 0.8;
+    public static final double intakeMotorSpeed = 0.5;
 
     // Smakna sensor ids
     public static final int magazineSensorDIO = 0;
