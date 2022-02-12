@@ -48,11 +48,13 @@ public class Climber extends SubsystemBase {
   public void rotateClimbLeft() {
     climbMotor.setInverted(false);
     climbMotor.set(Constants.climbRotateSpeed);
+    System.out.println("left");
   }
 
   public void rotateClimbRight() {
     climbMotor.setInverted(true);
     climbMotor.set(Constants.climbRotateSpeed);
+    System.out.println("right");
   }
 
   public void stopClimbRotate() {
@@ -62,11 +64,13 @@ public class Climber extends SubsystemBase {
   public void motorClimbUp() {
     climbMotor.setInverted(false);
     climbMotor.set(Constants.climbMotorSpeed);
+    System.out.println("up");
   }
 
   public void motorClimbDown() {
     climbMotor.setInverted(true);
     climbMotor.set(Constants.climbMotorSpeed);
+    System.out.println("down");
   }
 
   public void stopClimbMotor() {
