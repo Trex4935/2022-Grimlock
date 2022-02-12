@@ -121,16 +121,4 @@ public final class Constants {
 
     // endregion
     // --------------------------------------------------------
-
-    // region Climber
-
-    // Motor IDs
-    public static final int climbMotorCanID = 0;
-    public static final int rotationmotorCanID = 0;
-    public static final int pinMotorCanID = 0;
-
-
-    // endregion
-    // --------------------------------------------------------
-
 }
