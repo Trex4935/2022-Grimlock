@@ -1,10 +1,85 @@
-DriveTrain
-
 1) Arcade Drive
-- Left stick forward and back == moves robot forward and back
-- Right stick left and right == rotates robot left and right
+- Left stick forward and back == moves robot forward and back 
+-- Validate expected brake mode
+- Right stick left and right == rotates robot left and right 
+-- Validate brake mode
 
 2) H Drive
-- Left stick left and right == moves robot side to side
+- Left stick left and right == moves robot side to side 
+-- Validate brake mode
+
+3) Intake
+- Press B on controller == Intake turns on
+-- Verify direction of intake roller
+-- Leave Intake running
+
+4) Magazine
+- Press Y on controller == Magazine turns on Intake stays on
+-- Verify direction of Magazine
+-- Press B on controller == verify intake turns off
+-- Press Y on controller == verify magazine turns off
+
+5) Turret moves
+- Short pull on left and right triggers == Make sure turret moves left and right
+
+6) Turret Limits
+- Pull left trigger == until turret stops moving left and limit switch
+- PUll right trigger == until turret stops move at right limit switch
+
+7) Turret Move to Center
+- Press A == make sure turret moves to center
+- Move turret to other side of center with triggers
+- Press A == make sure turret moves to center
+
+8) Limelight turret Aim
+- Ensure limelight is on
+- Hold up target offset on Limelight
+- Press right bumper == make sure turret follows target
+- Move target until turret hits limit switches == ensure turret stops
+-- check left and right limits
+- Press right bumper == turret should stop following target
+
+9) Manual Shooter
+- Press X == ensure that shooter turns on
+- Press X == ensure that shooter turns off
+
+10) Full Intake 
+- Press B, Y, X == Ensure Intake, Magazine, Shooter are running
+- Feed 2-4 balls into intake == Ensure balls pass thru intake, magazine, shooter
+- Press B, Y, X == Intake, Magazine, Shooter stop
 
 
+
+
+
+*) Singulation
+- Press B, Y == Ensure Intake and Magazine are running
+- Feed ball into intake == Ball stops at first smakna in magazine
+- Trigger sensor in trapazoid == Ball moves up to top sensor
+- Trigger sensor in trapazone == Nothing happens
+- Press X == Shooter turns on ---- shoot ball
+- Feed ball into intake == Ball stops at first smakna in magazine
+- Feed ball into intake == Second ball stops at first smakna in magazine
+
+*) Magazine color sensor
+- Set team to Red in Driver Station
+- Press B, Y, X == Ensure Intake, Magazine, Shooter are running
+- Feed in Blue Ball == Slow shot out
+- Feed in Red Ball == Fast shot out
+
+*) Auto move to shadowline
+
+*) Climber Movement
+- Short press D-Pad Up == Climb arms move up
+- Short press D-Pad Down == Climb arms move down
+
+*) Climber Limits
+- Press D-Pad UP == Climber stop at top limit
+- Press D-Pad Down == Climber stops at bottom limit
+
+*) Climber Rotate
+- Short Press D-Pad Left == Climber rotates forward
+- Short Press D-Pad Right == Climber rotates backwards
+
+*) Climber pin
+- Press ?? == Pin releases
