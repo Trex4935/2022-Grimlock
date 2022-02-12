@@ -90,8 +90,12 @@ public final class Constants {
 
     // Motor IDs
     public static final int climbMotorCanID = 0;
-    public static final int rotationmotorCanID = 0;
+    public static final int rotationMotorCanID = 0;
     public static final int pinMotorCanID = 0;
+
+    public static final double pinMotorSpeed = 0.7;
+    public static final double climbRotateSpeed = 0.6;
+    public static final double climbMotorSpeed = 0.6;
 
     // endregion
     // --------------------------------------------------------
