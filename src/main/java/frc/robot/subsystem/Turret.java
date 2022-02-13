@@ -74,17 +74,21 @@ public class Turret extends PIDSubsystem {
   // Moves the rotation motor based on controller input
   public void aimWithController(XboxController controller) {
 
+    // Pull in values from left and right trigger and normalize them
     double triggerValue = (controller.getRawAxis(Constants.leftTrigger) * -1)
         + controller.getRawAxis(Constants.rightTrigger);
 
-    turretRotation.set((triggerValue) / 10);
-
-    if (leftMagLimit.get() == false && (triggerValue) >= 0) {
+    // ensure we stop at the right limit switches
+    if (leftMagLimit.get() == false && (triggerValue) <= 0) {
       turretRotation.stopMotor();
-    } else if (rightMagLimit.get() == false && (triggerValue) <= 0) {
+    } else if (rightMagLimit.get() == false && (triggerValue) >= 0) {
       turretRotation.stopMotor();
     } else {
+      // Divide input by 10 to get a max of 0.1
+      turretRotation.set((triggerValue) * 0.2);
+
     }
+
   }
 
   // Stop the rotation motor

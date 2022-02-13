@@ -85,12 +85,12 @@ public final class Constants {
     public static final int rightTrigger = 3;
 
     // Motor speeds
-    public static double returnToMiddleSpeed = 0.5;
+    public static double returnToMiddleSpeed = 0.1;
 
     // Magnet Limit Switches
-    public static final int leftMagLimitID = 0;
+    public static final int leftMagLimitID = 2;
     public static final int middleMagID = 1;
-    public static final int rightMagLimitID = 2;
+    public static final int rightMagLimitID = 0;
 
     // endregion
     // --------------------------------------------------------
