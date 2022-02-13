@@ -32,6 +32,10 @@ public class Turret extends PIDSubsystem {
     // Init motor
     turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
 
+    leftMagLimit = new DigitalInput(Constants.leftMagLimitID);
+    middleMag = new DigitalInput(Constants.middleMagID);
+    rightMagLimit = new DigitalInput(Constants.rightMagLimitID);
+
   }
 
   // Uses limelight output to move rotation motor directly
@@ -70,9 +74,17 @@ public class Turret extends PIDSubsystem {
   // Moves the rotation motor based on controller input
   public void aimWithController(XboxController controller) {
 
-    double leftTrigger = controller.getRawAxis(Constants.leftTrigger);
-    double rightTrigger = controller.getRawAxis(Constants.rightTrigger) * -1;
-    turretRotation.set((leftTrigger + rightTrigger) / 10);
+    double triggerValue = (controller.getRawAxis(Constants.leftTrigger) * -1)
+        + controller.getRawAxis(Constants.rightTrigger);
+
+    turretRotation.set((triggerValue) / 10);
+
+    if (leftMagLimit.get() == false && (triggerValue) >= 0) {
+      turretRotation.stopMotor();
+    } else if (rightMagLimit.get() == false && (triggerValue) <= 0) {
+      turretRotation.stopMotor();
+    } else {
+    }
   }
 
   // Stop the rotation motor

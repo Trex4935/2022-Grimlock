@@ -63,7 +63,7 @@ public final class Constants {
     public static final double intakeMotorSpeed = 0.5;
 
     // Smakna sensor ids
-    public static final int magazineSensorDIO = 0;
+    public static final int magazineSensorDIO = 3;
 
     // color sensor required value to detect a color
     public static final int sensorRequiredValue = 1000;
@@ -86,6 +86,11 @@ public final class Constants {
 
     // Motor speeds
     public static double returnToMiddleSpeed = 0.5;
+
+    // Magnet Limit Switches
+    public static final int leftMagLimitID = 0;
+    public static final int middleMagID = 1;
+    public static final int rightMagLimitID = 2;
 
     // endregion
     // --------------------------------------------------------
@@ -113,7 +118,7 @@ public final class Constants {
     public static final double h1 = 1;
     public static double shooterA = 1;
     public static double shooterB = 2;
-    public static double shooterSpeed = 0.3;
+    public static double shooterSpeed = 0.8;
 
     // Shooter PID
     public static PID kGains_Velocity_Shooter = new PID(1, 1 / 100, 0, 0); // Good start value per CTRE docs.
