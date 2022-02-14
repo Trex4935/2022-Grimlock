@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
+import frc.robot.extensions.FlippedDIO;
 import frc.robot.extensions.Limelight;
-import edu.wpi.first.wpilibj.DigitalInput;
 
 public class Turret extends PIDSubsystem {
 
@@ -18,9 +18,9 @@ public class Turret extends PIDSubsystem {
   PWMSparkMax turretRotation;
 
   // magnet sensors
-  private static DigitalInput leftMagLimit;
-  private static DigitalInput middleMag;
-  private static DigitalInput rightMagLimit;
+  private static FlippedDIO leftMagLimit;
+  private static FlippedDIO middleMag;
+  private static FlippedDIO rightMagLimit;
 
   /** Creates a new turret. */
   public Turret() {
@@ -32,9 +32,9 @@ public class Turret extends PIDSubsystem {
     // Init motor
     turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
 
-    leftMagLimit = new DigitalInput(Constants.leftMagLimitID);
-    middleMag = new DigitalInput(Constants.middleMagID);
-    rightMagLimit = new DigitalInput(Constants.rightMagLimitID);
+    leftMagLimit = new FlippedDIO(Constants.leftMagLimitID);
+    middleMag = new FlippedDIO(Constants.middleMagID);
+    rightMagLimit = new FlippedDIO(Constants.rightMagLimitID);
 
   }
 
@@ -60,12 +60,12 @@ public class Turret extends PIDSubsystem {
 
     System.out.println(Constants.returnToMiddleSpeed);
 
-    // True and False are inversed
-    if (rightMagLimit.get() == false) {
+    // Need comments here
+    if (rightMagLimit.get() == true) {
       Constants.returnToMiddleSpeed = Constants.returnToMiddleSpeedLeft;
       turretRotation.set(Constants.returnToMiddleSpeed);
       return true;
-    } else if (middleMag.get() == false) {
+    } else if (middleMag.get() == true) {
       Constants.returnToMiddleSpeed = Math.abs(Constants.returnToMiddleSpeed);
       turretRotation.set(0);
       return false;
