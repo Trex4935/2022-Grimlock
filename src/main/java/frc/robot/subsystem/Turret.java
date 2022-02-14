@@ -58,9 +58,11 @@ public class Turret extends PIDSubsystem {
   // When the rotation motor reaches the middle it will stop moving.
   public boolean returnToMiddle() {
 
+    System.out.println(Constants.returnToMiddleSpeed);
+
     // True and False are inversed
     if (rightMagLimit.get() == false) {
-      Constants.returnToMiddleSpeed = Math.abs(Constants.returnToMiddleSpeed * -1);
+      Constants.returnToMiddleSpeed = Constants.returnToMiddleSpeedLeft;
       turretRotation.set(Constants.returnToMiddleSpeed);
       return true;
     } else if (middleMag.get() == false) {
@@ -68,7 +70,6 @@ public class Turret extends PIDSubsystem {
       turretRotation.set(0);
       return false;
     } else {
-      Constants.returnToMiddleSpeed = Math.abs(Constants.returnToMiddleSpeed);
       turretRotation.set(Constants.returnToMiddleSpeed);
       return false;
     }

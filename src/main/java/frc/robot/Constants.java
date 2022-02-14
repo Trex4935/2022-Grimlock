@@ -59,7 +59,7 @@ public final class Constants {
     public static final int magazineMotor1CanID = 1;
 
     // Motor speeds
-    public static final double magazineMotorSpeed = 0.8;
+    public static final double magazineMotorSpeed = 0.5;
     public static final double intakeMotorSpeed = 0.5;
 
     // Smakna sensor ids
@@ -86,6 +86,7 @@ public final class Constants {
 
     // Motor speeds
     public static double returnToMiddleSpeed = 0.1;
+    public static final double returnToMiddleSpeedLeft = returnToMiddleSpeed * -1;
 
     // Magnet Limit Switches
     public static final int leftMagLimitID = 2;
@@ -118,7 +119,7 @@ public final class Constants {
     public static final double h1 = 1;
     public static double shooterA = 1;
     public static double shooterB = 2;
-    public static double shooterSpeed = 0.8;
+    public static double shooterSpeed = 0.3;
 
     // Shooter PID
     public static PID kGains_Velocity_Shooter = new PID(1, 1 / 100, 0, 0); // Good start value per CTRE docs.
