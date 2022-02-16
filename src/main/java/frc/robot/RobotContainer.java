@@ -72,6 +72,9 @@ public class RobotContainer {
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
     xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
+     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
+     xbox_y.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
+
     // xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     // xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));
 
