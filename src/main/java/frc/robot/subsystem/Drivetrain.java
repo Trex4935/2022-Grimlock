@@ -147,6 +147,10 @@ public class Drivetrain extends SubsystemBase {
     }
   }
 
+  public void moveForwardStrait() {
+    drive.tankDrive(Constants.autoLeftSpeed, Constants.autoRightSpeed);
+  }
+
   // Stop the center motors
   public void stopMiddleDriveMotors() {
     middleLeft.stopMotor();

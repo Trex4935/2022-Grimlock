@@ -15,6 +15,7 @@ import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_motorClimbDown;
 import frc.robot.commands.c_motorClimbUp;
+import frc.robot.commands.c_moveForwardStrait;
 import frc.robot.commands.c_readSensor;
 import frc.robot.commands.c_redBlueDecision;
 import frc.robot.commands.c_returnToMiddle;
@@ -72,14 +73,17 @@ public class RobotContainer {
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
     xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
-     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-     xbox_y.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
+    xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
+    xbox_y.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
 
     // xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     // xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));
 
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
+    xbox_a.toggleWhenPressed(new c_moveForwardStrait(drive).withTimeout(Constants.straitTime));
+
+    // xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
+    // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
     xbox_x.toggleWhenPressed(new c_shootBall(shooter));
@@ -100,8 +104,8 @@ public class RobotContainer {
     //
     // A - Return turret to middle
     // B - Toggle Intake
-    // X - Tooggle shooter
-    // Y - Toggle Magazine
+    // X - Toggle shooter
+    // Y - Toggle Limelight targeting
     //
     // LT - Move turret Left
     // RT - Move turret Right

@@ -38,10 +38,14 @@ public final class Constants {
     public static final int rightHorizontal = 4;
 
     // DriveTrain limits
-    public static double driveSpeedLimit = 0.75;
+    public static final double driveSpeedLimit = 0.75;
 
-    public static double outsideRampLimiter = 0.75;
-    public static double middleRampLimiter = 1.25;
+    public static final double outsideRampLimiter = 0.75;
+    public static final double middleRampLimiter = 1.25;
+
+    public static final double autoLeftSpeed = 0.5;
+    public static final double autoRightSpeed = 0.5;
+    public static final double straitTime = 3.5;
 
     public static final NeutralMode outsideBrakeMode = NeutralMode.Brake;
     public static final NeutralMode middleBreakMode = NeutralMode.Coast;
