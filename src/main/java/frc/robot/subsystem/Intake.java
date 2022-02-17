@@ -124,27 +124,35 @@ public class Intake extends SubsystemBase {
   public boolean readProxColorSensor() {
     double prox_value = sensor2.getProximity();
     if (prox_value > Constants.proxSensorMin && prox_value < Constants.proxSensorMax) {
+      magazineMotorStop();
       return true;
     }
     return false;
   }
 
-  // Get the value of the magazine sensor
-  public boolean getMagazineSensor() {
-    boolean a = magazineSensor1DIO.get();
-    return (!a);
+  // Get the value of smakna 1
+  public boolean getMagazineSensor1DIO() {
+    return magazineSensor1DIO.get();
+  }
+
+  // Get the value of smakna 2
+  public boolean getMagazineSensor2DIO() {
+    return magazineSensor2DIO.get();
+  }
+
+  // Get the value of smakna 3
+  public boolean getMagazineSensor3DIO() {
+    return magazineSensor3DIO.get();
   }
 
   // When the magazine sensor sees a ball run the HB
-  public boolean singulateBall() {
-    if (getMagazineSensor() && readProxColorSensor() == true) {
+  public void singulateBall() {
+    if ((getMagazineSensor1DIO() || getMagazineSensor2DIO() || getMagazineSensor3DIO())
+        && readProxColorSensor() == true) {
 
       intakeMotorStop();
-      magazineMotorStop();
 
-      return true;
     }
-    return false;
   }
 
   @Override
