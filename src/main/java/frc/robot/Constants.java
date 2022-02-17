@@ -63,7 +63,9 @@ public final class Constants {
     public static final double intakeMotorSpeed = 0.5;
 
     // Smakna sensor ids
-    public static final int magazineSensorDIO = 3;
+    public static final int magazineSensor1DIO = 3;
+    public static final int magazineSensor2DIO = 4;
+    public static final int magazineSensor3DIO = 5;
 
     // color sensor required value to detect a color
     public static final int sensorRequiredValue = 1000;
