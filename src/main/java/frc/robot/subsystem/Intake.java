@@ -66,11 +66,11 @@ public class Intake extends SubsystemBase {
   }
 
   // run magazine motor
-  // public void runMagazineMotors() {
+  public void runMagazineMotors() {
 
-  // magazineMotor.set(Constants.magazineMotorSpeed);
+    magazineMotor.set(Constants.magazineMotorSpeed);
 
-  // }
+  }
 
   // stop intake motor
   public void intakeMotorStop() {
@@ -127,6 +127,7 @@ public class Intake extends SubsystemBase {
       magazineMotorStop();
       return true;
     }
+    runMagazineMotors();
     return false;
   }
 
@@ -153,6 +154,7 @@ public class Intake extends SubsystemBase {
       intakeMotorStop();
 
     }
+    runIntakeMotor();
   }
 
   @Override
