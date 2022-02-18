@@ -74,6 +74,11 @@ public final class Constants {
     public static final int proxSensorMax = 0;
     public static final int proxSensorMin = 0;
 
+    // Shooter magazine prerequisites
+    public static final double limelightRange = 0.1; // !! PLACEHOLDER VALUE !!
+    public static final double shooterSpeedRange = 0.1; // !! PLACEHOLDER VALUE !!
+    public static boolean readyToShoot = false;
+
     // endregion
     // --------------------------------------------------------
 
