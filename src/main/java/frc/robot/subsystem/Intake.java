@@ -9,11 +9,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
+import frc.robot.extensions.FlippedDIO;
 import frc.robot.extensions.multiplexedColorSensor;
 
 public class Intake extends SubsystemBase {
@@ -25,7 +25,9 @@ public class Intake extends SubsystemBase {
   private multiplexedColorSensor sensor2;
 
   // magazine smacna
-  private static DigitalInput magazineSensor;
+  private static FlippedDIO magazineSensor1DIO;
+  private static FlippedDIO magazineSensor2DIO;
+  private static FlippedDIO magazineSensor3DIO;
 
   // initializing the color sensor table
   public NetworkTable color_table;
@@ -43,7 +45,9 @@ public class Intake extends SubsystemBase {
     magazineMotor = new WPI_TalonFX(Constants.magazineMotor1CanID);
     magazineMotor.setInverted(true);
 
-    magazineSensor = new DigitalInput(Constants.magazineSensorDIO);
+    magazineSensor1DIO = new FlippedDIO(Constants.magazineSensor1DIO);
+    magazineSensor2DIO = new FlippedDIO(Constants.magazineSensor2DIO);
+    magazineSensor3DIO = new FlippedDIO(Constants.magazineSensor3DIO);
 
     sensor2 = new multiplexedColorSensor(I2C.Port.kOnboard, 4);
 
@@ -105,13 +109,13 @@ public class Intake extends SubsystemBase {
     // switch statement to decide what to do depending on ball color
     switch (color) {
       case NONE:
-        return 0.6;
+        return 0.5;
       case RED:
-        return 0.8;
+        return 0.7;
       case BLUE:
-        return 0.4;
+        return 0.3;
       default:
-        return 0.6;
+        return 0.5;
     }
 
   }
@@ -127,7 +131,7 @@ public class Intake extends SubsystemBase {
 
   // Get the value of the magazine sensor
   public boolean getMagazineSensor() {
-    boolean a = magazineSensor.get();
+    boolean a = magazineSensor1DIO.get();
     return (!a);
   }
 
