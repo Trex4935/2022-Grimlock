@@ -10,6 +10,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
@@ -59,18 +60,13 @@ public class Intake extends SubsystemBase {
 
   // eun intake motor
   public void runIntakeMotor() {
-
     intakeMotor.set(Constants.intakeMotorSpeed);
-    magazineMotor.set(Constants.magazineMotorSpeed);
-
   }
 
   // run magazine motor
-  // public void runMagazineMotors() {
-
-  // magazineMotor.set(Constants.magazineMotorSpeed);
-
-  // }
+  public void runMagazineMotors() {
+    magazineMotor.set(Constants.magazineMotorSpeed);
+  }
 
   // stop intake motor
   public void intakeMotorStop() {
@@ -85,11 +81,11 @@ public class Intake extends SubsystemBase {
 
   public BallColor readSensor() {
     // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue());
-    if (sensor2.getRed() > Constants.sensorRequiredValue && sensor2.getBlue() < Constants.sensorRequiredValue) {
+    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue());
+    if (sensor2.getRed() > Constants.sensorRequiredValue) {
       // System.out.println("Red");
       return BallColor.RED;
-    } else if (sensor2.getBlue() > Constants.sensorRequiredValue && sensor2.getRed() < Constants.sensorRequiredValue) {
-      // System.out.println("Blue");
+    } else if (sensor2.getBlue() > Constants.sensorRequiredValue) {
       return BallColor.BLUE;
     } else {
       // System.out.println("X");
@@ -109,12 +105,16 @@ public class Intake extends SubsystemBase {
     // switch statement to decide what to do depending on ball color
     switch (color) {
       case NONE:
+        // System.out.println("NONE");
         return 0.5;
       case RED:
+        // System.out.println("REEEDDDDDDDDDD");
         return 0.7;
       case BLUE:
+        // System.out.println("blueblueblueblueblueblueblueblueblue");
         return 0.3;
       default:
+        // System.out.println("defaultdefault");
         return 0.5;
     }
 
@@ -123,28 +123,42 @@ public class Intake extends SubsystemBase {
   // Checks prox. color sens. for its value and if in range, returns true
   public boolean readProxColorSensor() {
     double prox_value = sensor2.getProximity();
-    if (prox_value > Constants.proxSensorMin && prox_value < Constants.proxSensorMax) {
+    // System.out.println(sensor2.getProximity());
+    // System.out.println(readSensor());
+    if (prox_value > Constants.proxSensorMin) {
+
+      // System.out.println("bababa");
+      magazineMotorStop();
       return true;
     }
+    // System.out.println("h");
+    runMagazineMotors();
     return false;
   }
 
-  // Get the value of the magazine sensor
-  public boolean getMagazineSensor() {
-    boolean a = magazineSensor1DIO.get();
-    return (!a);
+  // Get the value of smakna 1
+  public boolean getMagazineSensor1DIO() {
+    return magazineSensor1DIO.get();
+  }
+
+  // Get the value of smakna 2
+  public boolean getMagazineSensor2DIO() {
+    return magazineSensor2DIO.get();
+  }
+
+  // Get the value of smakna 3
+  public boolean getMagazineSensor3DIO() {
+    return magazineSensor3DIO.get();
   }
 
   // When the magazine sensor sees a ball run the HB
-  public boolean singulateBall() {
-    if (getMagazineSensor() && readProxColorSensor() == true) {
-
+  public void singulateBall() {
+    if ((getMagazineSensor1DIO() || getMagazineSensor2DIO() || getMagazineSensor3DIO())
+        && readProxColorSensor() == true) {
       intakeMotorStop();
-      magazineMotorStop();
-
-      return true;
     }
-    return false;
+    runIntakeMotor();
+    readProxColorSensor();
   }
 
   @Override
