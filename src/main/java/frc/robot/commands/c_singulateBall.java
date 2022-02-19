@@ -25,7 +25,6 @@ public class c_singulateBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.readProxColorSensor();
     intake.singulateBall();
   }
 
@@ -33,7 +32,6 @@ public class c_singulateBall extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intake.intakeMotorStop();
-    intake.magazineMotorStop();
   }
 
   // Returns true when the command should end.

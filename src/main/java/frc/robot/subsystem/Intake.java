@@ -61,7 +61,6 @@ public class Intake extends SubsystemBase {
   public void runIntakeMotor() {
 
     intakeMotor.set(Constants.intakeMotorSpeed);
-    magazineMotor.set(Constants.magazineMotorSpeed);
 
   }
 
