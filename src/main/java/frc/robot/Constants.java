@@ -55,7 +55,7 @@ public final class Constants {
     // region Intake
 
     // Motor Can IDs
-    public static final int intakeMotorCanID = 5;
+    public static final int intakeMotorCanID = 3;
     public static final int magazineMotor1CanID = 1;
 
     // Motor speeds
@@ -71,8 +71,11 @@ public final class Constants {
     public static final int sensorRequiredValue = 1000;
 
     // prox sensor max and min values for ball detection
-    public static final int proxSensorMax = 0;
-    public static final int proxSensorMin = 0;
+
+    // 55-65 without ball
+    // 598 with ball at color sensor
+    public static final int proxSensorMax = 600;
+    public static final int proxSensorMin = 100;
 
     // endregion
     // --------------------------------------------------------
@@ -121,7 +124,7 @@ public final class Constants {
     public static final double h1 = 1;
     public static double shooterA = 1;
     public static double shooterB = 2;
-    public static double shooterSpeed = 0.8;
+    public static double shooterSpeed = 0.3;
 
     // Shooter PID
     public static PID kGains_Velocity_Shooter = new PID(1, 1 / 100, 0, 0); // Good start value per CTRE docs.

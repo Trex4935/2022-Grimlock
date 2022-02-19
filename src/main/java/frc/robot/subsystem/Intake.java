@@ -69,7 +69,6 @@ public class Intake extends SubsystemBase {
   public void runMagazineMotors() {
 
     magazineMotor.set(Constants.magazineMotorSpeed);
-
   }
 
   // stop intake motor
@@ -109,12 +108,16 @@ public class Intake extends SubsystemBase {
     // switch statement to decide what to do depending on ball color
     switch (color) {
       case NONE:
+        // System.out.println("NONE");
         return 0.5;
       case RED:
+        // System.out.println("REEEDDDDDDDDDD");
         return 0.7;
       case BLUE:
+        // System.out.println("blueblueblueblueblueblueblueblueblue");
         return 0.3;
       default:
+        // System.out.println("defaultdefault");
         return 0.5;
     }
 
@@ -123,10 +126,13 @@ public class Intake extends SubsystemBase {
   // Checks prox. color sens. for its value and if in range, returns true
   public boolean readProxColorSensor() {
     double prox_value = sensor2.getProximity();
+    System.out.println(sensor2.getProximity());
     if (prox_value > Constants.proxSensorMin && prox_value < Constants.proxSensorMax) {
+      System.out.println("bababa");
       magazineMotorStop();
       return true;
     }
+    System.out.println("h");
     runMagazineMotors();
     return false;
   }
