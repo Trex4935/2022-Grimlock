@@ -68,13 +68,13 @@ public final class Constants {
     public static final int magazineSensor3DIO = 5;
 
     // color sensor required value to detect a color
-    public static final int sensorRequiredValue = 1000;
+    public static final int sensorRequiredValue = 400;
 
     // prox sensor max and min values for ball detection
 
     // 55-65 without ball
-    // 598 with ball at color sensor
-    public static final int proxSensorMax = 600;
+    // 598 with ball at color sensor or 1800
+    public static final int proxSensorMax = 2000;
     public static final int proxSensorMin = 100;
 
     // endregion
