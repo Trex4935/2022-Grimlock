@@ -37,7 +37,7 @@ public class RobotContainer {
   private static XboxController controller = new XboxController(0);
 
   // button variables for the controller
-  private JoystickButton xbox_b, xbox_a, xbox_y, xbox_x;
+  private JoystickButton xbox_a, xbox_x; // xbox_y xbox_b
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
   public RobotContainer() {
