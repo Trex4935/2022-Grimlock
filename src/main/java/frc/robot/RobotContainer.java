@@ -5,27 +5,19 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_motorClimbDown;
 import frc.robot.commands.c_motorClimbUp;
-import frc.robot.commands.c_readSensor;
-import frc.robot.commands.c_redBlueDecision;
 import frc.robot.commands.c_returnToMiddle;
 import frc.robot.commands.c_rotateClimbLeft;
 import frc.robot.commands.c_rotateClimbRight;
-import frc.robot.commands.c_runIntakeMotor;
-import frc.robot.commands.c_runMagazineMotors;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
-import frc.robot.commands.c_turnOnSimpleAutoAim;
-import frc.robot.extensions.Limelight;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;

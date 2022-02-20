@@ -6,7 +6,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.extensions.Limelight;
 
 public class Robot extends TimedRobot {
