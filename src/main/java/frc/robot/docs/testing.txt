@@ -8,16 +8,14 @@
 - Left stick left and right == moves robot side to side 
 -- Validate brake mode
 
-3) Intake
-- Press B on controller == Intake turns on
--- Verify direction of intake roller
--- Leave Intake running
+3) Magazine/Intake
+- Enable robot == Magazine and Intake start
+- Feed in single ball == Moves up to color sensor; magazine stops
+- Feed in second ball == Intake stops
 
-4) Magazine
-- Press Y on controller == Magazine turns on Intake stays on
--- Verify direction of Magazine
--- Press B on controller == verify intake turns off
--- Press Y on controller == verify magazine turns off
+XX) Intake Override
+- Press ?? == Intake and Magazine stop
+- Press ?? == Intake and Magazine start
 
 5) Turret moves
 - Short pull on left and right triggers == Make sure turret moves left and right
@@ -43,23 +41,12 @@
 - Press X == ensure that shooter turns on
 - Press X == ensure that shooter turns off
 
-10) Full Intake 
-- Press B, Y, X == Ensure Intake, Magazine, Shooter are running
-- Feed 2-4 balls into intake == Ensure balls pass thru intake, magazine, shooter
-- Press B, Y, X == Intake, Magazine, Shooter stop
 
 
 
 
 
-*) Singulation
-- Press B, Y == Ensure Intake and Magazine are running
-- Feed ball into intake == Ball stops at first smakna in magazine
-- Trigger sensor in trapazoid == Ball moves up to top sensor
-- Trigger sensor in trapazone == Nothing happens
-- Press X == Shooter turns on ---- shoot ball
-- Feed ball into intake == Ball stops at first smakna in magazine
-- Feed ball into intake == Second ball stops at first smakna in magazine
+
 
 *) Magazine color sensor
 - Set team to Red in Driver Station
