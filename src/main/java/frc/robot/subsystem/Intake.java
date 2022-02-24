@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.commands.c_shootBall;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.FlippedDIO;
 import frc.robot.extensions.Limelight;
@@ -81,7 +82,7 @@ public class Intake extends SubsystemBase {
             .getSelectedSensorVelocity() >= -(redBlueDecision(readSensor()) + Constants.shooterSpeedRange))) {
 
       Constants.readyToShoot = true;
-
+      
     }
 
     else {
