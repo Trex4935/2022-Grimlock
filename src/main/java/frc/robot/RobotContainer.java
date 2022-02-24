@@ -18,6 +18,7 @@ import frc.robot.commands.c_rotateClimbLeft;
 import frc.robot.commands.c_rotateClimbRight;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
+import frc.robot.commands.c_turnOnSimpleAutoAim;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
@@ -37,14 +38,14 @@ public class RobotContainer {
   private static XboxController controller = new XboxController(0);
 
   // button variables for the controller
-  private JoystickButton xbox_a, xbox_x; // xbox_y xbox_b
+  private JoystickButton xbox_a, xbox_x, xbox_y; // xbox_b
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
   public RobotContainer() {
     // Setup default drive controls
     drive.setDefaultCommand(new c_driveWithController(drive, controller));
     turret.setDefaultCommand(new c_aimWithController(turret, controller));
-    intake.setDefaultCommand(new c_singulateBall(intake));
+    // intake.setDefaultCommand(new c_singulateBall(intake));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -65,8 +66,8 @@ public class RobotContainer {
     // xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
     // xbox_b.toggleWhenPressed(new c_singulateBall(intake));
 
-    // xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    // xbox_y.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
+    xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
+    xbox_y.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
 
     // xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     // xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));

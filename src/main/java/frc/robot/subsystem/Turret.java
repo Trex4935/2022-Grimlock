@@ -47,7 +47,7 @@ public class Turret extends PIDSubsystem {
     } else if (rightMagLimit.get() == true && (Limelight.getLimelightX() / 270) >= 0) {
       turretRotation.set(0);
     } else {
-      turretRotation.set(Limelight.getLimelightX() / 270);
+      turretRotation.set(Limelight.getLimelightX() / 155);
     }
   }
 
@@ -58,7 +58,7 @@ public class Turret extends PIDSubsystem {
   // When the rotation motor reaches the middle it will stop moving.
   public boolean returnToMiddle() {
 
-    System.out.println(Constants.returnToMiddleSpeed);
+    // System.out.println(Constants.returnToMiddleSpeed);
 
     // Need comments here
     if (rightMagLimit.get() == true) {
