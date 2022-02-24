@@ -75,8 +75,8 @@ public final class Constants {
     public static final int proxSensorMin = 0;
 
     // Shooter magazine prerequisites
-    public static final double limelightRange = 0.1; // !! PLACEHOLDER VALUE !!
-    public static final double shooterSpeedRange = 0.1; // !! PLACEHOLDER VALUE !!
+    public static final double limelightRange = 3; // !! PLACEHOLDER VALUE !!
+    public static final double shooterSpeedRange = 0.3; // !! PLACEHOLDER VALUE !!
     public static boolean readyToShoot = false;
 
     // endregion
@@ -106,7 +106,7 @@ public final class Constants {
     // region Climber
 
     // Motor IDs
-    public static final int climbMotorCanID = 0;
+    public static final int climbMotorCanID = 21;
     public static final int rotationMotorCanID = 0;
     public static final int pinMotorCanID = 0;
 
@@ -118,7 +118,7 @@ public final class Constants {
     // --------------------------------------------------------
 
     // region Shooter
-    public static final int shooterMotorCanID = 21;
+    public static final int shooterMotorCanID = 11;
 
     // Distance Estimation
     public static final double h2 = 2;
@@ -126,7 +126,7 @@ public final class Constants {
     public static final double h1 = 1;
     public static double shooterA = 1;
     public static double shooterB = 2;
-    public static double shooterSpeed = 0.8;
+    public static double shooterSpeed = 0.2;
 
     // Shooter PID
     public static PID kGains_Velocity_Shooter = new PID(1, 1 / 100, 0, 0); // Good start value per CTRE docs.

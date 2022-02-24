@@ -82,7 +82,7 @@ public class Intake extends SubsystemBase {
             .getSelectedSensorVelocity() >= -(redBlueDecision(readSensor()) + Constants.shooterSpeedRange))) {
 
       Constants.readyToShoot = true;
-      
+
     }
 
     else {
@@ -94,11 +94,11 @@ public class Intake extends SubsystemBase {
   }
 
   // run magazine motor
-  // public void runMagazineMotors() {
+  public void runMagazineMotors() {
 
-  // magazineMotor.set(Constants.magazineMotorSpeed);
+    magazineMotor.set(Constants.magazineMotorSpeed);
 
-  // }
+  }
 
   // stop intake motor
   public void intakeMotorStop() {

@@ -27,14 +27,13 @@ public class c_runIntakeMotor extends CommandBase {
   public void execute() {
 
     intake.runIntakeMotor();
-
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     intake.intakeMotorStop();
-    intake.magazineMotorStop();
   }
 
   // Returns true when the command should end.
