@@ -55,8 +55,8 @@ public final class Constants {
     // region Intake
 
     // Motor Can IDs
-    public static final int intakeMotorCanID = 5;
-    public static final int magazineMotor1CanID = 1;
+    public static final int intakeMotorCanID = 2;
+    public static final int magazineMotor1CanID = 5;
 
     // Motor speeds
     public static final double magazineMotorSpeed = 0.5;
@@ -104,7 +104,7 @@ public final class Constants {
     // region Climber
 
     // Motor IDs
-    public static final int climbMotorCanID = 0;
+    public static final int climbMotorCanID = 21;
     public static final int rotationMotorCanID = 0;
     public static final int pinMotorCanID = 0;
 
@@ -116,7 +116,7 @@ public final class Constants {
     // --------------------------------------------------------
 
     // region Shooter
-    public static final int shooterMotorCanID = 21;
+    public static final int shooterMotorCanID = 11;
 
     // Distance Estimation
     public static final double h2 = 2;
