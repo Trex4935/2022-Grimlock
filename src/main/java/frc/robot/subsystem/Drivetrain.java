@@ -123,7 +123,7 @@ public class Drivetrain extends SubsystemBase {
 
   // Controls for the outside wheels using built in arcadeDrive
   public void driveWithController(XboxController controller, double speedLimiter) {
-    drive.arcadeDrive(controller.getRawAxis(Constants.rightHorizontal) * speedLimiter,
+    drive.arcadeDrive(controller.getRawAxis(Constants.rightHorizontal) * speedLimiter * -1,
         controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
   }
 

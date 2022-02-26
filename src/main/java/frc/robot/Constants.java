@@ -55,8 +55,8 @@ public final class Constants {
     // region Intake
 
     // Motor Can IDs
-    public static final int intakeMotorCanID = 2;
-    public static final int magazineMotor1CanID = 5;
+    public static final int intakeMotorCanID = 3;
+    public static final int magazineMotor1CanID = 6;
 
     // Motor speeds
     public static final double magazineMotorSpeed = 0.5;
