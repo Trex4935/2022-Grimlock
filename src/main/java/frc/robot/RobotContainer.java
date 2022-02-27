@@ -5,27 +5,22 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.command_archive.c_runMagazineMotors;
 import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_motorClimbDown;
 import frc.robot.commands.c_motorClimbUp;
-import frc.robot.commands.c_readSensor;
-import frc.robot.commands.c_redBlueDecision;
 import frc.robot.commands.c_returnToMiddle;
 import frc.robot.commands.c_rotateClimbLeft;
 import frc.robot.commands.c_rotateClimbRight;
-import frc.robot.commands.c_runIntakeMotor;
-import frc.robot.commands.c_runMagazineMotors;
 import frc.robot.commands.c_shootBall;
+import frc.robot.commands.c_singulateBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
-import frc.robot.extensions.Limelight;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
@@ -45,7 +40,7 @@ public class RobotContainer {
   private static XboxController controller = new XboxController(0);
 
   // button variables for the controller
-  private JoystickButton xbox_b, xbox_a, xbox_y, xbox_x;
+  private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b;
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
   public RobotContainer() {
@@ -53,6 +48,7 @@ public class RobotContainer {
     drive.setDefaultCommand(new c_driveWithController(drive, controller));
     turret.setDefaultCommand(new c_aimWithController(turret, controller));
     // intake.setDefaultCommand(new c_detectShootingReady(intake, shooter));
+    // intake.setDefaultCommand(new c_singulateBall(intake));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -73,6 +69,7 @@ public class RobotContainer {
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
     // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
     xbox_b.toggleWhenPressed(new c_runMagazineMotors(intake));
+    // xbox_b.toggleWhenPressed(new c_singulateBall(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     xbox_y.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
@@ -102,7 +99,7 @@ public class RobotContainer {
     /// CONTROLLER MAP
     //
     // A - Return turret to middle
-    // B - Toggle Intake
+    // B - Toggle Singulation
     // X - Tooggle shooter
     // Y - Toggle Magazine
     //
