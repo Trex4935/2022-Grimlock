@@ -10,7 +10,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.command_archive.c_runIntakeMotor;
+import frc.robot.command_archive.c_runMagazineMotors;
 import frc.robot.commands.c_aimWithController;
+import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_motorClimbDown;
 import frc.robot.commands.c_motorClimbUp;
@@ -46,6 +48,7 @@ public class RobotContainer {
     // Setup default drive controls
     drive.setDefaultCommand(new c_driveWithController(drive, controller));
     turret.setDefaultCommand(new c_aimWithController(turret, controller));
+    // intake.setDefaultCommand(new c_detectShootingReady(intake, shooter));
     // intake.setDefaultCommand(new c_singulateBall(intake));
 
     // Configure the button bindings
@@ -65,8 +68,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
+    // xbox_b.toggleWhenPressed(new c_runMagazineMotors(intake));
     // xbox_b.toggleWhenPressed(new c_singulateBall(intake));
-    xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     xbox_y.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
@@ -78,7 +82,8 @@ public class RobotContainer {
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
-    xbox_x.toggleWhenPressed(new c_shootBall(shooter));
+    // xbox_x.toggleWhenPressed(new c_shootBall(shooter));
+    xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);
     xbox_pov_down.whileHeld(new c_motorClimbDown(climber));

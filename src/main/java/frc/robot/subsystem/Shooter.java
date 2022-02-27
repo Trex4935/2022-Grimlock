@@ -20,13 +20,14 @@ public class Shooter extends SubsystemBase {
     shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
     shooterMotor.setInverted(true);
 
-    //  
+    //
     TalonFXConfiguration config = new TalonFXConfiguration();
     config.supplyCurrLimit.enable = true;
     config.supplyCurrLimit.triggerThresholdCurrent = 40; // the peak supply current, in amps
-    config.supplyCurrLimit.triggerThresholdTime = 1.5; // the time at the peak supply current before the limit triggers, in sec
+    config.supplyCurrLimit.triggerThresholdTime = 1.5; // the time at the peak supply current before the limit triggers,
+                                                       // in sec
     config.supplyCurrLimit.currentLimit = 30; // the current to maintain if the peak supply limit is triggered
-    shooterMotor.configAllSettings(config); // apply the config settings; this selects the quadrature encoder  
+    shooterMotor.configAllSettings(config); // apply the config settings; this selects the quadrature encoder
 
     // Set motor limits
     //// normal output forward and reverse = 0% ... i.e. stopped
@@ -38,7 +39,7 @@ public class Shooter extends SubsystemBase {
     shooterMotor.configPeakOutputReverse(-1, Constants.kTimeoutMs);
 
     // PID configs
-    
+
     // setting up the pid
     shooterMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx,
         Constants.kTimeoutMs);
@@ -51,6 +52,7 @@ public class Shooter extends SubsystemBase {
 
   // runs the turret shooter with a given speed
   public void runShooter(double turretShooterSpeed) {
+
     shooterMotor.set(turretShooterSpeed);
 
   }
@@ -70,12 +72,12 @@ public class Shooter extends SubsystemBase {
 
   // Stop shooter motor
   public double getSpeed() {
-    return 1;//TODO
+    return 1;// TODO
   }
 
   // Stop shooter motor
   public double getPosition() {
-    return 1;//TODO
+    return 1;// TODO
   }
 
   @Override
