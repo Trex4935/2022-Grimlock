@@ -77,6 +77,11 @@ public final class Constants {
     public static final int proxSensorMax = 2000;
     public static final int proxSensorMin = 100;
 
+    // Shooter magazine prerequisites
+    public static final double limelightRange = 3; // !! PLACEHOLDER VALUE !!
+    public static final double shooterSpeedRange = 0.3; // !! PLACEHOLDER VALUE !!
+    public static boolean readyToShoot = false;
+
     // endregion
     // --------------------------------------------------------
 
@@ -104,7 +109,7 @@ public final class Constants {
     // region Climber
 
     // Motor IDs
-    public static final int climbMotorCanID = 0;
+    public static final int climbMotorCanID = 21;
     public static final int rotationMotorCanID = 0;
     public static final int pinMotorCanID = 0;
 
@@ -116,7 +121,7 @@ public final class Constants {
     // --------------------------------------------------------
 
     // region Shooter
-    public static final int shooterMotorCanID = 21;
+    public static final int shooterMotorCanID = 11;
 
     // Distance Estimation
     public static final double h2 = 2;
