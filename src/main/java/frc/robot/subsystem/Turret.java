@@ -47,7 +47,7 @@ public class Turret extends PIDSubsystem {
     } else if (rightMagLimit.get() == true && (Limelight.getLimelightX() / 270) >= 0) {
       turretRotation.set(0);
     } else {
-      turretRotation.set(Limelight.getLimelightX() / 155);
+      turretRotation.set(Limelight.getLimelightX() / 40);
     }
   }
 
