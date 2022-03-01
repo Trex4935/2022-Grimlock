@@ -124,10 +124,10 @@ public final class Constants {
     public static final double pinMotorSpeed = 0.7;
 
     // Magnet Limit Switches
-    public static final int leftClimberMagLimit1ID = 6;
-    public static final int leftClimberMagLimit2ID = 7;
-    public static final int rightClimberMagLimit1ID = 8;
-    public static final int rightClimberMagLimit2ID = 9;
+    public static final int leftClimberMagLimitTopID = 6;
+    public static final int leftClimberMagLimitBottomID = 7;
+    public static final int rightClimberMagLimitTopID = 8;
+    public static final int rightClimberMagLimitBottomID = 9;
 
     // endregion
     // --------------------------------------------------------
