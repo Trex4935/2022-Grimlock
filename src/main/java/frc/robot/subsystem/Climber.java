@@ -47,8 +47,8 @@ public class Climber extends SubsystemBase {
   // inverse if its the wrong way?)
   // then prints what POV direction was pressed
   public void rotateClimbLeft() {
-    climbMotor.setInverted(false);
-    climbMotor.set(Constants.climbRotateSpeed);
+    rotationMotor.setInverted(false);
+    rotationMotor.set(Constants.climbRotateSpeed);
     // System.out.println("left");
   }
 
@@ -56,14 +56,14 @@ public class Climber extends SubsystemBase {
   // inverse if its the wrong way?)
   // then prints what POV direction was pressed
   public void rotateClimbRight() {
-    climbMotor.setInverted(true);
-    climbMotor.set(Constants.climbRotateSpeed);
+    rotationMotor.setInverted(true);
+    rotationMotor.set(Constants.climbRotateSpeed);
     // System.out.println("right");
   }
 
   // Stops the rotating climber motor
   public void stopClimbRotate() {
-    climbMotor.stopMotor();
+    rotationMotor.stopMotor();
   }
 
   // The default climber motor goes up (test for correct direction then change
