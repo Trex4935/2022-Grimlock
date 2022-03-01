@@ -14,13 +14,11 @@ import frc.robot.command_archive.c_runMagazineMotors;
 import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
-import frc.robot.commands.c_elevatorWinchDown;
-import frc.robot.commands.c_elevatorWinchUp;
 import frc.robot.commands.c_motorClimbDown;
 import frc.robot.commands.c_motorClimbUp;
 import frc.robot.commands.c_returnToMiddle;
-import frc.robot.commands.c_rotateClimbLeft;
-import frc.robot.commands.c_rotateClimbRight;
+import frc.robot.commands.c_rotateClimbTowardsShooter;
+import frc.robot.commands.c_rotateClimbTowardsIntake;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
@@ -95,11 +93,11 @@ public class RobotContainer {
 
     xbox_pov_left = new POVButton(controller, 270);
     // xbox_pov_left.whileHeld(new c_rotateClimbLeft(climber));
-    xbox_pov_left.whileHeld(new c_elevatorWinchUp(climber));
+    xbox_pov_left.whileHeld(new c_rotateClimbTowardsShooter(climber));
 
     xbox_pov_right = new POVButton(controller, 90);
     // xbox_pov_right.whileHeld(new c_rotateClimbRight(climber));
-    xbox_pov_right.whileHeld(new c_elevatorWinchDown(climber));
+    xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
 
     /// CONTROLLER MAP
     //
