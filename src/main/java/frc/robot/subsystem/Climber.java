@@ -35,9 +35,7 @@ public class Climber extends SubsystemBase {
 
     // Populate the variables with motor objects with the correct IDs
     climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
-    elevatorWinchMotor = new WPI_TalonFX(Constants.elevatorWinchID);
     rotationMotor = new WPI_TalonSRX(Constants.rotationMotorCanID);
-    pinMotor = new WPI_TalonSRX(Constants.pinMotorCanID);
 
     // Climber Magnet Limits
     leftClimberMagLimitTop = new FlippedDIO(Constants.leftClimberMagLimitTopID);
@@ -53,36 +51,18 @@ public class Climber extends SubsystemBase {
   public void stopAllClimbMotors() {
     climbMotor.stopMotor();
     rotationMotor.stopMotor();
-    pinMotor.stopMotor();
   }
 
-  // Moves the pin motor for a second and then stops it. (might be wonky)
-  public void pinRotate() throws InterruptedException {
-    pinMotor.set(Constants.pinMotorSpeed);
-    wait(1000);
-    pinMotor.stopMotor();
-  }
-
-  public void stopElevatorWinch() {
-    elevatorWinchMotor.stopMotor();
-  }
-
-  // The rotating climber motor goes left (test for correct direction then change
-  // inverse if its the wrong way?)
-  // then prints what POV direction was pressed
-  public void rotateClimbLeft() {
+  // The rotating climber motor movest the arms towards shooter
+  public void rotateClimbTowardsShooter() {
     rotationMotor.setInverted(false);
     rotationMotor.set(Constants.climbRotateSpeed);
-    // System.out.println("left");
   }
 
-  // The rotating climber motor goes right (test for correct direction then change
-  // inverse if its the wrong way?)
-  // then prints what POV direction was pressed
-  public void rotateClimbRight() {
+  // The rotating climber motor moves the arms towards intake
+  public void rotateClimbTowardsIntake() {
     rotationMotor.setInverted(true);
     rotationMotor.set(Constants.climbRotateSpeed);
-    // System.out.println("right");
   }
 
   // Stops the rotating climber motor
@@ -90,23 +70,17 @@ public class Climber extends SubsystemBase {
     rotationMotor.stopMotor();
   }
 
-  // The default climber motor goes up (test for correct direction then change
-  // inverse if its the wrong way?)
-  // then prints what POV direction was pressed
+  // The default climber arms go up
   public void motorClimbUp() {
     climbMotor.setInverted(false);
-    if (leftClimberMagLimitTop.get() == true) {
-      climbMotor.stopMotor();
-      System.out.println(Constants.leftClimberMagLimitTopID);
 
-    } else if (rightClimberMagLimitTop.get() == true) {
+    if (leftClimberMagLimitTop.get() || rightClimberMagLimitTop.get()) {
       climbMotor.stopMotor();
-      System.out.println(Constants.rightClimberMagLimitTopID);
-
+      // System.out.println(Constants.leftClimberMagLimitTopID);
+      // System.out.println(Constants.rightClimberMagLimitTopID);
     } else {
       climbMotor.set(Constants.climbMotorSpeed);
     }
-    // System.out.println("up");
   }
 
   // The default climber motor goes down (test for correct direction then change
@@ -114,14 +88,10 @@ public class Climber extends SubsystemBase {
   // then prints what POV direction was pressed
   public void motorClimbDown() {
     climbMotor.setInverted(true);
-    if (leftClimberMagLimitBottom.get() == true) {
+    if (leftClimberMagLimitBottom.get() || rightClimberMagLimitBottom.get()) {
       climbMotor.stopMotor();
-      System.out.println(Constants.leftClimberMagLimitBottomID);
-
-    } else if (rightClimberMagLimitBottom.get() == true) {
-      climbMotor.stopMotor();
-      System.out.println(Constants.rightClimberMagLimitBottomID);
-
+      // System.out.println(Constants.leftClimberMagLimitBottomID);
+      // System.out.println(Constants.rightClimberMagLimitBottomID);
     } else {
       climbMotor.set(Constants.climbMotorSpeed);
     }

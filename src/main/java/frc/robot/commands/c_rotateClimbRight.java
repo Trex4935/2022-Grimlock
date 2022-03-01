@@ -26,7 +26,7 @@ public class c_rotateClimbRight extends CommandBase {
   @Override
   public void execute() {
 
-    climber.rotateClimbRight();
+    climber.rotateClimbTowardsIntake();
 
   }
 
