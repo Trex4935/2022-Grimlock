@@ -59,10 +59,12 @@ public class Climber extends SubsystemBase {
     rotationMotor.set(Constants.climbRotateSpeed);
   }
 
+
   // The rotating climber motor moves the arms towards intake
   public void rotateClimbTowardsIntake() {
     rotationMotor.setInverted(true);
     rotationMotor.set(Constants.climbRotateSpeed);
+
   }
 
   // Stops the rotating climber motor
