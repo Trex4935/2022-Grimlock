@@ -25,10 +25,10 @@ public class Climber extends SubsystemBase {
   // Declare Sensors
 
   // Climber Magnet Limits
-  private static FlippedDIO leftClimberMagLimit1;
-  private static FlippedDIO leftClimberMagLimit2;
-  private static FlippedDIO rightClimberMagLimit1;
-  private static FlippedDIO rightClimberMagLimit2;
+  private static FlippedDIO leftClimberMagLimitTop;
+  private static FlippedDIO leftClimberMagLimitBottom;
+  private static FlippedDIO rightClimberMagLimitTop;
+  private static FlippedDIO rightClimberMagLimitBottom;
 
   // Construct a climber object
   public Climber() {
@@ -40,10 +40,10 @@ public class Climber extends SubsystemBase {
     pinMotor = new WPI_TalonSRX(Constants.pinMotorCanID);
 
     // Climber Magnet Limits
-    leftClimberMagLimit1 = new FlippedDIO(Constants.leftClimberMagLimit1ID);
-    leftClimberMagLimit2 = new FlippedDIO(Constants.leftClimberMagLimit2ID);
-    rightClimberMagLimit1 = new FlippedDIO(Constants.rightClimberMagLimit1ID);
-    rightClimberMagLimit2 = new FlippedDIO(Constants.rightClimberMagLimit2ID);
+    leftClimberMagLimitTop = new FlippedDIO(Constants.leftClimberMagLimitTopID);
+    leftClimberMagLimitBottom = new FlippedDIO(Constants.leftClimberMagLimitBottomID);
+    rightClimberMagLimitTop = new FlippedDIO(Constants.rightClimberMagLimitTopID);
+    rightClimberMagLimitBottom = new FlippedDIO(Constants.rightClimberMagLimitBottomID);
 
     // Braking Mode
     climbMotor.setNeutralMode(Constants.elevatorBrakeMode);
@@ -61,18 +61,6 @@ public class Climber extends SubsystemBase {
     pinMotor.set(Constants.pinMotorSpeed);
     wait(1000);
     pinMotor.stopMotor();
-  }
-
-  // Elevator Winch, motor goes forward then back
-
-  public void elevatorWinchUp() {
-    elevatorWinchMotor.setInverted(false);
-    elevatorWinchMotor.set(Constants.elevatorWinchSpeed);
-  }
-
-  public void elevatorWinchDown() {
-    elevatorWinchMotor.setInverted(true);
-    elevatorWinchMotor.set(Constants.elevatorWinchSpeed);
   }
 
   public void stopElevatorWinch() {
@@ -107,13 +95,13 @@ public class Climber extends SubsystemBase {
   // then prints what POV direction was pressed
   public void motorClimbUp() {
     climbMotor.setInverted(false);
-    if (leftClimberMagLimit1.get() == true) {
+    if (leftClimberMagLimitTop.get() == true) {
       climbMotor.stopMotor();
-      System.out.println(Constants.leftClimberMagLimit1ID);
+      System.out.println(Constants.leftClimberMagLimitTopID);
 
-    } else if (rightClimberMagLimit1.get() == true) {
+    } else if (rightClimberMagLimitTop.get() == true) {
       climbMotor.stopMotor();
-      System.out.println(Constants.rightClimberMagLimit1ID);
+      System.out.println(Constants.rightClimberMagLimitTopID);
 
     } else {
       climbMotor.set(Constants.climbMotorSpeed);
@@ -126,13 +114,13 @@ public class Climber extends SubsystemBase {
   // then prints what POV direction was pressed
   public void motorClimbDown() {
     climbMotor.setInverted(true);
-    if (leftClimberMagLimit2.get() == true) {
+    if (leftClimberMagLimitBottom.get() == true) {
       climbMotor.stopMotor();
-      System.out.println(Constants.leftClimberMagLimit2ID);
+      System.out.println(Constants.leftClimberMagLimitBottomID);
 
-    } else if (rightClimberMagLimit2.get() == true) {
+    } else if (rightClimberMagLimitBottom.get() == true) {
       climbMotor.stopMotor();
-      System.out.println(Constants.rightClimberMagLimit2ID);
+      System.out.println(Constants.rightClimberMagLimitBottomID);
 
     } else {
       climbMotor.set(Constants.climbMotorSpeed);
