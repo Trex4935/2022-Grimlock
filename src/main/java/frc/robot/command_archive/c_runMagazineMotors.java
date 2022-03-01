@@ -26,15 +26,15 @@ public class c_runMagazineMotors extends CommandBase {
   @Override
   public void execute() {
 
-    intake.runMagazineMotors();
+    // intake.runMagazineMotors();
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.readProxColorSensor();
-    intake.magazineMotorStop();
+    // intake.readProxColorSensor();
+    // intake.magazineMotorStop();
   }
 
   // Returns true when the command should end.
