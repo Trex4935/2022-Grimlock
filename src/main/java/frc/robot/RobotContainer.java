@@ -68,7 +68,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
-    // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
+    xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
     // xbox_b.toggleWhenPressed(new c_runMagazineMotors(intake));
     // xbox_b.toggleWhenPressed(new c_singulateBall(intake));
 
