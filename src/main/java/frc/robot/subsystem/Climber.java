@@ -2,6 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+// MAG LIMIT SWITCHES
+//   left side of robot - 6 + 7
+//   right side of robot - 8 + 9
 package frc.robot.subsystem;
 
 // Imports
@@ -9,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.extensions.FlippedDIO;
 
 public class Climber extends SubsystemBase {
 
@@ -16,17 +20,33 @@ public class Climber extends SubsystemBase {
   WPI_TalonFX climbMotor;
   WPI_TalonSRX rotationMotor;
   WPI_TalonSRX pinMotor;
+  WPI_TalonFX elevatorWinchMotor;
 
   // Declare Sensors
+
+  // Climber Magnet Limits
+  private static FlippedDIO leftClimberMagLimit1;
+  private static FlippedDIO leftClimberMagLimit2;
+  private static FlippedDIO rightClimberMagLimit1;
+  private static FlippedDIO rightClimberMagLimit2;
 
   // Construct a climber object
   public Climber() {
 
     // Populate the variables with motor objects with the correct IDs
     climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
+    elevatorWinchMotor = new WPI_TalonFX(Constants.elevatorWinchID);
     rotationMotor = new WPI_TalonSRX(Constants.rotationMotorCanID);
     pinMotor = new WPI_TalonSRX(Constants.pinMotorCanID);
 
+    // Climber Magnet Limits
+    leftClimberMagLimit1 = new FlippedDIO(Constants.leftClimberMagLimit1ID);
+    leftClimberMagLimit2 = new FlippedDIO(Constants.leftClimberMagLimit2ID);
+    rightClimberMagLimit1 = new FlippedDIO(Constants.rightClimberMagLimit1ID);
+    rightClimberMagLimit2 = new FlippedDIO(Constants.rightClimberMagLimit2ID);
+
+    // Braking Mode
+    climbMotor.setNeutralMode(Constants.elevatorBrakeMode);
   }
 
   // Stop all of the climb motors
@@ -41,6 +61,22 @@ public class Climber extends SubsystemBase {
     pinMotor.set(Constants.pinMotorSpeed);
     wait(1000);
     pinMotor.stopMotor();
+  }
+
+  // Elevator Winch, motor goes forward then back
+
+  public void elevatorWinchUp() {
+    elevatorWinchMotor.setInverted(false);
+    elevatorWinchMotor.set(Constants.elevatorWinchSpeed);
+  }
+
+  public void elevatorWinchDown() {
+    elevatorWinchMotor.setInverted(true);
+    elevatorWinchMotor.set(Constants.elevatorWinchSpeed);
+  }
+
+  public void stopElevatorWinch() {
+    elevatorWinchMotor.stopMotor();
   }
 
   // The rotating climber motor goes left (test for correct direction then change
@@ -71,8 +107,18 @@ public class Climber extends SubsystemBase {
   // then prints what POV direction was pressed
   public void motorClimbUp() {
     climbMotor.setInverted(false);
-    climbMotor.set(Constants.climbMotorSpeed);
-    //System.out.println("up");
+    if (leftClimberMagLimit1.get() == true) {
+      climbMotor.stopMotor();
+      System.out.println(Constants.leftClimberMagLimit1ID);
+
+    } else if (rightClimberMagLimit1.get() == true) {
+      climbMotor.stopMotor();
+      System.out.println(Constants.rightClimberMagLimit1ID);
+
+    } else {
+      climbMotor.set(Constants.climbMotorSpeed);
+    }
+    // System.out.println("up");
   }
 
   // The default climber motor goes down (test for correct direction then change
@@ -80,8 +126,18 @@ public class Climber extends SubsystemBase {
   // then prints what POV direction was pressed
   public void motorClimbDown() {
     climbMotor.setInverted(true);
-    climbMotor.set(Constants.climbMotorSpeed);
-    //System.out.println("down");
+    if (leftClimberMagLimit2.get() == true) {
+      climbMotor.stopMotor();
+      System.out.println(Constants.leftClimberMagLimit2ID);
+
+    } else if (rightClimberMagLimit2.get() == true) {
+      climbMotor.stopMotor();
+      System.out.println(Constants.rightClimberMagLimit2ID);
+
+    } else {
+      climbMotor.set(Constants.climbMotorSpeed);
+    }
+    // System.out.println("down");
   }
 
   // Stops the default climber motor

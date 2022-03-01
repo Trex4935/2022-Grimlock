@@ -2,19 +2,19 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.command_archive;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Intake;
+import frc.robot.subsystem.Climber;
 
-public class c_runMagazineMotors extends CommandBase {
-  private final Intake intake;
+public class c_elevatorWinchUp extends CommandBase {
+  /** Creates a new runIntakeMotors. */
+  private final Climber climber;
 
-  /** Creates a new runMagazineMotors. */
-  public c_runMagazineMotors(Intake it) {
+  public c_elevatorWinchUp(Climber cl) {
     // Use addRequirements() here to declare subsystem dependencies.
-    intake = it;
-    addRequirements(intake);
+    climber = cl;
+    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
@@ -26,15 +26,14 @@ public class c_runMagazineMotors extends CommandBase {
   @Override
   public void execute() {
 
-    // intake.runMagazineMotors();
+    climber.elevatorWinchUp();
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // intake.readProxColorSensor();
-    // intake.magazineMotorStop();
+    climber.stopElevatorWinch();
   }
 
   // Returns true when the command should end.

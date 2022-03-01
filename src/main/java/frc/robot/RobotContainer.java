@@ -14,6 +14,8 @@ import frc.robot.command_archive.c_runMagazineMotors;
 import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
+import frc.robot.commands.c_elevatorWinchDown;
+import frc.robot.commands.c_elevatorWinchUp;
 import frc.robot.commands.c_motorClimbDown;
 import frc.robot.commands.c_motorClimbUp;
 import frc.robot.commands.c_returnToMiddle;
@@ -68,7 +70,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
-    // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
+    xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
     // xbox_b.toggleWhenPressed(new c_runMagazineMotors(intake));
     // xbox_b.toggleWhenPressed(new c_singulateBall(intake));
 
@@ -92,10 +94,12 @@ public class RobotContainer {
     xbox_pov_up.whileHeld(new c_motorClimbUp(climber));
 
     xbox_pov_left = new POVButton(controller, 270);
-    xbox_pov_left.whileHeld(new c_rotateClimbLeft(climber));
+    // xbox_pov_left.whileHeld(new c_rotateClimbLeft(climber));
+    xbox_pov_left.whileHeld(new c_elevatorWinchUp(climber));
 
     xbox_pov_right = new POVButton(controller, 90);
-    xbox_pov_right.whileHeld(new c_rotateClimbRight(climber));
+    // xbox_pov_right.whileHeld(new c_rotateClimbRight(climber));
+    xbox_pov_right.whileHeld(new c_elevatorWinchDown(climber));
 
     /// CONTROLLER MAP
     //
