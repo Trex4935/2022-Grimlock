@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.command_archive.c_runIntakeMotor;
 import frc.robot.command_archive.c_runMagazineMotors;
 import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_detectShootingReady;
@@ -18,6 +17,7 @@ import frc.robot.commands.c_motorClimbDown;
 import frc.robot.commands.c_motorClimbUp;
 import frc.robot.commands.c_returnToMiddle;
 import frc.robot.commands.c_rotateClimbTowardsShooter;
+import frc.robot.commands.c_runIntakeMotor;
 import frc.robot.commands.c_rotateClimbTowardsIntake;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
@@ -48,8 +48,9 @@ public class RobotContainer {
     // Setup default drive controls
     drive.setDefaultCommand(new c_driveWithController(drive, controller));
     turret.setDefaultCommand(new c_aimWithController(turret, controller));
-    // intake.setDefaultCommand(new c_detectShootingReady(intake, shooter));
+    intake.setDefaultCommand(new c_runIntakeMotor(intake));
     // intake.setDefaultCommand(new c_singulateBall(intake));
+    // shooter.setDefaultCommand(new c_detectShootingReady(shooter));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -83,7 +84,7 @@ public class RobotContainer {
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
     // xbox_x.toggleWhenPressed(new c_shootBall(shooter));
-    xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
+    // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);
     xbox_pov_down.whileHeld(new c_motorClimbDown(climber));

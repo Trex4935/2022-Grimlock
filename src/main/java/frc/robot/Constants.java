@@ -77,11 +77,6 @@ public final class Constants {
     public static final int proxSensorMax = 2000;
     public static final int proxSensorMin = 100;
 
-    // Shooter magazine prerequisites
-    public static final double limelightRange = 3; // !! PLACEHOLDER VALUE !!
-    public static final double shooterSpeedRange = 0.3; // !! PLACEHOLDER VALUE !!
-    public static boolean readyToShoot = false;
-
     // endregion
     // --------------------------------------------------------
 
@@ -147,6 +142,9 @@ public final class Constants {
     public static PID kGains_Velocity_Shooter = new PID(1, 1 / 100, 0, 0); // Good start value per CTRE docs.
     public static int kTimeoutMs = 20;
     public static int kPIDLoopIdx = 0;
+
+    // Shooter magazine prerequisites
+    public static boolean shooterToSpeed = false;
 
     // endregion
     // --------------------------------------------------------

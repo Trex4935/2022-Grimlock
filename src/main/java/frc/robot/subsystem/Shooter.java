@@ -51,9 +51,14 @@ public class Shooter extends SubsystemBase {
   }
 
   // runs the turret shooter with a given speed
-  public void runShooter(double turretShooterSpeed) {
-
+  public boolean runShooter(double turretShooterSpeed) {
     shooterMotor.set(turretShooterSpeed);
+    if ((shooterMotor.getSelectedSensorVelocity() >= (turretShooterSpeed - 0.1))
+        && (shooterMotor.getSelectedSensorVelocity() <= (turretShooterSpeed + 0.1))) {
+      return Constants.shooterToSpeed = true;
+    } else {
+      return Constants.shooterToSpeed = false;
+    }
 
   }
 
@@ -70,12 +75,10 @@ public class Shooter extends SubsystemBase {
     shooterMotor.stopMotor();
   }
 
-  // Stop shooter motor
   public double getSpeed() {
     return 1;// TODO
   }
 
-  // Stop shooter motor
   public double getPosition() {
     return 1;// TODO
   }
