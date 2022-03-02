@@ -136,16 +136,16 @@ public class Intake extends SubsystemBase {
     switch (color) {
       case NONE:
         // System.out.println("NONE");
-        return 0.5;
+        return 0.2;
       case RED:
-        // System.out.println("REEEDDDDDDDDDD");
-        return 0.7;
+        System.out.println("RED");
+        return 0.4;
       case BLUE:
-        // System.out.println("blueblueblueblueblueblueblueblueblue");
+        System.out.println("BLUE");
         return 0.3;
       default:
         // System.out.println("defaultdefault");
-        return 0.5;
+        return 0.4;
     }
 
   }

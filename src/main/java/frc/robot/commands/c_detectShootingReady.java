@@ -29,10 +29,14 @@ public class c_detectShootingReady extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.detectShootingReady();
-    if (Constants.readyToShoot == true) {
-      shooter.runShooter(Constants.shooterSpeed);
-    }
+    // Run shooter motor at correct speed
+    shooter.runShooter(intake.redBlueDecision(intake.readSensor()));
+    Constants.readyToShoot = true;
+
+    // get shoot speed
+    // get on target
+    // run mag -- to shoot ball
+
   }
 
   // Called once the command ends or is interrupted.
