@@ -84,7 +84,7 @@ public class RobotContainer {
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
     // xbox_x.toggleWhenPressed(new c_shootBall(shooter));
-    xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
+    // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);
     xbox_pov_down.whileHeld(new c_motorClimbDown(climber));
