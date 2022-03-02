@@ -12,7 +12,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.c_shootBall;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.FlippedDIO;
 import frc.robot.extensions.Limelight;
@@ -22,7 +21,6 @@ public class Intake extends SubsystemBase {
 
   WPI_TalonFX intakeMotor;
   WPI_TalonFX magazineMotor;
-  WPI_TalonFX shooterMotor;
 
   // intake color sensor
   private multiplexedColorSensor sensor2;
@@ -58,9 +56,6 @@ public class Intake extends SubsystemBase {
     NetworkTable color_table = inst.getTable("Intake");
     received_color = color_table.getEntry("color");
 
-    // shooter motor required for magazine logic
-    shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
-
   }
 
   // eun intake motor
@@ -68,33 +63,21 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(Constants.intakeMotorSpeed);
   }
 
-  // Sets readyToShoot to true or false depending on if the limelight and shooter
-  // speed is within a certain range
-  // !! CURRENTLY NOT BEING USED OR RAN ANYWHERE !!
-  public void detectShootingReady() {
-    if ((Limelight.getLimelightX() <= Constants.limelightRange)
-        && (Limelight.getLimelightX() >= -Constants.limelightRange)
-        && (shooterMotor.getSelectedSensorVelocity() <= (redBlueDecision(readSensor()) + Constants.shooterSpeedRange))
-        && (shooterMotor
-            .getSelectedSensorVelocity() >= -(redBlueDecision(readSensor()) + Constants.shooterSpeedRange))) {
-
-      Constants.readyToShoot = true;
-
-    }
-
-    else {
-
-      Constants.readyToShoot = false;
-
-    }
-
-  }
-
   // run magazine motor
-  public void runMagazineMotors() {
+  public void runMagazineMotors(boolean bypassProx) {
 
-    magazineMotor.set(Constants.magazineMotorSpeed);
-
+    // bypass proximity sensor and run magazine regardless of there being a ball or
+    // not if shooter is at correct speed and on target
+    if (bypassProx) {
+      magazineMotor.set(Constants.magazineMotorSpeed);
+    } else {
+      // if proximity sensor is not bypassed then stop magazine if a ball is detected
+      if (readProxColorSensor()) {
+        magazineMotor.stopMotor();
+      } else {
+        magazineMotor.set(Constants.magazineMotorSpeed);
+      }
+    }
   }
 
   // stop intake motor
@@ -158,11 +141,11 @@ public class Intake extends SubsystemBase {
     if (prox_value > Constants.proxSensorMin) {
 
       // System.out.println("bababa");
-      magazineMotorStop();
+
       return true;
     }
     // System.out.println("h");
-    runMagazineMotors();
+
     return false;
   }
 
