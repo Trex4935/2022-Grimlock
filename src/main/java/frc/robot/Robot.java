@@ -69,6 +69,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
+    
+    m_robotContainer.configureButtonBindings();
   }
 
   @Override
