@@ -46,9 +46,9 @@ public class RobotContainer {
 
   public RobotContainer() {
     // Setup default drive controls
-    drive.setDefaultCommand(new c_driveWithController(drive, controller));
-    turret.setDefaultCommand(new c_aimWithController(turret, controller));
-    intake.setDefaultCommand(new c_runIntakeMotor(intake));
+    // drive.setDefaultCommand(new c_driveWithController(drive, controller));
+    // turret.setDefaultCommand(new c_aimWithController(turret, controller));
+    // intake.setDefaultCommand(new c_runIntakeMotor(intake));
     // intake.setDefaultCommand(new c_singulateBall(intake));
     // shooter.setDefaultCommand(new c_detectShootingReady(shooter));
 
@@ -74,7 +74,7 @@ public class RobotContainer {
     // xbox_b.toggleWhenPressed(new c_singulateBall(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    xbox_y.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
+    xbox_y.toggleWhenPressed(new c_rotateClimbTowardsIntake(climber));
 
     // xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     // xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));
@@ -83,7 +83,7 @@ public class RobotContainer {
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
-    // xbox_x.toggleWhenPressed(new c_shootBall(shooter));
+    xbox_x.toggleWhenPressed(new c_rotateClimbTowardsShooter(climber));
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);
@@ -92,11 +92,11 @@ public class RobotContainer {
     xbox_pov_up = new POVButton(controller, 0);
     xbox_pov_up.whileHeld(new c_motorClimbUp(climber));
 
-    xbox_pov_left = new POVButton(controller, 270);
-    xbox_pov_left.whileHeld(new c_rotateClimbTowardsShooter(climber));
+    // xbox_pov_left = new POVButton(controller, 270);
+    // xbox_pov_left.whileHeld(new c_rotateClimbTowardsShooter(climber));
 
-    xbox_pov_right = new POVButton(controller, 90);
-    xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
+    // xbox_pov_right = new POVButton(controller, 90);
+    // xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
 
     /// CONTROLLER MAP
     //
