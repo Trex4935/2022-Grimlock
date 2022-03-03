@@ -16,6 +16,7 @@ import frc.robot.commands.c_driveStraightAuto;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_readSensor;
 import frc.robot.commands.c_redBlueDecision;
+import frc.robot.commands.c_releaseIntake;
 import frc.robot.commands.c_returnToMiddle;
 import frc.robot.commands.c_runIntakeMotor;
 import frc.robot.commands.c_runMagazineMotors;
@@ -41,6 +42,7 @@ public class RobotContainer {
   private JoystickButton xbox_b, xbox_a, xbox_y, xbox_x;
 
   c_driveStraightAuto auto;
+  c_releaseIntake releaseIntake;
 
   public RobotContainer() {
     // Setup default drive controls
@@ -81,6 +83,6 @@ public class RobotContainer {
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
   public Command getAutonomousCommand() {
-    return auto.withTimeout(10);
+    return releaseIntake.andThen(auto.withTimeout(10)) ;
   }
 }
