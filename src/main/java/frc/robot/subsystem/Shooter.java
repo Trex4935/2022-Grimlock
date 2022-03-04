@@ -4,8 +4,10 @@
 
 package frc.robot.subsystem;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
+import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,6 +15,7 @@ import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
 
+  TalonFXSensorCollection shooter_Encoder;
   WPI_TalonFX shooterMotor;
 
   /** Creates a new Shooter. */
@@ -20,18 +23,17 @@ public class Shooter extends SubsystemBase {
     shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
     shooterMotor.setInverted(true);
 
+    shooter_Encoder = shooterMotor.getSensorCollection();
+
     //
     TalonFXConfiguration config = new TalonFXConfiguration();
     initMotorController(config);
   }
 
   private void initMotorController(TalonFXConfiguration config) {
-    config.supplyCurrLimit.enable = true;
-    config.supplyCurrLimit.triggerThresholdCurrent = 40; // the peak supply current, in amps
-    config.supplyCurrLimit.triggerThresholdTime = 1.5; // the time at the peak supply current before the limit triggers,
-                                                       // in sec
-    config.supplyCurrLimit.currentLimit = 30; // the current to maintain if the peak supply limit is triggered
-    shooterMotor.configAllSettings(config); // apply the config settings; this selects the quadrature encoder
+
+    shooterMotor.configFactoryDefault();
+    shooterMotor.setNeutralMode(NeutralMode.Coast);
 
     // Set motor limits
     //// normal output forward and reverse = 0% ... i.e. stopped
@@ -52,6 +54,8 @@ public class Shooter extends SubsystemBase {
     shooterMotor.config_kI(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkI(), Constants.kTimeoutMs);
     shooterMotor.config_kD(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkD(), Constants.kTimeoutMs);
     shooterMotor.config_kF(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkF(), Constants.kTimeoutMs);
+
+    shooterMotor.config_IntegralZone(Constants.kPIDLoopIdx, 0, Constants.kTimeoutMs);
   }
 
   // runs the turret shooter with a given speed
