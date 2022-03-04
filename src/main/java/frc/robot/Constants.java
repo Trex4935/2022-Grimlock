@@ -22,6 +22,11 @@ import frc.robot.extensions.PID;
  */
 public final class Constants {
 
+    ///////////////////////////////////////////////////////////
+    public static final boolean testingControlMode = true;
+    // public static final String controlMode = "Testing";
+    ///////////////////////////////////////////////////////////
+
     // region DriveTrain
 
     // Motor IDs
@@ -108,21 +113,17 @@ public final class Constants {
 
     // Motor IDs
     public static final int climbMotorCanID = 21;
-    public static final int elevatorWinchID = 4;
-    public static final int rotationMotorCanID = 0;
-    public static final int pinMotorCanID = 0;
+    public static final int rotationMotorCanID = 4;
 
     // Motor Speeds
     public static final double climbMotorSpeed = 0.8;
-    public static final double elevatorWinchSpeed = 0.8;
-    public static final double climbRotateSpeed = 0.6;
-    public static final double pinMotorSpeed = 0.7;
+    public static final double climbRotateSpeed = 0.8;
 
     // Magnet Limit Switches
-    public static final int leftClimberMagLimitTopID = 6;
-    public static final int leftClimberMagLimitBottomID = 7;
-    public static final int rightClimberMagLimitTopID = 8;
-    public static final int rightClimberMagLimitBottomID = 9;
+    public static final int leftClimberMagLimitTopID = 7;
+    public static final int leftClimberMagLimitBottomID = 6;
+    public static final int rightClimberMagLimitTopID = 9;
+    public static final int rightClimberMagLimitBottomID = 8;
 
     // endregion
     // --------------------------------------------------------

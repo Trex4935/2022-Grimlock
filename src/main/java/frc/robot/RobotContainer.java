@@ -45,16 +45,31 @@ public class RobotContainer {
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
   public RobotContainer() {
-    // Setup default drive controls
-    drive.setDefaultCommand(new c_driveWithController(drive, controller));
-    turret.setDefaultCommand(new c_aimWithController(turret, controller));
-    intake.setDefaultCommand(new c_runIntakeMotor(intake));
-    // intake.setDefaultCommand(new c_singulateBall(intake));
-    // shooter.setDefaultCommand(new c_detectShootingReady(shooter));
 
-    // Configure the button bindings
-    initButtonBindings();
+    // load control profile based on if we are in testing or competition mode
+    if (Constants.testingControlMode) {
+      // Setup default drive controls
+      // drive.setDefaultCommand(new c_driveWithController(drive, controller));
+      // turret.setDefaultCommand(new c_aimWithController(turret, controller));
+      // intake.setDefaultCommand(new c_runIntakeMotor(intake));
+      // intake.setDefaultCommand(new c_singulateBall(intake));
+      // shooter.setDefaultCommand(new c_detectShootingReady(shooter));
 
+      // Configure the button bindings
+      configureButtonBindingsTesting();
+
+    } else {
+
+      // Setup default drive controls
+      drive.setDefaultCommand(new c_driveWithController(drive, controller));
+      turret.setDefaultCommand(new c_aimWithController(turret, controller));
+      // intake.setDefaultCommand(new c_runIntakeMotor(intake));
+      intake.setDefaultCommand(new c_singulateBall(intake));
+      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret));
+
+      // Configure the button bindings
+      configureButtonBindingsCompetition();
+    }
   }
 
   /**
@@ -66,9 +81,49 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
 
-  private void initButtonBindings() {
+
+  
 
     
+
+  // controller map for competition
+  private void configureButtonBindingsCompetition() {
+
+    /// CONTROLLER MAP
+    //
+    // A -
+    // B -
+    // X -
+    // Y -
+    //
+    // LT -
+    // RT -
+    //
+    // LB -
+    // RB -
+    //
+    // LStick Vertical - Drive forward/backward
+    // LStick Horizontal - H Drive Left/Right (Strafe)
+    // RStick - Rotate left/right
+    //
+    // Start -
+    // Select -
+    //
+    // D-Pad
+    // Up -
+    // Right -
+    // Down -
+    // Left -
+    //
+    /// END MAP
+
+  }
+
+  // controller map for testing the robot
+  private void configureButtonBindingsTesting() {
+
+  }
+  private void initButtonBindings() {
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
     
@@ -93,21 +148,24 @@ public class RobotContainer {
     // xbox_b.toggleWhenPressed(new c_runMagazineMotors(intake));
     // xbox_b.toggleWhenPressed(new c_singulateBall(intake));
 
-    xbox_y.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
+    xbox_y.toggleWhenPressed(new c_rotateClimbTowardsIntake(climber));
 
-    // xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    // xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
-    // xbox_x.toggleWhenPressed(new c_shootBall(shooter));
+
+    xbox_x.toggleWhenPressed(new c_rotateClimbTowardsShooter(climber));
+
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down.whileHeld(new c_motorClimbDown(climber));
 
     xbox_pov_up.whileHeld(new c_motorClimbUp(climber));
 
-    xbox_pov_left.whileHeld(new c_rotateClimbTowardsShooter(climber));
+    // LEFT ON CONTROLLER D-PAD
+    // xbox_pov_left.whileHeld(new c_rotateClimbTowardsShooter(climber));
 
-    xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
+    // RIGHT ON CONTROLLER D-PAD
+    // xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
+
 
     /// CONTROLLER MAP
     //
