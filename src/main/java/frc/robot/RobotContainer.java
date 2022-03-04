@@ -45,16 +45,31 @@ public class RobotContainer {
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
   public RobotContainer() {
-    // Setup default drive controls
-    // drive.setDefaultCommand(new c_driveWithController(drive, controller));
-    // turret.setDefaultCommand(new c_aimWithController(turret, controller));
-    // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-    // intake.setDefaultCommand(new c_singulateBall(intake));
-    // shooter.setDefaultCommand(new c_detectShootingReady(shooter));
 
-    // Configure the button bindings
-    configureButtonBindings();
+    // load control profile based on if we are in testing or competition mode
+    if (Constants.testingControlMode) {
+      // Setup default drive controls
+      // drive.setDefaultCommand(new c_driveWithController(drive, controller));
+      // turret.setDefaultCommand(new c_aimWithController(turret, controller));
+      // intake.setDefaultCommand(new c_runIntakeMotor(intake));
+      // intake.setDefaultCommand(new c_singulateBall(intake));
+      // shooter.setDefaultCommand(new c_detectShootingReady(shooter));
 
+      // Configure the button bindings
+      configureButtonBindingsTesting();
+
+    } else {
+
+      // Setup default drive controls
+      drive.setDefaultCommand(new c_driveWithController(drive, controller));
+      turret.setDefaultCommand(new c_aimWithController(turret, controller));
+      // intake.setDefaultCommand(new c_runIntakeMotor(intake));
+      intake.setDefaultCommand(new c_singulateBall(intake));
+      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret));
+
+      // Configure the button bindings
+      configureButtonBindingsCompetition();
+    }
   }
 
   /**
@@ -66,7 +81,41 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
 
-  private void configureButtonBindings() {
+  // controller map for competition
+  private void configureButtonBindingsCompetition() {
+
+    /// CONTROLLER MAP
+    //
+    // A -
+    // B -
+    // X -
+    // Y -
+    //
+    // LT -
+    // RT -
+    //
+    // LB -
+    // RB -
+    //
+    // LStick Vertical - Drive forward/backward
+    // LStick Horizontal - H Drive Left/Right (Strafe)
+    // RStick - Rotate left/right
+    //
+    // Start -
+    // Select -
+    //
+    // D-Pad
+    // Up -
+    // Right -
+    // Down -
+    // Left -
+    //
+    /// END MAP
+
+  }
+
+  // controller map for testing the robot
+  private void configureButtonBindingsTesting() {
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
     xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
