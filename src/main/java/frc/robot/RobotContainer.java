@@ -47,7 +47,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Setup default drive controls
     drive.setDefaultCommand(new c_driveWithController(drive, controller));
-    //turret.setDefaultCommand(new c_aimWithController(turret, controller));
+    // turret.setDefaultCommand(new c_aimWithController(turret, controller));
     // intake.setDefaultCommand(new c_detectShootingReady(intake, shooter));
     // intake.setDefaultCommand(new c_singulateBall(intake));
 
@@ -73,7 +73,7 @@ public class RobotContainer {
     // xbox_b.toggleWhenPressed(new c_singulateBall(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    //xbox_y.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
+    // xbox_y.toggleWhenPressed(new c_turnOnSimpleAutoAim(turret));
 
     // xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     // xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));
@@ -83,7 +83,7 @@ public class RobotContainer {
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
     // xbox_x.toggleWhenPressed(new c_shootBall(shooter));
-    //xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
+    // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);
     xbox_pov_down.whileHeld(new c_motorClimbDown(climber));
