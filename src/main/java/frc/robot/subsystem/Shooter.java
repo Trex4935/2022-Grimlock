@@ -22,6 +22,10 @@ public class Shooter extends SubsystemBase {
 
     //
     TalonFXConfiguration config = new TalonFXConfiguration();
+    initMotorController(config);
+  }
+
+  private void initMotorController(TalonFXConfiguration config) {
     config.supplyCurrLimit.enable = true;
     config.supplyCurrLimit.triggerThresholdCurrent = 40; // the peak supply current, in amps
     config.supplyCurrLimit.triggerThresholdTime = 1.5; // the time at the peak supply current before the limit triggers,
