@@ -1,12 +1,16 @@
-1) Arcade Drive
-- Left stick forward and back == moves robot forward and back 
--- Validate expected brake mode
-- Right stick left and right == rotates robot left and right 
--- Validate brake mode
+# Drive Train #
 
-2) H Drive
+## Arcade Drive ##
+* Left stick forward and back == moves robot forward and back 
+    * Validate expected brake mode
+* Right stick left and right == rotates robot left and right 
+    * Validate brake mode
+
+## H Drive ##
 - Left stick left and right == moves robot side to side 
 -- Validate brake mode
+
+# Magazine & Intake #
 
 3) Magazine/Intake
 - Enable robot == Magazine and Intake start
@@ -16,6 +20,8 @@
 XX) Intake Override
 - Press ?? == Intake and Magazine stop
 - Press ?? == Intake and Magazine start
+
+# Turret #
 
 5) Turret moves
 - Short pull on left and right triggers == Make sure turret moves left and right
@@ -37,11 +43,32 @@ XX) Intake Override
 -- check left and right limits
 - Press right bumper == turret should stop following target
 
+# Shooter #
+
 9) Manual Shooter
 - Press X == ensure that shooter turns on
 - Press X == ensure that shooter turns off
 
+# Climber #
 
+## Limit Switches ##
+* Run arms up slowly == they should stop at limit
+* Run arms down slowly == they should stop at limit
+
+## Arm Rotation ##
+* Rotate Arms == Ensure they go forward and back
+    * NO LIMIT SWITCHES HERE BE CAREFUL
+
+## Retract Intake ##
+
+## Climb Mid Rung ##
+* Place robot under mid rung
+* Extend arms upward
+* Drive forward and hook bar
+* Lift robot up == static hooks should engage
+
+## Climb High Rung ##
+* 
 
 
 

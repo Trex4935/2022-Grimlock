@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
 import frc.robot.extensions.FlippedDIO;
+import frc.robot.extensions.Helper;
 import frc.robot.extensions.Limelight;
 
 public class Turret extends PIDSubsystem {
@@ -47,8 +48,13 @@ public class Turret extends PIDSubsystem {
     } else if (rightMagLimit.get() == true && (Limelight.getLimelightX() / 270) >= 0) {
       turretRotation.set(0);
     } else {
-      turretRotation.set(Limelight.getLimelightX() / 40);
+      turretRotation.set(Limelight.getLimelightX() / 50);
     }
+  }
+
+  // The limelight's on target > returns true or false
+  public boolean limelightTarget() {
+    return Helper.RangeCompare(2, -2, Limelight.getLimelightX() / 270);
   }
 
   // Returns the rotation motor to the middle by turning it to the right until it
