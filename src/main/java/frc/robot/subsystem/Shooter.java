@@ -4,6 +4,7 @@
 
 package frc.robot.subsystem;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
@@ -32,8 +33,11 @@ public class Shooter extends SubsystemBase {
 
   private void initMotorController(TalonFXConfiguration config) {
 
+    // Config default settings for the motor
     shooterMotor.configFactoryDefault();
-    shooterMotor.setNeutralMode(NeutralMode.Coast);
+
+    // Set motor brake mode
+    shooterMotor.setNeutralMode(NeutralMode.Brake);
 
     // Set motor limits
     //// normal output forward and reverse = 0% ... i.e. stopped
@@ -45,11 +49,11 @@ public class Shooter extends SubsystemBase {
     shooterMotor.configPeakOutputReverse(-1, Constants.kTimeoutMs);
 
     // PID configs
-
     // setting up the pid
     shooterMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx,
         Constants.kTimeoutMs);
 
+    // Set kP(proportional); kI(Integral); kD(differential); kF(FeedForward)
     shooterMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkP(), Constants.kTimeoutMs);
     shooterMotor.config_kI(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkI(), Constants.kTimeoutMs);
     shooterMotor.config_kD(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkD(), Constants.kTimeoutMs);
@@ -58,16 +62,30 @@ public class Shooter extends SubsystemBase {
     shooterMotor.config_IntegralZone(Constants.kPIDLoopIdx, 0, Constants.kTimeoutMs);
   }
 
-  // runs the turret shooter with a given speed
-  public boolean runShooter(double turretShooterSpeed) {
-    shooterMotor.set(turretShooterSpeed);
-    if ((shooterMotor.getSelectedSensorVelocity() >= (turretShooterSpeed - 0.1))
-        && (shooterMotor.getSelectedSensorVelocity() <= (turretShooterSpeed + 0.1))) {
-      return Constants.shooterToSpeed = true;
-    } else {
-      return Constants.shooterToSpeed = false;
-    }
+  // converts the ticks to RPM values
+  public double tickstoRPM(double ticks) {
+    return (ticks * Constants.ticks2RPM);
+  }
 
+  // converts the RPM to ticks values
+  public double rpmtoTicks(double rpm) {
+    return (rpm / Constants.ticks2RPM);
+  }
+
+  // runs an adjusted version of a value set in constants with PID
+  public boolean runShooterPID(double rpm) {
+    double targetTicks = rpmtoTicks(rpm);
+    shooterMotor.set(ControlMode.Velocity, targetTicks);
+    if ((shooterMotor.getSelectedSensorVelocity() >= (targetTicks - 100))
+        && (shooterMotor.getSelectedSensorVelocity() <= (targetTicks + 100))) {
+      // System.out.println("True");
+      return true;
+
+    } else {
+      System.out.println("False");
+      return false;
+
+    }
   }
 
   // Determine motor speed based on distance and linear equation for speed vs

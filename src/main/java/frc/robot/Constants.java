@@ -126,6 +126,9 @@ public final class Constants {
     // region Shooter
     public static final int shooterMotorCanID = 11;
 
+    // conversion factor for the falconFX encoder
+    public static final double ticks2RPM = 600.0 / 2048.0;
+
     // Distance Estimation
     public static final double h2 = 2;
     public static final double angle1 = 1;
@@ -138,9 +141,6 @@ public final class Constants {
     public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.041); // Good start value per CTRE docs.
     public static int kTimeoutMs = 20;
     public static int kPIDLoopIdx = 0;
-
-    // Shooter magazine prerequisites
-    public static boolean shooterToSpeed = false;
 
     // endregion
     // --------------------------------------------------------

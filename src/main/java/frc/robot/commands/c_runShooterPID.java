@@ -6,24 +6,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
-import frc.robot.subsystem.Turret;
 
-public class c_detectShootingReady extends CommandBase {
+public class c_runShooterPID extends CommandBase {
   Shooter shooter;
-  Intake intake;
-  Turret turret;
+  double targetRPM;
 
   /** Creates a new c_shootWithVision. */
-  public c_detectShootingReady(Intake it, Shooter sh, Turret trt) {
+  public c_runShooterPID(Shooter sh, double rpm) {
     // Use addRequirements() here to declare subsystem dependencies.
-    intake = it;
-    addRequirements(intake);
     shooter = sh;
+    targetRPM = rpm;
+
     addRequirements(shooter);
-    turret = trt;
-    addRequirements(turret);
   }
 
   // Called when the command is initially scheduled.
@@ -34,21 +29,13 @@ public class c_detectShootingReady extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if (shooter.runShooterPID(intake.redBlueDecision(intake.readSensor()))) {
-      intake.runMagazineMotors(true);
-    } else {
-      intake.runMagazineMotors(false);
-    }
-
+    shooter.runShooterPID(targetRPM);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
     shooter.stopShooterMotor();
-    intake.magazineMotorStop();
   }
 
   // Returns true when the command should end.
