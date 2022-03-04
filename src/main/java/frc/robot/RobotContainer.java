@@ -46,10 +46,9 @@ public class RobotContainer {
 
   public RobotContainer() {
     // Setup default drive controls
+
     // drive.setDefaultCommand(new c_driveWithController(drive, controller));
     // turret.setDefaultCommand(new c_aimWithController(turret, controller));
-    // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-    // intake.setDefaultCommand(new c_singulateBall(intake));
     // shooter.setDefaultCommand(new c_detectShootingReady(shooter));
 
     // Configure the button bindings
@@ -76,9 +75,6 @@ public class RobotContainer {
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     xbox_y.toggleWhenPressed(new c_rotateClimbTowardsIntake(climber));
 
-    // xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    // xbox_y.toggleWhenPressed(new c_runMagazineMotors(intake));
-
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
 
@@ -92,11 +88,14 @@ public class RobotContainer {
     xbox_pov_up = new POVButton(controller, 0);
     xbox_pov_up.whileHeld(new c_motorClimbUp(climber));
 
-    // xbox_pov_left = new POVButton(controller, 270);
-    // xbox_pov_left.whileHeld(new c_rotateClimbTowardsShooter(climber));
+    //xbox_pov_left = new POVButton(controller, 270);
+    // LEFT ON CONTROLLER D-PAD
+    //xbox_pov_left.whileHeld(new c_rotateClimbTowardsShooter(climber));
 
-    // xbox_pov_right = new POVButton(controller, 90);
-    // xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
+    //xbox_pov_right = new POVButton(controller, 90);
+    // RIGHT ON CONTROLLER D-PAD
+    //xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
+
 
     /// CONTROLLER MAP
     //
