@@ -62,6 +62,7 @@ public final class Constants {
     // Motor Can IDs
     public static final int intakeMotorCanID = 3;
     public static final int magazineMotor1CanID = 6;
+    public static final int intakeRetractionMotorID = 999;
 
     // Motor speeds
     public static final double magazineMotorSpeed = 0.5;
@@ -81,6 +82,10 @@ public final class Constants {
     // 598 with ball at color sensor or 1800
     public static final int proxSensorMax = 2000;
     public static final int proxSensorMin = 100;
+
+    //Configable intake deployment and retraction
+    public static final double retractionRunTime = 2.0;
+    public static final double retractionSpeed = 0.2;
 
     // endregion
     // --------------------------------------------------------

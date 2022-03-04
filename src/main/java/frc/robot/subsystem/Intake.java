@@ -6,11 +6,13 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.FlippedDIO;
@@ -21,6 +23,7 @@ public class Intake extends SubsystemBase {
 
   WPI_TalonFX intakeMotor;
   WPI_TalonFX magazineMotor;
+  WPI_TalonFX intakeRetractionMotor;
 
   // intake color sensor
   private multiplexedColorSensor sensor2;
@@ -45,6 +48,8 @@ public class Intake extends SubsystemBase {
     intakeMotor.setInverted(false);
     magazineMotor = new WPI_TalonFX(Constants.magazineMotor1CanID);
     magazineMotor.setInverted(true);
+    magazineMotor = new WPI_TalonFX(Constants.intakeRetractionMotorID);
+    magazineMotor.setInverted(false);
 
     magazineSensor1DIO = new FlippedDIO(Constants.magazineSensor1DIO);
     magazineSensor2DIO = new FlippedDIO(Constants.magazineSensor2DIO);
@@ -83,6 +88,25 @@ public class Intake extends SubsystemBase {
   // stop intake motor
   public void intakeMotorStop() {
     intakeMotor.stopMotor();
+  }
+
+  public void runIntakeRetractionMotor(boolean retractionState) {
+    if (retractionState) {
+
+      intakeRetractionMotor.set(Constants.retractionSpeed);
+      new WaitCommand(Constants.retractionRunTime);
+      intakeRetractionMotor.set(0);
+      retractionState =! retractionState;
+      
+    }
+    else {
+
+      intakeRetractionMotor.set(-Constants.retractionSpeed);
+      new WaitCommand(Constants.retractionRunTime);
+      intakeRetractionMotor.set(0);
+      retractionState =! retractionState;
+
+    }
   }
 
   // stop magazine motor
