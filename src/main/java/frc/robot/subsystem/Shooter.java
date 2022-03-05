@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
@@ -80,7 +81,7 @@ public class Shooter extends SubsystemBase {
   }
 
   // runs an adjusted version of a value set in constants with PID
-  public boolean runShooterPID(BallColor color, double distance, int allianceColor) {
+  public boolean runShooterPID(BallColor color, double distance, DriverStation.Alliance allianceColor) {
     // switch statement to decide what to do depending on ball color
     // currently placeholder values
     System.out.println(color.toString());
@@ -154,13 +155,13 @@ public class Shooter extends SubsystemBase {
   }
 
   //Determine the right speed setpoint for alliance 
-  public void setSpeedPerColor(double speed,  int alliance ) {
+  public void setSpeedPerColor(double speed,  DriverStation.Alliance alliance ) {
     switch (alliance) {
-      case 1: //Red Alliance
+      case Red: //Red Alliance
         redBallSpeed = speed;
         blueBallSpeed = Constants.shooterLowSpeed;
         break;
-      case 2: //Blue Alliance
+      case Blue: //Blue Alliance
         redBallSpeed = Constants.shooterLowSpeed;
         blueBallSpeed = speed;
         break;
