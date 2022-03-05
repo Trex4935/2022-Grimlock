@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
@@ -21,8 +22,6 @@ public class Shooter extends SubsystemBase {
 
   TalonFXSensorCollection shooter_Encoder;
   WPI_TalonFX shooterMotor;
-  double redBallSpeed;
-  double blueBallSpeed;
 
   /** Creates a new Shooter. */
   public Shooter() {
@@ -34,9 +33,6 @@ public class Shooter extends SubsystemBase {
     //
     TalonFXConfiguration config = new TalonFXConfiguration();
     initMotorController(config);
-    // Settings red and blue balls at a default speed
-    redBallSpeed = Constants.shooterLowSpeed;
-    blueBallSpeed = Constants.shooterLowSpeed;
   }
 
   private void initMotorController(TalonFXConfiguration config) {
@@ -86,11 +82,6 @@ public class Shooter extends SubsystemBase {
     // currently placeholder values
     System.out.println(color.toString());
     double targetTicks;
-    double shooterSpeed;
-
-    // Calculate the right shooter speed, per distance, per alliance.
-    shooterSpeed = getSpeedSetPoint(distance);
-    setSpeedPerColor(shooterSpeed, allianceColor);
 
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
@@ -102,7 +93,10 @@ public class Shooter extends SubsystemBase {
       case RED:
         // System.out.println("RED");
 
-        targetTicks = rpmtoTicks(redBallSpeed);
+        // Determined the # of ticks based on ball color and distance
+        targetTicks = allianceSpeed(BallColor.RED, distance);
+
+        // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // Detect if we are within acceptable speed range
@@ -117,7 +111,10 @@ public class Shooter extends SubsystemBase {
       case BLUE:
         // System.out.println("BLUE");
 
-        targetTicks = rpmtoTicks(blueBallSpeed);
+        // Determined the # of ticks based on ball color and distance
+        targetTicks = allianceSpeed(BallColor.BLUE, distance);
+
+        // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // Detect if we are within acceptable speed range
@@ -133,6 +130,16 @@ public class Shooter extends SubsystemBase {
         // System.out.println("defaultdefault");
         shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
         return false;
+    }
+  }
+
+  private double allianceSpeed(BallColor color, double distance) {
+    if (color == BallColor.RED && Constants.allianceColor == DriverStation.Alliance.Red) {
+      return rpmtoTicks(getSpeedSetPoint(distance));
+    } else if (color == BallColor.BLUE && Constants.allianceColor == DriverStation.Alliance.Blue) {
+      return rpmtoTicks(getSpeedSetPoint(distance));
+    } else {
+      return Constants.shooterLowSpeed;
     }
   }
 
@@ -152,32 +159,6 @@ public class Shooter extends SubsystemBase {
   public double getSpeedSetPoint(double distance) {
     double motorSpeed = Constants.shooterA * distance + Constants.shooterB;
     return motorSpeed;
-  }
-
-  // Determine the right speed setpoint for alliance
-  public void setSpeedPerColor(double speed, DriverStation.Alliance alliance) {
-    switch (alliance) {
-      case Red: // Red Alliance
-        redBallSpeed = speed;
-        blueBallSpeed = Constants.shooterLowSpeed;
-        break;
-      case Blue: // Blue Alliance
-        redBallSpeed = Constants.shooterLowSpeed;
-        blueBallSpeed = speed;
-        break;
-      default:
-        redBallSpeed = Constants.shooterIdleSpeed;
-        blueBallSpeed = Constants.shooterIdleSpeed;
-        break;
-    }
-  }
-
-  public double getSpeed() {
-    return 1;// TODO
-  }
-
-  public double getPosition() {
-    return 1;// TODO
   }
 
   @Override

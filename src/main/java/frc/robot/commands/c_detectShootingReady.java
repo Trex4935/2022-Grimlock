@@ -36,7 +36,10 @@ public class c_detectShootingReady extends CommandBase {
   @Override
   public void execute() {
 
-    if (shooter.runShooterPID(intake.readSensor(),Limelight.getDistance(),Constants.allianceColor)) {
+    // Need a distance check
+    // Need an on target check
+    // Only if all three are true do we shoot
+    if (shooter.runShooterPID(intake.readSensor(), Limelight.getDistance(), Constants.allianceColor)) {
       intake.runMagazineMotors(true);
     } else {
       intake.runMagazineMotors(false);
