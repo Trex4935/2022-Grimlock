@@ -76,7 +76,7 @@ public class Shooter extends SubsystemBase {
   public boolean runShooterPID(BallColor color, double distance, DriverStation.Alliance allianceColor) {
     // switch statement to decide what to do depending on ball color
     // currently placeholder values
-    System.out.println(color.toString());
+    // System.out.println(color.toString());
     double targetTicks;
 
     // Take in Ball Color and process magazine activity and shooter speed
@@ -110,10 +110,12 @@ public class Shooter extends SubsystemBase {
 
         // Determined the # of ticks based on ball color and distance
         targetTicks = allianceSpeed(BallColor.BLUE, distance);
+        System.out.println("----------------");
         System.out.println(targetTicks);
 
         // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
+        System.out.println(shooterMotor.getSelectedSensorVelocity());
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass

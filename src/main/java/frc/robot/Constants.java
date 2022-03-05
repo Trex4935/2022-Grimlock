@@ -149,7 +149,7 @@ public final class Constants {
     public static double shooterSpeed = 0.3;
 
     // Shooter PID
-    public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.041); // Good start value per CTRE docs.
+    public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.044); // Good start value per CTRE docs.
     public static int kTimeoutMs = 20;
     public static int kPIDLoopIdx = 0;
 
