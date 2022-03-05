@@ -133,7 +133,6 @@ public final class Constants {
     public static final double h2 = 2;
     public static final double angle1 = 1;
     public static final double h1 = 1;
-    public static final double shooterIdleSpeed = 3000;
     public static double shooterA = 1;
     public static double shooterB = 2;
     public static double shooterSpeed = 0.3;
@@ -142,6 +141,9 @@ public final class Constants {
     public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.041); // Good start value per CTRE docs.
     public static int kTimeoutMs = 20;
     public static int kPIDLoopIdx = 0;
+
+    // Shooter speeds
+    public static final double shooterIdleSpeed = 3000;
 
     // endregion
     // --------------------------------------------------------
