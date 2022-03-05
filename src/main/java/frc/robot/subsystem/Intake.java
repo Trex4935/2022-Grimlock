@@ -93,15 +93,27 @@ public class Intake extends SubsystemBase {
   }
 
   public BallColor readSensor() {
-    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue());
-    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue());
-    if (sensor2.getRed() > Constants.sensorRequiredValue) {
-      // System.out.println("Red");
-      return BallColor.RED;
-    } else if (sensor2.getBlue() > Constants.sensorRequiredValue) {
-      return BallColor.BLUE;
-    } else {
-      // System.out.println("X");
+    System.out.println(sensor2.getRed() + ";" + sensor2.getBlue() + ";" + sensor2.getGreen());
+
+    // If we detect a ball with the prox sensor determine the color
+    if (readProxColorSensor()) {
+
+      // subtrace the blue channel from the red channel so we know which one we have
+      // more of
+      // if positive == red
+      // if negative == blue
+      double colorCompare = sensor2.getRed() - sensor2.getBlue();
+
+      // determine color based on +/- of value
+      if (colorCompare <= 0) {
+        return BallColor.BLUE;
+      } else {
+        return BallColor.RED;
+      }
+
+    }
+    // since we don't see a ball == NONE
+    else {
       return BallColor.NONE;
     }
   }
