@@ -35,7 +35,7 @@ public class Shooter extends SubsystemBase {
     TalonFXConfiguration config = new TalonFXConfiguration();
     initMotorController(config);
     // Settings red and blue balls at a default speed
-    redBallSpeed  = Constants.shooterLowSpeed;
+    redBallSpeed = Constants.shooterLowSpeed;
     blueBallSpeed = Constants.shooterLowSpeed;
   }
 
@@ -88,9 +88,9 @@ public class Shooter extends SubsystemBase {
     double targetTicks;
     double shooterSpeed;
 
-   //Calculate the right shooter speed, per distance, per alliance.
+    // Calculate the right shooter speed, per distance, per alliance.
     shooterSpeed = getSpeedSetPoint(distance);
-    setSpeedPerColor(shooterSpeed,allianceColor);
+    setSpeedPerColor(shooterSpeed, allianceColor);
 
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
@@ -150,25 +150,28 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getSpeedSetPoint(double distance) {
-    double motorSpeed = Constants.shooterA *distance + Constants.shooterB;
+    double motorSpeed = Constants.shooterA * distance + Constants.shooterB;
     return motorSpeed;
   }
 
-  //Determine the right speed setpoint for alliance 
-  public void setSpeedPerColor(double speed,  DriverStation.Alliance alliance ) {
+  // Determine the right speed setpoint for alliance
+  public void setSpeedPerColor(double speed, DriverStation.Alliance alliance) {
     switch (alliance) {
-      case Red: //Red Alliance
+      case Red: // Red Alliance
         redBallSpeed = speed;
         blueBallSpeed = Constants.shooterLowSpeed;
         break;
-      case Blue: //Blue Alliance
+      case Blue: // Blue Alliance
         redBallSpeed = Constants.shooterLowSpeed;
         blueBallSpeed = speed;
         break;
       default:
+        redBallSpeed = Constants.shooterIdleSpeed;
+        blueBallSpeed = Constants.shooterIdleSpeed;
         break;
     }
   }
+
   public double getSpeed() {
     return 1;// TODO
   }
