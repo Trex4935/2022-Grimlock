@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.extensions.Limelight;
+import frc.robot.Constants;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Turret;
@@ -35,7 +35,10 @@ public class c_detectShootingReady extends CommandBase {
   @Override
   public void execute() {
 
-    if (shooter.runShooterPID(intake.readSensor(), Limelight.getDistance())) {
+    // Need a distance check
+    // Need an on target check
+    // Only if all three are true do we shoot
+    if (shooter.runShooterPID(intake.readSensor(), 120, Constants.allianceColor)) {
       intake.runMagazineMotors(true);
     } else {
       intake.runMagazineMotors(false);
