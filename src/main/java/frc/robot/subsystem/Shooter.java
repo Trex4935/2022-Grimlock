@@ -80,16 +80,16 @@ public class Shooter extends SubsystemBase {
   }
 
   // runs an adjusted version of a value set in constants with PID
-  public boolean runShooterPID(BallColor color, double distance) {
+  public boolean runShooterPID(BallColor color, double distance, int allianceColor) {
     // switch statement to decide what to do depending on ball color
     // currently placeholder values
     System.out.println(color.toString());
     double targetTicks;
     double shooterSpeed;
 
-   //Calculate the right shooter speed, per distance
+   //Calculate the right shooter speed, per distance, per alliance.
     shooterSpeed = getSpeedSetPoint(distance);
-    
+    setSpeedPerColor(shooterSpeed,allianceColor);
 
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
@@ -101,7 +101,7 @@ public class Shooter extends SubsystemBase {
       case RED:
         // System.out.println("RED");
 
-        targetTicks = rpmtoTicks(1000);
+        targetTicks = rpmtoTicks(redBallSpeed);
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // Detect if we are within acceptable speed range
@@ -116,7 +116,7 @@ public class Shooter extends SubsystemBase {
       case BLUE:
         // System.out.println("BLUE");
 
-        targetTicks = rpmtoTicks(3200);
+        targetTicks = rpmtoTicks(blueBallSpeed);
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // Detect if we are within acceptable speed range
@@ -151,6 +151,22 @@ public class Shooter extends SubsystemBase {
   public double getSpeedSetPoint(double distance) {
     double motorSpeed = Constants.shooterA *distance + Constants.shooterB;
     return motorSpeed;
+  }
+
+  //Determine the right speed setpoint for alliance 
+  public void setSpeedPerColor(double speed,  int alliance ) {
+    switch (alliance) {
+      case 1: //Red Alliance
+        redBallSpeed = speed;
+        blueBallSpeed = Constants.shooterLowSpeed;
+        break;
+      case 2: //Blue Alliance
+        redBallSpeed = Constants.shooterLowSpeed;
+        blueBallSpeed = speed;
+        break;
+      default:
+        break;
+    }
   }
   public double getSpeed() {
     return 1;// TODO
