@@ -149,6 +149,7 @@ public final class Constants {
 
     // Shooter speeds
     public static final double shooterIdleSpeed = 3000;
+    public static final double shooterLowSpeed = 1000;
     public static final double shooterRange = 100;
 
     // endregion
