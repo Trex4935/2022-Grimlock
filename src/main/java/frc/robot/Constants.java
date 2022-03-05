@@ -133,6 +133,7 @@ public final class Constants {
     public static final double h2 = 2;
     public static final double angle1 = 1;
     public static final double h1 = 1;
+    public static final double shooterIdleSpeed = 3000;
     public static double shooterA = 1;
     public static double shooterB = 2;
     public static double shooterSpeed = 0.3;

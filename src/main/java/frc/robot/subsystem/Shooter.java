@@ -79,10 +79,12 @@ public class Shooter extends SubsystemBase {
     // currently placeholder values
     System.out.println(color.toString());
 
+    // Take in Ball Color and process magazine activity and shooter speed
+    // Code needs to be here due to handling of the NONE state
     switch (color) {
       case NONE:
         // System.out.println("NONE");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(2000));
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
         return false;
       case RED:
         // System.out.println("RED");
@@ -95,7 +97,6 @@ public class Shooter extends SubsystemBase {
           return true;
 
         } else {
-          System.out.println("False");
           return false;
         }
 
@@ -110,13 +111,12 @@ public class Shooter extends SubsystemBase {
           return true;
 
         } else {
-          System.out.println("False");
           return false;
         }
 
       default:
         // System.out.println("defaultdefault");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(2000));
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
         return false;
     }
 
