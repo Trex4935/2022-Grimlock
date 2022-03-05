@@ -75,18 +75,23 @@ public class Shooter extends SubsystemBase {
   }
 
   // runs an adjusted version of a value set in constants with PID
-  public boolean runShooterPID(BallColor color) {
+  public boolean runShooterPID(BallColor color, double distance) {
     // switch statement to decide what to do depending on ball color
     // currently placeholder values
     System.out.println(color.toString());
     double targetTicks;
+    double shooterSpeed;
+
+   //Calculate the right shooter speed, per distance
+    shooterSpeed = getSpeedSetPoint(distance);
+    
 
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {
       case NONE:
         // System.out.println("NONE");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(shooterSpeed));
         return false;
       case RED:
         // System.out.println("RED");
@@ -120,7 +125,7 @@ public class Shooter extends SubsystemBase {
 
       default:
         // System.out.println("defaultdefault");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(shooterSpeed));
         return false;
     }
   }
@@ -138,6 +143,10 @@ public class Shooter extends SubsystemBase {
     shooterMotor.stopMotor();
   }
 
+  public double getSpeedSetPoint(double distance) {
+    double motorSpeed = Constants.shooterA *distance + Constants.shooterB;
+    return motorSpeed;
+  }
   public double getSpeed() {
     return 1;// TODO
   }
