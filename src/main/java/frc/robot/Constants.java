@@ -143,8 +143,9 @@ public final class Constants {
     public static final double h2 = 2;
     public static final double angle1 = 1;
     public static final double h1 = 1;
-    public static double shooterA = (3300-3100)/(13-9);
-    public static double shooterB = 3100;
+    // RPM = 3.7037 * distance + 2722.2
+    public static double shooterA = 3.7037;
+    public static double shooterB = 2722.2;
     public static double shooterSpeed = 0.3;
 
     // Shooter PID
@@ -154,7 +155,7 @@ public final class Constants {
 
     // Shooter speeds
     public static final double shooterIdleSpeed = 3000;
-    public static final double shooterLowSpeed = 1000;
+    public static final double shooterLowSpeed = 2000;
     public static final double shooterRange = 100;
 
     // endregion

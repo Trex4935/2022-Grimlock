@@ -93,7 +93,8 @@ public class Intake extends SubsystemBase {
   }
 
   public BallColor readSensor() {
-    System.out.println(sensor2.getRed() + ";" + sensor2.getBlue() + ";" + sensor2.getGreen());
+    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue() + ";" +
+    // sensor2.getGreen());
 
     // If we detect a ball with the prox sensor determine the color
     if (readProxColorSensor()) {
@@ -122,28 +123,6 @@ public class Intake extends SubsystemBase {
 
     double x = received_color.getDouble(0.0);
     return x;
-  }
-
-  // determine what to do with ball based on color
-  public double redBlueDecision(BallColor color) {
-
-    // switch statement to decide what to do depending on ball color
-    // currently placeholder values
-    switch (color) {
-      case NONE:
-        // System.out.println("NONE");
-        return 1000;
-      case RED:
-        // System.out.println("RED");
-        return 2000;
-      case BLUE:
-        // System.out.println("BLUE");
-        return 3000;
-      default:
-        // System.out.println("defaultdefault");
-        return 1000;
-    }
-
   }
 
   // Checks prox. color sens. for its value and if in range, returns true

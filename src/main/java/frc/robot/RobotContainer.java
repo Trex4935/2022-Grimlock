@@ -54,7 +54,7 @@ public class RobotContainer {
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
       // intake.setDefaultCommand(new c_singulateBall(intake));
-      // shooter.setDefaultCommand(new c_detectShootingReady(shooter));
+      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret));
 
       // Configure the button bindings
       configureButtonBindingsTesting();
