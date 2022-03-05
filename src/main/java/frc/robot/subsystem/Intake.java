@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.FlippedDIO;
-import frc.robot.extensions.Limelight;
 import frc.robot.extensions.multiplexedColorSensor;
 
 public class Intake extends SubsystemBase {
