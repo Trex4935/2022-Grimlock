@@ -19,13 +19,10 @@ public class c_detectShootingReady extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = it;
     addRequirements(intake);
-    
     shooter = sh;
     addRequirements(shooter);
-    
     turret = trt;
     addRequirements(turret);
-    
   }
 
   // Called when the command is initially scheduled.
@@ -37,7 +34,7 @@ public class c_detectShootingReady extends CommandBase {
   @Override
   public void execute() {
 
-    if (shooter.runShooter(intake.redBlueDecision(intake.readSensor())) && turret.limelightTarget()) {
+    if (shooter.runShooterPID(intake.readSensor())) {
       intake.runMagazineMotors(true);
     } else {
       intake.runMagazineMotors(false);

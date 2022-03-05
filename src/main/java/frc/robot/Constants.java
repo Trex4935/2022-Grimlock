@@ -73,7 +73,7 @@ public final class Constants {
     public static final int magazineSensor3DIO = 5;
 
     // color sensor required value to detect a color
-    public static final int sensorRequiredValue = 400;
+    public static final int sensorRequiredValue = 1000;
 
     // prox sensor max and min values for ball detection
 
@@ -131,6 +131,9 @@ public final class Constants {
     // region Shooter
     public static final int shooterMotorCanID = 11;
 
+    // conversion factor for the falconFX encoder
+    public static final double ticks2RPM = 600.0 / 2048.0;
+
     // Distance Estimation
     public static final double h2 = 2;
     public static final double angle1 = 1;
@@ -140,12 +143,13 @@ public final class Constants {
     public static double shooterSpeed = 0.3;
 
     // Shooter PID
-    public static PID kGains_Velocity_Shooter = new PID(1, 1 / 100, 0, 0); // Good start value per CTRE docs.
+    public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.041); // Good start value per CTRE docs.
     public static int kTimeoutMs = 20;
     public static int kPIDLoopIdx = 0;
 
-    // Shooter magazine prerequisites
-    public static boolean shooterToSpeed = false;
+    // Shooter speeds
+    public static final double shooterIdleSpeed = 3000;
+    public static final double shooterRange = 100;
 
     // endregion
     // --------------------------------------------------------

@@ -18,6 +18,7 @@ import frc.robot.commands.c_motorClimbUp;
 import frc.robot.commands.c_returnToMiddle;
 import frc.robot.commands.c_rotateClimbTowardsShooter;
 import frc.robot.commands.c_runIntakeMotor;
+import frc.robot.commands.c_runShooterPID;
 import frc.robot.commands.c_rotateClimbTowardsIntake;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
@@ -119,17 +120,17 @@ public class RobotContainer {
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
     xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
-    // xbox_b.toggleWhenPressed(new c_runMagazineMotors(intake));
-    // xbox_b.toggleWhenPressed(new c_singulateBall(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    xbox_y.toggleWhenPressed(new c_rotateClimbTowardsIntake(climber));
+    xbox_y.toggleWhenPressed(new c_runShooterPID(shooter, 2000));
+    // xbox_y.toggleWhenPressed(new c_rotateClimbTowardsIntake(climber));
 
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
-    xbox_x.toggleWhenPressed(new c_rotateClimbTowardsShooter(climber));
+    xbox_x.toggleWhenPressed(new c_runShooterPID(shooter, 4000));
+    // xbox_x.toggleWhenPressed(new c_rotateClimbTowardsShooter(climber));
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);
