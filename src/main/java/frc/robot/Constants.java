@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.extensions.PID;
 
 /**
@@ -26,6 +27,10 @@ public final class Constants {
     public static final boolean testingControlMode = true;
     // public static final String controlMode = "Testing";
     ///////////////////////////////////////////////////////////
+
+    // region General
+
+    public static final DriverStation.Alliance allianceColor = DriverStation.getAlliance();
 
     // region DriveTrain
 
