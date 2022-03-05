@@ -95,6 +95,7 @@ public class Shooter extends SubsystemBase {
 
         // Determined the # of ticks based on ball color and distance
         targetTicks = allianceSpeed(BallColor.RED, distance);
+        System.out.println(targetTicks);
 
         // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
@@ -113,6 +114,7 @@ public class Shooter extends SubsystemBase {
 
         // Determined the # of ticks based on ball color and distance
         targetTicks = allianceSpeed(BallColor.BLUE, distance);
+        System.out.println(targetTicks);
 
         // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
@@ -139,7 +141,7 @@ public class Shooter extends SubsystemBase {
     } else if (color == BallColor.BLUE && Constants.allianceColor == DriverStation.Alliance.Blue) {
       return rpmtoTicks(getSpeedSetPoint(distance));
     } else {
-      return Constants.shooterLowSpeed;
+      return rpmtoTicks(Constants.shooterLowSpeed);
     }
   }
 
@@ -157,8 +159,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getSpeedSetPoint(double distance) {
-    double motorSpeed = Constants.shooterA * distance + Constants.shooterB;
-    return motorSpeed;
+    // RPM = 3.7037 * distance + 2722.2
+    return Constants.shooterA * distance + Constants.shooterB;
   }
 
   @Override

@@ -93,7 +93,8 @@ public class Intake extends SubsystemBase {
   }
 
   public BallColor readSensor() {
-    System.out.println(sensor2.getRed() + ";" + sensor2.getBlue() + ";" + sensor2.getGreen());
+    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue() + ";" +
+    // sensor2.getGreen());
 
     // If we detect a ball with the prox sensor determine the color
     if (readProxColorSensor()) {
