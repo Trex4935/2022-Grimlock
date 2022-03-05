@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
+import frc.robot.extensions.Helper;
 
 public class Shooter extends SubsystemBase {
 
@@ -78,6 +79,7 @@ public class Shooter extends SubsystemBase {
     // switch statement to decide what to do depending on ball color
     // currently placeholder values
     System.out.println(color.toString());
+    double targetTicks;
 
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
@@ -89,13 +91,14 @@ public class Shooter extends SubsystemBase {
       case RED:
         // System.out.println("RED");
 
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(1000));
+        targetTicks = rpmtoTicks(1000);
+        shooterMotor.set(ControlMode.Velocity, targetTicks);
 
-        if ((shooterMotor.getSelectedSensorVelocity() >= (rpmtoTicks(1000) - 100))
-            && (shooterMotor.getSelectedSensorVelocity() <= (rpmtoTicks(1000) + 100))) {
-          // System.out.println("True");
+        // Detect if we are within acceptable speed range
+        // Return true or false for usage with the magazine bypass
+        if (Helper.RangeCompare(targetTicks + Constants.shooterRange, targetTicks - Constants.shooterRange,
+            shooterMotor.getSelectedSensorVelocity())) {
           return true;
-
         } else {
           return false;
         }
@@ -103,13 +106,14 @@ public class Shooter extends SubsystemBase {
       case BLUE:
         // System.out.println("BLUE");
 
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(3000));
+        targetTicks = rpmtoTicks(3200);
+        shooterMotor.set(ControlMode.Velocity, targetTicks);
 
-        if ((shooterMotor.getSelectedSensorVelocity() >= (rpmtoTicks(3000) - 100))
-            && (shooterMotor.getSelectedSensorVelocity() <= (rpmtoTicks(3000) + 100))) {
-          // System.out.println("True");
+        // Detect if we are within acceptable speed range
+        // Return true or false for usage with the magazine bypass
+        if (Helper.RangeCompare(targetTicks + Constants.shooterRange, targetTicks - Constants.shooterRange,
+            shooterMotor.getSelectedSensorVelocity())) {
           return true;
-
         } else {
           return false;
         }
@@ -119,7 +123,6 @@ public class Shooter extends SubsystemBase {
         shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
         return false;
     }
-
   }
 
   // Determine motor speed based on distance and linear equation for speed vs
