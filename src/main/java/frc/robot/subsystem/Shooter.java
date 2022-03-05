@@ -18,17 +18,16 @@ import frc.robot.extensions.Helper;
 
 public class Shooter extends SubsystemBase {
 
-  TalonFXSensorCollection shooter_Encoder;
+  // Declare shooter motor
   WPI_TalonFX shooterMotor;
 
   /** Creates a new Shooter. */
   public Shooter() {
+    // Setup the shooter motor
     shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
     shooterMotor.setInverted(true);
 
-    shooter_Encoder = shooterMotor.getSensorCollection();
-
-    //
+    // Setup shooter configuration
     TalonFXConfiguration config = new TalonFXConfiguration();
     initMotorController(config);
   }
@@ -76,15 +75,15 @@ public class Shooter extends SubsystemBase {
 
   // runs an adjusted version of a value set in constants with PID
   public boolean runShooterPID(BallColor color, double distance) {
+
     // switch statement to decide what to do depending on ball color
     // currently placeholder values
     System.out.println(color.toString());
     double targetTicks;
     double shooterSpeed;
 
-   //Calculate the right shooter speed, per distance
+    // Calculate the right shooter speed, per distance
     shooterSpeed = getSpeedSetPoint(distance);
-    
 
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
@@ -144,9 +143,10 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getSpeedSetPoint(double distance) {
-    double motorSpeed = Constants.shooterA *distance + Constants.shooterB;
+    double motorSpeed = Constants.shooterA * distance + Constants.shooterB;
     return motorSpeed;
   }
+
   public double getSpeed() {
     return 1;// TODO
   }
