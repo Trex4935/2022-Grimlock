@@ -35,7 +35,7 @@ public class c_detectShootingReady extends CommandBase {
   @Override
   public void execute() {
 
-    if (shooter.runShooterPID(intake.redBlueDecision(intake.readSensor()))) {
+    if (shooter.runShooterPID(intake.readSensor())) {
       intake.runMagazineMotors(true);
     } else {
       intake.runMagazineMotors(false);

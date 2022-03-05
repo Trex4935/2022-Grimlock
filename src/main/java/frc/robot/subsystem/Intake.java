@@ -71,8 +71,10 @@ public class Intake extends SubsystemBase {
     if (bypassProx) {
       magazineMotor.set(Constants.magazineMotorSpeed);
     } else {
+      // System.out.println("No ByPass");
       // if proximity sensor is not bypassed then stop magazine if a ball is detected
       if (readProxColorSensor()) {
+        // System.out.println("See Ball");
         magazineMotor.stopMotor();
       } else {
         magazineMotor.set(Constants.magazineMotorSpeed);

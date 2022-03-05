@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.extensions.BallColor;
 
 public class Shooter extends SubsystemBase {
 
@@ -73,19 +74,52 @@ public class Shooter extends SubsystemBase {
   }
 
   // runs an adjusted version of a value set in constants with PID
-  public boolean runShooterPID(double rpm) {
-    double targetTicks = rpmtoTicks(rpm);
-    shooterMotor.set(ControlMode.Velocity, targetTicks);
-    if ((shooterMotor.getSelectedSensorVelocity() >= (targetTicks - 100))
-        && (shooterMotor.getSelectedSensorVelocity() <= (targetTicks + 100))) {
-      // System.out.println("True");
-      return true;
+  public boolean runShooterPID(BallColor color) {
+    // switch statement to decide what to do depending on ball color
+    // currently placeholder values
+    System.out.println(color.toString());
 
-    } else {
-      System.out.println("False");
-      return false;
+    switch (color) {
+      case NONE:
+        // System.out.println("NONE");
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(2000));
+        return false;
+      case RED:
+        // System.out.println("RED");
 
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(1000));
+
+        if ((shooterMotor.getSelectedSensorVelocity() >= (rpmtoTicks(1000) - 100))
+            && (shooterMotor.getSelectedSensorVelocity() <= (rpmtoTicks(1000) + 100))) {
+          // System.out.println("True");
+          return true;
+
+        } else {
+          System.out.println("False");
+          return false;
+        }
+
+      case BLUE:
+        // System.out.println("BLUE");
+
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(3000));
+
+        if ((shooterMotor.getSelectedSensorVelocity() >= (rpmtoTicks(3000) - 100))
+            && (shooterMotor.getSelectedSensorVelocity() <= (rpmtoTicks(3000) + 100))) {
+          // System.out.println("True");
+          return true;
+
+        } else {
+          System.out.println("False");
+          return false;
+        }
+
+      default:
+        // System.out.println("defaultdefault");
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(2000));
+        return false;
     }
+
   }
 
   // Determine motor speed based on distance and linear equation for speed vs
