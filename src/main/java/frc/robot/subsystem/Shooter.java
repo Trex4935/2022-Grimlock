@@ -7,7 +7,6 @@ package frc.robot.subsystem;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -18,17 +17,16 @@ import frc.robot.extensions.Helper;
 
 public class Shooter extends SubsystemBase {
 
-  TalonFXSensorCollection shooter_Encoder;
+  // Declare shooter motor
   WPI_TalonFX shooterMotor;
 
   /** Creates a new Shooter. */
   public Shooter() {
+    // Setup the shooter motor
     shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
     shooterMotor.setInverted(true);
 
-    shooter_Encoder = shooterMotor.getSensorCollection();
-
-    //
+    // Setup shooter configuration
     TalonFXConfiguration config = new TalonFXConfiguration();
     initMotorController(config);
   }

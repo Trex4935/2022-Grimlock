@@ -44,6 +44,9 @@ public class c_detectShootingReady extends CommandBase {
       intake.runMagazineMotors(false);
     }
 
+    // Run singulation
+    intake.singulateBall();
+
   }
 
   // Called once the command ends or is interrupted.

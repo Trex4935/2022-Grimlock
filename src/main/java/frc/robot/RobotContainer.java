@@ -48,6 +48,7 @@ public class RobotContainer {
   public RobotContainer() {
 
     // load control profile based on if we are in testing or competition mode
+    /////////// TESTING PROFILE ///////////
     if (Constants.testingControlMode) {
       // Setup default drive controls
       // drive.setDefaultCommand(new c_driveWithController(drive, controller));
@@ -59,8 +60,9 @@ public class RobotContainer {
       // Configure the button bindings
       configureButtonBindingsTesting();
 
-    } else {
-
+    }
+    /////////// COMPETITION PROFILE ///////////
+    else {
       // Setup default drive controls
       drive.setDefaultCommand(new c_driveWithController(drive, controller));
       turret.setDefaultCommand(new c_aimWithController(turret, controller));
@@ -83,6 +85,8 @@ public class RobotContainer {
    */
 
   // controller map for competition
+  /////////// COMPETITION PROFILE ///////////
+
   private void configureButtonBindingsCompetition() {
 
     /// CONTROLLER MAP
@@ -116,10 +120,11 @@ public class RobotContainer {
   }
 
   // controller map for testing the robot
+  /////////// TESTING PROFILE ///////////
   private void configureButtonBindingsTesting() {
 
-    xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
-    xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
+    // xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     xbox_y.toggleWhenPressed(new c_runShooterPID(shooter, 2000));
