@@ -61,7 +61,7 @@ public class RobotContainer {
       configureButtonBindingsTesting();
 
     }
-
+    /////////// COMPETITION PROFILE ///////////
     else {
       // Setup default drive controls
       drive.setDefaultCommand(new c_driveWithController(drive, controller));
@@ -85,6 +85,8 @@ public class RobotContainer {
    */
 
   // controller map for competition
+  /////////// COMPETITION PROFILE ///////////
+
   private void configureButtonBindingsCompetition() {
 
     /// CONTROLLER MAP
@@ -118,6 +120,7 @@ public class RobotContainer {
   }
 
   // controller map for testing the robot
+  /////////// TESTING PROFILE ///////////
   private void configureButtonBindingsTesting() {
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
