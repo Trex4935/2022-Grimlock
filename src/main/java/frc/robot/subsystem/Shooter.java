@@ -91,7 +91,7 @@ public class Shooter extends SubsystemBase {
     switch (color) {
       case NONE:
         // System.out.println("NONE");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(shooterSpeed));
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
         return false;
       case RED:
         // System.out.println("RED");
@@ -125,7 +125,7 @@ public class Shooter extends SubsystemBase {
 
       default:
         // System.out.println("defaultdefault");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(shooterSpeed));
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
         return false;
     }
   }
