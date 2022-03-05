@@ -35,11 +35,14 @@ public class c_detectShootingReady extends CommandBase {
   @Override
   public void execute() {
 
-    if (shooter.runShooterPID(intake.readSensor(),Limelight.getDistance())) {
+    if (shooter.runShooterPID(intake.readSensor(), Limelight.getDistance())) {
       intake.runMagazineMotors(true);
     } else {
       intake.runMagazineMotors(false);
     }
+
+    // Run singulation
+    intake.singulateBall();
 
   }
 

@@ -54,8 +54,8 @@ public class RobotContainer {
       // drive.setDefaultCommand(new c_driveWithController(drive, controller));
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-      intake.setDefaultCommand(new c_singulateBall(intake));
-      // shooter.setDefaultCommand(new c_detectShootingReady(shooter));
+      // intake.setDefaultCommand(new c_singulateBall(intake));
+      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret));
 
       // Configure the button bindings
       configureButtonBindingsTesting();
@@ -123,8 +123,8 @@ public class RobotContainer {
   /////////// TESTING PROFILE ///////////
   private void configureButtonBindingsTesting() {
 
-    xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
-    xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
+    // xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     xbox_y.toggleWhenPressed(new c_runShooterPID(shooter, 2000));
