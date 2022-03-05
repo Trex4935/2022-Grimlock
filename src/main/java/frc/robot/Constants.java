@@ -22,6 +22,11 @@ import frc.robot.extensions.PID;
  */
 public final class Constants {
 
+    ///////////////////////////////////////////////////////////
+    public static final boolean testingControlMode = true;
+    // public static final String controlMode = "Testing";
+    ///////////////////////////////////////////////////////////
+
     // region DriveTrain
 
     // Motor IDs
