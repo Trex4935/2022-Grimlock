@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
@@ -20,6 +21,8 @@ public class Shooter extends SubsystemBase {
 
   TalonFXSensorCollection shooter_Encoder;
   WPI_TalonFX shooterMotor;
+  double redBallSpeed;
+  double blueBallSpeed;
 
   /** Creates a new Shooter. */
   public Shooter() {
@@ -31,6 +34,9 @@ public class Shooter extends SubsystemBase {
     //
     TalonFXConfiguration config = new TalonFXConfiguration();
     initMotorController(config);
+    // Settings red and blue balls at a default speed
+    redBallSpeed  = Constants.shooterLowSpeed;
+    blueBallSpeed = Constants.shooterLowSpeed;
   }
 
   private void initMotorController(TalonFXConfiguration config) {
@@ -75,28 +81,28 @@ public class Shooter extends SubsystemBase {
   }
 
   // runs an adjusted version of a value set in constants with PID
-  public boolean runShooterPID(BallColor color, double distance) {
+  public boolean runShooterPID(BallColor color, double distance, DriverStation.Alliance allianceColor) {
     // switch statement to decide what to do depending on ball color
     // currently placeholder values
     System.out.println(color.toString());
     double targetTicks;
     double shooterSpeed;
 
-   //Calculate the right shooter speed, per distance
+   //Calculate the right shooter speed, per distance, per alliance.
     shooterSpeed = getSpeedSetPoint(distance);
-    
+    setSpeedPerColor(shooterSpeed,allianceColor);
 
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {
       case NONE:
         // System.out.println("NONE");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(shooterSpeed));
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
         return false;
       case RED:
         // System.out.println("RED");
 
-        targetTicks = rpmtoTicks(1000);
+        targetTicks = rpmtoTicks(redBallSpeed);
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // Detect if we are within acceptable speed range
@@ -111,7 +117,7 @@ public class Shooter extends SubsystemBase {
       case BLUE:
         // System.out.println("BLUE");
 
-        targetTicks = rpmtoTicks(3200);
+        targetTicks = rpmtoTicks(blueBallSpeed);
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // Detect if we are within acceptable speed range
@@ -125,7 +131,7 @@ public class Shooter extends SubsystemBase {
 
       default:
         // System.out.println("defaultdefault");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(shooterSpeed));
+        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
         return false;
     }
   }
@@ -146,6 +152,22 @@ public class Shooter extends SubsystemBase {
   public double getSpeedSetPoint(double distance) {
     double motorSpeed = Constants.shooterA *distance + Constants.shooterB;
     return motorSpeed;
+  }
+
+  //Determine the right speed setpoint for alliance 
+  public void setSpeedPerColor(double speed,  DriverStation.Alliance alliance ) {
+    switch (alliance) {
+      case Red: //Red Alliance
+        redBallSpeed = speed;
+        blueBallSpeed = Constants.shooterLowSpeed;
+        break;
+      case Blue: //Blue Alliance
+        redBallSpeed = Constants.shooterLowSpeed;
+        blueBallSpeed = speed;
+        break;
+      default:
+        break;
+    }
   }
   public double getSpeed() {
     return 1;// TODO
