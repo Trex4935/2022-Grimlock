@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.extensions.Limelight;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Turret;
@@ -34,7 +35,7 @@ public class c_detectShootingReady extends CommandBase {
   @Override
   public void execute() {
 
-    if (shooter.runShooterPID(intake.readSensor())) {
+    if (shooter.runShooterPID(intake.readSensor(),Limelight.getDistance())) {
       intake.runMagazineMotors(true);
     } else {
       intake.runMagazineMotors(false);
