@@ -138,8 +138,8 @@ public final class Constants {
     public static final double h2 = 2;
     public static final double angle1 = 1;
     public static final double h1 = 1;
-    public static double shooterA = 1;
-    public static double shooterB = 2;
+    public static double shooterA = (3300-3100)/(13-9);
+    public static double shooterB = 3100;
     public static double shooterSpeed = 0.3;
 
     // Shooter PID
