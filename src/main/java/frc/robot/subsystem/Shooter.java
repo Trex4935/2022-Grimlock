@@ -6,13 +6,11 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
@@ -135,22 +133,20 @@ public class Shooter extends SubsystemBase {
     }
   }
 
+  // determine the shooter speed based on distance ball color and alliance
   private double allianceSpeed(BallColor color, double distance) {
+    // Red & Red == speed by distance
     if (color == BallColor.RED && Constants.allianceColor == DriverStation.Alliance.Red) {
       return rpmtoTicks(getSpeedSetPoint(distance));
-    } else if (color == BallColor.BLUE && Constants.allianceColor == DriverStation.Alliance.Blue) {
+    }
+    // Blue & Blue == speed by distance
+    else if (color == BallColor.BLUE && Constants.allianceColor == DriverStation.Alliance.Blue) {
       return rpmtoTicks(getSpeedSetPoint(distance));
-    } else {
+    }
+    // all other cases low speed shot!
+    else {
       return rpmtoTicks(Constants.shooterLowSpeed);
     }
-  }
-
-  // Determine motor speed based on distance and linear equation for speed vs
-  // distance
-  public void shootBallWithVision(double distance) {
-    // Linear equation relating motor speed to distance
-    double motorSpeed = Constants.shooterA * distance + Constants.shooterB;
-    shooterMotor.set(TalonFXControlMode.Velocity, motorSpeed);
   }
 
   // Stop shooter motor

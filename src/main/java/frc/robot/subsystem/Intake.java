@@ -125,28 +125,6 @@ public class Intake extends SubsystemBase {
     return x;
   }
 
-  // determine what to do with ball based on color
-  public double redBlueDecision(BallColor color) {
-
-    // switch statement to decide what to do depending on ball color
-    // currently placeholder values
-    switch (color) {
-      case NONE:
-        // System.out.println("NONE");
-        return 1000;
-      case RED:
-        // System.out.println("RED");
-        return 2000;
-      case BLUE:
-        // System.out.println("BLUE");
-        return 3000;
-      default:
-        // System.out.println("defaultdefault");
-        return 1000;
-    }
-
-  }
-
   // Checks prox. color sens. for its value and if in range, returns true
   public boolean readProxColorSensor() {
     double prox_value = sensor2.getProximity();
