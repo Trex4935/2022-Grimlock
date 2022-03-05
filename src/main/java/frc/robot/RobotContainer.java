@@ -48,19 +48,21 @@ public class RobotContainer {
   public RobotContainer() {
 
     // load control profile based on if we are in testing or competition mode
+    /////////// TESTING PROFILE ///////////
     if (Constants.testingControlMode) {
       // Setup default drive controls
       // drive.setDefaultCommand(new c_driveWithController(drive, controller));
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-      // intake.setDefaultCommand(new c_singulateBall(intake));
+      intake.setDefaultCommand(new c_singulateBall(intake));
       // shooter.setDefaultCommand(new c_detectShootingReady(shooter));
 
       // Configure the button bindings
       configureButtonBindingsTesting();
 
-    } else {
+    }
 
+    else {
       // Setup default drive controls
       drive.setDefaultCommand(new c_driveWithController(drive, controller));
       turret.setDefaultCommand(new c_aimWithController(turret, controller));

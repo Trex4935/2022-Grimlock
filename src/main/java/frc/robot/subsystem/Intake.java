@@ -93,7 +93,8 @@ public class Intake extends SubsystemBase {
   }
 
   public BallColor readSensor() {
-    System.out.println(sensor2.getRed() + ";" + sensor2.getBlue() + ";" + sensor2.getGreen());
+    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue() + ";" +
+    // sensor2.getGreen());
 
     // If we detect a ball with the prox sensor determine the color
     if (readProxColorSensor()) {
@@ -118,6 +119,7 @@ public class Intake extends SubsystemBase {
     }
   }
 
+  // ????
   public double dash_Color() {
 
     double x = received_color.getDouble(0.0);
@@ -130,13 +132,10 @@ public class Intake extends SubsystemBase {
     // System.out.println(sensor2.getProximity());
     // System.out.println(readSensor());
     if (prox_value > Constants.proxSensorMin) {
-
-      // System.out.println("bababa");
-
+      // System.out.println("BALL");
       return true;
     }
-    // System.out.println("h");
-
+    // System.out.println("NO BALL");
     return false;
   }
 
@@ -157,12 +156,15 @@ public class Intake extends SubsystemBase {
 
   // When the magazine sensor sees a ball run the HB
   public void singulateBall() {
+    // if any of the trap sensors see a ball & we have a ball at the top stop intake
     if ((getMagazineSensor1DIO() || getMagazineSensor2DIO() || getMagazineSensor3DIO())
-        && readProxColorSensor() == true) {
+        && readProxColorSensor()) {
       intakeMotorStop();
     }
-    runIntakeMotor();
-    readProxColorSensor();
+    // else keep the intake running
+    else {
+      runIntakeMotor();
+    }
   }
 
   @Override
