@@ -20,6 +20,8 @@ public class Shooter extends SubsystemBase {
 
   TalonFXSensorCollection shooter_Encoder;
   WPI_TalonFX shooterMotor;
+  double redBallSpeed;
+  double blueBallSpeed;
 
   /** Creates a new Shooter. */
   public Shooter() {
@@ -31,6 +33,9 @@ public class Shooter extends SubsystemBase {
     //
     TalonFXConfiguration config = new TalonFXConfiguration();
     initMotorController(config);
+    // Settings red and blue balls at a default speed
+    redBallSpeed  = Constants.shooterLowSpeed;
+    blueBallSpeed = Constants.shooterLowSpeed;
   }
 
   private void initMotorController(TalonFXConfiguration config) {
