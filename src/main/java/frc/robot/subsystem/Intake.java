@@ -4,6 +4,7 @@
 
 package frc.robot.subsystem;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
@@ -44,17 +45,25 @@ public class Intake extends SubsystemBase {
   // Constructor
   public Intake() {
 
+    // run the intake rollers at the front
     intakeMotor = new WPI_TalonFX(Constants.intakeMotorCanID);
     intakeMotor.setInverted(false);
+
+    // motor to run the magazine belts
     magazineMotor = new WPI_TalonFX(Constants.magazineMotor1CanID);
     magazineMotor.setInverted(true);
-    magazineMotor = new WPI_TalonFX(Constants.intakeRetractionMotorID);
-    magazineMotor.setInverted(false);
 
+    // intake retraction motor
+    intakeRetractionMotor = new WPI_TalonFX(Constants.intakeRetractionMotorID);
+    intakeRetractionMotor.setInverted(false);
+    intakeRetractionMotor.setNeutralMode(NeutralMode.Brake);
+
+    // sensors for the trap portion of the intake
     magazineSensor1DIO = new FlippedDIO(Constants.magazineSensor1DIO);
     magazineSensor2DIO = new FlippedDIO(Constants.magazineSensor2DIO);
     magazineSensor3DIO = new FlippedDIO(Constants.magazineSensor3DIO);
 
+    // color sensor at the top of the magazine
     sensor2 = new multiplexedColorSensor(I2C.Port.kOnboard, 4);
 
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
@@ -90,21 +99,18 @@ public class Intake extends SubsystemBase {
     intakeMotor.stopMotor();
   }
 
-  public void runIntakeRetractionMotor(boolean retractionState) {
-    if (retractionState) {
+  public void runIntakeRetractionMotor() {
+    if (Constants.retractionState) {
 
       intakeRetractionMotor.set(Constants.retractionSpeed);
-      new WaitCommand(Constants.retractionRunTime);
-      intakeRetractionMotor.set(0);
-      retractionState =! retractionState;
-      
-    }
-    else {
+      // new WaitCommand(Constants.retractionRunTime);
+      Constants.retractionState = !Constants.retractionState;
+
+    } else {
 
       intakeRetractionMotor.set(-Constants.retractionSpeed);
-      new WaitCommand(Constants.retractionRunTime);
-      intakeRetractionMotor.set(0);
-      retractionState =! retractionState;
+      // new WaitCommand(Constants.retractionRunTime);
+      Constants.retractionState = !Constants.retractionState;
 
     }
   }
@@ -201,6 +207,11 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  // stop the intake retraction motor
+  public void stopIntakeRetrationMotor() {
+    intakeRetractionMotor.stopMotor();
   }
 
 }

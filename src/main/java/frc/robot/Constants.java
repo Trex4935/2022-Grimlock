@@ -62,7 +62,7 @@ public final class Constants {
     // Motor Can IDs
     public static final int intakeMotorCanID = 3;
     public static final int magazineMotor1CanID = 6;
-    public static final int intakeRetractionMotorID = 999;
+    public static final int intakeRetractionMotorID = 2;
 
     // Motor speeds
     public static final double magazineMotorSpeed = 0.5;
@@ -83,9 +83,9 @@ public final class Constants {
     public static final int proxSensorMax = 2000;
     public static final int proxSensorMin = 100;
 
-    //Configable intake deployment and retraction
+    // Configable intake deployment and retraction
     public static final double retractionRunTime = 2.0;
-    public static final double retractionSpeed = 0.2;
+    public static final double retractionSpeed = 0.5;
 
     // endregion
     // --------------------------------------------------------
@@ -94,6 +94,9 @@ public final class Constants {
 
     // Motor IDs
     public static final int turretRotationPWMID = 0;
+
+    // maintain state of the intake (up or down)
+    public static boolean retractionState = false;
 
     // Xbox controller trigger IDs
     public static final int leftTrigger = 2;
@@ -140,6 +143,7 @@ public final class Constants {
     public static final double h2 = 2;
     public static final double angle1 = 1;
     public static final double h1 = 1;
+
     public static double shooterA = 1;
     public static double shooterB = 2;
     public static double shooterSpeed = 0.3;
