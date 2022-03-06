@@ -57,16 +57,15 @@ public class Turret extends PIDSubsystem {
     return Helper.RangeCompare(2, -2, Limelight.getLimelightX() / 270);
   }
 
-  // Returns the rotation motor to the middle by turning it to the right until it
-  // reaches the middle.
-  // If it rotates all the way to the far right instead the motor will reverse
-  // directions until it reaches the middle.
-  // When the rotation motor reaches the middle it will stop moving.
   public boolean returnToMiddle() {
 
     // System.out.println(Constants.returnToMiddleSpeed);
 
-    // Need comments here
+    // Returns the rotation motor to the middle by turning it to the right until it
+    // reaches the middle.
+    // If it rotates all the way to the far right instead the motor will reverse
+    // directions until it reaches the middle.
+    // When the rotation motor reaches the middle it will stop moving.
     if (rightMagLimit.get() == true) {
       Constants.returnToMiddleSpeed = Constants.returnToMiddleSpeedLeft;
       turretRotation.set(Constants.returnToMiddleSpeed);
