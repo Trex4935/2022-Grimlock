@@ -7,13 +7,16 @@ package frc.robot.subsystem;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.FlippedDIO;
 import frc.robot.extensions.Helper;
 import frc.robot.extensions.Limelight;
 
-public class Turret extends PIDSubsystem {
+public class Turret extends SubsystemBase {
+
+  // PID
+  PIDController turretPID = new PIDController(0.01, 0, 0);
 
   // Motors
   PWMSparkMax turretRotation;
@@ -25,13 +28,16 @@ public class Turret extends PIDSubsystem {
 
   /** Creates a new turret. */
   public Turret() {
-    // The PIDController used by the subsystem
-    super(new PIDController(1, 0, 0));
-    setSetpoint(0);
-    getController().setTolerance(0.05);
+    /*
+     * // The PIDController used by the subsystem
+     * super(new PIDController(.01, 0, 0));
+     * setSetpoint(0);
+     * getController().setTolerance(0.05);
+     */
 
     // Init motor
     turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
+    turretRotation.setInverted(true);
 
     leftMagLimit = new FlippedDIO(Constants.leftMagLimitID);
     middleMag = new FlippedDIO(Constants.middleMagID);
@@ -39,17 +45,24 @@ public class Turret extends PIDSubsystem {
 
   }
 
-  // Uses limelight output to move rotation motor directly
-  // Uses magnets to detect if it is and prevent it from rotating too far left or
-  // right
-  public void turnOnSimpleAutoAim() {
-    if (leftMagLimit.get() == true && (Limelight.getLimelightX() / 270) <= 0) {
-      turretRotation.set(0);
-    } else if (rightMagLimit.get() == true && (Limelight.getLimelightX() / 270) >= 0) {
-      turretRotation.set(0);
+  // If the turret PID goes over 20% (.2 or -.2), bring it back to 20%
+  public double turretThreshold() {
+    double motorOutput = turretPID.calculate(Limelight.getLimelightX(), 0);
+    if (Helper.RangeCompare(.2, -.2, motorOutput)) {
+      return motorOutput;
     } else {
-      turretRotation.set(Limelight.getLimelightX() / 50);
+      if (motorOutput < 0) {
+        return -0.2;
+      } else {
+        return 0.2;
+      }
     }
+  }
+
+  // Using PID values, the turret autolocks on a target and turns based off of
+  // where the target is
+  public void turnOnPIDAutoAim() {
+    turretRotation.set(turretThreshold());
   }
 
   // The limelight's on target > returns true or false
@@ -105,19 +118,6 @@ public class Turret extends PIDSubsystem {
     turretRotation.stopMotor();
   }
 
-  @Override
-  public void useOutput(double output, double setpoint) {
-    // Use output to take action on the turret motor (i.e. make it move)
-    turretRotation.set(output);
-  }
-
-  @Override
-  public double getMeasurement() {
-    // gather and return the value that will be used to calculate the PID (i.e.
-    // sensor output)
-    double angle = Limelight.getLimelightX() / 270;
-    return angle;
-  }
 }
 
 // hello
