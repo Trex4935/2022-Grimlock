@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.FlippedDIO;
+import frc.robot.extensions.multiplexedColorSensor;
 
 public class Climber extends SubsystemBase {
 
@@ -29,6 +30,9 @@ public class Climber extends SubsystemBase {
   private static FlippedDIO leftClimberMagLimitBottom;
   private static FlippedDIO rightClimberMagLimitTop;
   private static FlippedDIO rightClimberMagLimitBottom;
+
+  // climber color sensor
+  private multiplexedColorSensor climberColorSensor;
 
   // Construct a climber object
   public Climber() {
@@ -58,7 +62,6 @@ public class Climber extends SubsystemBase {
     rotationMotor.setInverted(false);
     rotationMotor.set(Constants.climbRotateSpeed);
   }
-
 
   // The rotating climber motor moves the arms towards intake
   public void rotateClimbTowardsIntake() {
@@ -98,6 +101,13 @@ public class Climber extends SubsystemBase {
       climbMotor.set(Constants.climbMotorSpeed);
     }
     // System.out.println("down");
+  }
+
+  public boolean readClimberColorSensor() {
+    if (){
+      return true;
+    }
+    return false;
   }
 
   // Stops the default climber motor
