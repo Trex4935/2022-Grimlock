@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.FlippedDIO;
-import frc.robot.extensions.Limelight;
 import frc.robot.extensions.multiplexedColorSensor;
 
 public class Intake extends SubsystemBase {
@@ -85,8 +84,10 @@ public class Intake extends SubsystemBase {
     if (bypassProx) {
       magazineMotor.set(Constants.magazineMotorSpeed);
     } else {
+      // System.out.println("No ByPass");
       // if proximity sensor is not bypassed then stop magazine if a ball is detected
       if (readProxColorSensor()) {
+        // System.out.println("See Ball");
         magazineMotor.stopMotor();
       } else {
         magazineMotor.set(Constants.magazineMotorSpeed);
@@ -123,45 +124,37 @@ public class Intake extends SubsystemBase {
   }
 
   public BallColor readSensor() {
-    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue());
-    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue());
-    if (sensor2.getRed() > Constants.sensorRequiredValue) {
-      // System.out.println("Red");
-      return BallColor.RED;
-    } else if (sensor2.getBlue() > Constants.sensorRequiredValue) {
-      return BallColor.BLUE;
-    } else {
-      // System.out.println("X");
+    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue() + ";" +
+    // sensor2.getGreen());
+
+    // If we detect a ball with the prox sensor determine the color
+    if (readProxColorSensor()) {
+
+      // subtrace the blue channel from the red channel so we know which one we have
+      // more of
+      // if positive == red
+      // if negative == blue
+      double colorCompare = sensor2.getRed() - sensor2.getBlue();
+
+      // determine color based on +/- of value
+      if (colorCompare <= 0) {
+        return BallColor.BLUE;
+      } else {
+        return BallColor.RED;
+      }
+
+    }
+    // since we don't see a ball == NONE
+    else {
       return BallColor.NONE;
     }
   }
 
+  // ????
   public double dash_Color() {
 
     double x = received_color.getDouble(0.0);
     return x;
-  }
-
-  // determine what to do with ball based on color
-  public double redBlueDecision(BallColor color) {
-
-    // switch statement to decide what to do depending on ball color
-    // currently placeholder values
-    switch (color) {
-      case NONE:
-        // System.out.println("NONE");
-        return 0.2;
-      case RED:
-        System.out.println("RED");
-        return 0.4;
-      case BLUE:
-        System.out.println("BLUE");
-        return 0.3;
-      default:
-        // System.out.println("defaultdefault");
-        return 0.4;
-    }
-
   }
 
   // Checks prox. color sens. for its value and if in range, returns true
@@ -170,13 +163,10 @@ public class Intake extends SubsystemBase {
     // System.out.println(sensor2.getProximity());
     // System.out.println(readSensor());
     if (prox_value > Constants.proxSensorMin) {
-
-      // System.out.println("bababa");
-
+      // System.out.println("BALL");
       return true;
     }
-    // System.out.println("h");
-
+    // System.out.println("NO BALL");
     return false;
   }
 
@@ -197,12 +187,15 @@ public class Intake extends SubsystemBase {
 
   // When the magazine sensor sees a ball run the HB
   public void singulateBall() {
+    // if any of the trap sensors see a ball & we have a ball at the top stop intake
     if ((getMagazineSensor1DIO() || getMagazineSensor2DIO() || getMagazineSensor3DIO())
-        && readProxColorSensor() == true) {
+        && readProxColorSensor()) {
       intakeMotorStop();
     }
-    runIntakeMotor();
-    readProxColorSensor();
+    // else keep the intake running
+    else {
+      runIntakeMotor();
+    }
   }
 
   @Override

@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Turret;
@@ -19,13 +20,10 @@ public class c_detectShootingReady extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = it;
     addRequirements(intake);
-    
     shooter = sh;
     addRequirements(shooter);
-    
     turret = trt;
     addRequirements(turret);
-    
   }
 
   // Called when the command is initially scheduled.
@@ -37,11 +35,17 @@ public class c_detectShootingReady extends CommandBase {
   @Override
   public void execute() {
 
-    if (shooter.runShooter(intake.redBlueDecision(intake.readSensor())) && turret.limelightTarget()) {
+    // Need a distance check
+    // Need an on target check
+    // Only if all three are true do we shoot
+    if (shooter.runShooterPID(intake.readSensor(), 120, Constants.allianceColor)) {
       intake.runMagazineMotors(true);
     } else {
       intake.runMagazineMotors(false);
     }
+
+    // Run singulation
+    intake.singulateBall();
 
   }
 
