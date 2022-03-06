@@ -66,7 +66,8 @@ public class Turret extends PIDSubsystem {
 
     // System.out.println(Constants.returnToMiddleSpeed);
 
-    // Need comments here
+    // If the right limit switch returns true, return back to middle
+    // If the middle is tripped, it's set in position and command is over
     if (rightMagLimit.get() == true) {
       Constants.returnToMiddleSpeed = Constants.returnToMiddleSpeedLeft;
       turretRotation.set(Constants.returnToMiddleSpeed);
