@@ -104,15 +104,16 @@ public class Intake extends SubsystemBase {
 
       intakeRetractionMotor.set(Constants.retractionSpeed);
       // new WaitCommand(Constants.retractionRunTime);
-      Constants.retractionState = !Constants.retractionState;
 
     } else {
 
       intakeRetractionMotor.set(-Constants.retractionSpeed);
       // new WaitCommand(Constants.retractionRunTime);
-      Constants.retractionState = !Constants.retractionState;
-
     }
+  }
+
+  public void flipIntakeRetrationMotorState() {
+    Constants.retractionState = !Constants.retractionState;
   }
 
   // stop magazine motor

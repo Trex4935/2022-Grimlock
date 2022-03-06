@@ -30,6 +30,7 @@ public class c_runIntakeRetractionMotor extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     intake.stopIntakeRetrationMotor();
+    intake.flipIntakeRetrationMotorState();
   }
 
   // Returns true when the command should end.

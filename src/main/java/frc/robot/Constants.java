@@ -66,7 +66,7 @@ public final class Constants {
 
     // Motor speeds
     public static final double magazineMotorSpeed = 0.5;
-    public static final double intakeMotorSpeed = 0.5;
+    public static final double intakeMotorSpeed = 0.8;
 
     // Smakna sensor ids
     public static final int magazineSensor1DIO = 3;
