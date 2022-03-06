@@ -67,10 +67,11 @@ public final class Constants {
     // Motor Can IDs
     public static final int intakeMotorCanID = 3;
     public static final int magazineMotor1CanID = 6;
+    public static final int intakeRetractionMotorID = 2;
 
     // Motor speeds
     public static final double magazineMotorSpeed = 0.5;
-    public static final double intakeMotorSpeed = 0.5;
+    public static final double intakeMotorSpeed = 0.8;
 
     // Smakna sensor ids
     public static final int magazineSensor1DIO = 3;
@@ -87,6 +88,10 @@ public final class Constants {
     public static final int proxSensorMax = 2000;
     public static final int proxSensorMin = 100;
 
+    // Configable intake deployment and retraction
+    public static final double retractionRunTime = 2.0;
+    public static final double retractionSpeed = 0.5;
+
     // endregion
     // --------------------------------------------------------
 
@@ -94,6 +99,9 @@ public final class Constants {
 
     // Motor IDs
     public static final int turretRotationPWMID = 0;
+
+    // maintain state of the intake (up or down)
+    public static boolean retractionState = false;
 
     // Xbox controller trigger IDs
     public static final int leftTrigger = 2;
@@ -143,10 +151,15 @@ public final class Constants {
     public static final double h2 = 2;
     public static final double angle1 = 1;
     public static final double h1 = 1;
+
+    public static double shooterA = 1;
+    public static double shooterB = 2;
+
     // RPM = 3.7037 * distance + 2722.2
-    public static double shooterA = 3.7037;
-    public static double shooterB = 2722.2;
-    public static double shooterSpeed = 0.3;
+      //public static double shooterA = 3.7037;
+      //public static double shooterB = 2722.2;
+
+  public static double shooterSpeed = 0.3;
 
     // Shooter PID
     public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.044); // Good start value per CTRE docs.
