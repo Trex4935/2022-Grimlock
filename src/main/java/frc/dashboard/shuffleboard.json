@@ -69,6 +69,39 @@
               "_source0": "network_table:///SmartDashboard/Tp100",
               "_title": "Tp100"
             }
+          },
+          "0,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_PipelineName",
+              "_title": "limelight_PipelineName"
+            }
+          },
+          "1,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_Interface",
+              "_title": "limelight_Interface"
+            }
+          },
+          "2,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_Stream",
+              "_title": "limelight_Stream"
+            }
           }
         }
       }
@@ -311,7 +344,7 @@
   "windowGeometry": {
     "x": -4.0,
     "y": 0.0,
-    "width": 1798.0,
-    "height": 1024.6666259765625
+    "width": 1521.3333740234375,
+    "height": 1020.0
   }
 }
