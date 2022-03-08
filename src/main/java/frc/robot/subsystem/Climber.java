@@ -7,6 +7,7 @@
 //   right side of robot - 8 + 9
 package frc.robot.subsystem;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 // Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -39,7 +40,9 @@ public class Climber extends SubsystemBase {
 
     // Populate the variables with motor objects with the correct IDs
     climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
+
     rotationMotor = new WPI_TalonSRX(Constants.rotationMotorCanID);
+    rotationMotor.setNeutralMode(NeutralMode.Coast);
 
     // Climber Magnet Limits
     leftClimberMagLimitTop = new FlippedDIO(Constants.leftClimberMagLimitTopID);
@@ -59,13 +62,13 @@ public class Climber extends SubsystemBase {
 
   // The rotating climber motor movest the arms towards shooter
   public void rotateClimbTowardsShooter() {
-    rotationMotor.setInverted(false);
+    rotationMotor.setInverted(true);
     rotationMotor.set(Constants.climbRotateSpeed);
   }
 
   // The rotating climber motor moves the arms towards intake
   public void rotateClimbTowardsIntake() {
-    rotationMotor.setInverted(true);
+    rotationMotor.setInverted(false);
     rotationMotor.set(Constants.climbRotateSpeed);
 
   }
@@ -92,12 +95,17 @@ public class Climber extends SubsystemBase {
     }
   }
 
+  // Sees whether the bottom limit switches are tripped or not (true / false)
+  public boolean getMotorBottomLimit() {
+    return leftClimberMagLimitBottom.get() || rightClimberMagLimitBottom.get();
+  }
+
   // The default climber motor goes down (test for correct direction then change
   // inverse if its the wrong way?)
   // then prints what POV direction was pressed
   public void motorClimbDown() {
     climbMotor.setInverted(true);
-    if (leftClimberMagLimitBottom.get() || rightClimberMagLimitBottom.get()) {
+    if (getMotorBottomLimit()) {
       climbMotor.stopMotor();
       // System.out.println(Constants.leftClimberMagLimitBottomID);
       // System.out.println(Constants.rightClimberMagLimitBottomID);
