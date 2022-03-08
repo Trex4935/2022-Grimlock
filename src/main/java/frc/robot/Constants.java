@@ -137,6 +137,7 @@ public final class Constants {
   public static final int leftClimberMagLimitBottomID = 6;
   public static final int rightClimberMagLimitTopID = 9;
   public static final int rightClimberMagLimitBottomID = 8;
+  public static final int extraClimberMagLimitBottomID = 10; //ROBORIO 10 = DIO0 NAVX0
 
   // endregion
   // --------------------------------------------------------
