@@ -75,11 +75,15 @@ public class Climber extends SubsystemBase {
     rotationMotor.stopMotor();
   }
 
+  public boolean getMotorTopLimit() {
+    return leftClimberMagLimitTop.get() || rightClimberMagLimitTop.get();
+  }
+
   // The default climber arms go up
   public void motorClimbUp() {
     climbMotor.setInverted(false);
 
-    if (leftClimberMagLimitTop.get() || rightClimberMagLimitTop.get()) {
+    if (getMotorTopLimit()) {
       climbMotor.stopMotor();
       // System.out.println(Constants.leftClimberMagLimitTopID);
       // System.out.println(Constants.rightClimberMagLimitTopID);
@@ -103,12 +107,14 @@ public class Climber extends SubsystemBase {
     // System.out.println("down");
   }
 
-  public boolean readClimberColorSensor() {
-    if (){
-      return true;
-    }
-    return false;
-  }
+  /*
+   * public boolean readClimberColorSensor() {
+   * if (value == value) {
+   * return true;
+   * }
+   * return false;
+   * }
+   */
 
   // Stops the default climber motor
   public void stopClimbMotor() {

@@ -17,6 +17,7 @@ import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_motorClimbDown;
 import frc.robot.commands.c_motorClimbUp;
 import frc.robot.commands.c_returnToMiddle;
+import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_rotateClimbTowardsShooter;
 import frc.robot.commands.c_runIntakeMotor;
 import frc.robot.commands.c_runIntakeRetractionMotor;
@@ -122,12 +123,12 @@ public class RobotContainer {
 
   }
 
-
   // controller map for testing the robot
   /////////// TESTING PROFILE ///////////
   private void configureButtonBindingsTesting() {
 
-    // xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    xbox_b.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
