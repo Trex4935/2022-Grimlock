@@ -2,20 +2,20 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Extensions;
+package frc.robot.extensions;
 
 /** Add your docs here. */
 public class PID {
-    private  double kP;
-    private  double kI;
-    private  double kD;
-    private  double kF;
+    private double kP;
+    private double kI;
+    private double kD;
+    private double kF;
 
-    public PID(double kP,double kI,double kD,double kF) {
-         this.kP= kP;
-         this.kI= kI;
-         this.kD= kD;
-         this.kF= kF;
+    public PID(double kP, double kI, double kD, double kF) {
+        this.kP = kP;
+        this.kI = kI;
+        this.kD = kD;
+        this.kF = kF;
     }
 
     public double getkD() {
@@ -34,7 +34,6 @@ public class PID {
         return kP;
     }
 
-    
     public void setkD(double kD) {
         this.kD = kD;
     }
@@ -51,5 +50,4 @@ public class PID {
         this.kP = kP;
     }
 
-    
 }

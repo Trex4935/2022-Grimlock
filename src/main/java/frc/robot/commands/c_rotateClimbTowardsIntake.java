@@ -5,16 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Turret;
+import frc.robot.subsystem.Climber;
 
-public class c_returnToMiddle extends CommandBase {
-  private final Turret turret;
+public class c_rotateClimbTowardsIntake extends CommandBase {
+  /** Creates a new runIntakeMotors. */
+  private final Climber climber;
 
-  /** Creates a new c_returnToMiddle. */
-  public c_returnToMiddle(Turret trt) {
-    turret = trt;
-    addRequirements(turret);
+  public c_rotateClimbTowardsIntake(Climber cl) {
     // Use addRequirements() here to declare subsystem dependencies.
+    climber = cl;
+    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
@@ -25,16 +25,15 @@ public class c_returnToMiddle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // System.out.println("moving to middle");
-    if (turret.returnToMiddle()) {
-      end(true);
-    }
+
+    climber.rotateClimbTowardsIntake();
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    turret.stopRotationMotor();
+    climber.stopClimbRotate();
   }
 
   // Returns true when the command should end.

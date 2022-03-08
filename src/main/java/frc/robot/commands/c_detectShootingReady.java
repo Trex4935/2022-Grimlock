@@ -5,16 +5,25 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystem.Intake;
+import frc.robot.subsystem.Shooter;
+import frc.robot.subsystem.Turret;
 
-public class c_singulateBall extends CommandBase {
-  /** Creates a new c_readSensor. */
-  private final Intake intake;
+public class c_detectShootingReady extends CommandBase {
+  Shooter shooter;
+  Intake intake;
+  Turret turret;
 
-  public c_singulateBall(Intake it) {
+  /** Creates a new c_shootWithVision. */
+  public c_detectShootingReady(Intake it, Shooter sh, Turret trt) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = it;
     addRequirements(intake);
+    shooter = sh;
+    addRequirements(shooter);
+    turret = trt;
+    addRequirements(turret);
   }
 
   // Called when the command is initially scheduled.
@@ -25,13 +34,27 @@ public class c_singulateBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+
+    // Need a distance check
+    // Need an on target check
+    // Only if all three are true do we shoot
+    if (shooter.runShooterPID(intake.readSensor(), 120, Constants.allianceColor)) {
+      intake.runMagazineMotors(true);
+    } else {
+      intake.runMagazineMotors(false);
+    }
+
+    // Run singulation
     intake.singulateBall();
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.intakeMotorStop();
+
+    shooter.stopShooterMotor();
+    intake.magazineMotorStop();
   }
 
   // Returns true when the command should end.

@@ -5,16 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Turret;
+import frc.robot.subsystem.Shooter;
 
-public class c_returnToMiddle extends CommandBase {
-  private final Turret turret;
+public class c_runShooterPID extends CommandBase {
+  Shooter shooter;
+  double targetRPM;
 
-  /** Creates a new c_returnToMiddle. */
-  public c_returnToMiddle(Turret trt) {
-    turret = trt;
-    addRequirements(turret);
+  /** Creates a new c_shootWithVision. */
+  public c_runShooterPID(Shooter sh, double rpm) {
     // Use addRequirements() here to declare subsystem dependencies.
+    shooter = sh;
+    targetRPM = rpm;
+
+    addRequirements(shooter);
   }
 
   // Called when the command is initially scheduled.
@@ -25,16 +28,13 @@ public class c_returnToMiddle extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // System.out.println("moving to middle");
-    if (turret.returnToMiddle()) {
-      end(true);
-    }
+    // shooter.runShooterPID(targetRPM);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    turret.stopRotationMotor();
+    shooter.stopShooterMotor();
   }
 
   // Returns true when the command should end.

@@ -9,8 +9,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import frc.robot.Constants;
-import frc.robot.Extensions.Limelight;
-import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.extensions.FlippedDIO;
+import frc.robot.extensions.Helper;
+import frc.robot.extensions.Limelight;
 
 public class Turret extends PIDSubsystem {
 
@@ -18,9 +19,9 @@ public class Turret extends PIDSubsystem {
   PWMSparkMax turretRotation;
 
   // magnet sensors
-  private static DigitalInput leftMagLimit;
-  private static DigitalInput middleMag;
-  private static DigitalInput rightMagLimit;
+  private static FlippedDIO leftMagLimit;
+  private static FlippedDIO middleMag;
+  private static FlippedDIO rightMagLimit;
 
   /** Creates a new turret. */
   public Turret() {
@@ -31,6 +32,10 @@ public class Turret extends PIDSubsystem {
 
     // Init motor
     turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
+
+    leftMagLimit = new FlippedDIO(Constants.leftMagLimitID);
+    middleMag = new FlippedDIO(Constants.middleMagID);
+    rightMagLimit = new FlippedDIO(Constants.rightMagLimitID);
 
   }
 
@@ -43,8 +48,13 @@ public class Turret extends PIDSubsystem {
     } else if (rightMagLimit.get() == true && (Limelight.getLimelightX() / 270) >= 0) {
       turretRotation.set(0);
     } else {
-      turretRotation.set(Limelight.getLimelightX() / 270);
+      turretRotation.set(Limelight.getLimelightX() / 50);
     }
+  }
+
+  // The limelight's on target > returns true or false
+  public boolean limelightTarget() {
+    return Helper.RangeCompare(2, -2, Limelight.getLimelightX() / 270);
   }
 
   // Returns the rotation motor to the middle by turning it to the right until it
@@ -53,15 +63,20 @@ public class Turret extends PIDSubsystem {
   // directions until it reaches the middle.
   // When the rotation motor reaches the middle it will stop moving.
   public boolean returnToMiddle() {
-    if (rightMagLimit.get() == false) {
-      if (middleMag.get() == false) {
-        return false;
-      } else {
-        turretRotation.set(0);
-        return true;
-      }
+
+    // System.out.println(Constants.returnToMiddleSpeed);
+
+    // If the right limit switch returns true, return back to middle
+    // If the middle is tripped, it's set in position and command is over
+    if (rightMagLimit.get() == true) {
+      Constants.returnToMiddleSpeed = Constants.returnToMiddleSpeedLeft;
+      turretRotation.set(Constants.returnToMiddleSpeed);
+      return true;
+    } else if (middleMag.get() == true) {
+      Constants.returnToMiddleSpeed = Math.abs(Constants.returnToMiddleSpeed);
+      turretRotation.set(0);
+      return false;
     } else {
-      Constants.returnToMiddleSpeed = (Math.abs(Constants.returnToMiddleSpeed) * -1);
       turretRotation.set(Constants.returnToMiddleSpeed);
       return false;
     }
@@ -70,9 +85,21 @@ public class Turret extends PIDSubsystem {
   // Moves the rotation motor based on controller input
   public void aimWithController(XboxController controller) {
 
-    double leftTrigger = controller.getRawAxis(Constants.leftTrigger);
-    double rightTrigger = controller.getRawAxis(Constants.rightTrigger) * -1;
-    turretRotation.set((leftTrigger + rightTrigger) / 25);
+    // Pull in values from left and right trigger and normalize them
+    double triggerValue = (controller.getRawAxis(Constants.leftTrigger) * -1)
+        + controller.getRawAxis(Constants.rightTrigger);
+
+    // ensure we stop at the right limit switches
+    if (leftMagLimit.get() == false && (triggerValue) <= 0) {
+      turretRotation.stopMotor();
+    } else if (rightMagLimit.get() == false && (triggerValue) >= 0) {
+      turretRotation.stopMotor();
+    } else {
+      // Divide input by 10 to get a max of 0.1
+      turretRotation.set((triggerValue) * 0.2);
+
+    }
+
   }
 
   // Stop the rotation motor
