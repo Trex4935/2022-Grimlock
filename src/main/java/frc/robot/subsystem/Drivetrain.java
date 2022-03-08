@@ -171,4 +171,10 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
   }
 
+  public void drive_straight_gyro(double power){
+    double error = -ahrs.getAngle();  //Our target angle is zero
+    double turn_power = Constants.kPDt * error; //Kp
+    drive.arcadeDrive(power, turn_power, false);
+  }
+
 }
