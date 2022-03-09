@@ -12,6 +12,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
@@ -83,14 +84,17 @@ public class Intake extends SubsystemBase {
     // not if shooter is at correct speed and on target
     if (bypassProx) {
       magazineMotor.set(Constants.magazineMotorSpeed);
+      SmartDashboard.putBoolean("Mag Active", true);
     } else {
       // System.out.println("No ByPass");
       // if proximity sensor is not bypassed then stop magazine if a ball is detected
       if (readProxColorSensor()) {
         // System.out.println("See Ball");
         magazineMotor.stopMotor();
+        SmartDashboard.putBoolean("Mag Active", false);
       } else {
         magazineMotor.set(Constants.magazineMotorSpeed);
+        SmartDashboard.putBoolean("Mag Active", true);
       }
     }
   }

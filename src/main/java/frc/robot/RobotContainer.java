@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.command_archive.c_runMagazineMotors;
 import frc.robot.commands.c_aimWithController;
+import frc.robot.commands.c_driveStraightAuto;
+import frc.robot.commands.c_releaseIntake;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_motorClimbDown;
@@ -50,7 +52,13 @@ public class RobotContainer {
   private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b;
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
+  c_driveStraightAuto auto;
+  c_releaseIntake releaseIntake;
+
   public RobotContainer() {
+
+    
+    auto = new c_driveStraightAuto(drive);
 
     // load control profile based on if we are in testing or competition mode
     /////////// TESTING PROFILE ///////////
@@ -60,8 +68,8 @@ public class RobotContainer {
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
       // intake.setDefaultCommand(new c_singulateBall(intake));
-      // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter,
-      // turret));
+      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter,
+          turret));
 
       // Configure the button bindings
       configureButtonBindingsTesting();
@@ -194,6 +202,6 @@ public class RobotContainer {
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
   public Command getAutonomousCommand() {
-    return null;
+    return releaseIntake.andThen(auto.withTimeout(10)) ;
   }
 }

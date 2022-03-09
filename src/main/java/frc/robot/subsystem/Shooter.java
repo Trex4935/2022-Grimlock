@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
@@ -78,40 +79,40 @@ public class Shooter extends SubsystemBase {
     // currently placeholder values
     // System.out.println(color.toString());
     double targetTicks;
-
+    SmartDashboard.putString("Color", color.toString());
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {
       case NONE:
+        targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
+
         // System.out.println("NONE");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
-        return false;
+        shooterMotor.set(ControlMode.Velocity, targetTicks);
+
+        // check if we are at speed and update the dashboard
+        return shooterAtSpeed(targetTicks);
+
       case RED:
         // System.out.println("RED");
 
         // Determined the # of ticks based on ball color and distance
         targetTicks = allianceSpeed(BallColor.RED, distance);
-        System.out.println(targetTicks);
+        // System.out.println(targetTicks);
 
         // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        if (Helper.RangeCompare(targetTicks + Constants.shooterRange, targetTicks - Constants.shooterRange,
-            shooterMotor.getSelectedSensorVelocity())) {
-          return true;
-        } else {
-          return false;
-        }
+        return shooterAtSpeed(targetTicks);
 
       case BLUE:
         // System.out.println("BLUE");
 
         // Determined the # of ticks based on ball color and distance
         targetTicks = allianceSpeed(BallColor.BLUE, distance);
-        System.out.println("----------------");
-        System.out.println(targetTicks);
+        // System.out.println("----------------");
+        // System.out.println(targetTicks);
 
         // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
@@ -119,17 +120,35 @@ public class Shooter extends SubsystemBase {
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        if (Helper.RangeCompare(targetTicks + Constants.shooterRange, targetTicks - Constants.shooterRange,
-            shooterMotor.getSelectedSensorVelocity())) {
-          return true;
-        } else {
-          return false;
-        }
+        return shooterAtSpeed(targetTicks);
 
       default:
-        // System.out.println("defaultdefault");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(Constants.shooterIdleSpeed));
-        return false;
+        targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
+
+        // System.out.println("NONE");
+        shooterMotor.set(ControlMode.Velocity, targetTicks);
+
+        // check if we are at speed and update the dashboard
+        return shooterAtSpeed(targetTicks);
+    }
+  }
+
+  private boolean shooterAtSpeed(double targetTicks) {
+
+    SmartDashboard.putNumber("Target Ticks", targetTicks);
+    SmartDashboard.putNumber("Tp100", shooterMotor.getSelectedSensorVelocity());
+
+    // Detect if we are within acceptable speed range
+    // Return true or false for usage with the magazine bypass
+    if (Helper.RangeCompare(targetTicks + Constants.shooterRange, targetTicks - Constants.shooterRange,
+        shooterMotor.getSelectedSensorVelocity())) {
+      SmartDashboard.putBoolean("Shooter At Speed", true);
+      return true;
+
+    } else {
+      SmartDashboard.putBoolean("Shooter At Speed", false);
+      return false;
+
     }
   }
 

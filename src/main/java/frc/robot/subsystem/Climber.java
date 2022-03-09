@@ -31,6 +31,7 @@ public class Climber extends SubsystemBase {
   private static FlippedDIO leftClimberMagLimitBottom;
   private static FlippedDIO rightClimberMagLimitTop;
   private static FlippedDIO rightClimberMagLimitBottom;
+  private static FlippedDIO extraClimberMagLimitBottom;
 
   // climber color sensor
   private multiplexedColorSensor climberColorSensor;
@@ -49,6 +50,8 @@ public class Climber extends SubsystemBase {
     leftClimberMagLimitBottom = new FlippedDIO(Constants.leftClimberMagLimitBottomID);
     rightClimberMagLimitTop = new FlippedDIO(Constants.rightClimberMagLimitTopID);
     rightClimberMagLimitBottom = new FlippedDIO(Constants.rightClimberMagLimitBottomID);
+    extraClimberMagLimitBottom = new FlippedDIO(Constants.extraClimberMagLimitBottomID);
+
 
     // Braking Mode
     climbMotor.setNeutralMode(Constants.elevatorBrakeMode);
@@ -127,6 +130,10 @@ public class Climber extends SubsystemBase {
   // Stops the default climber motor
   public void stopClimbMotor() {
     climbMotor.stopMotor();
+  }
+
+  public void getStatus() {
+    System.out.println(extraClimberMagLimitBottom.get());
   }
 
   @Override

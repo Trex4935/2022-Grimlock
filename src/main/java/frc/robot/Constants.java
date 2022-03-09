@@ -95,6 +95,9 @@ public final class Constants {
   // endregion
   // --------------------------------------------------------
 
+    
+    public static double kPDt = 1/360; // gyro gives angle in degree. kP/360.
+
   // region Turret
 
   // Motor IDs
@@ -137,6 +140,7 @@ public final class Constants {
   public static final int leftClimberMagLimitBottomID = 6;
   public static final int rightClimberMagLimitTopID = 9;
   public static final int rightClimberMagLimitBottomID = 8;
+  public static final int extraClimberMagLimitBottomID = 10; //ROBORIO 10 = DIO0 NAVX0
 
   // endregion
   // --------------------------------------------------------
@@ -162,14 +166,14 @@ public final class Constants {
   public static double shooterSpeed = 0.3;
 
   // Shooter PID
-  public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.044); // Good start value per CTRE docs.
+  public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.047); // Good start value per CTRE docs.
   public static int kTimeoutMs = 20;
   public static int kPIDLoopIdx = 0;
 
   // Shooter speeds
   public static final double shooterIdleSpeed = 3000;
   public static final double shooterLowSpeed = 2000;
-  public static final double shooterRange = 100;
+  public static final double shooterRange = 200;
 
   // endregion
   // --------------------------------------------------------
