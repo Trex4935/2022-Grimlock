@@ -66,7 +66,7 @@ public final class Constants {
 
   // Motor Can IDs
   public static final int intakeMotorCanID = 3;
-  public static final int magazineMotor1CanID = 6;
+  public static final int magazineMotorCanID = 6;
   public static final int intakeRetractionMotorID = 2;
 
   // Motor speeds
@@ -74,9 +74,9 @@ public final class Constants {
   public static final double intakeMotorSpeed = 0.8;
 
   // Smakna sensor ids
-  public static final int magazineSensor1DIO = 3;
-  public static final int magazineSensor2DIO = 4;
-  public static final int magazineSensor3DIO = 5;
+  public static final int leftTrapSmakna = 3;
+  public static final int rightTrapSmakna = 4;
+  public static final int insideMagSmakna = 5;
 
   // color sensor required value to detect a color
   public static final int sensorRequiredValue = 1000;
@@ -95,8 +95,7 @@ public final class Constants {
   // endregion
   // --------------------------------------------------------
 
-    
-    public static double kPDt = 1/360; // gyro gives angle in degree. kP/360.
+  public static double kPDt = 1 / 360; // gyro gives angle in degree. kP/360.
 
   // region Turret
 
@@ -140,7 +139,7 @@ public final class Constants {
   public static final int leftClimberMagLimitBottomID = 6;
   public static final int rightClimberMagLimitTopID = 9;
   public static final int rightClimberMagLimitBottomID = 8;
-  public static final int extraClimberMagLimitBottomID = 10; //ROBORIO 10 = DIO0 NAVX0
+  public static final int extraClimberMagLimitBottomID = 10; // ROBORIO 10 = DIO0 NAVX0
 
   // endregion
   // --------------------------------------------------------

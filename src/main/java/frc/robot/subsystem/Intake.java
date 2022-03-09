@@ -30,9 +30,9 @@ public class Intake extends SubsystemBase {
   private multiplexedColorSensor sensor2;
 
   // magazine smacna
-  private static FlippedDIO magazineSensor1DIO;
-  private static FlippedDIO magazineSensor2DIO;
-  private static FlippedDIO magazineSensor3DIO;
+  private static FlippedDIO leftTrapSmaknaDIO;
+  private static FlippedDIO rightTrapSmaknaDIO;
+  private static FlippedDIO insideMagSmaknaDIO;
 
   // initializing the color sensor table
   public NetworkTable color_table;
@@ -50,7 +50,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.setInverted(false);
 
     // motor to run the magazine belts
-    magazineMotor = new WPI_TalonFX(Constants.magazineMotor1CanID);
+    magazineMotor = new WPI_TalonFX(Constants.magazineMotorCanID);
     magazineMotor.setInverted(true);
 
     // intake retraction motor
@@ -59,9 +59,9 @@ public class Intake extends SubsystemBase {
     intakeRetractionMotor.setNeutralMode(NeutralMode.Brake);
 
     // sensors for the trap portion of the intake
-    magazineSensor1DIO = new FlippedDIO(Constants.magazineSensor1DIO);
-    magazineSensor2DIO = new FlippedDIO(Constants.magazineSensor2DIO);
-    magazineSensor3DIO = new FlippedDIO(Constants.magazineSensor3DIO);
+    leftTrapSmaknaDIO = new FlippedDIO(Constants.leftTrapSmakna);
+    rightTrapSmaknaDIO = new FlippedDIO(Constants.rightTrapSmakna);
+    insideMagSmaknaDIO = new FlippedDIO(Constants.insideMagSmakna);
 
     // color sensor at the top of the magazine
     sensor2 = new multiplexedColorSensor(I2C.Port.kOnboard, 4);
@@ -176,17 +176,17 @@ public class Intake extends SubsystemBase {
 
   // Get the value of smakna 1
   public boolean getMagazineSensor1DIO() {
-    return magazineSensor1DIO.get();
+    return leftTrapSmaknaDIO.get();
   }
 
   // Get the value of smakna 2
   public boolean getMagazineSensor2DIO() {
-    return magazineSensor2DIO.get();
+    return rightTrapSmaknaDIO.get();
   }
 
   // Get the value of smakna 3
   public boolean getMagazineSensor3DIO() {
-    return magazineSensor3DIO.get();
+    return insideMagSmaknaDIO.get();
   }
 
   // When the magazine sensor sees a ball run the HB
