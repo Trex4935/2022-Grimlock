@@ -18,7 +18,9 @@ import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_motorClimbDown;
 import frc.robot.commands.c_motorClimbUp;
+import frc.robot.commands.c_pullUp;
 import frc.robot.commands.c_returnToMiddle;
+import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_rotateClimbTowardsShooter;
 import frc.robot.commands.c_runIntakeMotor;
 import frc.robot.commands.c_runIntakeRetractionMotor;
@@ -27,6 +29,7 @@ import frc.robot.commands.c_rotateClimbTowardsIntake;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
+import frc.robot.commands.cg_phaseThree;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
@@ -134,15 +137,18 @@ public class RobotContainer {
   /////////// TESTING PROFILE ///////////
   private void configureButtonBindingsTesting() {
 
-    // xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
+    xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
+    // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
+
+    xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    xbox_b.toggleWhenPressed(new c_pullUp(climber));
     // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
+    // xbox_y.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_y.toggleWhenPressed(new c_runShooterPID(shooter, 2000));
-    xbox_y.whenHeld(new c_rotateClimbTowardsIntake(climber));
-
-    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
+    // xbox_y.whenHeld(new c_rotateClimbTowardsIntake(climber));
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
     // xbox_x.toggleWhenPressed(new c_runShooterPID(shooter, 4000));
