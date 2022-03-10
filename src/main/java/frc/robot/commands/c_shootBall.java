@@ -25,7 +25,7 @@ public class c_shootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // shooter.runShooterPID(3000);
+    shooter.shootBall();
   }
 
   // Called once the command ends or is interrupted.

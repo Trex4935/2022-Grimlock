@@ -178,6 +178,10 @@ public class Shooter extends SubsystemBase {
     return Constants.shooterA * distance + Constants.shooterB;
   }
 
+  public void shootBall() {
+    shooterMotor.set(0.5);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
