@@ -57,7 +57,6 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    
     auto = new c_driveStraightAuto(drive);
 
     // load control profile based on if we are in testing or competition mode
@@ -79,9 +78,6 @@ public class RobotContainer {
     else {
       // Setup default drive controls
       drive.setDefaultCommand(new c_driveWithController(drive, controller));
-      turret.setDefaultCommand(new c_aimWithController(turret, controller));
-      // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-      intake.setDefaultCommand(new c_singulateBall(intake));
       shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret));
 
       // Configure the button bindings
@@ -103,10 +99,18 @@ public class RobotContainer {
 
   private void configureButtonBindingsCompetition() {
 
+    // Set the A button
+    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
+    xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
+
+    // Set the B button
+    xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    xbox_b.toggleWhenPressed(new c_pullUp(climber));
+
     /// CONTROLLER MAP
     //
-    // A -
-    // B -
+    // A - Rotate and Extend Arms
+    // B - Lift Robot off the Ground
     // X -
     // Y -
     //
@@ -202,6 +206,6 @@ public class RobotContainer {
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
   public Command getAutonomousCommand() {
-    return releaseIntake.andThen(auto.withTimeout(10)) ;
+    return releaseIntake.andThen(auto.withTimeout(10));
   }
 }
