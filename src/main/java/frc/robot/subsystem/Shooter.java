@@ -180,6 +180,7 @@ public class Shooter extends SubsystemBase {
 
   public void shooting() {
     shooterMotor.set(Constants.shooterSpeed);
+
   }
 
   @Override

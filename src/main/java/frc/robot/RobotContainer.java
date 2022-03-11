@@ -67,8 +67,7 @@ public class RobotContainer {
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
       // intake.setDefaultCommand(new c_singulateBall(intake));
-      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter,
-          turret));
+      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret));
 
       // Configure the button bindings
       configureButtonBindingsTesting();
@@ -78,9 +77,6 @@ public class RobotContainer {
     else {
       // Setup default drive controls
       drive.setDefaultCommand(new c_driveWithController(drive, controller));
-      turret.setDefaultCommand(new c_aimWithController(turret, controller));
-      // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-      intake.setDefaultCommand(new c_singulateBall(intake));
       shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret));
 
       // Configure the button bindings
@@ -102,10 +98,18 @@ public class RobotContainer {
 
   private void configureButtonBindingsCompetition() {
 
+    // Set the A button
+    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
+    xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
+
+    // Set the B button
+    xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    xbox_b.toggleWhenPressed(new c_pullUp(climber));
+
     /// CONTROLLER MAP
     //
-    // A -
-    // B -
+    // A - Rotate and Extend Arms
+    // B - Lift Robot off the Ground
     // X -
     // Y -
     //
@@ -152,7 +156,7 @@ public class RobotContainer {
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
     // xbox_x.toggleWhenPressed(new c_runShooterPID(shooter, 4000));
-    xbox_x.whenHeld(new c_rotateClimbTowardsShooter(climber));
+    xbox_x.whenHeld(new c_shootBall(shooter));
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);
