@@ -131,7 +131,7 @@ public final class Constants {
   public static final int rotationMotorCanID = 4;
 
   // Motor Speeds
-  public static final double climbMotorSpeed = 0.8;
+  public static final double climbMotorSpeed = .7;
   public static final double climbRotateSpeed = 0.8;
 
   // Magnet Limit Switches
@@ -151,9 +151,9 @@ public final class Constants {
   public static final double ticks2RPM = 600.0 / 2048.0;
 
   // Distance Estimation
-  public static final double h2 = 2;
-  public static final double angle1 = 1;
-  public static final double h1 = 1;
+  public static final double h2 = 104;// 8ft 8in to inches -> 104in
+  public static final double angle1 = 22.5;
+  public static final double h1 = 45.5; // 44.5in
 
   public static double shooterA = 1;
   public static double shooterB = 2;
@@ -162,7 +162,7 @@ public final class Constants {
   // public static double shooterA = 3.7037;
   // public static double shooterB = 2722.2;
 
-  public static double shooterSpeed = 0.3;
+  public static double shooterSpeed = 0.5;
 
   // Shooter PID
   public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.047); // Good start value per CTRE docs.

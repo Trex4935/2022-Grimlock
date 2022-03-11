@@ -57,7 +57,6 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    
     auto = new c_driveStraightAuto(drive);
 
     // load control profile based on if we are in testing or competition mode
@@ -146,6 +145,7 @@ public class RobotContainer {
     // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
+    xbox_y.toggleWhenPressed(new c_shootBall(shooter));
     // xbox_y.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_y.toggleWhenPressed(new c_runShooterPID(shooter, 2000));
     // xbox_y.whenHeld(new c_rotateClimbTowardsIntake(climber));
@@ -202,6 +202,6 @@ public class RobotContainer {
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
   public Command getAutonomousCommand() {
-    return releaseIntake.andThen(auto.withTimeout(10)) ;
+    return releaseIntake.andThen(auto.withTimeout(10));
   }
 }

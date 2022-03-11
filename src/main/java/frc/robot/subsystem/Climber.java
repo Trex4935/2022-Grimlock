@@ -41,6 +41,9 @@ public class Climber extends SubsystemBase {
 
     // Populate the variables with motor objects with the correct IDs
     climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
+    climbMotor.configFactoryDefault();
+    climbMotor.setNeutralMode(NeutralMode.Brake);
+    climbMotor.configOpenloopRamp(1);
 
     rotationMotor = new WPI_TalonSRX(Constants.rotationMotorCanID);
     rotationMotor.setNeutralMode(NeutralMode.Coast);
@@ -51,7 +54,6 @@ public class Climber extends SubsystemBase {
     rightClimberMagLimitTop = new FlippedDIO(Constants.rightClimberMagLimitTopID);
     rightClimberMagLimitBottom = new FlippedDIO(Constants.rightClimberMagLimitBottomID);
     extraClimberMagLimitBottom = new FlippedDIO(Constants.extraClimberMagLimitBottomID);
-
 
     // Braking Mode
     climbMotor.setNeutralMode(Constants.elevatorBrakeMode);
@@ -133,7 +135,7 @@ public class Climber extends SubsystemBase {
   }
 
   public void getStatus() {
-    System.out.println(extraClimberMagLimitBottom.get());
+    // System.out.println(extraClimberMagLimitBottom.get());
   }
 
   @Override

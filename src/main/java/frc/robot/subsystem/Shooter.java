@@ -116,7 +116,7 @@ public class Shooter extends SubsystemBase {
 
         // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
-        System.out.println(shooterMotor.getSelectedSensorVelocity());
+        // System.out.println(shooterMotor.getSelectedSensorVelocity());
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
@@ -176,6 +176,10 @@ public class Shooter extends SubsystemBase {
   public double getSpeedSetPoint(double distance) {
     // RPM = 3.7037 * distance + 2722.2
     return Constants.shooterA * distance + Constants.shooterB;
+  }
+
+  public void shooting() {
+    shooterMotor.set(Constants.shooterSpeed);
   }
 
   @Override
