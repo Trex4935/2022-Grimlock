@@ -156,7 +156,7 @@ public class Shooter extends SubsystemBase {
 
     // Detect if we are within acceptable distance range
     // Return true or false for usage with the magazine bypass
-    if (distance >= 108 && distance <= 156 ) {
+    if (distance >= 108-6 && distance <= 156+6 ) {
       
       SmartDashboard.putBoolean("Robot at Distance", true);
       return true;
