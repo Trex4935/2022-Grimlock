@@ -14,7 +14,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.FlippedDIO;
-import frc.robot.extensions.multiplexedColorSensor;
 
 public class Climber extends SubsystemBase {
 
@@ -31,10 +30,7 @@ public class Climber extends SubsystemBase {
   private static FlippedDIO leftClimberMagLimitBottom;
   private static FlippedDIO rightClimberMagLimitTop;
   private static FlippedDIO rightClimberMagLimitBottom;
-  private static FlippedDIO extraClimberMagLimitBottom;
-
-  // climber color sensor
-  private multiplexedColorSensor climberColorSensor;
+  private static FlippedDIO rotateArmLimit;
 
   // Construct a climber object
   public Climber() {
@@ -53,7 +49,7 @@ public class Climber extends SubsystemBase {
     leftClimberMagLimitBottom = new FlippedDIO(Constants.leftClimberMagLimitBottomID);
     rightClimberMagLimitTop = new FlippedDIO(Constants.rightClimberMagLimitTopID);
     rightClimberMagLimitBottom = new FlippedDIO(Constants.rightClimberMagLimitBottomID);
-    extraClimberMagLimitBottom = new FlippedDIO(Constants.extraClimberMagLimitBottomID);
+    rotateArmLimit = new FlippedDIO(Constants.extraClimberMagLimitBottomID);
 
     // Braking Mode
     climbMotor.setNeutralMode(Constants.elevatorBrakeMode);
@@ -68,7 +64,15 @@ public class Climber extends SubsystemBase {
   // The rotating climber motor movest the arms towards shooter
   public void rotateClimbTowardsShooter() {
     rotationMotor.setInverted(true);
-    rotationMotor.set(Constants.climbRotateSpeed);
+
+    // if the tang limit switch is impacted stop the rotation motor so we don't over
+    // rotate.
+    if (rotateArmLimit.get()) {
+      rotationMotor.stopMotor();
+    } else {
+      rotationMotor.set(Constants.climbRotateSpeed);
+    }
+
   }
 
   // The rotating climber motor moves the arms towards intake
