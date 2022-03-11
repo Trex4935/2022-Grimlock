@@ -170,11 +170,13 @@ public final class Constants {
   public static int kTimeoutMs = 20;
   public static int kPIDLoopIdx = 0;
 
-
   // Shooter speeds
   public static final double shooterIdleSpeed = 3000;
   public static final double shooterLowSpeed = 2000;
   public static final double shooterRange = 200;
+
+  public static final int maximumShootDistance = 156;
+  public static final int minimumShootDistance = 108;
 
   // endregion
   // --------------------------------------------------------

@@ -104,7 +104,7 @@ public class Shooter extends SubsystemBase {
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        return shooterAtSpeed(targetTicks);
+        return shooterAtSpeed(targetTicks) && atDistance(distance);
 
       case BLUE:
         // System.out.println("BLUE");
@@ -120,7 +120,7 @@ public class Shooter extends SubsystemBase {
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        return shooterAtSpeed(targetTicks);
+        return shooterAtSpeed(targetTicks) && atDistance(distance);
 
       default:
         targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
@@ -129,7 +129,7 @@ public class Shooter extends SubsystemBase {
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // check if we are at speed and update the dashboard
-        return shooterAtSpeed(targetTicks)&&atDistance(distance);
+        return shooterAtSpeed(targetTicks) && atDistance(distance);
     }
   }
 
@@ -153,15 +153,14 @@ public class Shooter extends SubsystemBase {
 
   private boolean atDistance(double distance) {
 
-
     // Detect if we are within acceptable distance range
     // Return true or false for usage with the magazine bypass
-    if (distance >= 108-6 && distance <= 156+6 ) {
-      
+    if (Helper.RangeCompare(Constants.maximumShootDistance + 6, Constants.minimumShootDistance - 6, distance)) {
+
       SmartDashboard.putBoolean("Robot at Distance", true);
       return true;
     } else {
-      
+
       SmartDashboard.putBoolean("Robot at Distance", false);
       return false;
     }
