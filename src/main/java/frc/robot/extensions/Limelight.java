@@ -35,10 +35,9 @@ public class Limelight {
   // Distance to the target
   public static double getDistance() {
     double angle2 = getLimelightY();
-    System.out.println("ANGLE:" + angle2 + ";;;;;");
     double distance = (Constants.h2 - Constants.h1) / Math.tan(Math.toRadians(Constants.angle1 + angle2)) + 24;
-    // SmartDashboard.putNumber("Distance Limelight", distance);
-    System.out.println("DISTANCE:" + distance);
+    SmartDashboard.putNumber("Distance Limelight", distance);
+    SmartDashboard.putNumber("Angle Limelight", angle2);
     return distance;
   }
 }
