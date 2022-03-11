@@ -39,8 +39,7 @@ public class c_detectShootingReady extends CommandBase {
     // Need a distance check
     // Need an on target check
     // Only if all three are true do we shoot
-    double distance = Limelight.getDistance();
-    if (shooter.runShooterPID(intake.readSensor(), 120, Constants.allianceColor)) {
+    if (shooter.runShooterPID(intake.readSensor(), Limelight.getDistance(), Constants.allianceColor)) {
       intake.runMagazineMotors(true);
     } else {
       intake.runMagazineMotors(false);

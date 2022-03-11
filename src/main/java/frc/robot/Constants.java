@@ -154,6 +154,7 @@ public final class Constants {
   public static final double h2 = 104;// 8ft 8in to inches -> 104in
   public static final double angle1 = 22.5;
   public static final double h1 = 45.5; // 44.5in
+  public static final double targetOffset = 24;
 
   public static double shooterA = 1;
   public static double shooterB = 2;
@@ -168,6 +169,7 @@ public final class Constants {
   public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.047); // Good start value per CTRE docs.
   public static int kTimeoutMs = 20;
   public static int kPIDLoopIdx = 0;
+
 
   // Shooter speeds
   public static final double shooterIdleSpeed = 3000;

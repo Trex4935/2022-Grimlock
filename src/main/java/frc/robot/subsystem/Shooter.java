@@ -129,7 +129,7 @@ public class Shooter extends SubsystemBase {
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // check if we are at speed and update the dashboard
-        return shooterAtSpeed(targetTicks);
+        return shooterAtSpeed(targetTicks)&&atDistance(distance);
     }
   }
 
@@ -148,7 +148,22 @@ public class Shooter extends SubsystemBase {
     } else {
       SmartDashboard.putBoolean("Shooter At Speed", false);
       return false;
+    }
+  }
 
+  private boolean atDistance(double distance) {
+
+
+    // Detect if we are within acceptable distance range
+    // Return true or false for usage with the magazine bypass
+    if (distance >= 108-6 && distance <= 156+6 ) {
+      
+      SmartDashboard.putBoolean("Robot at Distance", true);
+      return true;
+    } else {
+      
+      SmartDashboard.putBoolean("Robot at Distance", false);
+      return false;
     }
   }
 
