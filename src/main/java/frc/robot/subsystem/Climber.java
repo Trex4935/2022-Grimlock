@@ -42,6 +42,7 @@ public class Climber extends SubsystemBase {
     climbMotor.configOpenloopRamp(1);
 
     rotationMotor = new WPI_TalonSRX(Constants.rotationMotorCanID);
+    rotationMotor.configFactoryDefault();
     rotationMotor.setNeutralMode(NeutralMode.Coast);
 
     // Climber Magnet Limits
@@ -50,9 +51,6 @@ public class Climber extends SubsystemBase {
     rightClimberMagLimitTop = new FlippedDIO(Constants.rightClimberMagLimitTopID);
     rightClimberMagLimitBottom = new FlippedDIO(Constants.rightClimberMagLimitBottomID);
     rotateArmLimit = new FlippedDIO(Constants.extraClimberMagLimitBottomID);
-
-    // Braking Mode
-    climbMotor.setNeutralMode(Constants.elevatorBrakeMode);
   }
 
   // Stop all of the climb motors
@@ -63,7 +61,7 @@ public class Climber extends SubsystemBase {
 
   // The rotating climber motor movest the arms towards shooter
   public void rotateClimbTowardsShooter() {
-    rotationMotor.setInverted(true);
+    rotationMotor.setInverted(false);
 
     // if the tang limit switch is impacted stop the rotation motor so we don't over
     // rotate.
