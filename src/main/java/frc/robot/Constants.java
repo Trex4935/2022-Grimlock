@@ -131,8 +131,8 @@ public final class Constants {
   public static final int rotationMotorCanID = 4;
 
   // Motor Speeds
-  public static final double climbMotorSpeed = .7;
-  public static final double climbRotateSpeed = 0.8;
+  public static final double climbMotorSpeed = 0.7;
+  public static final double climbRotateSpeed = 0.55;
 
   // Magnet Limit Switches
   public static final int leftClimberMagLimitTopID = 7;
