@@ -1,5 +1,7 @@
 # Drive Train #
 
+* Disable all default commands except DRIVE
+
 ## Arcade Drive ##
 * Left stick forward and back == moves robot forward and back 
     * Validate expected brake mode
@@ -10,8 +12,20 @@
 * Left stick left and right == moves robot side to side 
     * Validate brake mode
 
+# Turrent #
+
+* Enable all default commands
+* Point the robot so that the turret is facing the target
+
+* Enable Robot
+    * Validate that Intake, Shooter, and Magazine turn on
+* Rotate robot SLOWLY
+    * Validate that the turret is tracking the target
+
 
 # Shooter #
+
+* Ensure that we are looking at a target otherwise this testing will NOT work
 
 * Enable Robot
     * Validate that Intake turns on
@@ -27,32 +41,27 @@
 * Feed in Blue Ball
     * Validate ball is shot at HIGH Speed
 
+* Feed in balls while rotating robot slowly
+    * Validate that the turrent is tracking and balls are shooting correctly
+
 # Singulation #
+
+* Disable all default commands except SHOOTER
 
 * Enable Robot
     * Validate that intake turns on
     * Validate that magazine turns on
 * Set Team on Drive Station to RED
-* Feed in BLUE THEN RED Ball
+* RAPIDLY Feed in BLUE THEN RED Ball
     * Validate that intake STOPS once BLUE balls is in front to top sensor
 
 # Climber #
 
-## Arms Up and Down ##
-* Enable Robot
-* Press UP on D-Pad
-    * Validate that arms move up
-* Hold UP on D-Pad until arms stop moving
-    * Validate that arms STOP at limit switch
-* Press Down on D-Pad
-    * Validate that arms move down
-* Hold Down on D-Pad
-    * Validate that arms STOP at bottom limit switch
+* Disable all default commands
 
-## Arm Rotation ##
 * Enable Robot
-* Hold Y
-    * Validate that arms move towards Intake
-* Release Y
-    * Validate that arms move back towards Shooter
+* Press A on controller
+    * Validate the arms extend fully and rotate towards shooter
+* Press B on controller
+    * Validate that arms fully retract
 
