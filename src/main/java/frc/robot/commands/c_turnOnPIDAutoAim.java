@@ -13,7 +13,7 @@ public class c_turnOnPIDAutoAim extends CommandBase {
   /** Creates a new turnOnSimpleAutoAim. */
   public c_turnOnPIDAutoAim(Turret trt) {
     turret = trt;
-    // addRequirements(turret);
+    addRequirements(turret);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

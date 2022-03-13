@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.extensions.Limelight;
@@ -39,11 +40,14 @@ public class c_detectShootingReady extends CommandBase {
     // Need a distance check
     // Need an on target check
     // Only if all three are true do we shoot
-    if (shooter.runShooterPID(intake.readSensor(), Limelight.getDistance(), Constants.allianceColor)) {
+    if (shooter.runShooterPID(intake.readSensor(), Limelight.getDistance(), DriverStation.getAlliance())) {
       intake.runMagazineMotors(true);
     } else {
       intake.runMagazineMotors(false);
     }
+
+    // Aim the turret
+    turret.turnOnPIDAutoAim();
 
     // Run singulation
     intake.singulateBall();

@@ -32,6 +32,15 @@ public class Limelight {
 
   }
 
+  // Pull tv from the limelight
+  public static boolean getLimelightV() {
+    if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0.0) > 0.075) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // Distance to the target
   public static double getDistance() {
     double angle2 = getLimelightY();

@@ -67,7 +67,7 @@ public class RobotContainer {
       // drive.setDefaultCommand(new c_driveWithController(drive, controller));
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-      // intake.setDefaultCommand(new c_singulateBall(intake));
+      intake.setDefaultCommand(new c_runMagazineMotors(intake));
       // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter,
       // turret));
 
@@ -78,13 +78,10 @@ public class RobotContainer {
     /////////// COMPETITION PROFILE ///////////
     else {
       // Setup default drive controls
-      // drive.setDefaultCommand(new c_driveWithController(drive, controller));
-      // turret.setDefaultCommand(new c_aimWithController(turret, controller));
-      // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-      // intake.setDefaultCommand(new c_singulateBall(intake));
-      // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter,
-      // turret));
-
+      drive.setDefaultCommand(new c_driveWithController(drive, controller));
+      // turret.setDefaultCommand(new c_turnOnPIDAutoAim(turretPID));
+      // intakeSingulate.setDefaultCommand(new c_singulateBall(intakeSingulate));
+      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret));
 
       // Configure the button bindings
       configureButtonBindingsCompetition();
@@ -112,6 +109,9 @@ public class RobotContainer {
     // Set the B button
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
     xbox_b.toggleWhenPressed(new c_pullUp(climber));
+
+    xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
+    xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
 
     /// CONTROLLER MAP
     //
@@ -214,6 +214,7 @@ public class RobotContainer {
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
   public Command getAutonomousCommand() {
-    return releaseIntake.andThen(auto.withTimeout(10));
+    // releaseIntake.andThen(
+    return auto.withTimeout(1.5);
   }
 }

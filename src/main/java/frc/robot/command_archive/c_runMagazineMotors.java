@@ -25,8 +25,7 @@ public class c_runMagazineMotors extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    // intake.runMagazineMotors();
+    intake.runMagazineMotors(true);
 
   }
 

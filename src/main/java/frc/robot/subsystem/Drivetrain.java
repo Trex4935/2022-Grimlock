@@ -10,6 +10,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.multiplexedColorSensor;
@@ -123,8 +124,15 @@ public class Drivetrain extends SubsystemBase {
 
   // Controls for the outside wheels using built in arcadeDrive
   public void driveWithController(XboxController controller, double speedLimiter) {
-    drive.arcadeDrive(controller.getRawAxis(Constants.rightHorizontal) * speedLimiter * -1,
+    drive.arcadeDrive((controller.getRawAxis(Constants.rightHorizontal) * 0.6) * -1,
         controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
+
+    SmartDashboard.putNumber("RightBack", rightBack.getTemperature());
+    SmartDashboard.putNumber("RightFront", rightFront.getTemperature());
+    SmartDashboard.putNumber("LeftBack", leftBack.getTemperature());
+    SmartDashboard.putNumber("LeftFront", leftFront.getTemperature());
+    SmartDashboard.putNumber("MiddleLeft", middleLeft.getTemperature());
+    SmartDashboard.putNumber("MiddleRight", middleRight.getTemperature());
   }
 
   public void moveToLineLeft() {
@@ -171,10 +179,11 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
   }
 
-  public void drive_straight_gyro(double power){
-    double error = -ahrs.getAngle();  //Our target angle is zero
-    double turn_power = Constants.kPDt * error; //Kp
-    drive.arcadeDrive(power, turn_power, false);
+  public void drive_straight_gyro(double power) {
+    System.out.println("i exist lol");
+    double error = -ahrs.getAngle(); // Our target angle is zero
+    double turn_power = Constants.kPDt * error; // Kp
+    drive.arcadeDrive(turn_power, power, false);
   }
 
 }

@@ -24,13 +24,14 @@ import frc.robot.extensions.PID;
 public final class Constants {
 
   ///////////////////////////////////////////////////////////
-  public static final boolean testingControlMode = true;
+  public static final boolean testingControlMode = false;
   // public static final String controlMode = "Testing";
   ///////////////////////////////////////////////////////////
 
   // region General
 
-  public static final DriverStation.Alliance allianceColor = DriverStation.getAlliance();
+  // public static final DriverStation.Alliance allianceColor =
+  // DriverStation.getAlliance();
 
   // region DriveTrain
 
@@ -71,7 +72,7 @@ public final class Constants {
 
   // Motor speeds
   public static final double magazineMotorSpeed = 0.5;
-  public static final double intakeMotorSpeed = 0.8;
+  public static final double intakeMotorSpeed = 0.5;
 
   // Smakna sensor ids
   public static final int leftTrapSmakna = 3;
@@ -156,12 +157,9 @@ public final class Constants {
   public static final double h1 = 45.5; // 44.5in
   public static final double targetOffset = 24;
 
-  public static double shooterA = 1;
-  public static double shooterB = 2;
-
   // RPM = 3.7037 * distance + 2722.2
-  // public static double shooterA = 3.7037;
-  // public static double shooterB = 2722.2;
+  public static double shooterA = 3.705;
+  public static double shooterB = 2722.2;
 
   public static double shooterSpeed = 0.5;
 
@@ -171,8 +169,8 @@ public final class Constants {
   public static int kPIDLoopIdx = 0;
 
   // Shooter speeds
-  public static final double shooterIdleSpeed = 3000;
-  public static final double shooterLowSpeed = 2000;
+  public static double shooterIdleSpeed = 3000;
+  public static final double shooterLowSpeed = 1500;
   public static final double shooterRange = 200;
 
   public static final int maximumShootDistance = 156;

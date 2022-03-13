@@ -7,6 +7,7 @@ package frc.robot.subsystem;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.FlippedDIO;
@@ -16,7 +17,7 @@ import frc.robot.extensions.Limelight;
 public class Turret extends SubsystemBase {
 
   // PID
-  PIDController turretPID = new PIDController(0.01, 0, 0);
+  PIDController turretPID = new PIDController(0.015, 0.0, 0);
 
   // Motors
   PWMSparkMax turretRotation;
@@ -48,13 +49,14 @@ public class Turret extends SubsystemBase {
   // If the turret PID goes over 20% (.2 or -.2), bring it back to 20%
   public double turretThreshold() {
     double motorOutput = turretPID.calculate(Limelight.getLimelightX(), 0);
+    SmartDashboard.putNumber("calculate", motorOutput);
     if (Helper.RangeCompare(.2, -.2, motorOutput)) {
       return motorOutput;
     } else {
       if (motorOutput < 0) {
-        return -0.2;
+        return -0.3;
       } else {
-        return 0.2;
+        return 0.3;
       }
     }
   }
@@ -62,7 +64,16 @@ public class Turret extends SubsystemBase {
   // Using PID values, the turret autolocks on a target and turns based off of
   // where the target is
   public void turnOnPIDAutoAim() {
-    turretRotation.set(turretThreshold());
+
+    double tt = turretThreshold();
+    SmartDashboard.putNumber("MotorOutput", tt);
+    if (leftMagLimit.get() == true && tt >= 0) {
+      turretRotation.stopMotor();
+    } else if (rightMagLimit.get() == true && tt <= 0) {
+      turretRotation.stopMotor();
+    } else {
+      turretRotation.set(tt);
+    }
   }
 
   // The limelight's on target > returns true or false
