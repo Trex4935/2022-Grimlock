@@ -29,6 +29,7 @@ import frc.robot.commands.c_rotateClimbTowardsIntake;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
+import frc.robot.commands.c_turnOnPIDAutoAim;
 import frc.robot.commands.cg_phaseThree;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
@@ -77,8 +78,13 @@ public class RobotContainer {
     /////////// COMPETITION PROFILE ///////////
     else {
       // Setup default drive controls
-      drive.setDefaultCommand(new c_driveWithController(drive, controller));
-      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret));
+      // drive.setDefaultCommand(new c_driveWithController(drive, controller));
+      // turret.setDefaultCommand(new c_aimWithController(turret, controller));
+      // intake.setDefaultCommand(new c_runIntakeMotor(intake));
+      // intake.setDefaultCommand(new c_singulateBall(intake));
+      // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter,
+      // turret));
+
 
       // Configure the button bindings
       configureButtonBindingsCompetition();
