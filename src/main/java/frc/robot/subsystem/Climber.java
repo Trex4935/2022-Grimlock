@@ -7,6 +7,7 @@
 //   right side of robot - 8 + 9
 package frc.robot.subsystem;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 // Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -29,22 +30,27 @@ public class Climber extends SubsystemBase {
   private static FlippedDIO leftClimberMagLimitBottom;
   private static FlippedDIO rightClimberMagLimitTop;
   private static FlippedDIO rightClimberMagLimitBottom;
+  private static FlippedDIO rotateArmLimit;
 
   // Construct a climber object
   public Climber() {
 
     // Populate the variables with motor objects with the correct IDs
     climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
+    climbMotor.configFactoryDefault();
+    climbMotor.setNeutralMode(NeutralMode.Brake);
+    climbMotor.configOpenloopRamp(1);
+
     rotationMotor = new WPI_TalonSRX(Constants.rotationMotorCanID);
+    rotationMotor.configFactoryDefault();
+    rotationMotor.setNeutralMode(NeutralMode.Coast);
 
     // Climber Magnet Limits
     leftClimberMagLimitTop = new FlippedDIO(Constants.leftClimberMagLimitTopID);
     leftClimberMagLimitBottom = new FlippedDIO(Constants.leftClimberMagLimitBottomID);
     rightClimberMagLimitTop = new FlippedDIO(Constants.rightClimberMagLimitTopID);
     rightClimberMagLimitBottom = new FlippedDIO(Constants.rightClimberMagLimitBottomID);
-
-    // Braking Mode
-    climbMotor.setNeutralMode(Constants.elevatorBrakeMode);
+    rotateArmLimit = new FlippedDIO(Constants.extraClimberMagLimitBottomID);
   }
 
   // Stop all of the climb motors
@@ -56,13 +62,20 @@ public class Climber extends SubsystemBase {
   // The rotating climber motor movest the arms towards shooter
   public void rotateClimbTowardsShooter() {
     rotationMotor.setInverted(false);
-    rotationMotor.set(Constants.climbRotateSpeed);
-  }
 
+    // if the tang limit switch is impacted stop the rotation motor so we don't over
+    // rotate.
+    if (rotateArmLimit.get()) {
+      rotationMotor.stopMotor();
+    } else {
+      rotationMotor.set(Constants.climbRotateSpeed);
+    }
+
+  }
 
   // The rotating climber motor moves the arms towards intake
   public void rotateClimbTowardsIntake() {
-    rotationMotor.setInverted(true);
+    rotationMotor.setInverted(false);
     rotationMotor.set(Constants.climbRotateSpeed);
 
   }
@@ -72,11 +85,15 @@ public class Climber extends SubsystemBase {
     rotationMotor.stopMotor();
   }
 
+  public boolean getMotorTopLimit() {
+    return leftClimberMagLimitTop.get() || rightClimberMagLimitTop.get();
+  }
+
   // The default climber arms go up
   public void motorClimbUp() {
     climbMotor.setInverted(false);
 
-    if (leftClimberMagLimitTop.get() || rightClimberMagLimitTop.get()) {
+    if (getMotorTopLimit()) {
       climbMotor.stopMotor();
       // System.out.println(Constants.leftClimberMagLimitTopID);
       // System.out.println(Constants.rightClimberMagLimitTopID);
@@ -85,12 +102,17 @@ public class Climber extends SubsystemBase {
     }
   }
 
+  // Sees whether the bottom limit switches are tripped or not (true / false)
+  public boolean getMotorBottomLimit() {
+    return leftClimberMagLimitBottom.get() || rightClimberMagLimitBottom.get();
+  }
+
   // The default climber motor goes down (test for correct direction then change
   // inverse if its the wrong way?)
   // then prints what POV direction was pressed
   public void motorClimbDown() {
     climbMotor.setInverted(true);
-    if (leftClimberMagLimitBottom.get() || rightClimberMagLimitBottom.get()) {
+    if (getMotorBottomLimit()) {
       climbMotor.stopMotor();
       // System.out.println(Constants.leftClimberMagLimitBottomID);
       // System.out.println(Constants.rightClimberMagLimitBottomID);
@@ -100,9 +122,22 @@ public class Climber extends SubsystemBase {
     // System.out.println("down");
   }
 
+  /*
+   * public boolean readClimberColorSensor() {
+   * if (value == value) {
+   * return true;
+   * }
+   * return false;
+   * }
+   */
+
   // Stops the default climber motor
   public void stopClimbMotor() {
     climbMotor.stopMotor();
+  }
+
+  public void getStatus() {
+    // System.out.println(extraClimberMagLimitBottom.get());
   }
 
   @Override

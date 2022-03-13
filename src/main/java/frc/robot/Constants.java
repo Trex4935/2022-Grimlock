@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.extensions.PID;
 
 /**
@@ -22,135 +23,161 @@ import frc.robot.extensions.PID;
  */
 public final class Constants {
 
-    ///////////////////////////////////////////////////////////
-    public static final boolean testingControlMode = true;
-    // public static final String controlMode = "Testing";
-    ///////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////
+  public static final boolean testingControlMode = true;
+  // public static final String controlMode = "Testing";
+  ///////////////////////////////////////////////////////////
 
-    // region DriveTrain
+  // region General
 
-    // Motor IDs
-    public static final int leftFrontCanID = 34;
-    public static final int leftBackCanID = 30;
-    public static final int rightFrontCanID = 31;
-    public static final int rightBackCanID = 32;
-    public static final int middleLeftCanID = 33;
-    public static final int middleRightCanID = 35;
+  public static final DriverStation.Alliance allianceColor = DriverStation.getAlliance();
 
-    // Xbox controller input IDs
-    public static final int leftVertical = 1;
-    public static final int leftHorizontal = 0;
-    public static final int rightHorizontal = 4;
+  // region DriveTrain
 
-    // DriveTrain limits
-    public static double driveSpeedLimit = 0.75;
+  // Motor IDs
+  public static final int leftFrontCanID = 34;
+  public static final int leftBackCanID = 30;
+  public static final int rightFrontCanID = 31;
+  public static final int rightBackCanID = 32;
+  public static final int middleLeftCanID = 33;
+  public static final int middleRightCanID = 35;
 
-    public static double outsideRampLimiter = 0.75;
-    public static double middleRampLimiter = 1.25;
+  // Xbox controller input IDs
+  public static final int leftVertical = 1;
+  public static final int leftHorizontal = 0;
+  public static final int rightHorizontal = 4;
 
-    public static final NeutralMode outsideBrakeMode = NeutralMode.Brake;
-    public static final NeutralMode middleBreakMode = NeutralMode.Coast;
+  // DriveTrain limits
+  public static double driveSpeedLimit = 0.75;
 
-    // Sensors
-    public static final int sensorIRBlackValue = 6;
+  public static double outsideRampLimiter = 0.75;
+  public static double middleRampLimiter = 1.25;
 
-    // endregion
-    // --------------------------------------------------------
+  public static final NeutralMode outsideBrakeMode = NeutralMode.Brake;
+  public static final NeutralMode middleBreakMode = NeutralMode.Coast;
 
-    // region Intake
+  // Sensors
+  public static final int sensorIRBlackValue = 6;
 
-    // Motor Can IDs
-    public static final int intakeMotorCanID = 3;
-    public static final int magazineMotor1CanID = 6;
+  // endregion
+  // --------------------------------------------------------
 
-    // Motor speeds
-    public static final double magazineMotorSpeed = 0.5;
-    public static final double intakeMotorSpeed = 0.5;
+  // region Intake
 
-    // Smakna sensor ids
-    public static final int magazineSensor1DIO = 3;
-    public static final int magazineSensor2DIO = 4;
-    public static final int magazineSensor3DIO = 5;
+  // Motor Can IDs
+  public static final int intakeMotorCanID = 3;
+  public static final int magazineMotorCanID = 6;
+  public static final int intakeRetractionMotorID = 2;
 
-    // color sensor required value to detect a color
-    public static final int sensorRequiredValue = 1000;
+  // Motor speeds
+  public static final double magazineMotorSpeed = 0.5;
+  public static final double intakeMotorSpeed = 0.8;
 
-    // prox sensor max and min values for ball detection
+  // Smakna sensor ids
+  public static final int leftTrapSmakna = 3;
+  public static final int rightTrapSmakna = 4;
+  public static final int insideMagSmakna = 5;
 
-    // 55-65 without ball
-    // 598 with ball at color sensor or 1800
-    public static final int proxSensorMax = 2000;
-    public static final int proxSensorMin = 100;
+  // color sensor required value to detect a color
+  public static final int sensorRequiredValue = 1000;
 
-    // endregion
-    // --------------------------------------------------------
+  // prox sensor max and min values for ball detection
 
-    // region Turret
+  // 55-65 without ball
+  // 598 with ball at color sensor or 1800
+  public static final int proxSensorMax = 2000;
+  public static final int proxSensorMin = 100;
 
-    // Motor IDs
-    public static final int turretRotationPWMID = 0;
+  // Configable intake deployment and retraction
+  public static final double retractionRunTime = 2.0;
+  public static final double retractionSpeed = 0.5;
 
-    // Xbox controller trigger IDs
-    public static final int leftTrigger = 2;
-    public static final int rightTrigger = 3;
+  // endregion
+  // --------------------------------------------------------
 
-    // Motor speeds
-    public static double returnToMiddleSpeed = 0.1;
-    public static final double returnToMiddleSpeedLeft = returnToMiddleSpeed * -1;
+  public static double kPDt = 1 / 360; // gyro gives angle in degree. kP/360.
 
-    // Magnet Limit Switches
-    public static final int leftMagLimitID = 2;
-    public static final int middleMagID = 1;
-    public static final int rightMagLimitID = 0;
+  // region Turret
 
-    // endregion
-    // --------------------------------------------------------
+  // Motor IDs
+  public static final int turretRotationPWMID = 0;
 
-    // region Climber
+  // maintain state of the intake (up or down)
+  public static boolean retractionState = false;
 
-    // Braking
-    public static final NeutralMode elevatorBrakeMode = NeutralMode.Brake;
+  // Xbox controller trigger IDs
+  public static final int leftTrigger = 2;
+  public static final int rightTrigger = 3;
 
-    // Motor IDs
-    public static final int climbMotorCanID = 21;
-    public static final int rotationMotorCanID = 4;
+  // Motor speeds
+  public static double returnToMiddleSpeed = 0.1;
+  public static final double returnToMiddleSpeedLeft = returnToMiddleSpeed * -1;
 
-    // Motor Speeds
-    public static final double climbMotorSpeed = 0.8;
-    public static final double climbRotateSpeed = 0.8;
+  // Magnet Limit Switches
+  public static final int leftMagLimitID = 2;
+  public static final int middleMagID = 1;
+  public static final int rightMagLimitID = 0;
 
-    // Magnet Limit Switches
-    public static final int leftClimberMagLimitTopID = 7;
-    public static final int leftClimberMagLimitBottomID = 6;
-    public static final int rightClimberMagLimitTopID = 9;
-    public static final int rightClimberMagLimitBottomID = 8;
+  // endregion
+  // --------------------------------------------------------
 
-    // endregion
-    // --------------------------------------------------------
+  // region Climber
 
-    // region Shooter
-    public static final int shooterMotorCanID = 11;
+  // Braking
+  public static final NeutralMode elevatorBrakeMode = NeutralMode.Brake;
 
-    // conversion factor for the falconFX encoder
-    public static final double ticks2RPM = 600.0 / 2048.0;
+  // Motor IDs
+  public static final int climbMotorCanID = 21;
+  public static final int rotationMotorCanID = 4;
 
-    // Distance Estimation
-    public static final double h2 = 2;
-    public static final double angle1 = 1;
-    public static final double h1 = 1;
-    public static double shooterA = (3300-3100)/(13-9);
-    public static double shooterB = 3100;
-    public static double shooterSpeed = 0.3;
+  // Motor Speeds
+  public static final double climbMotorSpeed = 0.7;
+  public static final double climbRotateSpeed = 0.55;
 
-    // Shooter PID
-    public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.041); // Good start value per CTRE docs.
-    public static int kTimeoutMs = 20;
-    public static int kPIDLoopIdx = 0;
+  // Magnet Limit Switches
+  public static final int leftClimberMagLimitTopID = 7;
+  public static final int leftClimberMagLimitBottomID = 6;
+  public static final int rightClimberMagLimitTopID = 9;
+  public static final int rightClimberMagLimitBottomID = 8;
+  public static final int extraClimberMagLimitBottomID = 10; // ROBORIO 10 = DIO0 NAVX0
 
-    // Shooter speeds
-    public static final double shooterIdleSpeed = 3000;
-    public static final double shooterRange = 100;
+  // endregion
+  // --------------------------------------------------------
 
-    // endregion
-    // --------------------------------------------------------
+  // region Shooter
+  public static final int shooterMotorCanID = 11;
+
+  // conversion factor for the falconFX encoder
+  public static final double ticks2RPM = 600.0 / 2048.0;
+
+  // Distance Estimation
+  public static final double h2 = 104;// 8ft 8in to inches -> 104in
+  public static final double angle1 = 22.5;
+  public static final double h1 = 45.5; // 44.5in
+  public static final double targetOffset = 24;
+
+  public static double shooterA = 1;
+  public static double shooterB = 2;
+
+  // RPM = 3.7037 * distance + 2722.2
+  // public static double shooterA = 3.7037;
+  // public static double shooterB = 2722.2;
+
+  public static double shooterSpeed = 0.5;
+
+  // Shooter PID
+  public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.047); // Good start value per CTRE docs.
+  public static int kTimeoutMs = 20;
+  public static int kPIDLoopIdx = 0;
+
+  // Shooter speeds
+  public static final double shooterIdleSpeed = 3000;
+  public static final double shooterLowSpeed = 2000;
+  public static final double shooterRange = 200;
+
+  public static final int maximumShootDistance = 156;
+  public static final int minimumShootDistance = 108;
+
+  // endregion
+  // --------------------------------------------------------
 }

@@ -6,11 +6,11 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.TalonFXSensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
@@ -18,17 +18,16 @@ import frc.robot.extensions.Helper;
 
 public class Shooter extends SubsystemBase {
 
-  TalonFXSensorCollection shooter_Encoder;
+  // Declare shooter motor
   WPI_TalonFX shooterMotor;
 
   /** Creates a new Shooter. */
   public Shooter() {
+    // Setup the shooter motor
     shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
     shooterMotor.setInverted(true);
 
-    shooter_Encoder = shooterMotor.getSensorCollection();
-
-    //
+    // Setup shooter configuration
     TalonFXConfiguration config = new TalonFXConfiguration();
     initMotorController(config);
   }
@@ -75,67 +74,112 @@ public class Shooter extends SubsystemBase {
   }
 
   // runs an adjusted version of a value set in constants with PID
-  public boolean runShooterPID(BallColor color, double distance) {
+  public boolean runShooterPID(BallColor color, double distance, DriverStation.Alliance allianceColor) {
     // switch statement to decide what to do depending on ball color
     // currently placeholder values
-    System.out.println(color.toString());
+    // System.out.println(color.toString());
     double targetTicks;
-    double shooterSpeed;
-
-   //Calculate the right shooter speed, per distance
-    shooterSpeed = getSpeedSetPoint(distance);
-    
-
+    SmartDashboard.putString("Color", color.toString());
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {
       case NONE:
+        targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
+
         // System.out.println("NONE");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(shooterSpeed));
-        return false;
+        shooterMotor.set(ControlMode.Velocity, targetTicks);
+
+        // check if we are at speed and update the dashboard
+        return shooterAtSpeed(targetTicks);
+
       case RED:
         // System.out.println("RED");
 
-        targetTicks = rpmtoTicks(1000);
+        // Determined the # of ticks based on ball color and distance
+        targetTicks = allianceSpeed(BallColor.RED, distance);
+        // System.out.println(targetTicks);
+
+        // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        if (Helper.RangeCompare(targetTicks + Constants.shooterRange, targetTicks - Constants.shooterRange,
-            shooterMotor.getSelectedSensorVelocity())) {
-          return true;
-        } else {
-          return false;
-        }
+        return shooterAtSpeed(targetTicks) && atDistance(distance);
 
       case BLUE:
         // System.out.println("BLUE");
 
-        targetTicks = rpmtoTicks(3200);
+        // Determined the # of ticks based on ball color and distance
+        targetTicks = allianceSpeed(BallColor.BLUE, distance);
+        // System.out.println("----------------");
+        // System.out.println(targetTicks);
+
+        // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
+        // System.out.println(shooterMotor.getSelectedSensorVelocity());
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        if (Helper.RangeCompare(targetTicks + Constants.shooterRange, targetTicks - Constants.shooterRange,
-            shooterMotor.getSelectedSensorVelocity())) {
-          return true;
-        } else {
-          return false;
-        }
+        return shooterAtSpeed(targetTicks) && atDistance(distance);
 
       default:
-        // System.out.println("defaultdefault");
-        shooterMotor.set(ControlMode.Velocity, rpmtoTicks(shooterSpeed));
-        return false;
+        targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
+
+        // System.out.println("NONE");
+        shooterMotor.set(ControlMode.Velocity, targetTicks);
+
+        // check if we are at speed and update the dashboard
+        return shooterAtSpeed(targetTicks) && atDistance(distance);
     }
   }
 
-  // Determine motor speed based on distance and linear equation for speed vs
-  // distance
-  public void shootBallWithVision(double distance) {
-    // Linear equation relating motor speed to distance
-    double motorSpeed = Constants.shooterA * distance + Constants.shooterB;
-    shooterMotor.set(TalonFXControlMode.Velocity, motorSpeed);
+  private boolean shooterAtSpeed(double targetTicks) {
+
+    SmartDashboard.putNumber("Target Ticks", targetTicks);
+    SmartDashboard.putNumber("Tp100", shooterMotor.getSelectedSensorVelocity());
+
+    // Detect if we are within acceptable speed range
+    // Return true or false for usage with the magazine bypass
+    if (Helper.RangeCompare(targetTicks + Constants.shooterRange, targetTicks - Constants.shooterRange,
+        shooterMotor.getSelectedSensorVelocity())) {
+      SmartDashboard.putBoolean("Shooter At Speed", true);
+      return true;
+
+    } else {
+      SmartDashboard.putBoolean("Shooter At Speed", false);
+      return false;
+    }
+  }
+
+  private boolean atDistance(double distance) {
+
+    // Detect if we are within acceptable distance range
+    // Return true or false for usage with the magazine bypass
+    if (Helper.RangeCompare(Constants.maximumShootDistance + 6, Constants.minimumShootDistance - 6, distance)) {
+
+      SmartDashboard.putBoolean("Robot at Distance", true);
+      return true;
+    } else {
+
+      SmartDashboard.putBoolean("Robot at Distance", false);
+      return false;
+    }
+  }
+
+  // determine the shooter speed based on distance ball color and alliance
+  private double allianceSpeed(BallColor color, double distance) {
+    // Red & Red == speed by distance
+    if (color == BallColor.RED && Constants.allianceColor == DriverStation.Alliance.Red) {
+      return rpmtoTicks(getSpeedSetPoint(distance));
+    }
+    // Blue & Blue == speed by distance
+    else if (color == BallColor.BLUE && Constants.allianceColor == DriverStation.Alliance.Blue) {
+      return rpmtoTicks(getSpeedSetPoint(distance));
+    }
+    // all other cases low speed shot!
+    else {
+      return rpmtoTicks(Constants.shooterLowSpeed);
+    }
   }
 
   // Stop shooter motor
@@ -144,15 +188,13 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getSpeedSetPoint(double distance) {
-    double motorSpeed = Constants.shooterA *distance + Constants.shooterB;
-    return motorSpeed;
-  }
-  public double getSpeed() {
-    return 1;// TODO
+    // RPM = 3.7037 * distance + 2722.2
+    return Constants.shooterA * distance + Constants.shooterB;
   }
 
-  public double getPosition() {
-    return 1;// TODO
+  public void shooting() {
+    shooterMotor.set(Constants.shooterSpeed);
+
   }
 
   @Override

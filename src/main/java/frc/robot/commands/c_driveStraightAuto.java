@@ -5,40 +5,37 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Climber;
+import frc.robot.subsystem.Drivetrain;
 
-public class c_motorClimbUp extends CommandBase {
-  /** Creates a new runIntakeMotors. */
-  private final Climber climber;
-
-  public c_motorClimbUp(Climber cl) {
+public class c_driveStraightAuto extends CommandBase {
+  private final Drivetrain drive;
+  
+  /** Creates a new c_driveStraightAuto. */
+  public c_driveStraightAuto(Drivetrain dt) {
+    drive = dt;
+    addRequirements(drive);
     // Use addRequirements() here to declare subsystem dependencies.
-    climber = cl;
-    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    climber.motorClimbUp();
-
+    drive.drive_straight_gyro(1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.stopClimbMotor();
+    drive.stopAllDriveMotors();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.getMotorTopLimit();
+    return false;
   }
 }

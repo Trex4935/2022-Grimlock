@@ -4,12 +4,14 @@
 
 package frc.robot.subsystem;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
@@ -20,14 +22,15 @@ public class Intake extends SubsystemBase {
 
   WPI_TalonFX intakeMotor;
   WPI_TalonFX magazineMotor;
+  WPI_TalonFX intakeRetractionMotor;
 
   // intake color sensor
   private multiplexedColorSensor sensor2;
 
   // magazine smacna
-  private static FlippedDIO magazineSensor1DIO;
-  private static FlippedDIO magazineSensor2DIO;
-  private static FlippedDIO magazineSensor3DIO;
+  private static FlippedDIO leftTrapSmaknaDIO;
+  private static FlippedDIO rightTrapSmaknaDIO;
+  private static FlippedDIO insideMagSmaknaDIO;
 
   // initializing the color sensor table
   public NetworkTable color_table;
@@ -40,15 +43,25 @@ public class Intake extends SubsystemBase {
   // Constructor
   public Intake() {
 
+    // run the intake rollers at the front
     intakeMotor = new WPI_TalonFX(Constants.intakeMotorCanID);
     intakeMotor.setInverted(false);
-    magazineMotor = new WPI_TalonFX(Constants.magazineMotor1CanID);
+
+    // motor to run the magazine belts
+    magazineMotor = new WPI_TalonFX(Constants.magazineMotorCanID);
     magazineMotor.setInverted(true);
 
-    magazineSensor1DIO = new FlippedDIO(Constants.magazineSensor1DIO);
-    magazineSensor2DIO = new FlippedDIO(Constants.magazineSensor2DIO);
-    magazineSensor3DIO = new FlippedDIO(Constants.magazineSensor3DIO);
+    // intake retraction motor
+    intakeRetractionMotor = new WPI_TalonFX(Constants.intakeRetractionMotorID);
+    intakeRetractionMotor.setInverted(false);
+    intakeRetractionMotor.setNeutralMode(NeutralMode.Brake);
 
+    // sensors for the trap portion of the intake
+    leftTrapSmaknaDIO = new FlippedDIO(Constants.leftTrapSmakna);
+    rightTrapSmaknaDIO = new FlippedDIO(Constants.rightTrapSmakna);
+    insideMagSmaknaDIO = new FlippedDIO(Constants.insideMagSmakna);
+
+    // color sensor at the top of the magazine
     sensor2 = new multiplexedColorSensor(I2C.Port.kOnboard, 4);
 
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
@@ -69,14 +82,17 @@ public class Intake extends SubsystemBase {
     // not if shooter is at correct speed and on target
     if (bypassProx) {
       magazineMotor.set(Constants.magazineMotorSpeed);
+      SmartDashboard.putBoolean("Mag Active", true);
     } else {
       // System.out.println("No ByPass");
       // if proximity sensor is not bypassed then stop magazine if a ball is detected
       if (readProxColorSensor()) {
         // System.out.println("See Ball");
         magazineMotor.stopMotor();
+        SmartDashboard.putBoolean("Mag Active", false);
       } else {
         magazineMotor.set(Constants.magazineMotorSpeed);
+        SmartDashboard.putBoolean("Mag Active", true);
       }
     }
   }
@@ -86,6 +102,23 @@ public class Intake extends SubsystemBase {
     intakeMotor.stopMotor();
   }
 
+  public void runIntakeRetractionMotor() {
+    if (Constants.retractionState) {
+
+      intakeRetractionMotor.set(Constants.retractionSpeed);
+      // new WaitCommand(Constants.retractionRunTime);
+
+    } else {
+
+      intakeRetractionMotor.set(-Constants.retractionSpeed);
+      // new WaitCommand(Constants.retractionRunTime);
+    }
+  }
+
+  public void flipIntakeRetrationMotorState() {
+    Constants.retractionState = !Constants.retractionState;
+  }
+
   // stop magazine motor
   public void magazineMotorStop() {
     magazineMotor.stopMotor();
@@ -93,7 +126,8 @@ public class Intake extends SubsystemBase {
   }
 
   public BallColor readSensor() {
-    System.out.println(sensor2.getRed() + ";" + sensor2.getBlue() + ";" + sensor2.getGreen());
+    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue() + ";" +
+    // sensor2.getGreen());
 
     // If we detect a ball with the prox sensor determine the color
     if (readProxColorSensor()) {
@@ -118,32 +152,11 @@ public class Intake extends SubsystemBase {
     }
   }
 
+  // ????
   public double dash_Color() {
 
     double x = received_color.getDouble(0.0);
     return x;
-  }
-
-  // determine what to do with ball based on color
-  public double redBlueDecision(BallColor color) {
-
-    // switch statement to decide what to do depending on ball color
-    // currently placeholder values
-    switch (color) {
-      case NONE:
-        // System.out.println("NONE");
-        return 1000;
-      case RED:
-        // System.out.println("RED");
-        return 2000;
-      case BLUE:
-        // System.out.println("BLUE");
-        return 3000;
-      default:
-        // System.out.println("defaultdefault");
-        return 1000;
-    }
-
   }
 
   // Checks prox. color sens. for its value and if in range, returns true
@@ -152,44 +165,49 @@ public class Intake extends SubsystemBase {
     // System.out.println(sensor2.getProximity());
     // System.out.println(readSensor());
     if (prox_value > Constants.proxSensorMin) {
-
-      // System.out.println("bababa");
-
+      // System.out.println("BALL");
       return true;
     }
-    // System.out.println("h");
-
+    // System.out.println("NO BALL");
     return false;
   }
 
   // Get the value of smakna 1
   public boolean getMagazineSensor1DIO() {
-    return magazineSensor1DIO.get();
+    return leftTrapSmaknaDIO.get();
   }
 
   // Get the value of smakna 2
   public boolean getMagazineSensor2DIO() {
-    return magazineSensor2DIO.get();
+    return rightTrapSmaknaDIO.get();
   }
 
   // Get the value of smakna 3
   public boolean getMagazineSensor3DIO() {
-    return magazineSensor3DIO.get();
+    return insideMagSmaknaDIO.get();
   }
 
   // When the magazine sensor sees a ball run the HB
   public void singulateBall() {
+    // if any of the trap sensors see a ball & we have a ball at the top stop intake
     if ((getMagazineSensor1DIO() || getMagazineSensor2DIO() || getMagazineSensor3DIO())
-        && readProxColorSensor() == true) {
+        && readProxColorSensor()) {
       intakeMotorStop();
     }
-    runIntakeMotor();
-    readProxColorSensor();
+    // else keep the intake running
+    else {
+      runIntakeMotor();
+    }
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+  }
+
+  // stop the intake retraction motor
+  public void stopIntakeRetrationMotor() {
+    intakeRetractionMotor.stopMotor();
   }
 
 }

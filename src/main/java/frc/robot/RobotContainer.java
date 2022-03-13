@@ -5,25 +5,32 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.command_archive.c_runMagazineMotors;
 import frc.robot.commands.c_aimWithController;
+import frc.robot.commands.c_driveStraightAuto;
+import frc.robot.commands.c_releaseIntake;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_motorClimbDown;
 import frc.robot.commands.c_motorClimbUp;
+import frc.robot.commands.c_pullUp;
 import frc.robot.commands.c_returnToMiddle;
+import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_rotateClimbTowardsShooter;
 import frc.robot.commands.c_runIntakeMotor;
+import frc.robot.commands.c_runIntakeRetractionMotor;
 import frc.robot.commands.c_runShooterPID;
 import frc.robot.commands.c_rotateClimbTowardsIntake;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
 import frc.robot.commands.c_turnOnPIDAutoAim;
+import frc.robot.commands.cg_phaseThree;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
@@ -46,22 +53,16 @@ public class RobotContainer {
   private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b;
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
+  c_driveStraightAuto auto;
+  c_releaseIntake releaseIntake;
+
   public RobotContainer() {
 
+    auto = new c_driveStraightAuto(drive);
+
     // load control profile based on if we are in testing or competition mode
+    /////////// TESTING PROFILE ///////////
     if (Constants.testingControlMode) {
-      // Setup default drive controls
-      // drive.setDefaultCommand(new c_driveWithController(drive, controller));
-      // turret.setDefaultCommand(new c_aimWithController(turret, controller));
-      // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-      // intake.setDefaultCommand(new c_singulateBall(intake));
-      // shooter.setDefaultCommand(new c_detectShootingReady(shooter));
-
-      // Configure the button bindings
-      configureButtonBindingsTesting();
-
-    } else {
-
       // Setup default drive controls
       // drive.setDefaultCommand(new c_driveWithController(drive, controller));
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
@@ -69,6 +70,21 @@ public class RobotContainer {
       // intake.setDefaultCommand(new c_singulateBall(intake));
       // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter,
       // turret));
+
+      // Configure the button bindings
+      configureButtonBindingsTesting();
+
+    }
+    /////////// COMPETITION PROFILE ///////////
+    else {
+      // Setup default drive controls
+      // drive.setDefaultCommand(new c_driveWithController(drive, controller));
+      // turret.setDefaultCommand(new c_aimWithController(turret, controller));
+      // intake.setDefaultCommand(new c_runIntakeMotor(intake));
+      // intake.setDefaultCommand(new c_singulateBall(intake));
+      // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter,
+      // turret));
+
 
       // Configure the button bindings
       configureButtonBindingsCompetition();
@@ -85,12 +101,22 @@ public class RobotContainer {
    */
 
   // controller map for competition
+  /////////// COMPETITION PROFILE ///////////
+
   private void configureButtonBindingsCompetition() {
+
+    // Set the A button
+    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
+    xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
+
+    // Set the B button
+    xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    xbox_b.toggleWhenPressed(new c_pullUp(climber));
 
     /// CONTROLLER MAP
     //
-    // A -
-    // B -
+    // A - Rotate and Extend Arms
+    // B - Lift Robot off the Ground
     // X -
     // Y -
     //
@@ -118,22 +144,27 @@ public class RobotContainer {
   }
 
   // controller map for testing the robot
+  /////////// TESTING PROFILE ///////////
   private void configureButtonBindingsTesting() {
 
+    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
+    xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
+    // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
+
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
+    xbox_b.toggleWhenPressed(new c_pullUp(climber));
     // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    xbox_y.toggleWhenPressed(new c_runShooterPID(shooter, 2000));
-    // xbox_y.toggleWhenPressed(new c_rotateClimbTowardsIntake(climber));
-
-    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    xbox_a.toggleWhenPressed(new c_turnOnPIDAutoAim(turret));
-    // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
+    xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
+    // xbox_y.toggleWhenPressed(new c_shootBall(shooter));
+    // xbox_y.toggleWhenPressed(new c_rotateAndUpClimb(climber));
+    // xbox_y.toggleWhenPressed(new c_runShooterPID(shooter, 2000));
+    // xbox_y.whenHeld(new c_rotateClimbTowardsIntake(climber));
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
-    xbox_x.toggleWhenPressed(new c_runShooterPID(shooter, 4000));
-    // xbox_x.toggleWhenPressed(new c_rotateClimbTowardsShooter(climber));
+    // xbox_x.toggleWhenPressed(new c_runShooterPID(shooter, 4000));
+    xbox_x.whenHeld(new c_shootBall(shooter));
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);
@@ -183,6 +214,6 @@ public class RobotContainer {
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
   public Command getAutonomousCommand() {
-    return null;
+    return releaseIntake.andThen(auto.withTimeout(10));
   }
 }

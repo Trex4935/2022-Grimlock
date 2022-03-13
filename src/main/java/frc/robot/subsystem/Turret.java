@@ -79,6 +79,7 @@ public class Turret extends SubsystemBase {
     // If it rotates all the way to the far right instead the motor will reverse
     // directions until it reaches the middle.
     // When the rotation motor reaches the middle it will stop moving.
+
     if (rightMagLimit.get() == true) {
       Constants.returnToMiddleSpeed = Constants.returnToMiddleSpeedLeft;
       turretRotation.set(Constants.returnToMiddleSpeed);
