@@ -48,9 +48,11 @@ public class RobotContainer {
 
   // Controller
   private static XboxController controller = new XboxController(0);
+  private static XboxController coDriverController = new XboxController(1);
 
   // button variables for the controller
   private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b;
+  private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b;
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
   c_driveStraightAuto auto;
@@ -81,7 +83,7 @@ public class RobotContainer {
       drive.setDefaultCommand(new c_driveWithController(drive, controller));
       // turret.setDefaultCommand(new c_turnOnPIDAutoAim(turretPID));
       // intakeSingulate.setDefaultCommand(new c_singulateBall(intakeSingulate));
-      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret));
+      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret, coDriverController));
 
       // Configure the button bindings
       configureButtonBindingsCompetition();
@@ -147,6 +149,7 @@ public class RobotContainer {
   /////////// TESTING PROFILE ///////////
   private void configureButtonBindingsTesting() {
 
+    ///// PRIMARY CONTROLLER /////
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
     xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
@@ -180,6 +183,10 @@ public class RobotContainer {
     // xbox_pov_right = new POVButton(controller, 90);
     // RIGHT ON CONTROLLER D-PAD
     // xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
+
+    ///// CODRIVER CONTROLLER /////
+    // c_xbox_a = new
+    ///// JoystickButton(coDriverController,XboxController.Button.kA.value);
 
     /// CONTROLLER MAP
     //

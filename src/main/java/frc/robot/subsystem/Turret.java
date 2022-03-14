@@ -63,19 +63,26 @@ public class Turret extends SubsystemBase {
 
   // Using PID values, the turret autolocks on a target and turns based off of
   // where the target is
-  public void turnOnPIDAutoAim() {
+  public void turnOnPIDAutoAim(XboxController coDrivController) {
 
-    // Get the speed that we are going to run the motor
-    double tt = turretThreshold();
-    SmartDashboard.putNumber("MotorOutput", tt);
+    // If the controller is trying to turn the turret use that otherwise use the PID
+    if (coDrivController.getLeftTriggerAxis() > 0.1 || coDrivController.getRightTriggerAxis() > 0.1) {
+      aimWithController(coDrivController);
+    }
+    // use the PID to move the turret
+    else {
+      // Get the speed that we are going to run the motor
+      double tt = turretThreshold();
+      SmartDashboard.putNumber("MotorOutput", tt);
 
-    // Handle the limit switches to make sure we don't over rotate
-    if (leftMagLimit.get() == true && tt >= 0) {
-      turretRotation.stopMotor();
-    } else if (rightMagLimit.get() == true && tt <= 0) {
-      turretRotation.stopMotor();
-    } else {
-      turretRotation.set(tt);
+      // Handle the limit switches to make sure we don't over rotate
+      if (leftMagLimit.get() == true && tt >= 0) {
+        turretRotation.stopMotor();
+      } else if (rightMagLimit.get() == true && tt <= 0) {
+        turretRotation.stopMotor();
+      } else {
+        turretRotation.set(tt);
+      }
     }
   }
 
@@ -109,11 +116,11 @@ public class Turret extends SubsystemBase {
   }
 
   // Moves the rotation motor based on controller input
-  public void aimWithController(XboxController controller) {
+  public void aimWithController(XboxController coDriverController) {
 
     // Pull in values from left and right trigger and normalize them
-    double triggerValue = (controller.getRawAxis(Constants.leftTrigger) * -1)
-        + controller.getRawAxis(Constants.rightTrigger);
+    double triggerValue = coDriverController.getLeftTriggerAxis()
+        + (coDriverController.getRightTriggerAxis() * -1);
 
     // ensure we stop at the right limit switches
     if (leftMagLimit.get() == false && (triggerValue) <= 0) {

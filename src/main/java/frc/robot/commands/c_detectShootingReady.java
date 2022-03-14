@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.extensions.Limelight;
 import frc.robot.subsystem.Intake;
@@ -12,12 +13,13 @@ import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Turret;
 
 public class c_detectShootingReady extends CommandBase {
-  Shooter shooter;
-  Intake intake;
-  Turret turret;
+  private final Shooter shooter;
+  private final Intake intake;
+  private final Turret turret;
+  private final XboxController controller;
 
   /** Creates a new c_shootWithVision. */
-  public c_detectShootingReady(Intake it, Shooter sh, Turret trt) {
+  public c_detectShootingReady(Intake it, Shooter sh, Turret trt, XboxController con) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = it;
     addRequirements(intake);
@@ -25,6 +27,7 @@ public class c_detectShootingReady extends CommandBase {
     addRequirements(shooter);
     turret = trt;
     addRequirements(turret);
+    controller = con;
   }
 
   // Called when the command is initially scheduled.
@@ -46,7 +49,7 @@ public class c_detectShootingReady extends CommandBase {
     }
 
     // Aim the turret
-    turret.turnOnPIDAutoAim();
+    turret.turnOnPIDAutoAim(controller);
 
     // Run singulation
     intake.singulateBall();

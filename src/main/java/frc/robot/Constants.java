@@ -5,8 +5,6 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
-import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.extensions.PID;
 
 /**
