@@ -65,8 +65,11 @@ public class Turret extends SubsystemBase {
   // where the target is
   public void turnOnPIDAutoAim() {
 
+    // Get the speed that we are going to run the motor
     double tt = turretThreshold();
     SmartDashboard.putNumber("MotorOutput", tt);
+
+    // Handle the limit switches to make sure we don't over rotate
     if (leftMagLimit.get() == true && tt >= 0) {
       turretRotation.stopMotor();
     } else if (rightMagLimit.get() == true && tt <= 0) {

@@ -6,7 +6,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.extensions.Limelight;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;

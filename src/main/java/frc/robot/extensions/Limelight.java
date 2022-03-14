@@ -33,7 +33,7 @@ public class Limelight {
   }
 
   // Pull tv from the limelight
-  public static boolean getLimelightV() {
+  public static boolean getLimelightA() {
     if (NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0.0) > 0.075) {
       return true;
     } else {

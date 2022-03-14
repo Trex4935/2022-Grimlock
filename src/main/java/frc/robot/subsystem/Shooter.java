@@ -82,7 +82,7 @@ public class Shooter extends SubsystemBase {
     double targetTicks;
     SmartDashboard.putString("Color", color.toString());
     SmartDashboard.putString("Alliance", allianceColor.toString());
-    SmartDashboard.putBoolean("Target Seen", Limelight.getLimelightV());
+    SmartDashboard.putBoolean("Target Seen", Limelight.getLimelightA());
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {
@@ -93,7 +93,7 @@ public class Shooter extends SubsystemBase {
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // check if we are at speed and update the dashboard
-        return (Limelight.getLimelightV() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
+        return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
 
       case RED:
         // System.out.println("RED");
@@ -108,7 +108,7 @@ public class Shooter extends SubsystemBase {
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
         if (allianceColor == DriverStation.Alliance.Red) {
-          return (Limelight.getLimelightV() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
+          return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
         } else {
           return shooterAtSpeed(targetTicks, color);
         }
@@ -127,7 +127,7 @@ public class Shooter extends SubsystemBase {
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
         if (allianceColor == DriverStation.Alliance.Blue) {
-          return (Limelight.getLimelightV() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
+          return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
         } else {
           return shooterAtSpeed(targetTicks, color);
         }
@@ -138,7 +138,7 @@ public class Shooter extends SubsystemBase {
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // check if we are at speed and update the dashboard
-        return (Limelight.getLimelightV() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
+        return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
     }
   }
 
