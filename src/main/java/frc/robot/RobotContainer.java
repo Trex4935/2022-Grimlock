@@ -68,9 +68,9 @@ public class RobotContainer {
       drive.setDefaultCommand(new c_driveWithController(drive, controller));
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-      intake.setDefaultCommand(new c_runMagazineMotors(intake));
-      // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter,
-      // turret));
+      // intake.setDefaultCommand(new c_runMagazineMotors(intake));
+      // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
+      // coDriverController));
 
       // Configure the button bindings
       configureButtonBindingsTesting();
@@ -143,7 +143,7 @@ public class RobotContainer {
     // Set the Y button
     // Lower the Robot
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    xbox_y.whenHeld(new c_robotClimbsUp(climber).withTimeout(0.5));
+    xbox_y.toggleWhenPressed(new c_robotClimbsUp(climber).withTimeout(0.5));
 
     /// CONTROLLER MAP
     //
