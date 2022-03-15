@@ -61,6 +61,7 @@ public class RobotContainer {
   c_driveStraightAngleAuto backingUpAt45Auto;
   c_driveTurnAuto turnAuto;
   c_releaseIntake releaseIntake;
+  c_detectShootingReady rdyshot;
   //c_driveStraightAuto auto;
 
   public RobotContainer() {
@@ -69,6 +70,7 @@ public class RobotContainer {
     backingUpAuto = new c_driveStraightAngleAuto(drive,0);
     backingUpAt45Auto = new c_driveStraightAngleAuto(drive,45);
     turnAuto = new c_driveTurnAuto(drive,45);
+    rdyshot = new c_detectShootingReady(intake, shooter, turret, coDriverController);
 
     // load control profile based on if we are in testing or competition mode
     /////////// TESTING PROFILE ///////////
@@ -230,6 +232,10 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // releaseIntake.andThen(
-    return backingUpAuto.withTimeout(1.5).andThen(turnAuto.andThen(backingUpAt45Auto.withTimeout(1.5))) ;
+      // tst ato
+    return backingUpAuto.withTimeout(1.5).andThen(rdyshot.andThen(turnAuto.andThen(backingUpAt45Auto.withTimeout(1.5).andThen(rdyshot))));
+
+      //works auto
+    //return backingUpAuto.withTimeout(1.5).andThen(turnAuto.andThen(backingUpAt45Auto.withTimeout(1.5))) ;
   }
 }
