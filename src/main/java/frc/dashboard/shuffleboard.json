@@ -48,7 +48,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "9,0": {
+          "0,4": {
             "size": [
               1,
               1
@@ -59,7 +59,7 @@
               "_title": "Target Ticks"
             }
           },
-          "9,1": {
+          "1,4": {
             "size": [
               1,
               1
@@ -101,6 +101,61 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/limelight_Stream",
               "_title": "limelight_Stream"
+            }
+          },
+          "11,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/LeftBack",
+              "_title": "LeftBack"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Left Front",
+              "_title": "Left Front"
+            }
+          },
+          "8,0": {
+            "size": [
+              2,
+              6
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Temperature",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/LeftFront",
+                  "_title": "LeftFront"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/RightFront",
+                  "_title": "RightFront"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Left Back",
+                  "_title": "Left Back"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/RightBack",
+                  "_title": "RightBack"
+                }
+              ]
             }
           }
         }
@@ -262,6 +317,18 @@
                   "_title": "DigitalInput[9]/Value",
                   "Colors/Color when true": "#7CFC00FF",
                   "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "PID Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PIDController[1]",
+                  "_title": "LiveWindow/Ungrouped/PIDController[1]"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DigitalInput[10]/Value",
+                  "_title": "LiveWindow/Ungrouped/DigitalInput[10]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 }
               ]
             }
@@ -342,9 +409,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -4.0,
-    "y": 0.0,
-    "width": 1521.3333740234375,
-    "height": 1020.0
+    "x": -7.333333492279053,
+    "y": -7.333333492279053,
+    "width": 1518.6666259765625,
+    "height": 977.3333129882812
   }
 }

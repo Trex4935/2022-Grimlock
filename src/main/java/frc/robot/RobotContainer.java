@@ -65,7 +65,7 @@ public class RobotContainer {
     /////////// TESTING PROFILE ///////////
     if (Constants.testingControlMode) {
       // Setup default drive controls
-      // drive.setDefaultCommand(new c_driveWithController(drive, controller));
+      drive.setDefaultCommand(new c_driveWithController(drive, controller));
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
       intake.setDefaultCommand(new c_runMagazineMotors(intake));

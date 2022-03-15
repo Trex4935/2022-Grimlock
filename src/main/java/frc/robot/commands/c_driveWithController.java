@@ -28,7 +28,7 @@ public class c_driveWithController extends CommandBase {
   @Override
   public void execute() {
     drive.driveWithController(controller, Constants.driveSpeedLimit);
-    drive.driveMiddleWithController(controller, Constants.driveSpeedLimit);
+    // drive.driveMiddleWithController(controller, Constants.driveSpeedLimit);
   }
 
   // Called once the command ends or is interrupted.
