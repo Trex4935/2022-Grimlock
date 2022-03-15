@@ -16,8 +16,8 @@ import frc.robot.commands.c_driveStraightAuto;
 import frc.robot.commands.c_releaseIntake;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
-import frc.robot.commands.c_motorClimbDown;
-import frc.robot.commands.c_motorClimbUp;
+import frc.robot.commands.c_robotClimbsUp;
+import frc.robot.commands.c_robotClimbsDown;
 import frc.robot.commands.c_pullUp;
 import frc.robot.commands.c_returnToMiddle;
 import frc.robot.commands.c_rotateAndUpClimb;
@@ -30,7 +30,6 @@ import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
 import frc.robot.commands.c_turnOnPIDAutoAim;
-import frc.robot.commands.cg_phaseThree;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
@@ -81,8 +80,6 @@ public class RobotContainer {
     else {
       // Setup default drive controls
       drive.setDefaultCommand(new c_driveWithController(drive, controller));
-      // turret.setDefaultCommand(new c_turnOnPIDAutoAim(turretPID));
-      // intakeSingulate.setDefaultCommand(new c_singulateBall(intakeSingulate));
       shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret, coDriverController));
 
       // Configure the button bindings
@@ -104,6 +101,37 @@ public class RobotContainer {
 
   private void configureButtonBindingsCompetition() {
 
+    ////// Primary Controller /////
+
+    /// CONTROLLER MAP
+    //
+    // A - Rotate and Extend Arms
+    // B - Lift Robot off the Ground
+    // X -
+    // Y -
+    //
+    // LT -
+    // RT -
+    //
+    // LB -
+    // RB -
+    //
+    // LStick Vertical - Drive forward/backward
+    // LStick Horizontal - H Drive Left/Right (Strafe)
+    // RStick - Rotate left/right
+    //
+    // Start -
+    // Select -
+    //
+    // D-Pad
+    // Up -
+    // Right -
+    // Down -
+    // Left -
+    //
+    /// END MAP
+
+    ///// CoDriver Controller /////
     // Set the A button
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
     xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
@@ -112,8 +140,10 @@ public class RobotContainer {
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
     xbox_b.toggleWhenPressed(new c_pullUp(climber));
 
+    // Set the Y button
+    // Lower the Robot
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
+    xbox_y.whenHeld(new c_robotClimbsUp(climber).withTimeout(0.5));
 
     /// CONTROLLER MAP
     //
@@ -171,10 +201,10 @@ public class RobotContainer {
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);
-    xbox_pov_down.whileHeld(new c_motorClimbDown(climber));
+    xbox_pov_down.whileHeld(new c_robotClimbsUp(climber));
 
     xbox_pov_up = new POVButton(controller, 0);
-    xbox_pov_up.whileHeld(new c_motorClimbUp(climber));
+    xbox_pov_up.whileHeld(new c_robotClimbsDown(climber));
 
     // xbox_pov_left = new POVButton(controller, 270);
     // LEFT ON CONTROLLER D-PAD
@@ -187,34 +217,6 @@ public class RobotContainer {
     ///// CODRIVER CONTROLLER /////
     // c_xbox_a = new
     ///// JoystickButton(coDriverController,XboxController.Button.kA.value);
-
-    /// CONTROLLER MAP
-    //
-    // A - Return turret to middle
-    // B - Toggle Singulation
-    // X - Tooggle shooter
-    // Y - Toggle Magazine
-    //
-    // LT - Move turret Left
-    // RT - Move turret Right
-    //
-    // LB -
-    // RB - Toggle turret autoaim
-    //
-    // LStick Vertical - Drive forward/backward
-    // LStick Horizontal - H Drive Left/Right (Strafe)
-    // RStick - Rotate left/right
-    //
-    // Start -
-    // Select -
-    //
-    // D-Pad
-    // Up - Climber Arms up (robot down)
-    // Right - Rotate climber arms right
-    // Down - Climber arms down (robot up)
-    // Left - Rotate climber arms left
-    //
-    /// END MAP
 
   }
 

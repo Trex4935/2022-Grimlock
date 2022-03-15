@@ -60,7 +60,7 @@ public class Climber extends SubsystemBase {
   }
 
   // The rotating climber motor movest the arms towards shooter
-  public void rotateClimbTowardsShooter() {
+  public void rotateArmsTowardsShooter() {
     rotationMotor.setInverted(false);
 
     // if the tang limit switch is impacted stop the rotation motor so we don't over
@@ -74,14 +74,14 @@ public class Climber extends SubsystemBase {
   }
 
   // The rotating climber motor moves the arms towards intake
-  public void rotateClimbTowardsIntake() {
+  public void rotateArmsTowardsIntake() {
     rotationMotor.setInverted(false);
     rotationMotor.set(Constants.climbRotateSpeed);
 
   }
 
   // Stops the rotating climber motor
-  public void stopClimbRotate() {
+  public void stopArmRotation() {
     rotationMotor.stopMotor();
   }
 
@@ -89,8 +89,8 @@ public class Climber extends SubsystemBase {
     return leftClimberMagLimitTop.get() || rightClimberMagLimitTop.get();
   }
 
-  // The default climber arms go up
-  public void motorClimbUp() {
+  // The climber arms go up
+  public void moveClimbArmsUP() {
     climbMotor.setInverted(false);
 
     if (getMotorTopLimit()) {
@@ -110,7 +110,7 @@ public class Climber extends SubsystemBase {
   // The default climber motor goes down (test for correct direction then change
   // inverse if its the wrong way?)
   // then prints what POV direction was pressed
-  public void motorClimbDown() {
+  public void moveClimbArmsDown() {
     climbMotor.setInverted(true);
     if (getMotorBottomLimit()) {
       climbMotor.stopMotor();
