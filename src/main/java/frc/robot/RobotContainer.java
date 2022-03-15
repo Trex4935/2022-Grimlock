@@ -13,8 +13,10 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.command_archive.c_runMagazineMotors;
 import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_driveStraightAuto;
+import frc.robot.commands.c_driveTurnAuto;
 import frc.robot.commands.c_releaseIntake;
 import frc.robot.commands.c_detectShootingReady;
+import frc.robot.commands.c_driveStraightAngleAuto;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_motorClimbDown;
 import frc.robot.commands.c_motorClimbUp;
@@ -55,12 +57,18 @@ public class RobotContainer {
   private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b;
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
-  c_driveStraightAuto auto;
+  c_driveStraightAngleAuto backingUpAuto;
+  c_driveStraightAngleAuto backingUpAt45Auto;
+  c_driveTurnAuto turnAuto;
   c_releaseIntake releaseIntake;
+  //c_driveStraightAuto auto;
 
   public RobotContainer() {
 
-    auto = new c_driveStraightAuto(drive);
+    //auto = new c_driveStraightAuto(drive);
+    backingUpAuto = new c_driveStraightAngleAuto(drive,0);
+    backingUpAt45Auto = new c_driveStraightAngleAuto(drive,45);
+    turnAuto = new c_driveTurnAuto(drive,45);
 
     // load control profile based on if we are in testing or competition mode
     /////////// TESTING PROFILE ///////////
@@ -222,6 +230,6 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // releaseIntake.andThen(
-    return auto.withTimeout(1.5);
+    return backingUpAuto.withTimeout(1.5).andThen(turnAuto.andThen(backingUpAt45Auto.withTimeout(1.5))) ;
   }
 }
