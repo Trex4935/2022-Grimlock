@@ -125,15 +125,6 @@ public class Climber extends SubsystemBase {
     // System.out.println("down");
   }
 
-  /*
-   * public boolean readClimberColorSensor() {
-   * if (value == value) {
-   * return true;
-   * }
-   * return false;
-   * }
-   */
-
   // Stops the default climber motor
   public void stopClimbMotor() {
     climbMotor.stopMotor();

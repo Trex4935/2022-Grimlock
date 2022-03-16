@@ -144,7 +144,7 @@ public class RobotContainer {
     // Set the Y button
     // Lower the Robot
     c_xbox_y = new JoystickButton(coDriverController, XboxController.Button.kY.value);
-    c_xbox_y.toggleWhenPressed(new c_robotClimbsUp(climber).withTimeout(0.5));
+    c_xbox_y.toggleWhenPressed(new c_robotClimbsDown(climber).withTimeout(0.5));
 
     // Raise and lower the intake
     c_xbox_x = new JoystickButton(coDriverController, XboxController.Button.kX.value);
