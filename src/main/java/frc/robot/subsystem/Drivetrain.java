@@ -134,10 +134,12 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Left Back", leftBack.getTemperature());
     SmartDashboard.putNumber("LeftFront", leftFront.getTemperature());
 
-    SmartDashboard.putNumber("LeftLine", lineSensorLeft.getIR());
-    SmartDashboard.putNumber("RightLine", lineSensorRight.getIR());
+    SmartDashboard.putBoolean("SHADOWLINE LEFT", readLineSensorLeft());
+    SmartDashboard.putBoolean("SHADOWLINE RIGHT", readLineSensorRight());
   }
 
+  // Shadow line code .. sees line and stops the motor, autonomously moves to set
+  // position
   public void moveToLineLeft() {
     if (Constants.sensorIRBlackValue >= lineSensorLeft.getIR()) {
       leftFront.stopMotor();
@@ -156,6 +158,21 @@ public class Drivetrain extends SubsystemBase {
       rightFront.set(.25);
       rightBack.set(.25);
     }
+  }
+
+  // The shadow line color sensors detect the correct color (true) / don't (false)
+  public boolean readLineSensorLeft() {
+    if (Constants.sensorIRBlackValue <= lineSensorLeft.getIR()) {
+      return true;
+    }
+    return false;
+  }
+
+  public boolean readLineSensorRight() {
+    if (Constants.sensorIRBlackValue <= lineSensorRight.getIR()) {
+      return true;
+    }
+    return false;
   }
 
   // Stop the center motors
@@ -183,7 +200,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void drive_straight_gyro(double power) {
-    System.out.println("i exist lol");
+    // System.out.println("i exist lol");
     double error = -ahrs.getAngle(); // Our target angle is zero
     double turn_power = Constants.kPDt * error; // Kp
     drive.arcadeDrive(turn_power, power, false);
