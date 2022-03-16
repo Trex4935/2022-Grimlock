@@ -97,8 +97,8 @@ public class Drivetrain extends SubsystemBase {
     ahrs = new AHRS(SPI.Port.kMXP);
 
     // Sensors
-    lineSensorLeft = new multiplexedColorSensor(I2C.Port.kOnboard, 7);
-    lineSensorRight = new multiplexedColorSensor(I2C.Port.kOnboard, 8);
+    lineSensorLeft = new multiplexedColorSensor(I2C.Port.kOnboard, 2);
+    lineSensorRight = new multiplexedColorSensor(I2C.Port.kOnboard, 3);
   }
 
   // Reset the gyro
@@ -133,6 +133,9 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("RightFront", rightFront.getTemperature());
     SmartDashboard.putNumber("Left Back", leftBack.getTemperature());
     SmartDashboard.putNumber("LeftFront", leftFront.getTemperature());
+
+    SmartDashboard.putNumber("LeftLine", lineSensorLeft.getIR());
+    SmartDashboard.putNumber("RightLine", lineSensorRight.getIR());
   }
 
   public void moveToLineLeft() {

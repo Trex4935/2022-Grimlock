@@ -105,8 +105,8 @@ public class RobotContainer {
 
     /// CONTROLLER MAP
     //
-    // A - Rotate and Extend Arms
-    // B - Lift Robot off the Ground
+    // A -
+    // B -
     // X -
     // Y -
     //
@@ -117,7 +117,7 @@ public class RobotContainer {
     // RB -
     //
     // LStick Vertical - Drive forward/backward
-    // LStick Horizontal - H Drive Left/Right (Strafe)
+    // LStick Horizontal -
     // RStick - Rotate left/right
     //
     // Start -
@@ -133,22 +133,26 @@ public class RobotContainer {
 
     ///// CoDriver Controller /////
     // Set the A button
-    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
+    c_xbox_a = new JoystickButton(coDriverController, XboxController.Button.kA.value);
+    c_xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
 
     // Set the B button
-    xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
-    xbox_b.toggleWhenPressed(new c_pullUp(climber));
+    c_xbox_b = new JoystickButton(coDriverController, XboxController.Button.kB.value);
+    c_xbox_b.toggleWhenPressed(new c_pullUp(climber));
 
     // Set the Y button
     // Lower the Robot
-    xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    xbox_y.toggleWhenPressed(new c_robotClimbsUp(climber).withTimeout(0.5));
+    c_xbox_y = new JoystickButton(coDriverController, XboxController.Button.kY.value);
+    c_xbox_y.toggleWhenPressed(new c_robotClimbsUp(climber).withTimeout(0.5));
+
+    // Raise and lower the intake
+    c_xbox_x = new JoystickButton(coDriverController, XboxController.Button.kX.value);
+    c_xbox_x.toggleWhenPressed(new c_runIntakeRetractionMotor(intake));
 
     /// CONTROLLER MAP
     //
-    // A - Rotate and Extend Arms
-    // B - Lift Robot off the Ground
+    // A -
+    // B -
     // X -
     // Y -
     //
@@ -158,9 +162,9 @@ public class RobotContainer {
     // LB -
     // RB -
     //
-    // LStick Vertical - Drive forward/backward
-    // LStick Horizontal - H Drive Left/Right (Strafe)
-    // RStick - Rotate left/right
+    // LStick Vertical -
+    // LStick Horizontal -
+    // RStick -
     //
     // Start -
     // Select -
