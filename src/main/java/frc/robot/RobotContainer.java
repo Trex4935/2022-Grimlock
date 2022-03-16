@@ -16,6 +16,7 @@ import frc.robot.commands.c_driveStraightAuto;
 import frc.robot.commands.c_releaseIntake;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
+import frc.robot.commands.c_flipPewPew;
 import frc.robot.commands.c_robotClimbsUp;
 import frc.robot.commands.c_robotClimbsDown;
 import frc.robot.commands.c_pullUp;
@@ -51,7 +52,7 @@ public class RobotContainer {
 
   // button variables for the controller
   private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b;
-  private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b;
+  private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start;
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
   c_driveStraightAuto auto;
@@ -148,6 +149,10 @@ public class RobotContainer {
     // Raise and lower the intake
     c_xbox_x = new JoystickButton(coDriverController, XboxController.Button.kX.value);
     c_xbox_x.toggleWhenPressed(new c_runIntakeRetractionMotor(intake));
+
+    // Turn off the shooting subsystem
+    c_xbox_start = new JoystickButton(coDriverController, XboxController.Button.kStart.value);
+    c_xbox_start.toggleWhenPressed(new c_flipPewPew());
 
     /// CONTROLLER MAP
     //

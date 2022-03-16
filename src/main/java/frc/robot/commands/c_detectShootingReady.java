@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.extensions.Limelight;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
@@ -42,17 +43,23 @@ public class c_detectShootingReady extends CommandBase {
     // Need a distance check
     // Need an on target check
     // Only if all three are true do we shoot
-    if (shooter.runShooterPID(intake.readSensor(), Limelight.getDistance(), DriverStation.getAlliance())) {
-      intake.runMagazineMotors(true);
+    if (Constants.pewpew) {
+      if (shooter.runShooterPID(intake.readSensor(), Limelight.getDistance(), DriverStation.getAlliance())) {
+        intake.runMagazineMotors(true);
+      } else {
+        intake.runMagazineMotors(false);
+      }
+
+      // Aim the turret
+      turret.turnOnPIDAutoAim(controller);
+
+      // Run singulation
+      intake.singulateBall();
     } else {
-      intake.runMagazineMotors(false);
+      shooter.stopShooterMotor();
+      intake.intakeMotorStop();
+      intake.magazineMotorStop();
     }
-
-    // Aim the turret
-    turret.turnOnPIDAutoAim(controller);
-
-    // Run singulation
-    intake.singulateBall();
 
   }
 

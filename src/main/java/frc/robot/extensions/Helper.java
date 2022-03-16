@@ -4,6 +4,8 @@
 
 package frc.robot.extensions;
 
+import frc.robot.Constants;
+
 /** Add your docs here. */
 public class Helper {
 
@@ -15,6 +17,11 @@ public class Helper {
         } else {
             return false;
         }
+    }
+
+    // Flip pew pew to the other boolean value
+    public static void flipPewPew() {
+        Constants.pewpew = !(Constants.pewpew);
     }
 
 }
