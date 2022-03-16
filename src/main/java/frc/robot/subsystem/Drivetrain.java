@@ -134,8 +134,9 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putNumber("Left Back", leftBack.getTemperature());
     SmartDashboard.putNumber("LeftFront", leftFront.getTemperature());
 
-    SmartDashboard.putBoolean("SHADOWLINE LEFT", readLineSensorLeft());
-    SmartDashboard.putBoolean("SHADOWLINE RIGHT", readLineSensorRight());
+    SmartDashboard.putBoolean("SHADOW_LEFT", readLineSensorLeft());
+    SmartDashboard.putBoolean("SHADOW_RIGHT", readLineSensorRight());
+    SmartDashboard.putBoolean("PewPew", Constants.pewpew);
   }
 
   // Shadow line code .. sees line and stops the motor, autonomously moves to set

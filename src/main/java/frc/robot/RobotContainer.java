@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.command_archive.c_runMagazineMotors;
@@ -30,6 +31,7 @@ import frc.robot.commands.c_rotateClimbTowardsIntake;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
+import frc.robot.extensions.Helper;
 import frc.robot.commands.c_turnOnPIDAutoAim;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
@@ -152,7 +154,7 @@ public class RobotContainer {
 
     // Turn off the shooting subsystem
     c_xbox_start = new JoystickButton(coDriverController, XboxController.Button.kStart.value);
-    c_xbox_start.toggleWhenPressed(new c_flipPewPew());
+    c_xbox_start.whenPressed(new c_flipPewPew());
 
     /// CONTROLLER MAP
     //

@@ -9,6 +9,8 @@ import frc.robot.extensions.Helper;
 
 public class c_flipPewPew extends CommandBase {
   /** Creates a new c_flipPewPew. */
+  private boolean hasrun;
+
   public c_flipPewPew() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -16,12 +18,14 @@ public class c_flipPewPew extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    hasrun = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     Helper.flipPewPew();
+    hasrun = true;
   }
 
   // Called once the command ends or is interrupted.
@@ -32,6 +36,6 @@ public class c_flipPewPew extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return hasrun;
   }
 }

@@ -4,6 +4,7 @@
 
 package frc.robot.extensions;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 /** Add your docs here. */

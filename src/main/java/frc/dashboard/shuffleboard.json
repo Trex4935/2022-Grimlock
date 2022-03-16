@@ -125,39 +125,6 @@
               "_title": "Left Front"
             }
           },
-          "8,0": {
-            "size": [
-              2,
-              6
-            ],
-            "content": {
-              "_type": "List Layout",
-              "_title": "Temperature",
-              "Layout/Label position": "BOTTOM",
-              "_children": [
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/LeftFront",
-                  "_title": "LeftFront"
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/RightFront",
-                  "_title": "RightFront"
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/Left Back",
-                  "_title": "Left Back"
-                },
-                {
-                  "_type": "Text View",
-                  "_source0": "network_table:///SmartDashboard/RightBack",
-                  "_title": "RightBack"
-                }
-              ]
-            }
-          },
           "5,0": {
             "size": [
               1,
@@ -204,17 +171,6 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "2,1": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Shooter",
-              "_title": "Shooter"
-            }
-          },
           "3,1": {
             "size": [
               1,
@@ -237,26 +193,73 @@
               "_title": "MotorOutput"
             }
           },
-          "3,4": {
+          "3,0": {
             "size": [
               1,
               1
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/LeftLine",
-              "_title": "LeftLine"
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/SHADOWLINE LEFT",
+              "_title": "SHADOWLINE LEFT",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           },
-          "4,4": {
+          "4,0": {
             "size": [
               1,
               1
             ],
             "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/RightLine",
-              "_title": "RightLine"
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/SHADOWLINE RIGHT",
+              "_title": "SHADOWLINE RIGHT",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
+            }
+          },
+          "8,2": {
+            "size": [
+              2,
+              4
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "List Layout",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/LeftFront",
+                  "_title": "LeftFront"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/RightFront",
+                  "_title": "RightFront"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/RightBack",
+                  "_title": "RightBack"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Left Back",
+                  "_title": "Left Back"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Climber",
+                  "_title": "Climber"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/Shooter",
+                  "_title": "Shooter"
+                }
+              ]
             }
           }
         }
