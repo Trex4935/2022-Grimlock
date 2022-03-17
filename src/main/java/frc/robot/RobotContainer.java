@@ -53,7 +53,7 @@ public class RobotContainer {
   private static XboxController coDriverController = new XboxController(1);
 
   // button variables for the controller
-  private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b;
+  private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b, xbox_start;
   private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start;
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
@@ -72,8 +72,7 @@ public class RobotContainer {
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
       // intake.setDefaultCommand(new c_runMagazineMotors(intake));
-      // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
-      // coDriverController));
+      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret, controller));
 
       // Configure the button bindings
       configureButtonBindingsTesting();
@@ -224,6 +223,10 @@ public class RobotContainer {
     // xbox_pov_right = new POVButton(controller, 90);
     // RIGHT ON CONTROLLER D-PAD
     // xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
+
+    // Turn off the shooting subsystem
+    xbox_start = new JoystickButton(controller, XboxController.Button.kStart.value);
+    xbox_start.whenPressed(new c_flipPewPew());
 
     ///// CODRIVER CONTROLLER /////
     // c_xbox_a = new
