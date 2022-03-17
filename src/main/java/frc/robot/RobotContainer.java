@@ -59,6 +59,7 @@ public class RobotContainer {
 
   c_driveStraightAngleAuto backingUpAuto;
   c_driveStraightAngleAuto backingUpAt45Auto;
+  c_driveStraightAngleAuto backingUpAt90Auto;
   c_driveTurnAuto turnAuto;
   c_releaseIntake releaseIntake;
   c_detectShootingReady rdyshot;
@@ -69,6 +70,7 @@ public class RobotContainer {
     //auto = new c_driveStraightAuto(drive);
     backingUpAuto = new c_driveStraightAngleAuto(drive,0);
     backingUpAt45Auto = new c_driveStraightAngleAuto(drive,45);
+    backingUpAt90Auto = new c_driveStraightAngleAuto(drive,90);
     turnAuto = new c_driveTurnAuto(drive,45);
     rdyshot = new c_detectShootingReady(intake, shooter, turret, coDriverController);
 
@@ -231,11 +233,21 @@ public class RobotContainer {
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
   public Command getAutonomousCommand() {
-    // releaseIntake.andThen(
-      // tst ato
+    // tst ato
     return backingUpAuto.withTimeout(1.5).andThen(rdyshot.andThen(turnAuto.andThen(backingUpAt45Auto.withTimeout(1.5).andThen(rdyshot))));
 
-      //works auto
+    //works auto
     //return backingUpAuto.withTimeout(1.5).andThen(turnAuto.andThen(backingUpAt45Auto.withTimeout(1.5))) ;
+  
+  //angle of movment based on pos of rbot for ref see rapid react layout and marking diagram page 4 
+  //each angle option is orginized by red or blue side and top to bottom slot top being 1 and bottom being 3
+  // this is assuming origin is set based on robot positon as i dont know if their is a senseor on the robot that tracks that
+
+  //slot 1 blue  backingUpAt90Auto
+  //return backingUpAuto.withTimeout(1.5).andThen(rdyshot.andThen(turnAuto.andThen(backingUpAt90Auto.withTimeout(1.2).andThen(rdyshot))));
+  
+  //slot 2 blue
+  
+  
   }
 }
