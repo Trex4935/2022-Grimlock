@@ -14,8 +14,10 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.command_archive.c_runMagazineMotors;
 import frc.robot.commands.c_aimWithController;
 import frc.robot.commands.c_driveStraightAuto;
+import frc.robot.commands.c_driveTurnAuto;
 import frc.robot.commands.c_releaseIntake;
 import frc.robot.commands.c_detectShootingReady;
+import frc.robot.commands.c_driveStraightAngleAuto;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_findShadowLine;
 import frc.robot.commands.c_flipPewPew;
@@ -58,12 +60,20 @@ public class RobotContainer {
   private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start, c_xbox_lBump;
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
-  c_driveStraightAuto auto;
+  c_driveStraightAngleAuto backingUpAuto;
+  c_driveStraightAngleAuto backingUpAt45Auto;
+  c_driveTurnAuto turnAuto;
   c_releaseIntake releaseIntake;
+  c_detectShootingReady rdyshot;
+  //c_driveStraightAuto auto;
 
   public RobotContainer() {
 
-    auto = new c_driveStraightAuto(drive);
+    //auto = new c_driveStraightAuto(drive);
+    backingUpAuto = new c_driveStraightAngleAuto(drive,0);
+    backingUpAt45Auto = new c_driveStraightAngleAuto(drive,45);
+    turnAuto = new c_driveTurnAuto(drive,45);
+    rdyshot = new c_detectShootingReady(intake, shooter, turret, coDriverController);
 
     // load control profile based on if we are in testing or competition mode
     /////////// TESTING PROFILE ///////////
@@ -238,7 +248,15 @@ public class RobotContainer {
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
   public Command getAutonomousCommand() {
-    // releaseIntake.andThen(
-    return auto.withTimeout(1.5);
+    //  default auto
+    // return auto.withTimeout(1.5);
+
+    //test auto #1
+    return backingUpAuto.withTimeout(1.5).andThen(turnAuto.andThen(backingUpAt45Auto.withTimeout(1.5))) ;
+    
+    //test auto #2
+    //return backingUpAuto.withTimeout(1.5).andThen(rdyshot.andThen(turnAuto.andThen(backingUpAt45Auto.withTimeout(1.5).andThen(rdyshot))));
+
+    
   }
 }

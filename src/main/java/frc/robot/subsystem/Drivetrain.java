@@ -231,6 +231,25 @@ public class Drivetrain extends SubsystemBase {
     double error = -ahrs.getAngle(); // Our target angle is zero
     double turn_power = Constants.kPDt * error; // Kp
     drive.arcadeDrive(turn_power, power, false);
+
+  }  
+  
+  public void drive_angle_gyro(double power, double angle) {
+    System.out.println("i exist lol");
+    double error = angle -ahrs.getAngle(); // Our target angle is zero
+    double turn_power = Constants.kPDt * error; // Kp
+    drive.arcadeDrive(turn_power, power, false);
+  }
+
+  public void drive_turn_gyro(double cst_turn_power, double angle) {
+    System.out.println("i exist lol");
+    double error = angle - ahrs.getAngle(); // Our target angle is variable
+    double turn_power = Constants.kPDt * error; // Kp
+    if (Math.abs(error) > 2) {
+      drive.arcadeDrive(cst_turn_power, 0, false); // if error, large, we turn at a constant speed.
+    } else {
+      drive.arcadeDrive(turn_power, 0, false); // if error, small, we fine tune with P. Good alternative if no I.
+    }
   }
 
 }
