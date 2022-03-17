@@ -5,40 +5,37 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Climber;
+import frc.robot.extensions.Helper;
 
-public class c_motorClimbDown extends CommandBase {
-  /** Creates a new runIntakeMotors. */
-  private final Climber climber;
+public class c_flipPewPew extends CommandBase {
+  /** Creates a new c_flipPewPew. */
+  private boolean hasrun;
 
-  public c_motorClimbDown(Climber cl) {
+  public c_flipPewPew() {
     // Use addRequirements() here to declare subsystem dependencies.
-    climber = cl;
-    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    hasrun = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    climber.motorClimbDown();
-
+    Helper.flipPewPew();
+    hasrun = true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.stopClimbMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return hasrun;
   }
 }

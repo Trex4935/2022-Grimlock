@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystem.Climber;
 
-public class c_rotateClimbTowardsIntake extends CommandBase {
+public class c_robotClimbsDown extends CommandBase {
   /** Creates a new runIntakeMotors. */
   private final Climber climber;
 
-  public c_rotateClimbTowardsIntake(Climber cl) {
+  public c_robotClimbsDown(Climber cl) {
     // Use addRequirements() here to declare subsystem dependencies.
     climber = cl;
     addRequirements(climber);
@@ -26,19 +26,19 @@ public class c_rotateClimbTowardsIntake extends CommandBase {
   @Override
   public void execute() {
 
-    climber.rotateArmsTowardsIntake();
+    climber.moveClimbArmsUP();
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.stopArmRotation();
+    climber.stopClimbMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return climber.getMotorTopLimit();
   }
 }

@@ -12,10 +12,12 @@ import frc.robot.subsystem.Drivetrain;
 public class c_driveWithController extends CommandBase {
   private final Drivetrain drive;
   private final XboxController controller;
+  private final XboxController coDriver;
 
-  public c_driveWithController(Drivetrain dt, XboxController con) {
+  public c_driveWithController(Drivetrain dt, XboxController con, XboxController cod) {
     drive = dt;
     controller = con;
+    coDriver = cod;
     addRequirements(drive);
   }
 
@@ -27,13 +29,14 @@ public class c_driveWithController extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.driveWithController(controller, Constants.driveSpeedLimit);
-    drive.driveMiddleWithController(controller, Constants.driveSpeedLimit);
+    drive.driveWithController(controller, coDriver, Constants.driveSpeedLimit);
+    // drive.driveMiddleWithController(controller, Constants.driveSpeedLimit);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("SHOULD NOT BE HERE");
     drive.stopAllDriveMotors();
   }
 

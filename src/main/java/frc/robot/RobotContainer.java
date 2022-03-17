@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.command_archive.c_runMagazineMotors;
@@ -18,8 +19,10 @@ import frc.robot.commands.c_releaseIntake;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveStraightAngleAuto;
 import frc.robot.commands.c_driveWithController;
-import frc.robot.commands.c_motorClimbDown;
-import frc.robot.commands.c_motorClimbUp;
+import frc.robot.commands.c_findShadowLine;
+import frc.robot.commands.c_flipPewPew;
+import frc.robot.commands.c_robotClimbsUp;
+import frc.robot.commands.c_robotClimbsDown;
 import frc.robot.commands.c_pullUp;
 import frc.robot.commands.c_returnToMiddle;
 import frc.robot.commands.c_rotateAndUpClimb;
@@ -31,8 +34,8 @@ import frc.robot.commands.c_rotateClimbTowardsIntake;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
+import frc.robot.extensions.Helper;
 import frc.robot.commands.c_turnOnPIDAutoAim;
-import frc.robot.commands.cg_phaseThree;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
@@ -53,8 +56,8 @@ public class RobotContainer {
   private static XboxController coDriverController = new XboxController(1);
 
   // button variables for the controller
-  private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b;
-  private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b;
+  private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b, xbox_start;
+  private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start, c_xbox_lBump;
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
   c_driveStraightAngleAuto backingUpAuto;
@@ -76,12 +79,11 @@ public class RobotContainer {
     /////////// TESTING PROFILE ///////////
     if (Constants.testingControlMode) {
       // Setup default drive controls
-      // drive.setDefaultCommand(new c_driveWithController(drive, controller));
+      drive.setDefaultCommand(new c_driveWithController(drive, controller, coDriverController));
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-      intake.setDefaultCommand(new c_runMagazineMotors(intake));
-      // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter,
-      // turret));
+      // intake.setDefaultCommand(new c_runMagazineMotors(intake));
+      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret, controller));
 
       // Configure the button bindings
       configureButtonBindingsTesting();
@@ -90,9 +92,7 @@ public class RobotContainer {
     /////////// COMPETITION PROFILE ///////////
     else {
       // Setup default drive controls
-      drive.setDefaultCommand(new c_driveWithController(drive, controller));
-      // turret.setDefaultCommand(new c_turnOnPIDAutoAim(turretPID));
-      // intakeSingulate.setDefaultCommand(new c_singulateBall(intakeSingulate));
+      drive.setDefaultCommand(new c_driveWithController(drive, controller, coDriverController));
       shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret, coDriverController));
 
       // Configure the button bindings
@@ -114,21 +114,12 @@ public class RobotContainer {
 
   private void configureButtonBindingsCompetition() {
 
-    // Set the A button
-    xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
-
-    // Set the B button
-    xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
-    xbox_b.toggleWhenPressed(new c_pullUp(climber));
-
-    xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
+    ////// Primary Controller /////
 
     /// CONTROLLER MAP
     //
-    // A - Rotate and Extend Arms
-    // B - Lift Robot off the Ground
+    // A -
+    // B -
     // X -
     // Y -
     //
@@ -139,8 +130,58 @@ public class RobotContainer {
     // RB -
     //
     // LStick Vertical - Drive forward/backward
-    // LStick Horizontal - H Drive Left/Right (Strafe)
+    // LStick Horizontal -
     // RStick - Rotate left/right
+    //
+    // Start -
+    // Select -
+    //
+    // D-Pad
+    // Up -
+    // Right -
+    // Down -
+    // Left -
+    //
+    /// END MAP
+
+    ///// CoDriver Controller /////
+    // Set the A button
+    c_xbox_a = new JoystickButton(coDriverController, XboxController.Button.kA.value);
+    c_xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
+
+    // Set the B button
+    c_xbox_b = new JoystickButton(coDriverController, XboxController.Button.kB.value);
+    c_xbox_b.toggleWhenPressed(new c_pullUp(climber));
+
+    // Set the Y button
+    // Lower the Robot
+    c_xbox_y = new JoystickButton(coDriverController, XboxController.Button.kY.value);
+    c_xbox_y.toggleWhenPressed(new c_robotClimbsDown(climber).withTimeout(0.75));
+
+    // Raise and lower the intake
+    c_xbox_x = new JoystickButton(coDriverController, XboxController.Button.kX.value);
+    c_xbox_x.toggleWhenPressed(new c_runIntakeRetractionMotor(intake).withTimeout(0.75));
+
+    // Turn off the shooting subsystem
+    c_xbox_start = new JoystickButton(coDriverController, XboxController.Button.kStart.value);
+    c_xbox_start.whenPressed(new c_flipPewPew());
+
+    /// CONTROLLER MAP
+    //
+    // A -
+    // B -
+    // X -
+    // Y -
+    //
+    // LT -
+    // RT -
+    //
+    // LB -
+    // RB -
+    //
+    // LStick Vertical -
+    // LStick Horizontal -
+    // RStick -
     //
     // Start -
     // Select -
@@ -181,10 +222,10 @@ public class RobotContainer {
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);
-    xbox_pov_down.whileHeld(new c_motorClimbDown(climber));
+    xbox_pov_down.whileHeld(new c_robotClimbsUp(climber));
 
     xbox_pov_up = new POVButton(controller, 0);
-    xbox_pov_up.whileHeld(new c_motorClimbUp(climber));
+    xbox_pov_up.whileHeld(new c_robotClimbsDown(climber));
 
     // xbox_pov_left = new POVButton(controller, 270);
     // LEFT ON CONTROLLER D-PAD
@@ -194,37 +235,13 @@ public class RobotContainer {
     // RIGHT ON CONTROLLER D-PAD
     // xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
 
+    // Turn off the shooting subsystem
+    xbox_start = new JoystickButton(controller, XboxController.Button.kStart.value);
+    xbox_start.whenPressed(new c_flipPewPew());
+
     ///// CODRIVER CONTROLLER /////
     // c_xbox_a = new
     ///// JoystickButton(coDriverController,XboxController.Button.kA.value);
-
-    /// CONTROLLER MAP
-    //
-    // A - Return turret to middle
-    // B - Toggle Singulation
-    // X - Tooggle shooter
-    // Y - Toggle Magazine
-    //
-    // LT - Move turret Left
-    // RT - Move turret Right
-    //
-    // LB -
-    // RB - Toggle turret autoaim
-    //
-    // LStick Vertical - Drive forward/backward
-    // LStick Horizontal - H Drive Left/Right (Strafe)
-    // RStick - Rotate left/right
-    //
-    // Start -
-    // Select -
-    //
-    // D-Pad
-    // Up - Climber Arms up (robot down)
-    // Right - Rotate climber arms right
-    // Down - Climber arms down (robot up)
-    // Left - Rotate climber arms left
-    //
-    /// END MAP
 
   }
 

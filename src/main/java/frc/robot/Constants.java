@@ -22,11 +22,9 @@ import frc.robot.extensions.PID;
 public final class Constants {
 
   ///////////////////////////////////////////////////////////
-  public static final boolean testingControlMode = true;
+  public static final boolean testingControlMode = false;
   // public static final String controlMode = "Testing";
   ///////////////////////////////////////////////////////////
-
-  // region General
 
   // public static final DriverStation.Alliance allianceColor =
   // DriverStation.getAlliance();
@@ -89,7 +87,7 @@ public final class Constants {
 
   // Configable intake deployment and retraction
   public static final double retractionRunTime = 2.0;
-  public static final double retractionSpeed = 0.5;
+  public static final double retractionSpeed = 0.75;
 
   // endregion
   // --------------------------------------------------------
@@ -162,7 +160,7 @@ public final class Constants {
   public static double shooterSpeed = 0.5;
 
   // Shooter PID
-  public static PID kGains_Velocity_Shooter = new PID(0.24, 0, 0, 0.047); // Good start value per CTRE docs.
+  public static PID kGains_Velocity_Shooter = new PID(0.25, 0, 0, 0.043); // Good start value per CTRE docs.
   public static int kTimeoutMs = 20;
   public static int kPIDLoopIdx = 0;
 
@@ -173,6 +171,9 @@ public final class Constants {
 
   public static final int maximumShootDistance = 156;
   public static final int minimumShootDistance = 108;
+
+  // Control is the shooting system is on or off
+  public static boolean pewpew = true;
 
   // endregion
   // --------------------------------------------------------

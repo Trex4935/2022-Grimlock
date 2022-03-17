@@ -5,16 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Climber;
+import frc.robot.subsystem.Drivetrain;
 
-public class c_motorClimbUp extends CommandBase {
-  /** Creates a new runIntakeMotors. */
-  private final Climber climber;
+public class c_findShadowLine extends CommandBase {
+  private Drivetrain drive;
 
-  public c_motorClimbUp(Climber cl) {
+  /** Creates a new c_findShadowLine. */
+  public c_findShadowLine(Drivetrain dt) {
     // Use addRequirements() here to declare subsystem dependencies.
-    climber = cl;
-    addRequirements(climber);
+    drive = dt;
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
@@ -25,20 +25,17 @@ public class c_motorClimbUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    climber.motorClimbUp();
-
+    drive.findShadowLine();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.stopClimbMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.getMotorTopLimit();
+    return false;
   }
 }

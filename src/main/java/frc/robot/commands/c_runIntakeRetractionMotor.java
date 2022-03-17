@@ -9,16 +9,17 @@ import frc.robot.subsystem.Intake;
 
 public class c_runIntakeRetractionMotor extends CommandBase {
   Intake intake;
+
   /** Creates a new c_runIntakeRetractionMotor. */
   public c_runIntakeRetractionMotor(Intake it) {
     // Use addRequirements() here to declare subsystem dependencies.
     intake = it;
-    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

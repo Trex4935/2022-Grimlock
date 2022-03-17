@@ -25,15 +25,15 @@ public class c_rotateAndUpClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.motorClimbUp();
-    climber.rotateClimbTowardsShooter();
+    climber.moveClimbArmsUP();
+    climber.rotateArmsTowardsShooter();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     climber.stopClimbMotor();
-    climber.stopClimbRotate();
+    climber.stopArmRotation();
   }
 
   // Returns true when the command should end.
