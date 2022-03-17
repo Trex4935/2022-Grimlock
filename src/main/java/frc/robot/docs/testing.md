@@ -1,3 +1,73 @@
+# Auto #
+
+Current Auto Open PR [#46](https://github.com/Trex4935/Grimlock/pull/46), to merge after tested.
+
+* Test the default auto for a baseline: 
+    * _Back Up Straight Auto_
+    * Steps:
+        1.  Be sure all auto code is commented.
+
+        2. uncomment theses line:
+
+            **Declaration**
+            > c_driveStraightAuto auto;
+
+            **Assignment**
+            > auto = new c_driveStraightAuto(drive);
+
+            **Actual Use**
+            default auto
+            > return auto.withTimeout(1.5);
+
+        3. Build & run Code
+* Test autonomous mode #1 
+    * _Back Up Straight, turn 45 and back up again Auto_
+    * Steps: 
+        1. Comment all previous _Back Up Straight Auto_ lines
+        2. uncomment these line
+
+            **Declaration**
+            > c_driveStraightAngleAuto backingUpAuto;
+            c_driveStraightAngleAuto backingUpAt45Auto;
+            c_driveTurnAuto turnAuto;
+
+            **Assignment**
+            > backingUpAuto = new c_driveStraightAngleAuto(drive,0)
+            backingUpAt45Auto = new c_driveStraightAngleAuto(drive,45)
+            turnAuto = new c_driveTurnAuto(drive,45)
+
+            **Actual Use**
+            > //test auto#1\
+            return backingUpAuto.withTimeout(1.5).andThen(turnAuto.andThen(backingUpAt45Auto.withTimeout(1.5))) ;
+
+        3. Run & Build Code
+        4. Upon Success, Ajust angle and time backing up  to fit Pick-uping needs
+        5. Verify if shooting is done after picking up 3rd ball or at any time during motion. 
+
+
+
+* Test Autonomous mode # 3 
+    * _Back Up Straight, turn 45 and back up again  and explicitely shoot Auto_
+    * Steps: 
+        1. Keep uncommented lines of auto# 2, keep lines of auto#1 commented
+        2. uncomment these line:
+
+            **Declaration**
+            > c_detectShootingReady rdyshot;
+
+            **Assignment**
+            
+            > rdyshot = new c_detectShootingReady(intake, shooter, turret, coDriverController)
+
+            **Actual Use**
+            >return backingUpAuto.withTimeout(1.5).andThen(rdyshot.andThen(turnAuto.andThen(backingUpAt45Auto.withTimeout(1.5).andThen(rdyshot))));
+            
+            
+        3. Run & Build Code
+        4. Verify shoothing is done twice, 
+            * after 1st ball pick-up, shoots 2 balls. 
+            * after last ball pick up , shoots 1 balls
+
 # Drive Train #
 
 * Disable all default commands except DRIVE
