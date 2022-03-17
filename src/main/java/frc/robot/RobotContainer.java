@@ -17,6 +17,7 @@ import frc.robot.commands.c_driveStraightAuto;
 import frc.robot.commands.c_releaseIntake;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
+import frc.robot.commands.c_findShadowLine;
 import frc.robot.commands.c_flipPewPew;
 import frc.robot.commands.c_robotClimbsUp;
 import frc.robot.commands.c_robotClimbsDown;
@@ -54,7 +55,7 @@ public class RobotContainer {
 
   // button variables for the controller
   private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b, xbox_start;
-  private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start;
+  private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start, c_xbox_lBump;
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
   c_driveStraightAuto auto;
@@ -68,7 +69,7 @@ public class RobotContainer {
     /////////// TESTING PROFILE ///////////
     if (Constants.testingControlMode) {
       // Setup default drive controls
-      drive.setDefaultCommand(new c_driveWithController(drive, controller));
+      drive.setDefaultCommand(new c_driveWithController(drive, controller, coDriverController));
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
       // intake.setDefaultCommand(new c_runMagazineMotors(intake));
@@ -81,7 +82,7 @@ public class RobotContainer {
     /////////// COMPETITION PROFILE ///////////
     else {
       // Setup default drive controls
-      drive.setDefaultCommand(new c_driveWithController(drive, controller));
+      drive.setDefaultCommand(new c_driveWithController(drive, controller, coDriverController));
       shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret, coDriverController));
 
       // Configure the button bindings
@@ -145,11 +146,11 @@ public class RobotContainer {
     // Set the Y button
     // Lower the Robot
     c_xbox_y = new JoystickButton(coDriverController, XboxController.Button.kY.value);
-    c_xbox_y.toggleWhenPressed(new c_robotClimbsDown(climber).withTimeout(0.5));
+    c_xbox_y.toggleWhenPressed(new c_robotClimbsDown(climber).withTimeout(0.75));
 
     // Raise and lower the intake
     c_xbox_x = new JoystickButton(coDriverController, XboxController.Button.kX.value);
-    c_xbox_x.toggleWhenPressed(new c_runIntakeRetractionMotor(intake));
+    c_xbox_x.toggleWhenPressed(new c_runIntakeRetractionMotor(intake).withTimeout(0.75));
 
     // Turn off the shooting subsystem
     c_xbox_start = new JoystickButton(coDriverController, XboxController.Button.kStart.value);

@@ -125,9 +125,14 @@ public class Drivetrain extends SubsystemBase {
   }
 
   // Controls for the outside wheels using built in arcadeDrive
-  public void driveWithController(XboxController controller, double speedLimiter) {
-    drive.arcadeDrive((controller.getRawAxis(Constants.rightHorizontal) * 0.6) * -1,
-        controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
+  public void driveWithController(XboxController controller, XboxController coDriver, double speedLimiter) {
+
+    if (coDriver.getLeftBumper()) {
+      findShadowLine();
+    } else {
+      drive.arcadeDrive((controller.getRawAxis(Constants.rightHorizontal) * 0.6) * -1,
+          controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
+    }
 
     SmartDashboard.putNumber("RightBack", rightBack.getTemperature());
     SmartDashboard.putNumber("RightFront", rightFront.getTemperature());
@@ -136,29 +141,50 @@ public class Drivetrain extends SubsystemBase {
 
     SmartDashboard.putBoolean("SHADOW_LEFT", readLineSensorLeft());
     SmartDashboard.putBoolean("SHADOW_RIGHT", readLineSensorRight());
-    SmartDashboard.putBoolean("PewPew", Constants.pewpew);
+
   }
 
   // Shadow line code .. sees line and stops the motor, autonomously moves to set
   // position
   public void moveToLineLeft() {
-    if (Constants.sensorIRBlackValue >= lineSensorLeft.getIR()) {
+    if (readLineSensorLeft()) {
       leftFront.stopMotor();
       leftBack.stopMotor();
+      rightMotorGroup.set(0.25);
     } else {
-      leftFront.set(.25);
-      leftBack.set(.25);
+      leftMotorGroup.set(0.25);
+      rightMotorGroup.set(0.25);
     }
   }
 
   public void moveToLineRight() {
-    if (Constants.sensorIRBlackValue >= lineSensorRight.getIR()) {
+    if (readLineSensorRight()) {
       rightFront.stopMotor();
       rightBack.stopMotor();
     } else {
-      rightFront.set(.25);
-      rightBack.set(.25);
+      leftMotorGroup.set(0.25);
+      rightMotorGroup.set(0.25);
     }
+  }
+
+  public void findShadowLine() {
+    if (readLineSensorLeft() && readLineSensorRight()) {
+      leftMotorGroup.stopMotor();
+      rightMotorGroup.stopMotor();
+    } else if (readLineSensorLeft() || readLineSensorRight()) {
+      if (readLineSensorRight()) {
+        rightMotorGroup.stopMotor();
+        leftMotorGroup.set(0.25);
+      }
+      if (readLineSensorLeft()) {
+        leftMotorGroup.stopMotor();
+        rightMotorGroup.set(0.25);
+      }
+    } else {
+      leftMotorGroup.set(0.25);
+      rightMotorGroup.set(0.25);
+    }
+
   }
 
   // The shadow line color sensors detect the correct color (true) / don't (false)
@@ -192,7 +218,7 @@ public class Drivetrain extends SubsystemBase {
 
   // stop all drive motors
   public void stopAllDriveMotors() {
-    stopMiddleDriveMotors();
+    // stopMiddleDriveMotors();
     stopOutsideDriveMotors();
   }
 

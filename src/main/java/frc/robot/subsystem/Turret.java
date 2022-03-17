@@ -65,8 +65,12 @@ public class Turret extends SubsystemBase {
   // where the target is
   public void turnOnPIDAutoAim(XboxController coDrivController) {
 
+    // System.out.println(coDrivController.getRawAxis(Constants.leftTrigger));
+
     // If the controller is trying to turn the turret use that otherwise use the PID
-    if (coDrivController.getLeftTriggerAxis() > 0.1 || coDrivController.getRightTriggerAxis() > 0.1) {
+    if (coDrivController.getRawAxis(Constants.leftTrigger) > 0.1
+        || coDrivController.getRawAxis(Constants.rightTrigger) > 0.1) {
+      // System.out.println("True");
       aimWithController(coDrivController);
     }
     // use the PID to move the turret
@@ -119,13 +123,15 @@ public class Turret extends SubsystemBase {
   public void aimWithController(XboxController coDriverController) {
 
     // Pull in values from left and right trigger and normalize them
-    double triggerValue = coDriverController.getLeftTriggerAxis()
-        + (coDriverController.getRightTriggerAxis() * -1);
+    double triggerValue = coDriverController.getRawAxis(Constants.rightTrigger)
+        + (coDriverController.getRawAxis(Constants.leftTrigger) * -1);
+
+    // System.out.println(triggerValue);
 
     // ensure we stop at the right limit switches
-    if (leftMagLimit.get() == false && (triggerValue) <= 0) {
+    if (leftMagLimit.get() == true && (triggerValue) >= 0) {
       turretRotation.stopMotor();
-    } else if (rightMagLimit.get() == false && (triggerValue) >= 0) {
+    } else if (rightMagLimit.get() == true && (triggerValue) <= 0) {
       turretRotation.stopMotor();
     } else {
       // Divide input by 10 to get a max of 0.1

@@ -26,8 +26,6 @@ public final class Constants {
   // public static final String controlMode = "Testing";
   ///////////////////////////////////////////////////////////
 
-  // region General
-
   // public static final DriverStation.Alliance allianceColor =
   // DriverStation.getAlliance();
 
@@ -89,7 +87,7 @@ public final class Constants {
 
   // Configable intake deployment and retraction
   public static final double retractionRunTime = 2.0;
-  public static final double retractionSpeed = 0.5;
+  public static final double retractionSpeed = 0.75;
 
   // endregion
   // --------------------------------------------------------

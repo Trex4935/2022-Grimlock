@@ -4,39 +4,33 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Turret;
+import frc.robot.subsystem.Drivetrain;
 
-public class c_aimWithController extends CommandBase {
-  private final Turret turret;
-  private final XboxController controller;
+public class c_findShadowLine extends CommandBase {
+  private Drivetrain drive;
 
-  /** Creates a new manualTurretAim. */
-  public c_aimWithController(Turret trt, XboxController con) {
-    turret = trt;
-    controller = con;
-    addRequirements(turret);
-
+  /** Creates a new c_findShadowLine. */
+  public c_findShadowLine(Drivetrain dt) {
     // Use addRequirements() here to declare subsystem dependencies.
+    drive = dt;
+    addRequirements(drive);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    turret.aimWithController(controller);
+    drive.findShadowLine();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    turret.stopRotationMotor();
   }
 
   // Returns true when the command should end.
