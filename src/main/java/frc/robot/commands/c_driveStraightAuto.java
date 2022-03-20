@@ -9,7 +9,7 @@ import frc.robot.subsystem.Drivetrain;
 
 public class c_driveStraightAuto extends CommandBase {
   private final Drivetrain drive;
-  
+
   /** Creates a new c_driveStraightAuto. */
   public c_driveStraightAuto(Drivetrain dt) {
     drive = dt;
@@ -19,12 +19,13 @@ public class c_driveStraightAuto extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.drive_straight_gyro(1);
+    drive.drive_straight_gyro(.25);
   }
 
   // Called once the command ends or is interrupted.

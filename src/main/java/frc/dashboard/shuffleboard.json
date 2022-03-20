@@ -92,7 +92,7 @@
               "_title": "Angle Limelight"
             }
           },
-          "12,2": {
+          "2,2": {
             "size": [
               1,
               1
@@ -247,6 +247,52 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Shooter",
               "_title": "Shooter"
+            }
+          },
+          "6,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_PipelineName",
+              "_title": "limelight_PipelineName"
+            }
+          },
+          "7,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_Interface",
+              "_title": "limelight_Interface"
+            }
+          },
+          "8,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_Stream",
+              "_title": "limelight_Stream"
+            }
+          },
+          "0,4": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Boolean Box",
+              "_source0": "network_table:///SmartDashboard/Robot at Distance",
+              "_title": "Robot at Distance",
+              "Colors/Color when true": "#7CFC00FF",
+              "Colors/Color when false": "#8B0000FF"
             }
           }
         }
@@ -500,9 +546,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -7.333333492279053,
-    "y": -7.333333492279053,
-    "width": 1518.6666259765625,
-    "height": 977.3333129882812
+    "x": -6.0,
+    "y": 0.6666666865348816,
+    "width": 1516.0,
+    "height": 968.0
   }
 }

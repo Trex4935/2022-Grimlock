@@ -92,7 +92,7 @@ public class Climber extends SubsystemBase {
   }
 
   // The climber arms go up
-  public void moveClimbArmsUP() {
+  public void moveClimbArmsUP(double speed) {
     climbMotor.setInverted(false);
 
     if (getMotorTopLimit()) {
@@ -100,7 +100,7 @@ public class Climber extends SubsystemBase {
       // System.out.println(Constants.leftClimberMagLimitTopID);
       // System.out.println(Constants.rightClimberMagLimitTopID);
     } else {
-      climbMotor.set(Constants.climbMotorSpeed);
+      climbMotor.set(speed);
     }
   }
 

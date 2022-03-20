@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.command_archive.c_runMagazineMotors;
@@ -32,6 +33,7 @@ import frc.robot.commands.c_rotateClimbTowardsIntake;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.c_singulateBall;
 import frc.robot.commands.c_turnOnSimpleAutoAim;
+import frc.robot.commands.cg_autoOne;
 import frc.robot.extensions.Helper;
 import frc.robot.commands.c_turnOnPIDAutoAim;
 import frc.robot.subsystem.Climber;
@@ -58,12 +60,12 @@ public class RobotContainer {
   private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start, c_xbox_lBump;
   private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
 
-  c_driveStraightAuto auto;
+  cg_autoOne auto;
   c_releaseIntake releaseIntake;
 
   public RobotContainer() {
 
-    auto = new c_driveStraightAuto(drive);
+    auto = new cg_autoOne(drive);
 
     // load control profile based on if we are in testing or competition mode
     /////////// TESTING PROFILE ///////////
@@ -73,7 +75,8 @@ public class RobotContainer {
       // turret.setDefaultCommand(new c_aimWithController(turret, controller));
       // intake.setDefaultCommand(new c_runIntakeMotor(intake));
       // intake.setDefaultCommand(new c_runMagazineMotors(intake));
-      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret, controller));
+      // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
+      // controller));
 
       // Configure the button bindings
       configureButtonBindingsTesting();
@@ -200,8 +203,8 @@ public class RobotContainer {
     // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
-    xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
-    // xbox_y.toggleWhenPressed(new c_shootBall(shooter));
+    // xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
+    xbox_y.toggleWhenPressed(new c_shootBall(shooter));
     // xbox_y.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_y.toggleWhenPressed(new c_runShooterPID(shooter, 2000));
     // xbox_y.whenHeld(new c_rotateClimbTowardsIntake(climber));
@@ -239,6 +242,8 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     // releaseIntake.andThen(
-    return auto.withTimeout(1.5);
+    return auto;
+    // return auto.withTimeout(.1).andThen(new
+    // WaitCommand(1).andThen(auto).withTimeout(0.4));
   }
 }

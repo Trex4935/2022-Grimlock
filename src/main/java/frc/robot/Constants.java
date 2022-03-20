@@ -68,7 +68,7 @@ public final class Constants {
 
   // Motor speeds
   public static final double magazineMotorSpeed = 0.5;
-  public static final double intakeMotorSpeed = 0.5;
+  public static final double intakeMotorSpeed = 0.45;
 
   // Smakna sensor ids
   public static final int leftTrapSmakna = 3;
@@ -129,6 +129,7 @@ public final class Constants {
 
   // Motor Speeds
   public static final double climbMotorSpeed = 0.7;
+  public static final double climbMotorSpeed2 = 0.6;
   public static final double climbRotateSpeed = 0.55;
 
   // Magnet Limit Switches

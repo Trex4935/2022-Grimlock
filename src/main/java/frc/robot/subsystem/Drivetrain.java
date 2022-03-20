@@ -127,12 +127,12 @@ public class Drivetrain extends SubsystemBase {
   // Controls for the outside wheels using built in arcadeDrive
   public void driveWithController(XboxController controller, XboxController coDriver, double speedLimiter) {
 
-    if (coDriver.getLeftBumper()) {
-      findShadowLine();
-    } else {
-      drive.arcadeDrive((controller.getRawAxis(Constants.rightHorizontal) * 0.6) * -1,
-          controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
-    }
+    // if (coDriver.getLeftBumper()) {
+    // findShadowLine();
+    // } else {
+    drive.arcadeDrive((controller.getRawAxis(Constants.rightHorizontal) * 0.6) * -1,
+        controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
+    // }
 
     SmartDashboard.putNumber("RightBack", rightBack.getTemperature());
     SmartDashboard.putNumber("RightFront", rightFront.getTemperature());
