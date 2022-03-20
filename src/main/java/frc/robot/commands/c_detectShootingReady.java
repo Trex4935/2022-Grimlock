@@ -45,9 +45,9 @@ public class c_detectShootingReady extends CommandBase {
     // Only if all three are true do we shoot
     if (Constants.pewpew) {
       if (shooter.runShooterPID(intake.readSensor(), Limelight.getDistance(), DriverStation.getAlliance())) {
-        intake.runMagazineMotors(true);
+        intake.runMagazineMotors(Constants.forceShoot);
       } else {
-        intake.runMagazineMotors(false);
+        intake.runMagazineMotors(Constants.forceShoot);
       }
 
       // Aim the turret

@@ -144,6 +144,8 @@ public final class Constants {
   // region Shooter
   public static final int shooterMotorCanID = 11;
 
+  public static boolean forceShoot = false;
+
   // conversion factor for the falconFX encoder
   public static final double ticks2RPM = 600.0 / 2048.0;
 
@@ -165,7 +167,7 @@ public final class Constants {
   public static int kPIDLoopIdx = 0;
 
   // Shooter speeds
-  public static double shooterIdleSpeed = 3000;
+  public static double shooterIdleSpeed = 1500;
   public static final double shooterLowSpeed = 1500;
   public static final double shooterRange = 200;
 
