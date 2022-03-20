@@ -94,13 +94,16 @@ public class Shooter extends SubsystemBase {
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // check if we are at speed and update the dashboard
-        return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
+        // return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) &&
+        // atDistance(distance));
+        return false;
 
       case RED:
         // System.out.println("RED");
 
         // Determined the # of ticks based on ball color and distance
-        targetTicks = allianceSpeed(BallColor.RED, distance);
+        // targetTicks = allianceSpeed(BallColor.RED, distance);
+        targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
         // System.out.println(targetTicks);
 
         // Set the motor speed
@@ -108,16 +111,21 @@ public class Shooter extends SubsystemBase {
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        if (allianceColor == DriverStation.Alliance.Red) {
-          return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
-        } else {
-          return shooterAtSpeed(targetTicks, color);
-        }
+        // if (allianceColor == DriverStation.Alliance.Red) {
+        // return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) &&
+        // atDistance(distance));
+        // } else {
+        // return shooterAtSpeed(targetTicks, color);
+        // }
+
+        return false;
+
       case BLUE:
         // System.out.println("BLUE");
 
         // Determined the # of ticks based on ball color and distance
-        targetTicks = allianceSpeed(BallColor.BLUE, distance);
+        // targetTicks = allianceSpeed(BallColor.BLUE, distance);
+        targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
         // System.out.println("----------------");
         // System.out.println(targetTicks);
 
@@ -127,11 +135,14 @@ public class Shooter extends SubsystemBase {
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        if (allianceColor == DriverStation.Alliance.Blue) {
-          return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
-        } else {
-          return shooterAtSpeed(targetTicks, color);
-        }
+        // if (allianceColor == DriverStation.Alliance.Blue) {
+        // return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) &&
+        // atDistance(distance));
+        // } else {
+        // return shooterAtSpeed(targetTicks, color);
+        // }
+
+        return false;
       default:
         targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
 
@@ -139,7 +150,9 @@ public class Shooter extends SubsystemBase {
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // check if we are at speed and update the dashboard
-        return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
+        // return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) &&
+        // atDistance(distance));
+        return false;
     }
   }
 
