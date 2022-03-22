@@ -179,6 +179,10 @@ public final class Constants {
   // Control is the shooting system is on or off
   public static boolean pewpew = true;
 
+  
+  // Control if we are in high shooting goal mode or in low shooting goal mode -- TODO: Change this for smartDashBoard Input
+  public static final boolean HighLow = false;
+
   // endregion
   // --------------------------------------------------------
 }
