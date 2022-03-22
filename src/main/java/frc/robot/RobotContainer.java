@@ -5,40 +5,22 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.command_archive.c_runMagazineMotors;
-import frc.robot.commands.c_aimWithController;
-import frc.robot.commands.c_driveStraightAuto;
-import frc.robot.commands.c_driveTurnAuto;
 import frc.robot.commands.c_releaseIntake;
 import frc.robot.commands.c_detectShootingReady;
-import frc.robot.commands.c_driveStraightAngleAuto;
 import frc.robot.commands.c_driveWithController;
-import frc.robot.commands.c_findShadowLine;
 import frc.robot.commands.c_flipPewPew;
 import frc.robot.commands.c_forceShoot;
 import frc.robot.commands.c_robotClimbsUp;
 import frc.robot.commands.c_robotClimbsDown;
 import frc.robot.commands.c_pullUp;
-import frc.robot.commands.c_returnToMiddle;
 import frc.robot.commands.c_rotateAndUpClimb;
-import frc.robot.commands.c_rotateClimbTowardsShooter;
-import frc.robot.commands.c_runIntakeMotor;
 import frc.robot.commands.c_runIntakeRetractionMotor;
-import frc.robot.commands.c_runShooterPID;
-import frc.robot.commands.c_rotateClimbTowardsIntake;
 import frc.robot.commands.c_shootBall;
-import frc.robot.commands.c_singulateBall;
-import frc.robot.commands.c_turnOnSimpleAutoAim;
 import frc.robot.commands.cg_autoOne;
-import frc.robot.extensions.Helper;
-import frc.robot.commands.c_turnOnPIDAutoAim;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
@@ -60,8 +42,8 @@ public class RobotContainer {
 
   // button variables for the controller
   private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b, xbox_start, xbox_rbump;
-  private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start, c_xbox_lBump;
-  private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
+  private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start;
+  private POVButton xbox_pov_up, xbox_pov_down;
 
   cg_autoOne auto;
   c_releaseIntake releaseIntake;

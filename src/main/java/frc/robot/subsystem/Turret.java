@@ -70,7 +70,8 @@ public class Turret extends SubsystemBase {
     // If the controller is trying to turn the turret use that otherwise use the PID
     // if (coDrivController.getRawAxis(Constants.leftTrigger) > 0.1
     // || coDrivController.getRawAxis(Constants.rightTrigger) > 0.1) {
-    if (true) {
+    if (coDrivController.getRawAxis(Constants.leftTrigger) > 0.1
+        || coDrivController.getRawAxis(Constants.rightTrigger) > 0.1) {
       // System.out.println("True");
       aimWithController(coDrivController);
     }
