@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
 import frc.robot.subsystem.Drivetrain;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -17,9 +18,25 @@ public class cg_autoOne extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-        new c_driveStraightAuto(drive).withTimeout(0.5),
-        new WaitCommand(1),
-        new c_driveStraightAuto(drive).withTimeout(0.8),
-        new c_driveStraightBACKAuto(drive).withTimeout(0.35));
+        new c_forceShoot().withTimeout(2), // shoot ball in intake
+        new c_driveStraightAuto(drive).withTimeout(0.5), // move backwards
+        new WaitCommand(1), // drop intake
+        new c_driveStraightAuto(drive).withTimeout(4.5)); // go in position
+
+    ///////// LOGAN'S AUTO HELPER /////////
+
+    // ** -> new c_forceShoot().withTimeout(SECONDS);
+    // ~ run the shooter for a set amount of time ~
+
+    // -- go back (towards driver station)
+    // -- stop suddenly to drop the intake using gravity
+    // -- pick up the ball in front of intake
+    // -- SUDDEN JERK FORWARD to get the ball in the mag (towards target)
+    // !! (SECONDS) to run these commands -> convert to distance !!
+    // new c_driveStraightAuto(drive).withTimeout(0.5), // move backwards
+    // new WaitCommand(1), // drop intake
+    // new c_driveStraightAuto(drive).withTimeout(0.8), // ball behind us
+    // new c_driveStraightBACKAuto(drive).withTimeout(0.35)); // jerk ball in
+
   }
 }

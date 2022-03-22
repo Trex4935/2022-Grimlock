@@ -25,7 +25,7 @@ public class c_driveStraightBACKAuto extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.drive_straight_gyro(-.7);
+    drive.drive_straight_gyro(-.25);
   }
 
   // Called once the command ends or is interrupted.

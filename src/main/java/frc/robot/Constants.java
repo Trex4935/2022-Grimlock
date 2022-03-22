@@ -21,7 +21,8 @@ import frc.robot.extensions.PID;
  */
 public final class Constants {
 
-  ///////////////////////////////////////////////////////////
+  ///////////////////////////////////
+  ////////////////////////
   public static final boolean testingControlMode = false;
   // public static final String controlMode = "Testing";
   ///////////////////////////////////////////////////////////
@@ -168,8 +169,8 @@ public final class Constants {
   public static int kPIDLoopIdx = 0;
 
   // Shooter speeds
-  public static double shooterIdleSpeed = 1500;
-  public static final double shooterLowSpeed = 1500;
+  public static double shooterIdleSpeed = 1250;
+  public static final double shooterLowSpeed = 1000;
   public static final double shooterRange = 200;
 
   public static final int maximumShootDistance = 156;
