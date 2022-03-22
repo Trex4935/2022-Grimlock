@@ -2,20 +2,19 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.command_archive;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.extensions.Limelight;
-import frc.robot.subsystem.Shooter;
+import frc.robot.subsystem.Intake;
 
-public class c_shootWithVision extends CommandBase {
-  Shooter shooter;
+public class c_runMagazineMotors extends CommandBase {
+  private final Intake intake;
 
-  /** Creates a new c_shootWithVision. */
-  public c_shootWithVision(Shooter sh) {
+  /** Creates a new runMagazineMotors. */
+  public c_runMagazineMotors(Intake it) {
     // Use addRequirements() here to declare subsystem dependencies.
-    shooter = sh;
-    addRequirements(shooter);
+    intake = it;
+    addRequirements(intake);
   }
 
   // Called when the command is initially scheduled.
@@ -26,13 +25,15 @@ public class c_shootWithVision extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // shooter.shootBallWithVision(Limelight.getDistance());
+    intake.runMagazineMotors(true);
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.stopShooterMotor();
+    // intake.readProxColorSensor();
+    // intake.magazineMotorStop();
   }
 
   // Returns true when the command should end.
