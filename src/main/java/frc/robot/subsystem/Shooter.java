@@ -4,12 +4,19 @@
 
 package frc.robot.subsystem;
 
+import java.util.Map;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -74,6 +81,14 @@ public class Shooter extends SubsystemBase {
     return (rpm / Constants.ticks2RPM);
   }
 
+  // Adding configurable options on the Shuffleboard
+  public ShuffleboardTab st_matchSettings = Shuffleboard.getTab("Settings");
+  public NetworkTableEntry shooterAdjust = 
+    st_matchSettings.addPersistent("Shooter Speed", 0.0)
+      .withWidget(BuiltInWidgets.kNumberSlider)
+        .withProperties(Map.of("min", -500, "max", 500))
+        .getEntry();
+
   // runs an adjusted version of a value set in constants with PID
   public boolean runShooterPID(BallColor color, double distance, DriverStation.Alliance allianceColor) {
     // switch statement to decide what to do depending on ball color
@@ -84,6 +99,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putString("Alliance", allianceColor.toString());
     SmartDashboard.putBoolean("Target Seen", Limelight.getLimelightA());
     SmartDashboard.putNumber("Shooter", shooterMotor.getTemperature());
+    
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {
@@ -221,7 +237,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public void shooting() {
-    shooterMotor.set(Constants.shooterSpeed);
+    shooterMotor.set(Constants.shooterSpeed+);
 
   }
 
