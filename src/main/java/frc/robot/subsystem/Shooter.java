@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
@@ -82,12 +83,18 @@ public class Shooter extends SubsystemBase {
   }
 
   // Adding configurable options on the Shuffleboard
+  // Setting shooter speed range
   public ShuffleboardTab st_matchSettings = Shuffleboard.getTab("Settings");
   public NetworkTableEntry shooterAdjust = 
     st_matchSettings.addPersistent("Shooter Speed", 0.0)
       .withWidget(BuiltInWidgets.kNumberSlider)
         .withProperties(Map.of("min", -500, "max", 500))
         .getEntry();
+  // Setting chooser for selecting high or low goal
+  SendableChooser <String> shootHighOrLow = new SendableChooser<>();
+  shootHighOrLow.addOption("Shoot High Goal", "highG");
+  shootHighOrLow.addOption("Shoot Low Goal", "lowG");
+  SmartDashboard.putData("Shoot Location", shootHighOrLow);
 
   // runs an adjusted version of a value set in constants with PID
   public boolean runShooterPID(BallColor color, double distance, DriverStation.Alliance allianceColor) {
