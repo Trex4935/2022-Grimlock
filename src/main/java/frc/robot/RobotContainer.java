@@ -44,10 +44,8 @@ public class RobotContainer {
   private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start;
   private POVButton xbox_pov_up, xbox_pov_down;
 
-  cg_autoOne auto;
-  c_releaseIntake releaseIntake;
-  c_detectShootingReady rdyshot;
-  // c_driveStraightAuto auto;
+  // Auto configuration
+  private cg_autoOne auto;
 
   public RobotContainer() {
 
