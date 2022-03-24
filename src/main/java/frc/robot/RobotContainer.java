@@ -73,8 +73,8 @@ public class RobotContainer {
     drive.setDefaultCommand(new c_driveWithController(drive, controller, coDriverController));
     shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret, coDriverController));
 
-    // Configure the button bindings
-    configureButtonBindingsCompetitionPrimary();
+    // Configure the drive button bindings
+    configureButtonBindingsCompetitionDriver();
 
     // Configure the codriver button bindings
     configureButtonBindingsCompetitionCoDriver();
@@ -105,7 +105,7 @@ public class RobotContainer {
     c_xbox_start.whenPressed(new c_flipPewPew());
   }
 
-  private void configureButtonBindingsCompetitionPrimary() {
+  private void configureButtonBindingsCompetitionDriver() {
 
     ////// Primary Controller /////
     xbox_rbump = new JoystickButton(controller, XboxController.Button.kRightBumper.value);
@@ -162,10 +162,6 @@ public class RobotContainer {
     // Turn off the shooting subsystem
     xbox_start = new JoystickButton(controller, XboxController.Button.kStart.value);
     xbox_start.whenPressed(new c_flipPewPew());
-
-    ///// CODRIVER CONTROLLER /////
-    // c_xbox_a = new
-    ///// JoystickButton(coDriverController,XboxController.Button.kA.value);
 
   }
 
