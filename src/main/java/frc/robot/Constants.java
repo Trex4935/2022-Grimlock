@@ -47,9 +47,10 @@ public final class Constants {
 
   // DriveTrain limits
   public static double driveSpeedLimit = 0.75;
+  public static double rotationSpeedLimit = 0.6;
 
-  public static double outsideRampLimiter = 0.75;
-  public static double middleRampLimiter = 1.25;
+  public static final double outsideRampLimiter = 0.75;
+  public static final double middleRampLimiter = 1.25;
 
   public static final NeutralMode outsideBrakeMode = NeutralMode.Brake;
   public static final NeutralMode middleBreakMode = NeutralMode.Coast;
@@ -175,8 +176,6 @@ public final class Constants {
 
   public static final int maximumShootDistance = 156;
   public static final int minimumShootDistance = 108;
-
-  public static final double rotationSpeedLimit = 0;
 
   // Control is the shooting system is on or off
   public static boolean pewpew = true;

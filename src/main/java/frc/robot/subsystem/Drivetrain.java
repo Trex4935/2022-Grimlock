@@ -126,7 +126,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   // stop the outside four drive motors
-  public void stopOutsideDriveMotors() {
+  public void stopDriveMotors() {
     leftFront.stopMotor();
     leftBack.stopMotor();
     rightFront.stopMotor();
@@ -136,11 +136,7 @@ public class Drivetrain extends SubsystemBase {
   // stop all drive motors
   public void stopAllDriveMotors() {
     // stopMiddleDriveMotors();
-    stopOutsideDriveMotors();
-  }
-
-  @Override
-  public void periodic() {
+    stopDriveMotors();
   }
 
   public void drive_straight_gyro(double power) {
@@ -167,6 +163,10 @@ public class Drivetrain extends SubsystemBase {
     } else {
       drive.arcadeDrive(turn_power, 0, false); // if error, small, we fine tune with P. Good alternative if no I.
     }
+  }
+
+  @Override
+  public void periodic() {
   }
 
 }
