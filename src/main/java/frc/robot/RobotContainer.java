@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -54,78 +53,35 @@ public class RobotContainer {
 
     auto = new cg_autoOne(drive);
 
-    // load control profile based on if we are in testing or competition mode
-    /////////// TESTING PROFILE ///////////
+    //////////////////////////////////////////////////////////////////////////
+    // Use during competition and remove "debug code section"
+    // competitionConfiguration();
+    //////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////
+    // DEBUG CODE SECTION //
     if (Constants.testingControlMode) {
-      // Setup default drive controls
-      drive.setDefaultCommand(new c_driveWithController(drive, controller, coDriverController));
-      // turret.setDefaultCommand(new c_aimWithController(turret, controller));
-      // intake.setDefaultCommand(new c_runIntakeMotor(intake));
-      // intake.setDefaultCommand(new c_runMagazineMotors(intake));
-      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
-          controller));
-
-      // Configure the button bindings
-      configureButtonBindingsTesting();
-
+      testConfiguration();
+    } else {
+      competitionConfiguration();
     }
-    /////////// COMPETITION PROFILE ///////////
-    else {
-      // Setup default drive controls
-      drive.setDefaultCommand(new c_driveWithController(drive, controller, coDriverController));
-      shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret, coDriverController));
-
-      // Configure the button bindings
-      configureButtonBindingsCompetition();
-    }
+    //////////////////////////////////////////////////////////////////////////
   }
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
-   * it to a {@link
-   * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
+  private void competitionConfiguration() {
+    // Setup default drive controls
+    drive.setDefaultCommand(new c_driveWithController(drive, controller, coDriverController));
+    shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret, coDriverController));
 
-  // controller map for competition
-  /////////// COMPETITION PROFILE ///////////
+    // Configure the button bindings
+    configureButtonBindingsCompetitionPrimary();
 
-  private void configureButtonBindingsCompetition() {
+    // Configure the codriver button bindings
+    configureButtonBindingsCompetitionCoDriver();
 
-    ////// Primary Controller /////
-    xbox_rbump = new JoystickButton(controller, XboxController.Button.kRightBumper.value);
-    xbox_rbump.whenHeld(new c_forceShoot());
+  }
 
-    /// CONTROLLER MAP
-    //
-    // A -
-    // B -
-    // X -
-    // Y -
-    //
-    // LT -
-    // RT -
-    //
-    // LB -
-    // RB -
-    //
-    // LStick Vertical - Drive forward/backward
-    // LStick Horizontal -
-    // RStick - Rotate left/right
-    //
-    // Start -
-    // Select -
-    //
-    // D-Pad
-    // Up -
-    // Right -
-    // Down -
-    // Left -
-    //
-    /// END MAP
-
+  private void configureButtonBindingsCompetitionCoDriver() {
     ///// CoDriver Controller /////
     // Set the A button
     c_xbox_a = new JoystickButton(coDriverController, XboxController.Button.kA.value);
@@ -147,42 +103,28 @@ public class RobotContainer {
     // Turn off the shooting subsystem
     c_xbox_start = new JoystickButton(coDriverController, XboxController.Button.kStart.value);
     c_xbox_start.whenPressed(new c_flipPewPew());
+  }
 
-    /// CONTROLLER MAP
-    //
-    // A -
-    // B -
-    // X -
-    // Y -
-    //
-    // LT -
-    // RT -
-    //
-    // LB -
-    // RB -
-    //
-    // LStick Vertical -
-    // LStick Horizontal -
-    // RStick -
-    //
-    // Start -
-    // Select -
-    //
-    // D-Pad
-    // Up -
-    // Right -
-    // Down -
-    // Left -
-    //
-    /// END MAP
+  private void configureButtonBindingsCompetitionPrimary() {
+
+    ////// Primary Controller /////
+    xbox_rbump = new JoystickButton(controller, XboxController.Button.kRightBumper.value);
+    xbox_rbump.whenHeld(new c_forceShoot());
 
   }
 
-  // controller map for testing the robot
-  /////////// TESTING PROFILE ///////////
-  private void configureButtonBindingsTesting() {
+  // TEST Controller configuration //
+  private void testConfiguration() {
 
-    ///// PRIMARY CONTROLLER /////
+    // Setup default drive controls
+    drive.setDefaultCommand(new c_driveWithController(drive, controller, coDriverController));
+    // turret.setDefaultCommand(new c_aimWithController(turret, controller));
+    // intake.setDefaultCommand(new c_runIntakeMotor(intake));
+    // intake.setDefaultCommand(new c_runMagazineMotors(intake));
+    shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
+        controller));
+
+    // Configure the button bindings
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
     xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
