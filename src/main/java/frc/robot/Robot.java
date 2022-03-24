@@ -4,8 +4,9 @@
 
 package frc.robot;
 
-import edu.wpi.first.util.net.PortForwarder;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.EventImportance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.extensions.Limelight;
@@ -22,8 +23,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     limelight = new Limelight();
-
-    // limelight port forwarders so we can see the limelight when connected with USB
 
   }
 
@@ -46,6 +45,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
+    // Stop all recordings
+    Shuffleboard.addEventMarker("State", "DISABLED", EventImportance.kHigh);
+    Shuffleboard.stopRecording();
+
   }
 
   @Override
@@ -63,6 +66,11 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
+    // Start a shuffleboard recording if one isn't running
+    Shuffleboard.startRecording();
+    Shuffleboard.addEventMarker("State", "AUTO", EventImportance.kHigh);
+
   }
 
   @Override
@@ -72,6 +80,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    // Start a shuffleboard recording if one isn't running
+    Shuffleboard.startRecording();
+    Shuffleboard.addEventMarker("State", "TELEOP", EventImportance.kHigh);
   }
 
   @Override

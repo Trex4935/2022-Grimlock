@@ -97,8 +97,6 @@ public class Climber extends SubsystemBase {
 
     if (getMotorTopLimit()) {
       climbMotor.stopMotor();
-      // System.out.println(Constants.leftClimberMagLimitTopID);
-      // System.out.println(Constants.rightClimberMagLimitTopID);
     } else {
       climbMotor.set(speed);
     }
@@ -117,21 +115,14 @@ public class Climber extends SubsystemBase {
     SmartDashboard.putNumber("Climber", climbMotor.getTemperature());
     if (getMotorBottomLimit()) {
       climbMotor.stopMotor();
-      // System.out.println(Constants.leftClimberMagLimitBottomID);
-      // System.out.println(Constants.rightClimberMagLimitBottomID);
     } else {
       climbMotor.set(Constants.climbMotorSpeed);
     }
-    // System.out.println("down");
   }
 
   // Stops the default climber motor
   public void stopClimbMotor() {
     climbMotor.stopMotor();
-  }
-
-  public void getStatus() {
-    // System.out.println(extraClimberMagLimitBottom.get());
   }
 
   @Override
