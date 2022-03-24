@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystem.Shooter;
 
-public class c_shootBall extends CommandBase {
+public class c_shooterShootLow extends CommandBase {
   Shooter shooter;
 
   /** Creates a new c_shootWithVision. */
-  public c_shootBall(Shooter sh) {
+  public c_shooterShootLow(Shooter sh) {
     // Use addRequirements() here to declare subsystem dependencies.
     shooter = sh;
     addRequirements(shooter);
@@ -25,9 +25,7 @@ public class c_shootBall extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.shooting();
-    // shooter.runShooterPID(3000);
-    // shooter.shooterShootLow();
+    shooter.shooterShootLow();
   }
 
   // Called once the command ends or is interrupted.
