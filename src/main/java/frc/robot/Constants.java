@@ -23,7 +23,7 @@ public final class Constants {
 
   ///////////////////////////////////
   ////////////////////////
-  public static final boolean testingControlMode = false;
+  public static final boolean testingControlMode = true;
   // public static final String controlMode = "Testing";
   ///////////////////////////////////////////////////////////
 
