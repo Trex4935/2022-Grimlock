@@ -140,6 +140,11 @@ public final class Constants {
   public static final int rightClimberMagLimitBottomID = 8;
   public static final int extraClimberMagLimitBottomID = 10; // ROBORIO 10 = DIO0 NAVX0
 
+  // Motion Magic
+  public static final int kPIDLoopIdxClimb = 0; // Profile slot 0 selected
+  public static final int kSlotIdxClimb = 0; // Select primary closed loob
+  public static PID kGains_Position_Climber = new PID(0, 0, 0, 0); // 
+
   // endregion
   // --------------------------------------------------------
 

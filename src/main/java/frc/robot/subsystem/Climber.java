@@ -8,6 +8,7 @@
 package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 // Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -53,6 +54,51 @@ public class Climber extends SubsystemBase {
     rightClimberMagLimitTop = new FlippedDIO(Constants.rightClimberMagLimitTopID);
     rightClimberMagLimitBottom = new FlippedDIO(Constants.rightClimberMagLimitBottomID);
     rotateArmLimit = new FlippedDIO(Constants.extraClimberMagLimitBottomID);
+  }
+
+  public Climber(int ID) {    
+    
+    // Populate the variables with motor objects with the correct IDs
+    climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
+    climbMotor.configFactoryDefault();
+
+    // Configure Sensor Source for Primary PID 
+    climbMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx,
+    Constants.kTimeoutMs);
+
+    // Configure Common Options
+    climbMotor.setNeutralMode(NeutralMode.Brake); // Puts motor in brake mode
+    climbMotor.configNeutralDeadband(0.001, Constants.kTimeoutMs); // set deadband to super small 0.001 (0.1 %), I  assume so we are less sensible to noise.
+    climbMotor.setSensorPhase(false);  // Phase -- TOREAD , phase may be important
+    climbMotor.setInverted(false); // Invert Motor Direction
+
+		/* Set the peak and nominal outputs */
+		climbMotor.configNominalOutputForward(0, Constants.kTimeoutMs);
+		climbMotor.configNominalOutputReverse(0, Constants.kTimeoutMs);
+		climbMotor.configPeakOutputForward(1, Constants.kTimeoutMs);
+		climbMotor.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+
+		// Motion Magic Gain, similar to PIDF
+		climbMotor.selectProfileSlot(Constants.kSlotIdxClimb, Constants.kPIDLoopIdxClimb);
+		climbMotor.config_kF(Constants.kSlotIdxClimb, Constants.kGains_Position_Climber.getkF(), Constants.kTimeoutMs);
+		climbMotor.config_kP(Constants.kSlotIdxClimb, Constants.kGains_Position_Climber.getkP(), Constants.kTimeoutMs);
+		climbMotor.config_kI(Constants.kSlotIdxClimb, Constants.kGains_Position_Climber.getkI(), Constants.kTimeoutMs);
+		climbMotor.config_kD(Constants.kSlotIdxClimb, Constants.kGains_Position_Climber.getkD(), Constants.kTimeoutMs);
+
+    //Integral Zone, to read, must be something similar to a wind-up 
+    climbMotor.config_IntegralZone(Constants.kSlotIdxClimb, 30);
+
+    // Motion Magic for Velocity and Acceleration , no need for seperate PIDF controllers 
+    //-- All the magic for curve is done here
+		climbMotor.configMotionCruiseVelocity(0, Constants.kTimeoutMs);
+		climbMotor.configMotionAcceleration(0, Constants.kTimeoutMs);
+
+    
+		//Zero the sensor once on robot boot up , need to change, to maybe use limit switch
+		climbMotor.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+
+    //May need to include current limits
+    //May need clear positions ConfigClearPositionOnLimitR()
   }
 
   // Stop all of the climb motors
