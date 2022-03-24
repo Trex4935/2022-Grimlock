@@ -58,8 +58,8 @@ public class Drivetrain extends SubsystemBase {
     rightBack.configFactoryDefault();
 
     // Invert motors as needed
-    leftMotorGroup.setInverted(true);
-    rightMotorGroup.setInverted(true);
+    leftMotorGroup.setInverted(false);
+    rightMotorGroup.setInverted(false);
 
     // Ramp speeds, how fast the motors take to get to full speed
     leftFront.configOpenloopRamp(Constants.outsideRampLimiter);
@@ -96,23 +96,11 @@ public class Drivetrain extends SubsystemBase {
     return ahrs.isCalibrating();
   }
 
-  // Move center motors
-  public void driveMiddleWithController(XboxController controller, double speedLimiter) {
-    // middleLeft.set(controller.getRawAxis(Constants.leftHorizontal) *
-    // speedLimiter);
-    // middleRight.set(controller.getRawAxis(Constants.leftHorizontal) *
-    // speedLimiter);
-  }
-
   // Controls for the outside wheels using built in arcadeDrive
   public void driveWithController(XboxController controller, XboxController coDriver, double speedLimiter) {
 
-    // if (coDriver.getLeftBumper()) {
-    // findShadowLine();
-    // } else {
-    drive.arcadeDrive((controller.getRawAxis(Constants.rightHorizontal) * 0.6) * -1,
-        controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
-    // }
+    // setup the arcade drive
+    drive.arcadeDrive(getRotationAxis(controller), getLogitudinalAxis(controller));
 
     SmartDashboard.putNumber("RightBack", rightBack.getTemperature());
     SmartDashboard.putNumber("RightFront", rightFront.getTemperature());
@@ -121,10 +109,20 @@ public class Drivetrain extends SubsystemBase {
 
   }
 
-  // Stop the center motors
-  public void stopMiddleDriveMotors() {
-    // middleLeft.stopMotor();
-    // middleRight.stopMotor();
+  // read and return the speed value for the rotational axis
+  private double getRotationAxis(XboxController controller) {
+
+    // Axis value * rotation speed limiter
+    return controller.getRawAxis(Constants.rightHorizontal) * Constants.rotationSpeedLimit;
+
+  }
+
+  // read and return the speed value for the logitudinal axis (forward and
+  // backwards)
+  private double getLogitudinalAxis(XboxController controller) {
+
+    // Axis value * translational speed limiter
+    return controller.getRawAxis(Constants.leftVertical) * Constants.driveSpeedLimit;
   }
 
   // stop the outside four drive motors
