@@ -103,12 +103,12 @@ public class Drivetrain extends SubsystemBase {
     drive.arcadeDrive(getRotationAxis(controller), getLogitudinalAxis(controller));
 
     // Make sure we aren't in an overtemp condition
-    driveOverTemp();
+    driveOverTempProtection();
 
   }
 
   // check the temp of the drive falcons and take action if needed
-  private void driveOverTemp() {
+  private void driveOverTempProtection() {
 
     // read the temperature
     double rbTemp = rightBack.getTemperature();
