@@ -176,6 +176,8 @@ public final class Constants {
   public static final int maximumShootDistance = 156;
   public static final int minimumShootDistance = 108;
 
+  public static final boolean shootingLow = false;
+
   // Control is the shooting system is on or off
   public static boolean pewpew = true;
 

@@ -20,6 +20,7 @@ import frc.robot.commands.c_pullUp;
 import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_runIntakeRetractionMotor;
 import frc.robot.commands.c_shootBall;
+import frc.robot.commands.c_shooterShootLow;
 import frc.robot.commands.cg_autoOne;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
@@ -41,7 +42,7 @@ public class RobotContainer {
   private static XboxController coDriverController = new XboxController(1);
 
   // button variables for the controller
-  private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b, xbox_start, xbox_rbump;
+  private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b, xbox_start, xbox_rbump, xbox_lbump;
   private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start;
   private POVButton xbox_pov_up, xbox_pov_down;
 
@@ -97,6 +98,9 @@ public class RobotContainer {
     ////// Primary Controller /////
     xbox_rbump = new JoystickButton(controller, XboxController.Button.kRightBumper.value);
     xbox_rbump.whenHeld(new c_forceShoot());
+
+    xbox_lbump = new JoystickButton(controller, XboxController.Button.kLeftBumper.value);
+    xbox_lbump.whenHeld(new c_shooterShootLow());
 
     /// CONTROLLER MAP
     //

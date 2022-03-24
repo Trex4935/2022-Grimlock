@@ -44,23 +44,27 @@ public class c_detectShootingReady extends CommandBase {
     // Need an on target check
     // Only if all three are true do we shoot
     if (Constants.pewpew) {
-      if (shooter.runShooterPID(intake.readSensor(), Limelight.getDistance(), DriverStation.getAlliance())) {
+      if (Constants.shootingLow) {
+        shooter.shooterShootLow();
         intake.runMagazineMotors(Constants.forceShoot);
       } else {
-        intake.runMagazineMotors(Constants.forceShoot);
+        if (shooter.runShooterPID(intake.readSensor(), Limelight.getDistance(), DriverStation.getAlliance())) {
+          intake.runMagazineMotors(true);
+        } else {
+          intake.runMagazineMotors(false);
+        }
+
+        // Aim the turret
+        turret.turnOnPIDAutoAim(controller);
+
+        // Run singulation
+        intake.singulateBall();
       }
-
-      // Aim the turret
-      turret.turnOnPIDAutoAim(controller);
-
-      // Run singulation
-      intake.singulateBall();
     } else {
       shooter.stopShooterMotor();
       intake.intakeMotorStop();
       intake.magazineMotorStop();
     }
-
   }
 
   // Called once the command ends or is interrupted.
