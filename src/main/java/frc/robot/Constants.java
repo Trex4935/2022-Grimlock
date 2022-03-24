@@ -46,8 +46,13 @@ public final class Constants {
   public static final int rightHorizontal = 4;
 
   // DriveTrain limits
-  public static double driveSpeedLimit = 0.75;
-  public static double rotationSpeedLimit = 0.6;
+  public static final double driveSpeedlimitDefault = 0.75;
+  public static final double driveSpeedLimitHot = 0.25;
+  public static double driveSpeedLimit = Constants.driveSpeedlimitDefault;
+
+  public static final double rotationSpeedLimitDefault = 0.6;
+  public static final double rotationSpeedLimitHot = 0.25;
+  public static double rotationSpeedLimit = Constants.rotationSpeedLimitDefault;
 
   public static final double outsideRampLimiter = 0.75;
   public static final double middleRampLimiter = 1.25;
@@ -57,6 +62,9 @@ public final class Constants {
 
   // Sensors
   public static final int sensorIRBlackValue = 6;
+
+  // Overheat protection
+  public static final double driveToHot = 90;
 
   // endregion
   // --------------------------------------------------------

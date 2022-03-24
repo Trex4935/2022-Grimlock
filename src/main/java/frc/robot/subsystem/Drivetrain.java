@@ -102,10 +102,38 @@ public class Drivetrain extends SubsystemBase {
     // setup the arcade drive
     drive.arcadeDrive(getRotationAxis(controller), getLogitudinalAxis(controller));
 
-    SmartDashboard.putNumber("RightBack", rightBack.getTemperature());
-    SmartDashboard.putNumber("RightFront", rightFront.getTemperature());
-    SmartDashboard.putNumber("Left Back", leftBack.getTemperature());
-    SmartDashboard.putNumber("LeftFront", leftFront.getTemperature());
+    // Make sure we aren't in an overtemp condition
+    driveOverTemp();
+
+  }
+
+  // check the temp of the drive falcons and take action if needed
+  private void driveOverTemp() {
+
+    // read the temperature
+    double rbTemp = rightBack.getTemperature();
+    double rfTemp = rightFront.getTemperature();
+    double lbTemp = leftBack.getTemperature();
+    double lfTemp = leftFront.getTemperature();
+
+    // push the temp to the dashboard
+    SmartDashboard.putNumber("RightBack", rbTemp);
+    SmartDashboard.putNumber("RightFront", rfTemp);
+    SmartDashboard.putNumber("Left Back", lbTemp);
+    SmartDashboard.putNumber("LeftFront", lfTemp);
+
+    // if any of the drives are in overheat then we need to slow everything down to
+    // the HOT speed
+    if (rbTemp > Constants.driveToHot || rfTemp > Constants.driveToHot || lbTemp > Constants.driveToHot
+        || lfTemp > Constants.driveToHot) {
+      Constants.driveSpeedLimit = Constants.driveSpeedLimitHot;
+      Constants.rotationSpeedLimit = Constants.rotationSpeedLimitHot;
+    }
+    // in all other cases keep the default speed
+    else {
+      Constants.driveSpeedLimit = Constants.driveSpeedlimitDefault;
+      Constants.rotationSpeedLimit = Constants.rotationSpeedLimitDefault;
+    }
 
   }
 
