@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.FlippedDIO;
+import frc.robot.extensions.SmartDebug;
 import frc.robot.extensions.multiplexedColorSensor;
 
 public class Intake extends SubsystemBase {
@@ -83,6 +84,7 @@ public class Intake extends SubsystemBase {
     if (bypassProx) {
       magazineMotor.set(Constants.magazineMotorSpeed);
       SmartDashboard.putBoolean("Mag Active", true);
+
     } else {
       // System.out.println("No ByPass");
       // if proximity sensor is not bypassed then stop magazine if a ball is detected
@@ -168,6 +170,7 @@ public class Intake extends SubsystemBase {
       // System.out.println("BALL");
       return true;
     }
+    SmartDashboard.putNumber("Ball in top of MAG", prox_value);
     // System.out.println("NO BALL");
     return false;
   }

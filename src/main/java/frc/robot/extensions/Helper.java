@@ -17,6 +17,10 @@ public class Helper {
         } else {
             return false;
         }
+    } 
+
+    public static boolean getShootingLow() {
+        return Constants.shootingLow;
     }
 
     // Flip pew pew to the other boolean value
