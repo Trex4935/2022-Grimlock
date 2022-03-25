@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
-import frc.robot.commands.c_flipPewPew;
+import frc.robot.commands.c_flipshootingSubsystemOn;
 import frc.robot.commands.c_forceShoot;
 import frc.robot.commands.c_robotClimbsUp;
 import frc.robot.commands.c_robotClimbsDown;
@@ -18,7 +18,6 @@ import frc.robot.commands.c_pullUp;
 import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_runIntakeRetractionMotor;
 import frc.robot.commands.c_shootBall;
-import frc.robot.commands.c_shooterShootLow;
 import frc.robot.commands.cg_autoOne;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
@@ -100,7 +99,7 @@ public class RobotContainer {
 
     // Turn off the shooting subsystem
     c_xbox_start = new JoystickButton(coDriverController, XboxController.Button.kStart.value);
-    c_xbox_start.whenPressed(new c_flipPewPew());
+    c_xbox_start.whenPressed(new c_flipshootingSubsystemOn());
   }
 
   private void configureButtonBindingsCompetitionDriver() {
@@ -159,7 +158,7 @@ public class RobotContainer {
 
     // Turn off the shooting subsystem
     xbox_start = new JoystickButton(controller, XboxController.Button.kStart.value);
-    xbox_start.whenPressed(new c_flipPewPew());
+    xbox_start.whenPressed(new c_flipshootingSubsystemOn());
 
   }
 

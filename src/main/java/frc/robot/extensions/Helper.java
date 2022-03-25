@@ -20,7 +20,7 @@ public class Helper {
     }
 
     // Flip pew pew to the other boolean value
-    public static void flipPewPew() {
+    public static void flipshootingSubsystemOn() {
         Constants.shootingSubsystemOn = !(Constants.shootingSubsystemOn);
     }
 

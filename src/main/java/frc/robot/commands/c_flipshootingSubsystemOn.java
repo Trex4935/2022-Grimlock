@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.extensions.Helper;
 
-public class c_flipPewPew extends CommandBase {
+public class c_flipshootingSubsystemOn extends CommandBase {
   /** Creates a new c_flipPewPew. */
   private boolean hasrun;
 
-  public c_flipPewPew() {
+  public c_flipshootingSubsystemOn() {
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -24,7 +24,7 @@ public class c_flipPewPew extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Helper.flipPewPew();
+    Helper.flipshootingSubsystemOn();
     hasrun = true;
   }
 
