@@ -10,13 +10,12 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.extensions.Limelight;
-import frc.robot.extensions.ShuffleboardInit;
 
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
   public Limelight limelight;
-  public ShuffleboardInit e_shuffleBoard;
+ 
 
   @Override
   public void robotInit() {
@@ -25,7 +24,6 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     limelight = new Limelight();
-    e_shuffleBoard = new ShuffleboardInit();
 
   }
 
