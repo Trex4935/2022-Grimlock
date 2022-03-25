@@ -84,80 +84,103 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putString("Alliance", allianceColor.toString());
     SmartDashboard.putBoolean("Target Seen", Limelight.getLimelightA());
     SmartDashboard.putNumber("Shooter", shooterMotor.getTemperature());
+    System.out.println(Constants.forceShoot);
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {
       case NONE:
-        targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
 
-        // System.out.println("NONE");
+        // Determine the target ticks based on color distance and high/low
+        targetTicks = getShootingTicks(color, distance);
+
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // check if we are at speed and update the dashboard
-        return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
-      // return false;
+        return shooterConditionsMet(color, targetTicks, distance);
 
       case RED:
-        // System.out.println("RED");
-
-        // Determined the # of ticks based on ball color and distance
-        targetTicks = allianceSpeed(BallColor.RED, distance);
-        // targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
-        // System.out.println(targetTicks);
+        // Determine the target ticks based on color distance and high/low
+        targetTicks = getShootingTicks(color, distance);
 
         // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        if (allianceColor == DriverStation.Alliance.Red) {
-          return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) &&
-              atDistance(distance));
-        } else {
-          return shooterAtSpeed(targetTicks, color);
-        }
-
-        // return false;
+        return shooterConditionsMet(color, targetTicks, distance);
 
       case BLUE:
-        // System.out.println("BLUE");
-
-        // Determined the # of ticks based on ball color and distance
-        targetTicks = allianceSpeed(BallColor.BLUE, distance);
-        // targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
-        // System.out.println("----------------");
-        // System.out.println(targetTicks);
+        // Determine the target ticks based on color distance and high/low
+        targetTicks = getShootingTicks(color, distance);
 
         // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
-        // System.out.println(shooterMotor.getSelectedSensorVelocity());
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        if (allianceColor == DriverStation.Alliance.Blue) {
-          return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) &&
-              atDistance(distance));
-        } else {
-          return shooterAtSpeed(targetTicks, color);
-        }
+        return shooterConditionsMet(color, targetTicks, distance);
 
-        // return false;
       default:
-        targetTicks = rpmtoTicks(Constants.shooterIdleSpeed);
+        // Determine the target ticks based on color distance and high/low
+        targetTicks = getShootingTicks(color, distance);
 
-        // System.out.println("NONE");
+        // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // check if we are at speed and update the dashboard
-        return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance));
-      // return false;
+        return shooterConditionsMet(color, targetTicks, distance);
+
+    }
+  }
+
+  // validate that we are ready to shoot and override if needed
+  private boolean shooterConditionsMet(BallColor color, double targetTicks, double distance) {
+
+    // Get the color of the alliance we are on
+    DriverStation.Alliance allianceColor = DriverStation.getAlliance();
+
+    // If we are shooting low then we ONLY shoot if forceShoot is true!
+    if (Constants.shootingLow) {
+      return Constants.forceShoot;
+    }
+    // If we are shooting high &
+    // If the ball color matches the alliance color then test if we are ready to
+    // shoot
+    else if (color == BallColor.RED && allianceColor == DriverStation.Alliance.Red
+        || color == BallColor.BLUE && allianceColor == DriverStation.Alliance.Blue) {
+      return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance)
+          || Constants.forceShoot);
+    }
+    // all other cases low speed shot as soon as the shooter is ready
+    else {
+      return shooterAtSpeed(targetTicks, color);
+    }
+  }
+
+  // Return ticks based on if we are low or high ... color ball or none
+  private double getShootingTicks(BallColor color, double distance) {
+    // If shooting low just use low speed
+    if (Constants.shootingLow) {
+      return rpmtoTicks(Constants.shooterLowSpeed);
+    }
+
+    // if none use idle speed
+    // any thing else => calculate speed
+    else {
+      switch (color) {
+        case NONE:
+          return Constants.shooterIdleSpeed;
+        default:
+          return allianceSpeed(color, distance);
+      }
+
     }
   }
 
   private boolean shooterAtSpeed(double targetTicks, BallColor color) {
 
-    SmartDashboard.putNumber("Target Ticks", targetTicks);
-    SmartDashboard.putNumber("Tp100", shooterMotor.getSelectedSensorVelocity());
+    SmartDashboard.putNumber("Target_Ticks", targetTicks);
+    SmartDashboard.putNumber("Shooter_Ticks", shooterMotor.getSelectedSensorVelocity());
 
     if (color == BallColor.NONE) {
       SmartDashboard.putBoolean("Shooter At Speed", false);
@@ -194,19 +217,24 @@ public class Shooter extends SubsystemBase {
 
   // determine the shooter speed based on distance ball color and alliance
   private double allianceSpeed(BallColor color, double distance) {
-    // Red & Red == speed by distance
-    if (color == BallColor.RED && DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-      Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
-      return rpmtoTicks(getSpeedSetPoint(distance));
-    }
-    // Blue & Blue == speed by distance
-    else if (color == BallColor.BLUE && DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-      Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
-      return rpmtoTicks(getSpeedSetPoint(distance));
-    }
-    // all other cases low speed shot!
-    else {
+    // if we are shooting low color doesn't matter just return the low ball color
+    if (Constants.shootingLow) {
       return rpmtoTicks(Constants.shooterLowSpeed);
+    } else {
+      // Red & Red == speed by distance
+      if (color == BallColor.RED && DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+        Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
+        return rpmtoTicks(Constants.shooterIdleSpeed);
+      }
+      // Blue & Blue == speed by distance
+      else if (color == BallColor.BLUE && DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+        Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
+        return rpmtoTicks(Constants.shooterIdleSpeed);
+      }
+      // all other cases low speed shot!
+      else {
+        return rpmtoTicks(Constants.shooterLowSpeed);
+      }
     }
   }
 

@@ -23,7 +23,7 @@ public final class Constants {
 
   ///////////////////////////////////
   ////////////////////////
-  public static final boolean testingControlMode = false;
+  public static final boolean testingControlMode = true;
   // public static final String controlMode = "Testing";
   ///////////////////////////////////////////////////////////
 
@@ -46,16 +46,25 @@ public final class Constants {
   public static final int rightHorizontal = 4;
 
   // DriveTrain limits
-  public static double driveSpeedLimit = 0.75;
+  public static final double driveSpeedlimitDefault = 0.75;
+  public static final double driveSpeedLimitHot = 0.25;
+  public static double driveSpeedLimit = Constants.driveSpeedlimitDefault;
 
-  public static double outsideRampLimiter = 0.75;
-  public static double middleRampLimiter = 1.25;
+  public static final double rotationSpeedLimitDefault = 0.6;
+  public static final double rotationSpeedLimitHot = 0.25;
+  public static double rotationSpeedLimit = Constants.rotationSpeedLimitDefault;
+
+  public static final double outsideRampLimiter = 0.75;
+  public static final double middleRampLimiter = 1.25;
 
   public static final NeutralMode outsideBrakeMode = NeutralMode.Brake;
   public static final NeutralMode middleBreakMode = NeutralMode.Coast;
 
   // Sensors
   public static final int sensorIRBlackValue = 6;
+
+  // Overheat protection
+  public static final double driveToHot = 90;
 
   // endregion
   // --------------------------------------------------------
@@ -179,7 +188,7 @@ public final class Constants {
   public static final boolean shootingLow = false;
 
   // Control is the shooting system is on or off
-  public static boolean pewpew = true;
+  public static boolean shootingSubsystemOn = true;
 
   // endregion
   // --------------------------------------------------------

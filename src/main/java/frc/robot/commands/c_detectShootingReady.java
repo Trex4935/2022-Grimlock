@@ -43,7 +43,7 @@ public class c_detectShootingReady extends CommandBase {
     // Need a distance check
     // Need an on target check
     // Only if all three are true do we shoot
-    if (Constants.pewpew) {
+    if (Constants.shootingSubsystemOn) {
       if (Constants.shootingLow) {
         shooter.shooterShootLow();
         intake.runMagazineMotors(Constants.forceShoot);
