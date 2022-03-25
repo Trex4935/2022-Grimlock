@@ -23,7 +23,7 @@ public NetworkTableEntry shooterAdjust =
     .withWidget(BuiltInWidgets.kNumberSlider)
     .withProperties(Map.of("min", -500, "max", 500)) // slider range of -500 to 500
     .withSize(2, 1) // make the widget 2x1
-    .withPosition(0, 0) // place it in the top-left corner
+    .withPosition(6, 2) // place it in the middle
     .getEntry();
     
 //public NetworkTableEntry shootHighLow = 
@@ -32,10 +32,5 @@ public NetworkTableEntry shooterAdjust =
 //    .withSize(2, 1) // make the widget 2x1
 //    .withPosition(0, 2) // place it in the top-left corner
 //   .getEntry();
-
-
-// Debug Elements
-public ShuffleboardTab robotDebug = Shuffleboard.getTab("Robot-Debug");
-
 
 }

@@ -16,6 +16,7 @@ import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.Helper;
 import frc.robot.extensions.Limelight;
+import frc.robot.extensions.SmartDebug;
 
 public class Shooter extends SubsystemBase {
 
@@ -80,10 +81,10 @@ public class Shooter extends SubsystemBase {
     // currently placeholder values
     // System.out.println(color.toString());
     double targetTicks;
-    SmartDashboard.putString("Color", color.toString());
+    SmartDashboard.putString("Ball Color", color.toString());
     SmartDashboard.putString("Alliance", allianceColor.toString());
     SmartDashboard.putBoolean("Target Seen", Limelight.getLimelightA());
-    SmartDashboard.putNumber("Shooter", shooterMotor.getTemperature());
+    SmartDebug.putDouble("Shooter Motor Temp", shooterMotor.getTemperature());
     System.out.println(Constants.forceShoot);
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
