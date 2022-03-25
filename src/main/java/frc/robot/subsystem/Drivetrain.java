@@ -10,9 +10,10 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.extensions.SmartDebug;
 import frc.robot.extensions.multiplexedColorSensor;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SPI;
@@ -134,13 +135,10 @@ public class Drivetrain extends SubsystemBase {
         controller.getRawAxis(Constants.leftVertical) * speedLimiter * -1);
     // }
 
-    SmartDashboard.putNumber("RightBack", rightBack.getTemperature());
-    SmartDashboard.putNumber("RightFront", rightFront.getTemperature());
-    SmartDashboard.putNumber("Left Back", leftBack.getTemperature());
-    SmartDashboard.putNumber("LeftFront", leftFront.getTemperature());
-
-    SmartDashboard.putBoolean("SHADOW_LEFT", readLineSensorLeft());
-    SmartDashboard.putBoolean("SHADOW_RIGHT", readLineSensorRight());
+    SmartDebug.putDouble("RightBack MotorTemp", rightBack.getTemperature());
+    SmartDebug.putDouble("RightFront MotorTemp", rightFront.getTemperature());
+    SmartDebug.putDouble("LeftBack MotorTemp", leftBack.getTemperature());
+    SmartDebug.putDouble("LeftFront MotorTemp", leftFront.getTemperature());
 
   }
 
