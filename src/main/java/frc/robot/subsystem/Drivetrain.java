@@ -102,13 +102,6 @@ public class Drivetrain extends SubsystemBase {
   // Controls for the outside wheels using built in arcadeDrive
   public void driveWithController(XboxController controller, XboxController coDriver, double speedLimiter) {
 
-
-    
-    SmartDebug.putDouble("RightBack MotorTemp", rightBack.getTemperature());
-    SmartDebug.putDouble("RightFront MotorTemp", rightFront.getTemperature());
-    SmartDebug.putDouble("LeftBack MotorTemp", leftBack.getTemperature());
-    SmartDebug.putDouble("LeftFront MotorTemp", leftFront.getTemperature());
-
     // setup the arcade drive
     drive.arcadeDrive(getRotationAxis(controller), getLogitudinalAxis(controller));
 
@@ -127,11 +120,12 @@ public class Drivetrain extends SubsystemBase {
     double lbTemp = leftBack.getTemperature();
     double lfTemp = leftFront.getTemperature();
 
-    // push the temp to the dashboard
-    SmartDashboard.putNumber("RightBack", rbTemp);
-    SmartDashboard.putNumber("RightFront", rfTemp);
-    SmartDashboard.putNumber("Left Back", lbTemp);
-    SmartDashboard.putNumber("LeftFront", lfTemp);
+    // push the temp to the dashboard - debug
+    SmartDebug.putDouble("RightBack MotorTemp", rbTemp);
+    SmartDebug.putDouble("RightFront MotorTemp", rfTemp);
+    SmartDebug.putDouble("LeftBack MotorTemp", lbTemp);
+    SmartDebug.putDouble("LeftFront MotorTemp", lfTemp);
+
 
     // if any of the drives are in overheat then we need to slow everything down to
     // the HOT speed

@@ -4,23 +4,40 @@
 
 package frc.robot.subsystem;
 
+import java.util.Map;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.Helper;
 import frc.robot.extensions.Limelight;
+import frc.robot.extensions.SmartDebug;
 
 public class Shooter extends SubsystemBase {
 
   // Declare shooter motor
   WPI_TalonFX shooterMotor;
+
+  public ShuffleboardTab matchSettings = Shuffleboard.getTab("Settings");
+  public NetworkTableEntry shooterAdjust = 
+    matchSettings.add("Shooter Speed", 0.0)
+    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withProperties(Map.of("min", -500, "max", 500)) // slider range of -500 to 500
+    .withSize(6, 3) // make the widget 6x3
+    .withPosition(6, 2) // place it in the middle
+    .getEntry();
 
   /** Creates a new Shooter. */
   public Shooter() {
@@ -64,6 +81,9 @@ public class Shooter extends SubsystemBase {
     shooterMotor.config_IntegralZone(Constants.kPIDLoopIdx, 0, Constants.kTimeoutMs);
   }
 
+  //Return the Shooter Speed Slider from the Shuffleboard Settings Tab
+  
+
   // converts the ticks to RPM values
   public double tickstoRPM(double ticks) {
     return (ticks * Constants.ticks2RPM);
@@ -80,10 +100,10 @@ public class Shooter extends SubsystemBase {
     // currently placeholder values
     // System.out.println(color.toString());
     double targetTicks;
-    SmartDashboard.putString("Color", color.toString());
+    SmartDashboard.putString("Ball Color", color.toString());
     SmartDashboard.putString("Alliance", allianceColor.toString());
     SmartDashboard.putBoolean("Target Seen", Limelight.getLimelightA());
-    SmartDashboard.putNumber("Shooter", shooterMotor.getTemperature());
+    SmartDebug.putDouble("Shooter Motor Temp", shooterMotor.getTemperature());
     System.out.println(Constants.forceShoot);
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
@@ -245,7 +265,7 @@ public class Shooter extends SubsystemBase {
 
   public double getSpeedSetPoint(double distance) {
     // RPM = 3.7037 * distance + 2722.2
-    return 3.7037 * distance + 2722.2;
+    return 3.7037 * distance + 2722.2 + shooterAdjust.getDouble(0.0);
   }
 
   public void shooting() {

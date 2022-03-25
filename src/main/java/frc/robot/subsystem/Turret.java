@@ -13,6 +13,7 @@ import frc.robot.Constants;
 import frc.robot.extensions.FlippedDIO;
 import frc.robot.extensions.Helper;
 import frc.robot.extensions.Limelight;
+import frc.robot.extensions.SmartDebug;
 
 public class Turret extends SubsystemBase {
 
@@ -79,7 +80,8 @@ public class Turret extends SubsystemBase {
     else {
       // Get the speed that we are going to run the motor
       double tt = turretThreshold();
-      SmartDashboard.putNumber("MotorOutput", tt);
+      SmartDebug.putDouble("Turret Motor Output", tt);
+      SmartDashboard.putBoolean("Turret Centered", middleMag.get());
 
       // Handle the limit switches to make sure we don't over rotate
       if (leftMagLimit.get() == true && tt >= 0) {
