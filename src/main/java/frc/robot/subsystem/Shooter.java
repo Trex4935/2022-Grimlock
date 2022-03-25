@@ -84,6 +84,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putString("Alliance", allianceColor.toString());
     SmartDashboard.putBoolean("Target Seen", Limelight.getLimelightA());
     SmartDashboard.putNumber("Shooter", shooterMotor.getTemperature());
+    System.out.println(Constants.forceShoot);
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {

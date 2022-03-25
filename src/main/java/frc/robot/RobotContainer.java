@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_flipshootingSubsystemOn;
@@ -19,6 +20,8 @@ import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_runIntakeRetractionMotor;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.cg_autoOne;
+import frc.robot.extensions.Helper;
+import frc.robot.extensions.rightTriggerBool;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
@@ -39,9 +42,10 @@ public class RobotContainer {
   private static XboxController coDriverController = new XboxController(1);
 
   // button variables for the controller
-  private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b, xbox_start, xbox_rbump, xbox_lbump;
+  private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b, xbox_start, xbox_rbump;
   private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start;
   private POVButton xbox_pov_up, xbox_pov_down;
+  private rightTriggerBool xbox_rTrig;
 
   // Auto configuration
   private cg_autoOne auto;
@@ -159,6 +163,9 @@ public class RobotContainer {
     // Turn off the shooting subsystem
     xbox_start = new JoystickButton(controller, XboxController.Button.kStart.value);
     xbox_start.whenPressed(new c_flipshootingSubsystemOn());
+
+    xbox_rTrig = new rightTriggerBool(controller);
+    xbox_rTrig.whileActiveContinuous(new c_forceShoot());
 
   }
 
