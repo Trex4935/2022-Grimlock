@@ -26,20 +26,16 @@ public NetworkTableEntry shooterAdjust =
     .withPosition(0, 0) // place it in the top-left corner
     .getEntry();
     
-public NetworkTableEntry shootHighLow = 
-    matchSettings.addBoolean("Shoot High or Low", BooleanSupplier getShootingLow())
-    .withWidget(BuiltInWidgets.kToggleButton)
-    .withSize(2, 1) // make the widget 2x1
-    .withPosition(0, 2) // place it in the top-left corner
-    .getEntry();
+//public NetworkTableEntry shootHighLow = 
+//    matchSettings.addBoolean("Shoot High or Low", BooleanSupplier getShootingLow())
+//    .withWidget(BuiltInWidgets.kToggleButton)
+//    .withSize(2, 1) // make the widget 2x1
+//    .withPosition(0, 2) // place it in the top-left corner
+//   .getEntry();
 
 
 // Debug Elements
 public ShuffleboardTab robotDebug = Shuffleboard.getTab("Robot-Debug");
-
-private NetworkTableEntry distanceEntry =
-       robotDebug.add("Distance to target", 0)
-          .getEntry();
 
 
 }

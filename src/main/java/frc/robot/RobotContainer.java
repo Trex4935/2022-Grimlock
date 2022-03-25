@@ -100,7 +100,7 @@ public class RobotContainer {
     xbox_rbump.whenHeld(new c_forceShoot());
 
     xbox_lbump = new JoystickButton(controller, XboxController.Button.kLeftBumper.value);
-    xbox_lbump.whenHeld(new c_shooterShootLow());
+    //xbox_lbump.whenHeld(new c_shooterShootLow());
 
     /// CONTROLLER MAP
     //
