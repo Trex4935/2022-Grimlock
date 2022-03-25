@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.extensions;
+
 import frc.robot.Constants;
 
 /** Add your docs here. */
@@ -20,7 +21,7 @@ public class Helper {
 
     // Flip pew pew to the other boolean value
     public static void flipPewPew() {
-        Constants.pewpew = !(Constants.pewpew);
+        Constants.shootingSubsystemOn = !(Constants.shootingSubsystemOn);
     }
 
 }

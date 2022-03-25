@@ -77,10 +77,8 @@ public class RobotContainer {
     // Configure the codriver button bindings
     configureButtonBindingsCompetitionCoDriver();
 
-    xbox_lbump = new JoystickButton(controller, XboxController.Button.kLeftBumper.value);
-    xbox_lbump.whenHeld(new c_shooterShootLow());
   }
-  
+
   private void configureButtonBindingsCompetitionCoDriver() {
     ///// CoDriver Controller /////
     // Set the A button
