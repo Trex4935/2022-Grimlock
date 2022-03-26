@@ -264,8 +264,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getSpeedSetPoint(double distance) {
-    // RPM = 3.7037 * distance + 2722.2
-    return 3.7037 * distance + 2722.2 + shooterAdjust.getDouble(0.0);
+    // RPM = y = 0.1076x2 - 20.291x + 3549.8
+    return (0.1076 * (distance ^ 2)) - (20.291 * distance) + 3549.8 + shooterAdjust.getDouble(0.0);
   }
 
   public void shooting() {
