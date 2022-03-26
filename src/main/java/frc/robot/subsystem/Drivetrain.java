@@ -167,6 +167,28 @@ public class Drivetrain extends SubsystemBase {
     stopDriveMotors();
   }
 
+  public double getEncoderDistance() {
+    return (leftFront.getSelectedSensorPosition() + rightFront.getSelectedSensorPosition()) / 2;
+  }
+
+  public void resetEncoderPosition() {
+    leftFront.setSelectedSensorPosition(0);
+    rightFront.setSelectedSensorPosition(0);
+  }
+
+  public double inchesToTicks(double inches) {
+    // 6 inch diameter wheel
+    // 2048 ticks per motor rotation
+    // 9.52:1 gear reduction
+
+    // 18.8 inches of travel per rotation of the wheel
+    // 9.52 motor rotations = 18.8 inches of travel
+    // 19497 ticks per wheel rotation
+    // 19497 ticks per 18.8 inches
+    // 1037 ticks per inch of travel
+    return inches * 1037;
+  }
+
   public void drive_straight_gyro(double power) {
     // System.out.println("i exist lol");
     double error = -ahrs.getAngle(); // Our target angle is zero
