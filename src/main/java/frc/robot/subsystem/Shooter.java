@@ -31,13 +31,12 @@ public class Shooter extends SubsystemBase {
   WPI_TalonFX shooterMotor;
 
   public ShuffleboardTab matchSettings = Shuffleboard.getTab("Settings");
-  public NetworkTableEntry shooterAdjust = 
-    matchSettings.add("Shooter Speed", 0.0)
-    .withWidget(BuiltInWidgets.kNumberSlider)
-    .withProperties(Map.of("min", -500, "max", 500)) // slider range of -500 to 500
-    .withSize(6, 3) // make the widget 6x3
-    .withPosition(6, 2) // place it in the middle
-    .getEntry();
+  public NetworkTableEntry shooterAdjust = matchSettings.add("Shooter Speed", 0.0)
+      .withWidget(BuiltInWidgets.kNumberSlider)
+      .withProperties(Map.of("min", -500, "max", 500)) // slider range of -500 to 500
+      .withSize(6, 3) // make the widget 6x3
+      .withPosition(6, 2) // place it in the middle
+      .getEntry();
 
   /** Creates a new Shooter. */
   public Shooter() {
@@ -81,8 +80,7 @@ public class Shooter extends SubsystemBase {
     shooterMotor.config_IntegralZone(Constants.kPIDLoopIdx, 0, Constants.kTimeoutMs);
   }
 
-  //Return the Shooter Speed Slider from the Shuffleboard Settings Tab
-  
+  // Return the Shooter Speed Slider from the Shuffleboard Settings Tab
 
   // converts the ticks to RPM values
   public double tickstoRPM(double ticks) {
@@ -264,8 +262,13 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getSpeedSetPoint(double distance) {
+
+    // 7ft = 2600 rpm
+    // 8ft == 2600 rpm
+    // 13ft = 3000 rpm
+    // 15.5 = 3500 rpm
     // RPM = y = 0.1076x2 - 20.291x + 3549.8
-    return (0.1076 * (distance ^ 2)) - (20.291 * distance) + 3549.8 + shooterAdjust.getDouble(0.0);
+    return (0.1076 * (distance * distance)) - (20.291 * distance) + 3549.8 + shooterAdjust.getDouble(0.0);
   }
 
   public void shooting() {
