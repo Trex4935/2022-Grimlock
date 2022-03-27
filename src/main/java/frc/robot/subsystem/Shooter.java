@@ -29,14 +29,24 @@ public class Shooter extends SubsystemBase {
 
   // Declare shooter motor
   WPI_TalonFX shooterMotor;
-
+  
+  // Shuffleboard entries for adjustable settings on the running robot.
+  // Adjust shooter speed
   public ShuffleboardTab matchSettings = Shuffleboard.getTab("Settings");
-  public NetworkTableEntry shooterAdjust = matchSettings.add("Shooter Speed", 0.0)
-      .withWidget(BuiltInWidgets.kNumberSlider)
-      .withProperties(Map.of("min", -500, "max", 500)) // slider range of -500 to 500
-      .withSize(6, 3) // make the widget 6x3
-      .withPosition(6, 2) // place it in the middle
-      .getEntry();
+
+  public NetworkTableEntry shooterAdjust = 
+    matchSettings.add("Shooter Speed", 0.0)
+    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withProperties(Map.of("min", -500, "max", 500)) // slider range of -500 to 500
+    .withSize(6, 3) // make the widget 6x3
+    .withPosition(6, 2) // place it in the middle
+    .getEntry();
+  
+  // Adjust for a high or low shot with boolean button.
+  //public NetworkTableEntry shootHighOrLow = 
+  //  matchSettings.addBoolean("Shoot High or Low", )
+  //  .getEntry();
+
 
   /** Creates a new Shooter. */
   public Shooter() {
