@@ -7,13 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystem.Drivetrain;
 
-public class ca_moveforward extends CommandBase {
+public class ca_moveForwardInches extends CommandBase {
   /** Creates a new ca_moveforward. */
   private Drivetrain drive;
   private double inches;
-  private boolean isFinished = false;
 
-  public ca_moveforward(Drivetrain dt, double in) {
+  public ca_moveForwardInches(Drivetrain dt, double in) {
     // Use addRequirements() here to declare subsystem dependencies.
     drive = dt;
     inches = in;
@@ -29,23 +28,18 @@ public class ca_moveforward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (drive.getEncoderDistance() > drive.inchesToTicks(inches)) {
-      drive.stopAllDriveMotors();
-      isFinished = true;
-    } else {
-      drive.drive_straight_gyro(.25);
-      isFinished = false;
-    }
+    drive.drive_straight_gyro(.25);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    drive.stopAllDriveMotors();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return isFinished;
+    return (drive.getEncoderDistance() > drive.inchesToTicks(inches));
   }
 }
