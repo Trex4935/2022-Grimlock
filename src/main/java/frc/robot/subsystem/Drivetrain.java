@@ -10,12 +10,9 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.SmartDebug;
-import frc.robot.extensions.multiplexedColorSensor;
-import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.SPI;
 
 public class Drivetrain extends SubsystemBase {
@@ -108,7 +105,6 @@ public class Drivetrain extends SubsystemBase {
     // Make sure we aren't in an overtemp condition
     driveOverTempProtection();
 
-
   }
 
   // check the temp of the drive falcons and take action if needed
@@ -125,7 +121,6 @@ public class Drivetrain extends SubsystemBase {
     SmartDebug.putDouble("RightFront MotorTemp", rfTemp);
     SmartDebug.putDouble("LeftBack MotorTemp", lbTemp);
     SmartDebug.putDouble("LeftFront MotorTemp", lfTemp);
-
 
     // if any of the drives are in overheat then we need to slow everything down to
     // the HOT speed
@@ -170,6 +165,28 @@ public class Drivetrain extends SubsystemBase {
   public void stopAllDriveMotors() {
     // stopMiddleDriveMotors();
     stopDriveMotors();
+  }
+
+  public double getEncoderDistance() {
+    return (leftFront.getSelectedSensorPosition() + rightFront.getSelectedSensorPosition()) / 2;
+  }
+
+  public void resetEncoderPosition() {
+    leftFront.setSelectedSensorPosition(0);
+    rightFront.setSelectedSensorPosition(0);
+  }
+
+  public double inchesToTicks(double inches) {
+    // 6 inch diameter wheel
+    // 2048 ticks per motor rotation
+    // 9.52:1 gear reduction
+
+    // 18.8 inches of travel per rotation of the wheel
+    // 9.52 motor rotations = 18.8 inches of travel
+    // 19497 ticks per wheel rotation
+    // 19497 ticks per 18.8 inches
+    // 1037 ticks per inch of travel
+    return inches * 1037;
   }
 
   public void drive_straight_gyro(double power) {

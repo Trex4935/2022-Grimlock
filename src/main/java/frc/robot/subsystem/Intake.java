@@ -6,6 +6,7 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -16,8 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.FlippedDIO;
-import frc.robot.extensions.SmartDebug;
-import frc.robot.extensions.multiplexedColorSensor;
+//import frc.robot.extensions.multiplexedColorSensor;
 
 public class Intake extends SubsystemBase {
 
@@ -26,7 +26,7 @@ public class Intake extends SubsystemBase {
   WPI_TalonFX intakeRetractionMotor;
 
   // intake color sensor
-  private multiplexedColorSensor sensor2;
+  private ColorSensorV3 sensor2;
 
   // magazine smacna
   private static FlippedDIO leftTrapSmaknaDIO;
@@ -63,7 +63,7 @@ public class Intake extends SubsystemBase {
     insideMagSmaknaDIO = new FlippedDIO(Constants.insideMagSmakna);
 
     // color sensor at the top of the magazine
-    sensor2 = new multiplexedColorSensor(I2C.Port.kOnboard, 4);
+    sensor2 = new ColorSensorV3(I2C.Port.kMXP);
 
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
     NetworkTable color_table = inst.getTable("Intake");

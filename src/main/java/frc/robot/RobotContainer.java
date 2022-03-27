@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_flipshootingSubsystemOn;
@@ -19,8 +18,8 @@ import frc.robot.commands.c_pullUp;
 import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_runIntakeRetractionMotor;
 import frc.robot.commands.c_shootBall;
+import frc.robot.commands.ca_moveForwardInches;
 import frc.robot.commands.cg_autoOne;
-import frc.robot.extensions.Helper;
 import frc.robot.extensions.rightTriggerBool;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
@@ -89,7 +88,6 @@ public class RobotContainer {
     // Configure the codriver button bindings
     configureButtonBindingsCompetitionCoDriver();
 
-
   }
 
   private void configureButtonBindingsCompetitionCoDriver() {
@@ -137,7 +135,8 @@ public class RobotContainer {
 
     // Configure the button bindings
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
+    xbox_a.toggleWhenPressed(new ca_moveForwardInches(drive, 12));
+    // xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
