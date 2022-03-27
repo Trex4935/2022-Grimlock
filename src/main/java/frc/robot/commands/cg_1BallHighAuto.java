@@ -11,18 +11,15 @@ import frc.robot.subsystem.Drivetrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class cg_2BallHighAuto extends SequentialCommandGroup {
+public class cg_1BallHighAuto extends SequentialCommandGroup {
     /** Creates a new cg_autoOne. */
-    public cg_2BallHighAuto(Drivetrain drive) {
+    public cg_1BallHighAuto(Drivetrain drive) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
-                new ca_moveForwardInches(drive, 40, .50), // 34.34 distance between tarmac position line and first red
-                                                          // ball
-                new c_forceShoot().withTimeout(4));
-
-        // GO OFF THE TARMAC AND PICK UP THE RED BALL BEHIND US
-        // SHOOT IN THAT POSITION & STAY FOR TAXI POINTS (2 BALLS)
+                new ca_moveForwardInches(drive, 20, .25)); // slightly backing up the line and shooting .. can be
+                                                           // flexible. small distance to ensure we wont run into other
+                                                           // robots
 
     }
 }
