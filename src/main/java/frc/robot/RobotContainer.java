@@ -27,6 +27,8 @@ import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Turret;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RobotContainer {
 
@@ -47,12 +49,19 @@ public class RobotContainer {
   private POVButton xbox_pov_up, xbox_pov_down;
   private rightTriggerBool xbox_rTrig;
 
+  // SendableChooser to pick automomous runs
+  SendableChooser<Command> AutoRun_Picker = new SendableChooser<>();
+
   // Auto configuration
   private cg_autoOne auto;
 
   public RobotContainer() {
 
     auto = new cg_autoOne(drive);
+
+    // Autonomous Chooser
+    AutoRun_Picker.setDefaultOption("Default Auto Run", auto);
+    SmartDashboard.putData(AutoRun_Picker);
 
     //////////////////////////////////////////////////////////////////////////
     // Use during competition and remove "debug code section"
@@ -173,8 +182,12 @@ public class RobotContainer {
   // .withInterrupt(Magazine::getShooterSensor).andThen(reverseMagazine2.withTimeout(0.1)).andThen(shoot));
 
   public Command getAutonomousCommand() {
+
+     // Poll the SmartDashboard for the Autonomus Run Selection
+     return AutoRun_Picker.getSelected();
+
     // releaseIntake.andThen(
-    return auto;
+    // return auto;
     // return auto.withTimeout(.1).andThen(new
     // WaitCommand(1).andThen(auto).withTimeout(0.4));
   }
