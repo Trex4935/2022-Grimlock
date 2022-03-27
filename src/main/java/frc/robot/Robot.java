@@ -24,7 +24,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     limelight = new Limelight();
+    // Adding adjustable values to Smartdashboard via Netwotk Tables
     SmartDashboard.putBoolean("Shoot High or Low", Constants.shootingLow);
+    SmartDashboard.putNumber("Shooter Adjust", 0.0);
   }
 
   @Override
