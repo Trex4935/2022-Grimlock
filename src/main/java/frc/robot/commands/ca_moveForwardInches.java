@@ -11,11 +11,13 @@ public class ca_moveForwardInches extends CommandBase {
   /** Creates a new ca_moveforward. */
   private Drivetrain drive;
   private double inches;
+  private double speed;
 
-  public ca_moveForwardInches(Drivetrain dt, double in) {
+  public ca_moveForwardInches(Drivetrain dt, double in, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     drive = dt;
     inches = in;
+    speed = speed;
     addRequirements(drive);
   }
 
@@ -28,7 +30,7 @@ public class ca_moveForwardInches extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.drive_straight_gyro(.25);
+    drive.drive_straight_gyro(speed);
   }
 
   // Called once the command ends or is interrupted.

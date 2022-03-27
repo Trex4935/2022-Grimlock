@@ -13,7 +13,7 @@ public class c_turnOnSimpleAutoAim extends CommandBase {
   /** Creates a new turnOnSimpleAutoAim. */
   public c_turnOnSimpleAutoAim(Turret trt) {
     turret = trt;
-    //addRequirements(turret);
+    // addRequirements(turret);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,7 +25,7 @@ public class c_turnOnSimpleAutoAim extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //turret.turnOnSimpleAutoAim();
+    // turret.turnOnSimpleAutoAim();
   }
 
   // Called once the command ends or is interrupted.
