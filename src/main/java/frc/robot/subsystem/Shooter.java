@@ -4,21 +4,15 @@
 
 package frc.robot.subsystem;
 
-import java.util.Map;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -35,18 +29,7 @@ public class Shooter extends SubsystemBase {
   // networking table info
   private static NetworkTableInstance defaultTable = NetworkTableInstance.getDefault();
 
-  // Shuffleboard entries for adjustable settings on the running robot.
-  // Adjust shooter speed
-  public ShuffleboardTab matchSettings = Shuffleboard.getTab("Settings");
-
-  public NetworkTableEntry shooterAdjust = matchSettings.add("Shooter Speed", 0.0)
-      .withWidget(BuiltInWidgets.kNumberSlider)
-      .withProperties(Map.of("min", -500, "max", 500)) // slider range of -500 to 500
-      .withSize(6, 3) // make the widget 6x3
-      .withPosition(6, 2) // place it in the middle
-      .getEntry();
-
-  /** Creates a new Shooter. */
+  //** Creates a new Shooter. */
   public Shooter() {
     // Setup the shooter motor
     shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
@@ -60,6 +43,10 @@ public class Shooter extends SubsystemBase {
   private NetworkTableEntry getHighLowShooting() {
     // System.out.println(defaultTable.getEntry("Shoot Low"));
     return defaultTable.getEntry("Shoot Low");
+  }
+
+  private NetworkTableEntry getShooterAdjust() {
+    return defaultTable.getEntry("Shooter Adjust");
   }
 
   private void initMotorController(TalonFXConfiguration config) {
@@ -93,9 +80,7 @@ public class Shooter extends SubsystemBase {
     shooterMotor.config_IntegralZone(Constants.kPIDLoopIdx, 0, Constants.kTimeoutMs);
   }
 
-  // Return the Shooter Speed Slider from the Shuffleboard Settings Tab
-
-  // converts the ticks to RPM values
+   // converts the ticks to RPM values
   public double tickstoRPM(double ticks) {
     return (ticks * Constants.ticks2RPM);
   }
@@ -280,7 +265,7 @@ public class Shooter extends SubsystemBase {
     // 13ft = 3000 rpm
     // 15.5 = 3500 rpm
     // RPM = y = 0.1076x2 - 20.291x + 3549.8
-    return (0.1076 * (distance * distance)) - (20.291 * distance) + 3549.8 + shooterAdjust.getDouble(0.0);
+    return (0.1076 * (distance * distance)) - (20.291 * distance) + 3549.8 + getShooterAdjust().getDouble(0.0);
   }
 
   public void shooting() {

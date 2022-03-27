@@ -19,7 +19,10 @@ import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_runIntakeRetractionMotor;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.ca_moveForwardInches;
+import frc.robot.commands.cg_1BallHighAuto;
+import frc.robot.commands.cg_1BallLowAuto;
 import frc.robot.commands.cg_2BallHighAuto;
+import frc.robot.commands.cg_2BallLowAuto;
 import frc.robot.extensions.rightTriggerBool;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
@@ -52,14 +55,23 @@ public class RobotContainer {
   SendableChooser<Command> AutoRun_Picker = new SendableChooser<>();
 
   // Auto configuration
-  private cg_2BallHighAuto auto;
+  private cg_1BallHighAuto auto1;
+  private cg_1BallLowAuto auto2;
+  private cg_2BallHighAuto auto3;
+  private cg_2BallLowAuto auto4;
 
   public RobotContainer() {
 
-    auto = new cg_2BallHighAuto(drive);
+    auto1 = new cg_1BallHighAuto(drive);
+    auto2 = new cg_1BallLowAuto(drive);
+    auto3 = new cg_2BallHighAuto(drive);
+    auto4 = new cg_2BallLowAuto(drive);
 
     // Autonomous Chooser
-    AutoRun_Picker.setDefaultOption("Default Auto Run", auto);
+    AutoRun_Picker.setDefaultOption("1 Ball High Auto Run", auto1);
+    AutoRun_Picker.addOption("1 Ball Low Auto Run", auto2);
+    AutoRun_Picker.addOption("2 Ball High Auto Run", auto3);
+    AutoRun_Picker.addOption("2 Ball Low Auto Run", auto4);
     SmartDashboard.putData(AutoRun_Picker);
 
     //////////////////////////////////////////////////////////////////////////
