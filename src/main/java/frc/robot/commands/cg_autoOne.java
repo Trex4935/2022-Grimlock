@@ -16,11 +16,13 @@ public class cg_autoOne extends SequentialCommandGroup {
   public cg_autoOne(Drivetrain drive) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(
-        new c_forceShoot().withTimeout(2), // shoot ball in intake
-        new c_driveStraightAuto(drive).withTimeout(0.5), // move backwards
-        new WaitCommand(1), // drop intake
-        new c_driveStraightAuto(drive).withTimeout(4.5)); // go in position
+    addCommands();
+    /*
+     * new c_forceShoot().withTimeout(2), // shoot ball in intake
+     * new c_driveStraightAuto(drive).withTimeout(0.5), // move backwards
+     * new WaitCommand(1), // drop intake
+     * new c_driveStraightAuto(drive).withTimeout(4.5)); // go in position
+     */
 
     ///////// LOGAN'S AUTO HELPER /////////
 
