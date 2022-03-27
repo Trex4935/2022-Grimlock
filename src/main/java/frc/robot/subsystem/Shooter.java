@@ -58,7 +58,7 @@ public class Shooter extends SubsystemBase {
   }
 
   private NetworkTableEntry getHighLowShooting() {
-    System.out.println(defaultTable.getEntry("Shoot Low"));
+    // System.out.println(defaultTable.getEntry("Shoot Low"));
     return defaultTable.getEntry("Shoot Low");
   }
 
@@ -115,7 +115,6 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putString("Alliance", allianceColor.toString());
     SmartDashboard.putBoolean("Target Seen", Limelight.getLimelightA());
     SmartDebug.putDouble("Shooter Motor Temp", shooterMotor.getTemperature());
-    getHighLowShooting();
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {

@@ -19,7 +19,7 @@ import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_runIntakeRetractionMotor;
 import frc.robot.commands.c_shootBall;
 import frc.robot.commands.ca_moveForwardInches;
-import frc.robot.commands.cg_autoOne;
+import frc.robot.commands.cg_2BallHighAuto;
 import frc.robot.extensions.rightTriggerBool;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
@@ -52,11 +52,11 @@ public class RobotContainer {
   SendableChooser<Command> AutoRun_Picker = new SendableChooser<>();
 
   // Auto configuration
-  private cg_autoOne auto;
+  private cg_2BallHighAuto auto;
 
   public RobotContainer() {
 
-    auto = new cg_autoOne(drive);
+    auto = new cg_2BallHighAuto(drive);
 
     // Autonomous Chooser
     AutoRun_Picker.setDefaultOption("Default Auto Run", auto);
@@ -117,8 +117,8 @@ public class RobotContainer {
   private void configureButtonBindingsCompetitionDriver() {
 
     ////// Primary Controller /////
-    xbox_rbump = new JoystickButton(controller, XboxController.Button.kRightBumper.value);
-    xbox_rbump.whenHeld(new c_forceShoot());
+    xbox_rTrig = new rightTriggerBool(controller);
+    xbox_rTrig.whileActiveContinuous(new c_forceShoot());
 
   }
 
@@ -135,7 +135,7 @@ public class RobotContainer {
 
     // Configure the button bindings
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    xbox_a.toggleWhenPressed(new ca_moveForwardInches(drive, 12));
+    xbox_a.toggleWhenPressed(new ca_moveForwardInches(drive, 12, 0.25));
     // xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
 
@@ -145,14 +145,14 @@ public class RobotContainer {
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     // xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
-    xbox_y.toggleWhenPressed(new c_shootBall(shooter));
+    // xbox_y.toggleWhenPressed(new c_shootBall(shooter));
     // xbox_y.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_y.toggleWhenPressed(new c_runShooterPID(shooter, 2000));
     // xbox_y.whenHeld(new c_rotateClimbTowardsIntake(climber));
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
     // xbox_x.toggleWhenPressed(new c_runShooterPID(shooter, 4000));
-    xbox_x.whenHeld(new c_shootBall(shooter));
+    // xbox_x.whenHeld(new c_shootBall(shooter));
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);
@@ -182,8 +182,8 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
 
-     // Poll the SmartDashboard for the Autonomus Run Selection
-     return AutoRun_Picker.getSelected();
+    // Poll the SmartDashboard for the Autonomus Run Selection
+    return AutoRun_Picker.getSelected();
 
     // releaseIntake.andThen(
     // return auto;

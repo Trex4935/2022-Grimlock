@@ -37,6 +37,9 @@ public class Turret extends SubsystemBase {
      * getController().setTolerance(0.05);
      */
 
+    // turretPID.setTolerance(0.05);
+    // turretPID.setIntegratorRange(-30, 30);
+
     // Init motor
     turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
     turretRotation.setInverted(true);
@@ -49,18 +52,23 @@ public class Turret extends SubsystemBase {
 
   // If the turret PID goes over 20% (.2 or -.2), bring it back to 20%
   public double turretThreshold() {
-    double motorOutput = turretPID.calculate(Limelight.getLimelightX(), 0);
-    SmartDashboard.putNumber("calculate", motorOutput);
-    if (Helper.RangeCompare(.2, -.2, motorOutput)) {
-      return motorOutput;
-    } else {
-      if (motorOutput < 0) {
-        return -0.3;
-      } else {
-        return 0.3;
-      }
-    }
+    System.out.println("UNABLE TO FUNCTION");
+    return 0;
   }
+  /*
+   * double motorOutput = turretPID.calculate(Limelight.getLimelightX(), 0);
+   * SmartDashboard.putNumber("calculate", motorOutput);
+   * if (Helper.RangeCompare(.2, -.2, motorOutput)) {
+   * return motorOutput;
+   * } else {
+   * if (motorOutput < 0) {
+   * return -0.3;
+   * } else {
+   * return 0.3;
+   * }
+   * }
+   * }
+   */
 
   // Using PID values, the turret autolocks on a target and turns based off of
   // where the target is

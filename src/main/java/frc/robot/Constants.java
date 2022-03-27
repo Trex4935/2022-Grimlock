@@ -23,7 +23,7 @@ public final class Constants {
 
   ///////////////////////////////////
   ////////////////////////
-  public static final boolean testingControlMode = true;
+  public static final boolean testingControlMode = false;
   // public static final String controlMode = "Testing";
   ///////////////////////////////////////////////////////////
 
@@ -33,12 +33,10 @@ public final class Constants {
   // region DriveTrain
 
   // Motor IDs
-  public static final int leftFrontCanID = 34;
-  public static final int leftBackCanID = 30;
-  public static final int rightFrontCanID = 31;
-  public static final int rightBackCanID = 32;
-  public static final int middleLeftCanID = 33;
-  public static final int middleRightCanID = 35;
+  public static final int leftFrontCanID = 32;
+  public static final int leftBackCanID = 31;
+  public static final int rightFrontCanID = 30;
+  public static final int rightBackCanID = 34;
 
   // Xbox controller input IDs
   public static final int leftVertical = 1;
@@ -178,7 +176,7 @@ public final class Constants {
   public static int kPIDLoopIdx = 0;
 
   // Shooter speeds
-  public static double shooterIdleSpeed = 1250;
+  public static double shooterIdleSpeed = 2000;
   public static final double shooterLowSpeed = 1000;
   public static final double shooterRange = 200;
 
