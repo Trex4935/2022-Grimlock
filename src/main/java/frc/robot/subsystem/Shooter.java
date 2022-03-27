@@ -12,7 +12,9 @@ import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -29,24 +31,20 @@ public class Shooter extends SubsystemBase {
 
   // Declare shooter motor
   WPI_TalonFX shooterMotor;
-  
+
+  // networking table info
+  private static NetworkTableInstance defaultTable = NetworkTableInstance.getDefault();
+
   // Shuffleboard entries for adjustable settings on the running robot.
   // Adjust shooter speed
   public ShuffleboardTab matchSettings = Shuffleboard.getTab("Settings");
 
-  public NetworkTableEntry shooterAdjust = 
-    matchSettings.add("Shooter Speed", 0.0)
-    .withWidget(BuiltInWidgets.kNumberSlider)
-    .withProperties(Map.of("min", -500, "max", 500)) // slider range of -500 to 500
-    .withSize(6, 3) // make the widget 6x3
-    .withPosition(6, 2) // place it in the middle
-    .getEntry();
-  
-  // Adjust for a high or low shot with boolean button.
-  //public NetworkTableEntry shootHighOrLow = 
-  //  matchSettings.addBoolean("Shoot High or Low", )
-  //  .getEntry();
-
+  public NetworkTableEntry shooterAdjust = matchSettings.add("Shooter Speed", 0.0)
+      .withWidget(BuiltInWidgets.kNumberSlider)
+      .withProperties(Map.of("min", -500, "max", 500)) // slider range of -500 to 500
+      .withSize(6, 3) // make the widget 6x3
+      .withPosition(6, 2) // place it in the middle
+      .getEntry();
 
   /** Creates a new Shooter. */
   public Shooter() {
@@ -57,6 +55,11 @@ public class Shooter extends SubsystemBase {
     // Setup shooter configuration
     TalonFXConfiguration config = new TalonFXConfiguration();
     initMotorController(config);
+  }
+
+  private NetworkTableEntry getHighLowShooting() {
+    System.out.println(defaultTable.getEntry("Shoot Low"));
+    return defaultTable.getEntry("Shoot Low");
   }
 
   private void initMotorController(TalonFXConfiguration config) {
@@ -112,7 +115,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putString("Alliance", allianceColor.toString());
     SmartDashboard.putBoolean("Target Seen", Limelight.getLimelightA());
     SmartDebug.putDouble("Shooter Motor Temp", shooterMotor.getTemperature());
-    System.out.println(Constants.forceShoot);
+    getHighLowShooting();
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {
