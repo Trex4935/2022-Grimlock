@@ -172,15 +172,26 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "0,0": {
+          "0,5": {
             "size": [
-              1,
-              1
+              2,
+              2
             ],
             "content": {
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/calculate",
               "_title": "calculate"
+            }
+          },
+          "0,3": {
+            "size": [
+              4,
+              2
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
+              "_title": "Autonomous Picker"
             }
           }
         }
