@@ -33,9 +33,9 @@ public final class Constants {
   // region DriveTrain
 
   // Motor IDs
-  public static final int leftFrontCanID = 32;
+  public static final int leftFrontCanID = 30;
   public static final int leftBackCanID = 31;
-  public static final int rightFrontCanID = 30;
+  public static final int rightFrontCanID = 32;
   public static final int rightBackCanID = 34;
 
   // Xbox controller input IDs

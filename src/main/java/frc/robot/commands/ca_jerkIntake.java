@@ -11,18 +11,17 @@ import frc.robot.subsystem.Drivetrain;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class cg_1BallLowAuto extends SequentialCommandGroup {
+public class ca_jerkIntake extends SequentialCommandGroup {
     /** Creates a new cg_autoOne. */
-    public cg_1BallLowAuto(Drivetrain drive) {
+    public ca_jerkIntake(Drivetrain drive) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
-                new c_forceShoot().withTimeout(4),
-                new ca_moveForwardInches(drive, 130, .50),
-                new ca_jerkIntake(drive));
+                new ca_moveForwardInches(drive, 10, .30),
+                new ca_moveForwardInches(drive, -5, -.50));
 
-        // START PARKED IN FRONT OF THE TARGET AND SHOOT.
-        // THEN BACK UP OFF THE LINE / TARMAC FOR TAXI
+        // new c_driveStraightAuto(drive).withTimeout(0.5), --move backwards
+        // new WaitCommand(1), --drop intake
 
     }
 }

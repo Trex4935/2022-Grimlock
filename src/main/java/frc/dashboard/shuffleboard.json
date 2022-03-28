@@ -200,9 +200,20 @@
               3
             ],
             "content": {
-              "_type": "Toggle Button",
-              "_source0": "network_table:///SmartDashboard/Shoot High or Low",
-              "_title": "Shoot High or Low"
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/Shoot Low",
+              "_title": "Shoot Low"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Adjust",
+              "_title": "Shooter Adjust"
             }
           }
         }

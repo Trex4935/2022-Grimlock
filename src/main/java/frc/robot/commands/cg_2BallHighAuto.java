@@ -17,7 +17,8 @@ public class cg_2BallHighAuto extends SequentialCommandGroup {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
-                new ca_moveForwardInches(drive, 40, .50), // 34.34 distance between tarmac position line and first red
+                new ca_jerkIntake(drive),
+                new ca_moveForwardInches(drive, 42, .50), // 34.34 distance between tarmac position line and first red
                                                           // ball
                 new c_forceShoot().withTimeout(4));
 

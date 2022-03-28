@@ -19,11 +19,13 @@ public class cg_2BallLowAuto extends SequentialCommandGroup {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
-                new ca_moveForwardInches(drive, 40, .50), // 34.34 distance between tarmac position line and first red
+                new ca_jerkIntake(drive),
+                new ca_moveForwardInches(drive, 42, .50), // 34.34 distance between tarmac position line and first red
                                                           // ball
-                new ca_moveForwardInches(drive, -150, -.25), // 153 in from red ball to target
+                new ca_moveForwardInches(drive, -152, -.25), // 153 in from red ball to target
                 new c_forceShoot().withTimeout(4),
-                new ca_moveForwardInches(drive, 120, .50));
+                new WaitCommand(4),
+                new ca_moveForwardInches(drive, 130, .50));
 
         // GO OFF THE TARMAC AND PICK UP THE RED BALL BEHIND US
         // DRIVE FORWARD TOWARDS THE TARGET & SHOOT 2 BALLS
