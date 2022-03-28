@@ -13,7 +13,9 @@ import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_flipshootingSubsystemOn;
 import frc.robot.commands.c_forceShoot;
 import frc.robot.commands.c_robotClimbsUp;
+import frc.robot.commands.c_robotClimbsUpMotionMagic;
 import frc.robot.commands.c_robotClimbsDown;
+import frc.robot.commands.c_robotClimbsDownMotionMagic;
 import frc.robot.commands.c_pullUp;
 import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_runIntakeRetractionMotor;
@@ -106,11 +108,11 @@ public class RobotContainer {
     ///// CoDriver Controller /////
     // Set the A button
     c_xbox_a = new JoystickButton(coDriverController, XboxController.Button.kA.value);
-    c_xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
+    c_xbox_a.toggleWhenPressed(new c_robotClimbsUpMotionMagic(climber));
 
     // Set the B button
     c_xbox_b = new JoystickButton(coDriverController, XboxController.Button.kB.value);
-    c_xbox_b.toggleWhenPressed(new c_pullUp(climber));
+    c_xbox_b.toggleWhenPressed(new c_robotClimbsDownMotionMagic(climber));
 
     // Set the Y button
     // Lower the Robot
@@ -194,8 +196,8 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
 
-     // Poll the SmartDashboard for the Autonomus Run Selection
-     return AutoRun_Picker.getSelected();
+    // Poll the SmartDashboard for the Autonomus Run Selection
+    return AutoRun_Picker.getSelected();
 
     // releaseIntake.andThen(
     // return auto;

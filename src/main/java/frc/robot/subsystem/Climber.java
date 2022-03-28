@@ -41,10 +41,11 @@ public class Climber extends SubsystemBase {
   public Climber() {
 
     // Populate the variables with motor objects with the correct IDs
-    climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
-    climbMotor.configFactoryDefault();
-    climbMotor.setNeutralMode(NeutralMode.Brake);
-    climbMotor.configOpenloopRamp(1);
+    // climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
+    // climbMotor.configFactoryDefault();
+    // climbMotor.setNeutralMode(NeutralMode.Brake);
+    // climbMotor.configOpenloopRamp(1);
+    setMotionMagic();
 
     rotationMotor = new WPI_TalonSRX(Constants.rotationMotorCanID);
     rotationMotor.configFactoryDefault();
@@ -60,40 +61,41 @@ public class Climber extends SubsystemBase {
 
   public void setMotionMagic() {
 
-        // Populate the variables with motor objects with the correct IDs
-        climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
-        climbMotor.configFactoryDefault();
-        climbMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdxClimb, Constants.kTimeoutMs);
-        climbMotor.configNeutralDeadband(0.001, Constants.kTimeoutMs);
-        climbMotor.setSensorPhase(false);
-        climbMotor.setInverted(true);
-        climbMotor.setNeutralMode(NeutralMode.Brake);
-        climbMotor.configOpenloopRamp(1);
+    // Populate the variables with motor objects with the correct IDs
+    climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
+    climbMotor.configFactoryDefault();
+    climbMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdxClimb,
+        Constants.kTimeoutMs);
+    climbMotor.configNeutralDeadband(0.001, Constants.kTimeoutMs);
+    climbMotor.setSensorPhase(false);
+    climbMotor.setInverted(true);
+    climbMotor.setNeutralMode(NeutralMode.Brake);
+    climbMotor.configOpenloopRamp(1);
 
     /* Set the peak and nominal outputs */
-		climbMotor.configNominalOutputForward(0, Constants.kTimeoutMs);
-		climbMotor.configNominalOutputReverse(0, Constants.kTimeoutMs);
-		climbMotor.configPeakOutputForward(1, Constants.kTimeoutMs);
-		climbMotor.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+    climbMotor.configNominalOutputForward(0, Constants.kTimeoutMs);
+    climbMotor.configNominalOutputReverse(0, Constants.kTimeoutMs);
+    climbMotor.configPeakOutputForward(1, Constants.kTimeoutMs);
+    climbMotor.configPeakOutputReverse(-1, Constants.kTimeoutMs);
 
-		/* Set Motion Magic gains in slot0 - see documentation */
-		climbMotor.selectProfileSlot(Constants.kSlotIdxClimb, Constants.kPIDLoopIdx);
-		climbMotor.config_kF(Constants.kSlotIdxClimb, Constants.kGains.kF, Constants.kTimeoutMs);
-		climbMotor.config_kP(Constants.kSlotIdxClimb, Constants.kGains.kP, Constants.kTimeoutMs);
-		climbMotor.config_kI(Constants.kSlotIdxClimb, Constants.kGains.kI, Constants.kTimeoutMs);
-		climbMotor.config_kD(Constants.kSlotIdxClimb, Constants.kGains.kD, Constants.kTimeoutMs);
+    /* Set Motion Magic gains in slot0 - see documentation */
+    climbMotor.selectProfileSlot(Constants.kSlotIdxClimb, Constants.kPIDLoopIdx);
+    climbMotor.config_kF(Constants.kSlotIdxClimb, Constants.climbPidGains.getkF(), Constants.kTimeoutMs);
+    climbMotor.config_kP(Constants.kSlotIdxClimb, Constants.climbPidGains.getkP(), Constants.kTimeoutMs);
+    climbMotor.config_kI(Constants.kSlotIdxClimb, Constants.climbPidGains.getkI(), Constants.kTimeoutMs);
+    climbMotor.config_kD(Constants.kSlotIdxClimb, Constants.climbPidGains.getkD(), Constants.kTimeoutMs);
 
-		/* Set acceleration and vcruise velocity - see documentation */
-		climbMotor.configMotionCruiseVelocity(16319, Constants.kTimeoutMs);
-		climbMotor.configMotionAcceleration(16319, Constants.kTimeoutMs);
+    /* Set acceleration and vcruise velocity - see documentation */
+    climbMotor.configMotionCruiseVelocity(Constants.velocityMotionMagic, Constants.kTimeoutMs);
+    climbMotor.configMotionAcceleration(Constants.accelMotionMagic, Constants.kTimeoutMs);
 
     /* Zero the sensor once on robot boot up */
     climbMotor.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
 
     /* integral Zone */
-		climbMotor.config_IntegralZone(Constants.kSlotIdxClimb, 200);
+    climbMotor.config_IntegralZone(Constants.kSlotIdxClimb, 200);
   }
-  
+
   // Stop all of the climb motors
   public void stopAllClimbMotors() {
     climbMotor.stopMotor();
@@ -115,21 +117,15 @@ public class Climber extends SubsystemBase {
   }
 
   public void climbUpMotionMagic() {
-    if (atSetPoint(Constants.upPosition)) {
-      climbMotor.stopMotor();
-    } else {
-      climbMotor.set(TalonFXControlMode.MotionMagic,Constants.upPosition);
-    }
+    climbMotor.set(TalonFXControlMode.MotionMagic, Constants.upPosition);
   }
 
-  
   public void climbDownMotionMagic() {
-    if (getMotorBottomLimit()) {
-      climbMotor.stopMotor();
-      climbMotor.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    } else {
-      climbMotor.set(TalonFXControlMode.MotionMagic,Constants.downPosition);
-    }
+    climbMotor.set(TalonFXControlMode.MotionMagic, Constants.downPosition);
+  }
+
+  public void setEncoderToZero() {
+    climbMotor.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
   }
 
   // The rotating climber motor moves the arms towards intake
@@ -182,8 +178,8 @@ public class Climber extends SubsystemBase {
     climbMotor.stopMotor();
   }
 
-  public boolean atSetPoint( double setPoint){
-    return Helper.RangeCompare(-25, 25, climbMotor.getSelectedSensorVelocity(Constants.kPIDLoopIdxClimb) - setPoint); 
+  public boolean atSetPoint(double setPoint) {
+    return Helper.RangeCompare(-25, 25, climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
   }
 
   @Override
