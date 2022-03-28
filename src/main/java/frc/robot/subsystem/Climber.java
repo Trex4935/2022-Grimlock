@@ -116,16 +116,22 @@ public class Climber extends SubsystemBase {
 
   }
 
+  // Climb to up value pos of motion magic
   public void climbUpMotionMagic() {
+    System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
     climbMotor.set(TalonFXControlMode.MotionMagic, Constants.upPosition);
   }
 
+  // Climb to down value pos of motion magic
   public void climbDownMotionMagic() {
+    System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
     climbMotor.set(TalonFXControlMode.MotionMagic, Constants.downPosition);
   }
 
+  // Set Encoders to zero.
   public void setEncoderToZero() {
     climbMotor.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
   }
 
   // The rotating climber motor moves the arms towards intake
@@ -160,6 +166,16 @@ public class Climber extends SubsystemBase {
     return leftClimberMagLimitBottom.get() || rightClimberMagLimitBottom.get();
   }
 
+  // return Left limit switch
+  public boolean getMotorLeftBottomLimit() {
+    return leftClimberMagLimitBottom.get();
+  }
+
+  // Return Right Limit Switch
+  public boolean getMotorRightBottomLimit() {
+    return rightClimberMagLimitBottom.get();
+  }
+
   // The default climber motor goes down (test for correct direction then change
   // inverse if its the wrong way?)
   // then prints what POV direction was pressed
@@ -178,8 +194,13 @@ public class Climber extends SubsystemBase {
     climbMotor.stopMotor();
   }
 
+  // Return boolean value if motion magic setpoint is reached
   public boolean atSetPoint(double setPoint) {
-    return Helper.RangeCompare(-25, 25, climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
+    boolean atSt = Helper.RangeCompare(10, -10,
+        climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
+    System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
+    System.out.println(atSt);
+    return atSt;
   }
 
   @Override

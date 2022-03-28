@@ -149,13 +149,15 @@ public class RobotContainer {
 
     // Configure the button bindings
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    xbox_a.toggleWhenPressed(new ca_moveForwardInches(drive, 12, 0));
+    // xbox_a.toggleWhenPressed(new ca_moveForwardInches(drive, 12, 0));
     // xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
+    xbox_a.toggleWhenPressed(new c_robotClimbsUpMotionMagic(climber));
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
-    xbox_b.toggleWhenPressed(new c_pullUp(climber));
+    // xbox_b.toggleWhenPressed(new c_pullUp(climber));
     // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
+    xbox_b.toggleWhenPressed(new c_robotClimbsDownMotionMagic(climber));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     // xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
