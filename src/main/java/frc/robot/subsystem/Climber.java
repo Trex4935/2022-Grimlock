@@ -8,6 +8,8 @@
 package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 // Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -15,6 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.extensions.Helper;
 import frc.robot.extensions.FlippedDIO;
 
 public class Climber extends SubsystemBase {
@@ -55,6 +58,42 @@ public class Climber extends SubsystemBase {
     rotateArmLimit = new FlippedDIO(Constants.extraClimberMagLimitBottomID);
   }
 
+  public void setMotionMagic() {
+
+        // Populate the variables with motor objects with the correct IDs
+        climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
+        climbMotor.configFactoryDefault();
+        climbMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdxClimb, Constants.kTimeoutMs);
+        climbMotor.configNeutralDeadband(0.001, Constants.kTimeoutMs);
+        climbMotor.setSensorPhase(false);
+        climbMotor.setInverted(true);
+        climbMotor.setNeutralMode(NeutralMode.Brake);
+        climbMotor.configOpenloopRamp(1);
+
+    /* Set the peak and nominal outputs */
+		climbMotor.configNominalOutputForward(0, Constants.kTimeoutMs);
+		climbMotor.configNominalOutputReverse(0, Constants.kTimeoutMs);
+		climbMotor.configPeakOutputForward(1, Constants.kTimeoutMs);
+		climbMotor.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+
+		/* Set Motion Magic gains in slot0 - see documentation */
+		climbMotor.selectProfileSlot(Constants.kSlotIdxClimb, Constants.kPIDLoopIdx);
+		climbMotor.config_kF(Constants.kSlotIdxClimb, Constants.kGains.kF, Constants.kTimeoutMs);
+		climbMotor.config_kP(Constants.kSlotIdxClimb, Constants.kGains.kP, Constants.kTimeoutMs);
+		climbMotor.config_kI(Constants.kSlotIdxClimb, Constants.kGains.kI, Constants.kTimeoutMs);
+		climbMotor.config_kD(Constants.kSlotIdxClimb, Constants.kGains.kD, Constants.kTimeoutMs);
+
+		/* Set acceleration and vcruise velocity - see documentation */
+		climbMotor.configMotionCruiseVelocity(16319, Constants.kTimeoutMs);
+		climbMotor.configMotionAcceleration(16319, Constants.kTimeoutMs);
+
+    /* Zero the sensor once on robot boot up */
+    climbMotor.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+
+    /* integral Zone */
+		climbMotor.config_IntegralZone(Constants.kSlotIdxClimb, 200);
+  }
+  
   // Stop all of the climb motors
   public void stopAllClimbMotors() {
     climbMotor.stopMotor();
@@ -73,6 +112,24 @@ public class Climber extends SubsystemBase {
       rotationMotor.set(Constants.climbRotateSpeed);
     }
 
+  }
+
+  public void climbUpMotionMagic() {
+    if (atSetPoint(Constants.upPosition)) {
+      climbMotor.stopMotor();
+    } else {
+      climbMotor.set(TalonFXControlMode.MotionMagic,Constants.upPosition);
+    }
+  }
+
+  
+  public void climbDownMotionMagic() {
+    if (getMotorBottomLimit()) {
+      climbMotor.stopMotor();
+      climbMotor.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    } else {
+      climbMotor.set(TalonFXControlMode.MotionMagic,Constants.downPosition);
+    }
   }
 
   // The rotating climber motor moves the arms towards intake
@@ -123,6 +180,10 @@ public class Climber extends SubsystemBase {
   // Stops the default climber motor
   public void stopClimbMotor() {
     climbMotor.stopMotor();
+  }
+
+  public boolean atSetPoint( double setPoint){
+    return Helper.RangeCompare(-25, 25, climbMotor.getSelectedSensorVelocity(Constants.kPIDLoopIdxClimb) - setPoint); 
   }
 
   @Override

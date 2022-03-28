@@ -149,6 +149,13 @@ public final class Constants {
   public static final int rightClimberMagLimitBottomID = 8;
   public static final int extraClimberMagLimitBottomID = 10; // ROBORIO 10 = DIO0 NAVX0
 
+ // Motion Magic
+  public static final int kPIDLoopIdxClimb = 0;
+  public static final int kSlotIdxClimb = 0;
+  public static final PID climbPidGains = new PID(0.13372549, 0.01, 1.3372549, 0.047017189);
+  public static final double upPosition = 274137;  
+  public static final double downPosition = 1000;
+
   // endregion
   // --------------------------------------------------------
 
@@ -186,6 +193,8 @@ public final class Constants {
   public static final int minimumShootDistance = 108;
 
   public static final boolean shootingLow = false;
+
+
 
   // Control is the shooting system is on or off
   public static boolean shootingSubsystemOn = true;
