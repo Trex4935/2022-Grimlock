@@ -9,8 +9,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,10 +24,7 @@ public class Shooter extends SubsystemBase {
   // Declare shooter motor
   WPI_TalonFX shooterMotor;
 
-  // networking table info
-  private static NetworkTableInstance defaultTable = NetworkTableInstance.getDefault();
-
-  //** Creates a new Shooter. */
+  // ** Creates a new Shooter. */
   public Shooter() {
     // Setup the shooter motor
     shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
@@ -40,13 +35,13 @@ public class Shooter extends SubsystemBase {
     initMotorController(config);
   }
 
-  private NetworkTableEntry getHighLowShooting() {
-    System.out.println(defaultTable.getEntry("Shoot Low"));
-    return defaultTable.getEntry("Shoot Low");
+  private boolean getHighLowShooting() {
+    // System.out.println(defaultTable.getEntry("Shoot Low"));
+    return NetworkTableInstance.getDefault().getEntry("Shoot Low").getBoolean(false);
   }
 
-  private NetworkTableEntry getShooterAdjust() {
-    return defaultTable.getEntry("Shooter Adjust");
+  private double getShooterAdjust() {
+    return NetworkTableInstance.getDefault().getEntry("Shooter Adjust").getDouble(0.0);
   }
 
   private void initMotorController(TalonFXConfiguration config) {
@@ -80,7 +75,7 @@ public class Shooter extends SubsystemBase {
     shooterMotor.config_IntegralZone(Constants.kPIDLoopIdx, 0, Constants.kTimeoutMs);
   }
 
-   // converts the ticks to RPM values
+  // converts the ticks to RPM values
   public double tickstoRPM(double ticks) {
     return (ticks * Constants.ticks2RPM);
   }
@@ -96,67 +91,68 @@ public class Shooter extends SubsystemBase {
     // currently placeholder values
     // System.out.println(color.toString());
     double targetTicks;
+    boolean shootLow = getHighLowShooting();
+    // boolean shootLow = getHighLowShooting();
     SmartDashboard.putString("Ball Color", color.toString());
     SmartDashboard.putString("Alliance", allianceColor.toString());
     SmartDashboard.putBoolean("Target Seen", Limelight.getLimelightA());
     SmartDebug.putDouble("Shooter Motor Temp", shooterMotor.getTemperature());
-    getHighLowShooting();
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {
       case NONE:
 
         // Determine the target ticks based on color distance and high/low
-        targetTicks = getShootingTicks(color, distance);
+        targetTicks = getShootingTicks(color, distance, shootLow);
 
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // check if we are at speed and update the dashboard
-        return shooterConditionsMet(color, targetTicks, distance);
+        return shooterConditionsMet(color, targetTicks, distance, shootLow);
 
       case RED:
         // Determine the target ticks based on color distance and high/low
-        targetTicks = getShootingTicks(color, distance);
+        targetTicks = getShootingTicks(color, distance, shootLow);
 
         // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        return shooterConditionsMet(color, targetTicks, distance);
+        return shooterConditionsMet(color, targetTicks, distance, shootLow);
 
       case BLUE:
         // Determine the target ticks based on color distance and high/low
-        targetTicks = getShootingTicks(color, distance);
+        targetTicks = getShootingTicks(color, distance, shootLow);
 
         // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // Detect if we are within acceptable speed range
         // Return true or false for usage with the magazine bypass
-        return shooterConditionsMet(color, targetTicks, distance);
+        return shooterConditionsMet(color, targetTicks, distance, shootLow);
 
       default:
         // Determine the target ticks based on color distance and high/low
-        targetTicks = getShootingTicks(color, distance);
+        targetTicks = getShootingTicks(color, distance, shootLow);
 
         // Set the motor speed
         shooterMotor.set(ControlMode.Velocity, targetTicks);
 
         // check if we are at speed and update the dashboard
-        return shooterConditionsMet(color, targetTicks, distance);
+        return shooterConditionsMet(color, targetTicks, distance, shootLow);
 
     }
   }
 
   // validate that we are ready to shoot and override if needed
-  private boolean shooterConditionsMet(BallColor color, double targetTicks, double distance) {
+  private boolean shooterConditionsMet(BallColor color, double targetTicks, double distance, boolean shootLow) {
 
     // Get the color of the alliance we are on
     DriverStation.Alliance allianceColor = DriverStation.getAlliance();
 
     // If we are shooting low then we ONLY shoot if forceShoot is true!
-    if (Constants.shootingLow) {
+    if (shootLow) {
       return Constants.forceShoot;
     }
     // If we are shooting high &
@@ -174,9 +170,9 @@ public class Shooter extends SubsystemBase {
   }
 
   // Return ticks based on if we are low or high ... color ball or none
-  private double getShootingTicks(BallColor color, double distance) {
+  private double getShootingTicks(BallColor color, double distance, boolean shootLow) {
     // If shooting low just use low speed
-    if (Constants.shootingLow) {
+    if (shootLow) {
       return rpmtoTicks(Constants.shooterLowSpeed);
     }
 
@@ -266,7 +262,7 @@ public class Shooter extends SubsystemBase {
     // 13ft = 3000 rpm
     // 15.5 = 3500 rpm
     // RPM = y = 0.1076x2 - 20.291x + 3549.8
-    return (0.1076 * (distance * distance)) - (20.291 * distance) + 3549.8 + getShooterAdjust().getDouble(0.0);
+    return (0.1076 * (distance * distance)) - (20.291 * distance) + 3549.8 + getShooterAdjust();
   }
 
   public void shooting() {

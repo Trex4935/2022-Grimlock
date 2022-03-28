@@ -17,9 +17,11 @@ public class cg_1BallHighAuto extends SequentialCommandGroup {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
-                new ca_moveForwardInches(drive, 20, .25)); // slightly backing up the line and shooting .. can be
-                                                           // flexible. small distance to ensure we wont run into other
-                                                           // robots
+                new ca_moveForwardInches(drive, 22, .25), // slightly backing up the line and shooting .. can be
+                                                          // flexible. small distance to ensure we wont run into other
+                                                          // robots THEN JERK INTAKE
+                new c_forceShoot(),
+                new ca_jerkIntake(drive));
 
     }
 }

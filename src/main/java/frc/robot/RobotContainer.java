@@ -19,7 +19,6 @@ import frc.robot.commands.c_robotClimbsDownMotionMagic;
 import frc.robot.commands.c_pullUp;
 import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_runIntakeRetractionMotor;
-import frc.robot.commands.c_shootBall;
 import frc.robot.commands.ca_moveForwardInches;
 import frc.robot.commands.cg_1BallHighAuto;
 import frc.robot.commands.cg_1BallLowAuto;
@@ -131,8 +130,8 @@ public class RobotContainer {
   private void configureButtonBindingsCompetitionDriver() {
 
     ////// Primary Controller /////
-    xbox_rbump = new JoystickButton(controller, XboxController.Button.kRightBumper.value);
-    xbox_rbump.whenHeld(new c_forceShoot());
+    xbox_rTrig = new rightTriggerBool(controller);
+    xbox_rTrig.whileActiveContinuous(new c_forceShoot());
 
   }
 
@@ -149,7 +148,7 @@ public class RobotContainer {
 
     // Configure the button bindings
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    // xbox_a.toggleWhenPressed(new ca_moveForwardInches(drive, 12, 0));
+    // xbox_a.toggleWhenPressed(new ca_moveForwardInches(drive, 12, 0.25));
     // xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
     xbox_a.toggleWhenPressed(new c_robotClimbsUpMotionMagic(climber));
@@ -161,14 +160,14 @@ public class RobotContainer {
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     // xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
-    xbox_y.toggleWhenPressed(new c_shootBall(shooter));
+    // xbox_y.toggleWhenPressed(new c_shootBall(shooter));
     // xbox_y.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_y.toggleWhenPressed(new c_runShooterPID(shooter, 2000));
     // xbox_y.whenHeld(new c_rotateClimbTowardsIntake(climber));
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
     // xbox_x.toggleWhenPressed(new c_runShooterPID(shooter, 4000));
-    xbox_x.whenHeld(new c_shootBall(shooter));
+    // xbox_x.whenHeld(new c_shootBall(shooter));
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
 
     xbox_pov_down = new POVButton(controller, 180);

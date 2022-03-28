@@ -46,7 +46,7 @@ public class Intake extends SubsystemBase {
 
     // run the intake rollers at the front
     intakeMotor = new WPI_TalonFX(Constants.intakeMotorCanID);
-    intakeMotor.setInverted(false);
+    intakeMotor.setInverted(true);
 
     // motor to run the magazine belts
     magazineMotor = new WPI_TalonFX(Constants.magazineMotorCanID);

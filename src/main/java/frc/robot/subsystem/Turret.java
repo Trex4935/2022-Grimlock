@@ -18,7 +18,7 @@ import frc.robot.extensions.SmartDebug;
 public class Turret extends SubsystemBase {
 
   // PID
-  PIDController turretPID = new PIDController(0.4, 0.0, 0);
+  PIDController turretPID = new PIDController(0.06, 0.0, 0);
 
   // Motors
   PWMSparkMax turretRotation;
@@ -37,6 +37,9 @@ public class Turret extends SubsystemBase {
      * getController().setTolerance(0.05);
      */
 
+    // turretPID.setTolerance(0.05);
+    // turretPID.setIntegratorRange(-30, 30);
+
     // Init motor
     turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
     turretRotation.setInverted(true);
@@ -45,21 +48,6 @@ public class Turret extends SubsystemBase {
     middleMag = new FlippedDIO(Constants.middleMagID);
     rightMagLimit = new FlippedDIO(Constants.rightMagLimitID);
 
-  }
-
-  // If the turret PID goes over 20% (.2 or -.2), bring it back to 20%
-  public double turretThreshold() {
-    double motorOutput = turretPID.calculate(Limelight.getLimelightX(), 0);
-    SmartDashboard.putNumber("calculate", motorOutput);
-    if (Helper.RangeCompare(.2, -.2, motorOutput)) {
-      return motorOutput;
-    } else {
-      if (motorOutput < 0) {
-        return -0.3;
-      } else {
-        return 0.3;
-      }
-    }
   }
 
   // Using PID values, the turret autolocks on a target and turns based off of
@@ -79,7 +67,7 @@ public class Turret extends SubsystemBase {
     // use the PID to move the turret
     else {
       // Get the speed that we are going to run the motor
-      double tt = turretThreshold();
+      double tt = turretPID.calculate(Limelight.getLimelightX(), 0);
       SmartDebug.putDouble("Turret Motor Output", tt);
       SmartDashboard.putBoolean("Turret Centered", middleMag.get());
 
