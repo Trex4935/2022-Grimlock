@@ -116,7 +116,7 @@ public class Turret extends SubsystemBase {
 
     // Pull in values from left and right trigger and normalize them
     double triggerValue = coDriverController.getRawAxis(Constants.rightTrigger)
-        + (coDriverController.getRawAxis(Constants.leftTrigger) * -1);
+        + (coDriverController.getRawAxis(Constants.leftTrigger) * 1);
 
     // System.out.println(triggerValue);
 
@@ -127,7 +127,7 @@ public class Turret extends SubsystemBase {
       turretRotation.stopMotor();
     } else {
       // Divide input by 10 to get a max of 0.1
-      turretRotation.set((triggerValue) * 0.2);
+      turretRotation.set((triggerValue) * 0.8);
 
     }
 
