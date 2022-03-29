@@ -7,6 +7,7 @@
 //   right side of robot - 8 + 9
 package frc.robot.subsystem;
 
+import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 // Imports
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
@@ -23,6 +24,7 @@ public class Climber extends SubsystemBase {
 
   // Declare Motors
   WPI_TalonFX climbMotor;
+  WPI_TalonFX climbMotorAux;
   WPI_TalonSRX rotationMotor;
   WPI_TalonSRX pinMotor;
   WPI_TalonFX elevatorWinchMotor;
@@ -93,6 +95,11 @@ public class Climber extends SubsystemBase {
 
     /* integral Zone */
     climbMotor.config_IntegralZone(Constants.kSlotIdxClimb, 200);
+
+    // Auxilary motor
+    climbMotorAux = new WPI_TalonFX(Constants.climbMotorAuxCanID);
+    climbMotorAux.configFactoryDefault();
+    climbMotor.setInverted(false);
   }
 
   // Stop all of the climb motors
@@ -119,12 +126,14 @@ public class Climber extends SubsystemBase {
   public void climbUpMotionMagic() {
     System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
     climbMotor.set(TalonFXControlMode.MotionMagic, Constants.upPosition);
+    climbMotorAux.follow(climbMotor, FollowerType.AuxOutput1);
   }
 
   // Climb to down value pos of motion magic
   public void climbDownMotionMagic() {
     System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
     climbMotor.set(TalonFXControlMode.MotionMagic, Constants.downPosition);
+    climbMotorAux.follow(climbMotor, FollowerType.AuxOutput1);
   }
 
   // Set Encoders to zero.
@@ -191,6 +200,7 @@ public class Climber extends SubsystemBase {
   // Stops the default climber motor
   public void stopClimbMotor() {
     climbMotor.stopMotor();
+    climbMotorAux.stopMotor();
   }
 
   // Return boolean value if motion magic setpoint is reached

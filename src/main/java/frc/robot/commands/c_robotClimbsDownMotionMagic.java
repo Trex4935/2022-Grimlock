@@ -38,6 +38,6 @@ public class c_robotClimbsDownMotionMagic extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.getMotorLeftBottomLimit();
+    return climber.getMotorRightBottomLimit();
   }
 }

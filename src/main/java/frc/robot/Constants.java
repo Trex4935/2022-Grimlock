@@ -134,6 +134,7 @@ public final class Constants {
   // Motor IDs
   public static final int climbMotorCanID = 21;
   public static final int rotationMotorCanID = 4;
+  public static final int climbMotorAuxCanID = 35;
 
   // Motor Speeds
   public static final double climbMotorSpeed = 0.7;
