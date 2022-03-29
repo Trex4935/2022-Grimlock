@@ -37,11 +37,11 @@ public class Shooter extends SubsystemBase {
 
   private boolean getHighLowShooting() {
     // System.out.println(defaultTable.getEntry("Shoot Low"));
-    return NetworkTableInstance.getDefault().getEntry("Shoot Low").getBoolean(false);
+    return NetworkTableInstance.getDefault().getTable("SmartDashboard").getEntry("Shoot Low").getBoolean(true);
   }
 
   private double getShooterAdjust() {
-    return NetworkTableInstance.getDefault().getEntry("Shooter Adjust").getDouble(0.0);
+    return NetworkTableInstance.getDefault().getTable("SmartDashboard").getEntry("Shooter Adjust").getDouble(0.0);
   }
 
   private void initMotorController(TalonFXConfiguration config) {
