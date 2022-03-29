@@ -88,6 +88,7 @@ public class Drivetrain extends SubsystemBase {
 
   // get the gyro angle
   public double getGyroAngle() {
+    SmartDebug.putDouble("Gyro Angle", ahrs.getAngle());
     return ahrs.getAngle();
   }
 
@@ -128,11 +129,13 @@ public class Drivetrain extends SubsystemBase {
         || lfTemp > Constants.driveToHot) {
       Constants.driveSpeedLimit = Constants.driveSpeedLimitHot;
       Constants.rotationSpeedLimit = Constants.rotationSpeedLimitHot;
+      SmartDebug.putDouble("Drive Speed", Constants.driveSpeedLimit);
     }
     // in all other cases keep the default speed
     else {
       Constants.driveSpeedLimit = Constants.driveSpeedlimitDefault;
       Constants.rotationSpeedLimit = Constants.rotationSpeedLimitDefault;
+      SmartDebug.putDouble("Drive Speed", Constants.driveSpeedLimit);
     }
 
   }
@@ -168,7 +171,9 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getEncoderDistance() {
-    return (leftFront.getSelectedSensorPosition() + rightFront.getSelectedSensorPosition()) / 2;
+    double frontEncoder = (leftFront.getSelectedSensorPosition() + rightFront.getSelectedSensorPosition()) / 2;
+    SmartDebug.putDouble("Front Encoders", frontEncoder);
+    return frontEncoder;
   }
 
   public void resetEncoderPosition() {

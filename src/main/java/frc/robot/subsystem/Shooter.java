@@ -97,6 +97,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putString("Alliance", allianceColor.toString());
     SmartDashboard.putBoolean("Target Seen", Limelight.getLimelightA());
     SmartDebug.putDouble("Shooter Motor Temp", shooterMotor.getTemperature());
+    SmartDebug.putBoolean("Shootin Low", shootLow);
     // Take in Ball Color and process magazine activity and shooter speed
     // Code needs to be here due to handling of the NONE state
     switch (color) {
@@ -173,6 +174,7 @@ public class Shooter extends SubsystemBase {
   private double getShootingTicks(BallColor color, double distance, boolean shootLow) {
     // If shooting low just use low speed
     if (shootLow) {
+      SmartDebug.putDouble("Target RPM", Constants.shooterLowSpeed);
       return rpmtoTicks(Constants.shooterLowSpeed);
     }
 
@@ -181,9 +183,12 @@ public class Shooter extends SubsystemBase {
     else {
       switch (color) {
         case NONE:
+          SmartDebug.putDouble("Target RPM", Constants.shooterIdleSpeed);
           return Constants.shooterIdleSpeed;
         default:
-          return allianceSpeed(color, distance);
+          double speed = allianceSpeed(color, distance);
+          SmartDebug.putDouble("Target RPM", speed);
+          return speed;
       }
 
     }

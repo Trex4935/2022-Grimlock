@@ -18,6 +18,7 @@ import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.FlippedDIO;
 //import frc.robot.extensions.multiplexedColorSensor;
+import frc.robot.extensions.SmartDebug;
 
 public class Intake extends SubsystemBase {
 
@@ -73,6 +74,7 @@ public class Intake extends SubsystemBase {
 
   // eun intake motor
   public void runIntakeMotor() {
+    SmartDebug.putBoolean("Intake On", true);
     intakeMotor.set(Constants.intakeMotorSpeed);
   }
 

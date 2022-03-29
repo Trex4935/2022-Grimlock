@@ -180,8 +180,8 @@ public final class Constants {
   public static final double shooterLowSpeed = 1000;
   public static final double shooterRange = 200;
 
-  public static final int maximumShootDistance = 156;
-  public static final int minimumShootDistance = 108;
+  public static final int maximumShootDistance = 180;
+  public static final int minimumShootDistance = 100;
 
   public static final boolean shootingLow = false;
 
