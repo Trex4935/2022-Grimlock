@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.c_changeClimberToCoastMode;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_flipshootingSubsystemOn;
@@ -169,6 +170,7 @@ public class RobotContainer {
     // xbox_x.toggleWhenPressed(new c_runShooterPID(shooter, 4000));
     // xbox_x.whenHeld(new c_shootBall(shooter));
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
+    xbox_x.whenHeld(new c_changeClimberToCoastMode(climber));
 
     xbox_pov_down = new POVButton(controller, 180);
     xbox_pov_down.whileHeld(new c_robotClimbsUp(climber));

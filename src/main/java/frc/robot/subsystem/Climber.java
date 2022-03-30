@@ -185,6 +185,40 @@ public class Climber extends SubsystemBase {
     return rightClimberMagLimitBottom.get();
   }
 
+  // set Right Climber to Coast Mode
+  public void changeRightClimberCoast() {
+    climbMotor.setNeutralMode(NeutralMode.Coast);
+  }
+
+  // set Left Climber to Coast Mode
+  public void changeLeftClimberCoast() {
+    climbMotorAux.setNeutralMode(NeutralMode.Coast);
+  }
+
+  // set Both Climber to Coast Mode
+  public void changeBothClimberCoast() {
+    climbMotor.setNeutralMode(NeutralMode.Coast);
+    climbMotorAux.setNeutralMode(NeutralMode.Coast);
+  }
+
+  // set Right Climber to BrakeMode
+  public void changeRightClimberBrake() {
+    climbMotor.setNeutralMode(NeutralMode.Brake);
+  }
+
+  // set Left Climber to BrakeMode
+  public void changeLeftClimberBrake() {
+    climbMotorAux.setNeutralMode(NeutralMode.Brake);
+  }
+
+  // set Both Climber to BrakeMode
+  public void changeBothClimberBrake() {
+    climbMotor.setNeutralMode(NeutralMode.Brake);
+    climbMotorAux.setNeutralMode(NeutralMode.Brake);
+  }
+
+
+
   // The default climber motor goes down (test for correct direction then change
   // inverse if its the wrong way?)
   // then prints what POV direction was pressed
