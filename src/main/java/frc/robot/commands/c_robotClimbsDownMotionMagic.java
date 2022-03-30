@@ -32,7 +32,7 @@ public class c_robotClimbsDownMotionMagic extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     climber.stopClimbMotor();
-    climber.setEncoderToZero();
+    climber.setEncoderToZeroR();
   }
 
   // Returns true when the command should end.

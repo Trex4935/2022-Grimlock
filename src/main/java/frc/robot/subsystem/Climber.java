@@ -137,9 +137,14 @@ public class Climber extends SubsystemBase {
   }
 
   // Set Encoders to zero.
-  public void setEncoderToZero() {
+  public void setEncoderToZeroR() {
     climbMotor.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
     System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+
+  }  // Set Encoders to zero.
+  public void setEncoderToZeroL() {
+    climbMotorAux.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    System.out.println(climbMotorAux.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
   }
 
   // The rotating climber motor moves the arms towards intake
@@ -160,8 +165,13 @@ public class Climber extends SubsystemBase {
 
   // The climber arms go up
   public void moveClimbArmsUP(double speed) {
-    climbMotor.setInverted(false);
-
+    climbMotor.setInverted(false);    
+    if (getMotorRightBottomLimit()) {
+      setEncoderToZeroR();
+    }
+    if (getMotorLeftBottomLimit()) {
+      setEncoderToZeroL();
+    }
     if (getMotorTopLimit()) {
       climbMotor.stopMotor();
     } else {
@@ -225,6 +235,12 @@ public class Climber extends SubsystemBase {
   public void moveClimbArmsDown() {
     climbMotor.setInverted(true);
     SmartDashboard.putNumber("Climber", climbMotor.getTemperature());
+    if (getMotorRightBottomLimit()) {
+      setEncoderToZeroR();
+    }
+    if (getMotorLeftBottomLimit()) {
+      setEncoderToZeroL();
+    }
     if (getMotorBottomLimit()) {
       climbMotor.stopMotor();
     } else {
