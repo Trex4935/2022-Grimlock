@@ -13,11 +13,11 @@ public class ca_moveForwardInches extends CommandBase {
   private double inches;
   private double speed;
 
-  public ca_moveForwardInches(Drivetrain dt, double in, double speed) {
+  public ca_moveForwardInches(Drivetrain dt, double in, double sp) {
     // Use addRequirements() here to declare subsystem dependencies.
     drive = dt;
     inches = in;
-    speed = speed;
+    speed = sp;
     addRequirements(drive);
   }
 

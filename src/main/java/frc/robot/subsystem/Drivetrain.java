@@ -171,7 +171,8 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getEncoderDistance() {
-    double frontEncoder = (leftFront.getSelectedSensorPosition() + rightFront.getSelectedSensorPosition()) / 2;
+    double frontEncoder = (Math.abs(leftFront.getSelectedSensorPosition())
+        + Math.abs(rightFront.getSelectedSensorPosition())) / 2;
     SmartDebug.putDouble("Front Encoders", frontEncoder);
     return frontEncoder;
   }
