@@ -166,6 +166,7 @@ public class Climber extends SubsystemBase {
       climbMotor.stopMotor();
     } else {
       climbMotor.set(speed);
+      climbMotorAux.set(speed);
     }
   }
 
@@ -194,6 +195,7 @@ public class Climber extends SubsystemBase {
       climbMotor.stopMotor();
     } else {
       climbMotor.set(Constants.climbMotorSpeed);
+      climbMotorAux.set(Constants.climbMotorSpeed);
     }
   }
 
