@@ -61,7 +61,7 @@
           },
           "0,2": {
             "size": [
-              2,
+              3,
               1
             ],
             "content": {
@@ -172,20 +172,9 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "0,5": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/calculate",
-              "_title": "calculate"
-            }
-          },
           "0,3": {
             "size": [
-              4,
+              3,
               2
             ],
             "content": {
@@ -194,20 +183,9 @@
               "_title": "Autonomous Picker"
             }
           },
-          "2,6": {
+          "0,5": {
             "size": [
               3,
-              3
-            ],
-            "content": {
-              "_type": "Toggle Button",
-              "_source0": "network_table:///SmartDashboard/Shoot High or Low",
-              "_title": "Shoot High or Low"
-            }
-          },
-          "12,6": {
-            "size": [
-              4,
               2
             ],
             "content": {
@@ -218,6 +196,17 @@
               "Slider Settings/Max": 500.0,
               "Slider Settings/Block increment": 100.0,
               "Visuals/Display value": true
+            }
+          },
+          "14,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
+              "_source0": "network_table:///SmartDashboard/Shoot Low",
+              "_title": "Shoot Low"
             }
           }
         }
@@ -523,9 +512,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -8.0,
-    "y": -8.0,
-    "width": 1382.0,
-    "height": 744.0
+    "x": -1489.0,
+    "y": 242.0,
+    "width": 1380.0,
+    "height": 735.0
   }
 }
