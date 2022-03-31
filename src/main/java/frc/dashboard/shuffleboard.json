@@ -61,7 +61,7 @@
           },
           "0,2": {
             "size": [
-              2,
+              3,
               1
             ],
             "content": {
@@ -172,20 +172,9 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "0,5": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/calculate",
-              "_title": "calculate"
-            }
-          },
           "0,3": {
             "size": [
-              4,
+              3,
               2
             ],
             "content": {
@@ -194,6 +183,7 @@
               "_title": "Autonomous Picker"
             }
           },
+
           "0,0": {
             "size": [
               1,
@@ -245,6 +235,17 @@
             ],
             "content": {
               "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/Shoot Low",
+              "_title": "Shoot Low"
+            }
+          },
+          "14,2": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "Toggle Button",
               "_source0": "network_table:///SmartDashboard/Shoot Low",
               "_title": "Shoot Low"
             }
@@ -594,9 +595,10 @@
     }
   ],
   "windowGeometry": {
-    "x": -7.333333492279053,
-    "y": -7.333333492279053,
-    "width": 1518.6666259765625,
-    "height": 977.3333129882812
+
+    "x": -1489.0,
+    "y": 242.0,
+    "width": 1380.0,
+    "height": 735.0
   }
 }
