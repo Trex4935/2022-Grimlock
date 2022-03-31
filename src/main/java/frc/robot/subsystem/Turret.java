@@ -7,7 +7,6 @@ package frc.robot.subsystem;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.FlippedDIO;
@@ -69,7 +68,6 @@ public class Turret extends SubsystemBase {
       // Get the speed that we are going to run the motor
       double tt = turretPID.calculate(Limelight.getLimelightX(), 0);
       SmartDebug.putDouble("Turret Motor Output", tt);
-      SmartDashboard.putBoolean("Turret Centered", middleMag.get());
 
       // Handle the limit switches to make sure we don't over rotate
       if (leftMagLimit.get() == true && tt >= 0) {
