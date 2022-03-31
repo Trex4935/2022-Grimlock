@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.Helper;
+import frc.robot.extensions.SmartDebug;
 import frc.robot.extensions.FlippedDIO;
 
 public class Climber extends SubsystemBase {
@@ -124,14 +125,18 @@ public class Climber extends SubsystemBase {
 
   // Climb to up value pos of motion magic
   public void climbUpMotionMagic() {
-    System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    // System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    SmartDebug.putDouble("Climber", climbMotor.getTemperature());
+    SmartDebug.putDouble("Climber", climbMotorAux.getTemperature());
     climbMotor.set(TalonFXControlMode.MotionMagic, Constants.upPosition);
     climbMotorAux.follow(climbMotor, FollowerType.AuxOutput1);
   }
 
   // Climb to down value pos of motion magic
   public void climbDownMotionMagic() {
-    System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    // System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    SmartDebug.putDouble("Climber", climbMotor.getTemperature());
+    SmartDebug.putDouble("Climber", climbMotorAux.getTemperature());
     climbMotor.set(TalonFXControlMode.MotionMagic, Constants.downPosition);
     climbMotorAux.follow(climbMotor, FollowerType.AuxOutput1);
   }
@@ -141,7 +146,8 @@ public class Climber extends SubsystemBase {
     climbMotor.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
     System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
 
-  }  // Set Encoders to zero.
+  } // Set Encoders to zero.
+
   public void setEncoderToZeroL() {
     climbMotorAux.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
     System.out.println(climbMotorAux.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
@@ -165,7 +171,7 @@ public class Climber extends SubsystemBase {
 
   // The climber arms go up
   public void moveClimbArmsUP(double speed) {
-    climbMotor.setInverted(false);    
+    climbMotor.setInverted(false);
     if (getMotorRightBottomLimit()) {
       setEncoderToZeroR();
     }
@@ -227,14 +233,10 @@ public class Climber extends SubsystemBase {
     climbMotorAux.setNeutralMode(NeutralMode.Brake);
   }
 
-
-
   // The default climber motor goes down (test for correct direction then change
   // inverse if its the wrong way?)
   // then prints what POV direction was pressed
   public void moveClimbArmsDown() {
-    climbMotor.setInverted(true);
-    SmartDashboard.putNumber("Climber", climbMotor.getTemperature());
     if (getMotorRightBottomLimit()) {
       setEncoderToZeroR();
     }

@@ -69,7 +69,6 @@ public class Turret extends SubsystemBase {
       // Get the speed that we are going to run the motor
       double tt = turretPID.calculate(Limelight.getLimelightX(), 0);
       SmartDebug.putDouble("Turret Motor Output", tt);
-      SmartDashboard.putBoolean("Turret Centered", middleMag.get());
 
       // Handle the limit switches to make sure we don't over rotate
       if (leftMagLimit.get() == true && tt >= 0) {
