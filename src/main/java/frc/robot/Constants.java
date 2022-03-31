@@ -23,7 +23,7 @@ public final class Constants {
 
   ///////////////////////////////////
   ////////////////////////
-  public static final boolean testingControlMode = true;
+  public static final boolean testingControlMode = false;
   // public static final String controlMode = "Testing";
   ///////////////////////////////////////////////////////////
 
@@ -33,12 +33,10 @@ public final class Constants {
   // region DriveTrain
 
   // Motor IDs
-  public static final int leftFrontCanID = 34;
-  public static final int leftBackCanID = 30;
-  public static final int rightFrontCanID = 31;
-  public static final int rightBackCanID = 32;
-  public static final int middleLeftCanID = 33;
-  public static final int middleRightCanID = 35;
+  public static final int leftFrontCanID = 30;
+  public static final int leftBackCanID = 31;
+  public static final int rightFrontCanID = 32;
+  public static final int rightBackCanID = 34;
 
   // Xbox controller input IDs
   public static final int leftVertical = 1;
@@ -78,7 +76,7 @@ public final class Constants {
 
   // Motor speeds
   public static final double magazineMotorSpeed = 0.5;
-  public static final double intakeMotorSpeed = 0.45;
+  public static final double intakeMotorSpeed = 0.8;
 
   // Smakna sensor ids
   public static final int leftTrapSmakna = 3;
@@ -136,6 +134,7 @@ public final class Constants {
   // Motor IDs
   public static final int climbMotorCanID = 21;
   public static final int rotationMotorCanID = 4;
+  public static final int climbMotorAuxCanID = 22;
 
   // Motor Speeds
   public static final double climbMotorSpeed = 0.7;
@@ -148,6 +147,15 @@ public final class Constants {
   public static final int rightClimberMagLimitTopID = 9;
   public static final int rightClimberMagLimitBottomID = 8;
   public static final int extraClimberMagLimitBottomID = 10; // ROBORIO 10 = DIO0 NAVX0
+
+  // Motion Magic
+  public static final int kPIDLoopIdxClimb = 0;
+  public static final int kSlotIdxClimb = 0;
+  public static final PID climbPidGains = new PID(0.13372549, 0.01, 1.3372549, 0.047017189);
+  public static final double upPosition = 274137;
+  public static final double downPosition = -100;
+  public static final double velocityMotionMagic = 16319;
+  public static final double accelMotionMagic = 16319;
 
   // endregion
   // --------------------------------------------------------
@@ -178,12 +186,12 @@ public final class Constants {
   public static int kPIDLoopIdx = 0;
 
   // Shooter speeds
-  public static double shooterIdleSpeed = 1250;
+  public static double shooterIdleSpeed = 2000;
   public static final double shooterLowSpeed = 1000;
   public static final double shooterRange = 200;
 
-  public static final int maximumShootDistance = 156;
-  public static final int minimumShootDistance = 108;
+  public static final int maximumShootDistance = 180;
+  public static final int minimumShootDistance = 100;
 
   public static final boolean shootingLow = false;
 

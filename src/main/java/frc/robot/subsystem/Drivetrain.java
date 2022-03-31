@@ -88,6 +88,7 @@ public class Drivetrain extends SubsystemBase {
 
   // get the gyro angle
   public double getGyroAngle() {
+    SmartDebug.putDouble("Gyro Angle", ahrs.getAngle());
     return ahrs.getAngle();
   }
 
@@ -128,11 +129,13 @@ public class Drivetrain extends SubsystemBase {
         || lfTemp > Constants.driveToHot) {
       Constants.driveSpeedLimit = Constants.driveSpeedLimitHot;
       Constants.rotationSpeedLimit = Constants.rotationSpeedLimitHot;
+      SmartDebug.putDouble("Drive Speed", Constants.driveSpeedLimit);
     }
     // in all other cases keep the default speed
     else {
       Constants.driveSpeedLimit = Constants.driveSpeedlimitDefault;
       Constants.rotationSpeedLimit = Constants.rotationSpeedLimitDefault;
+      SmartDebug.putDouble("Drive Speed", Constants.driveSpeedLimit);
     }
 
   }
@@ -168,7 +171,10 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public double getEncoderDistance() {
-    return (leftFront.getSelectedSensorPosition() + rightFront.getSelectedSensorPosition()) / 2;
+    double frontEncoder = (Math.abs(leftFront.getSelectedSensorPosition())
+        + Math.abs(rightFront.getSelectedSensorPosition())) / 2;
+    SmartDebug.putDouble("Front Encoders", frontEncoder);
+    return frontEncoder;
   }
 
   public void resetEncoderPosition() {
@@ -198,14 +204,14 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void drive_angle_gyro(double power, double angle) {
-    System.out.println("i exist lol");
+    // System.out.println("i exist lol");
     double error = angle - ahrs.getAngle(); // Our target angle is zero
     double turn_power = Constants.kPDt * error; // Kp
     drive.arcadeDrive(turn_power, power, false);
   }
 
   public void drive_turn_gyro(double cst_turn_power, double angle) {
-    System.out.println("i exist lol");
+    // System.out.println("i exist lol");
     double error = angle - ahrs.getAngle(); // Our target angle is variable
     double turn_power = Constants.kPDt * error; // Kp
     if (Math.abs(error) > 2) {

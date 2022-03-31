@@ -183,19 +183,60 @@
               "_title": "Autonomous Picker"
             }
           },
-          "0,5": {
+
+          "0,0": {
             "size": [
-              3,
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_PipelineName",
+              "_title": "limelight_PipelineName"
+            }
+          },
+          "1,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_Interface",
+              "_title": "limelight_Interface"
+            }
+          },
+          "2,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/limelight_Stream",
+              "_title": "limelight_Stream"
+            }
+          },
+          "3,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Shooter Adjust",
+              "_title": "Shooter Adjust"
+            }
+          },
+          "0,7": {
+            "size": [
+              2,
               2
             ],
             "content": {
-              "_type": "Number Slider",
-              "_source0": "network_table:///SmartDashboard/Shooter Adjust",
-              "_title": "Shooter Adjust",
-              "Slider Settings/Min": -500.0,
-              "Slider Settings/Max": 500.0,
-              "Slider Settings/Block increment": 100.0,
-              "Visuals/Display value": true
+              "_type": "Toggle Switch",
+              "_source0": "network_table:///SmartDashboard/Shoot Low",
+              "_title": "Shoot Low"
             }
           },
           "14,2": {
@@ -367,6 +408,48 @@
                   "_type": "Text View",
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [6]/Value",
                   "_title": "Talon FX [6]/Value"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/PWMSparkMax[0]",
+                  "_title": "PWMSparkMax[0]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [11]",
+                  "_title": "Talon FX [11]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [21]",
+                  "_title": "Talon FX [21]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon SRX [4]",
+                  "_title": "Talon SRX [4]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [6]",
+                  "_title": "Talon FX [6]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [3]",
+                  "_title": "Talon FX [3]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [2]",
+                  "_title": "Talon FX [2]",
+                  "Visuals/Orientation": "HORIZONTAL"
                 }
               ]
             }
@@ -512,6 +595,7 @@
     }
   ],
   "windowGeometry": {
+
     "x": -1489.0,
     "y": 242.0,
     "width": 1380.0,

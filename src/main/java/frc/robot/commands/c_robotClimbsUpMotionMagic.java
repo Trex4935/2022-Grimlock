@@ -5,43 +5,39 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Drivetrain;
+import frc.robot.Constants;
+import frc.robot.subsystem.Climber;
 
-public class ca_moveForwardInches extends CommandBase {
-  /** Creates a new ca_moveforward. */
-  private Drivetrain drive;
-  private double inches;
-  private double speed;
+public class c_robotClimbsUpMotionMagic extends CommandBase {
+  /** Creates a new runIntakeMotors. */
+  private final Climber climber;
 
-  public ca_moveForwardInches(Drivetrain dt, double in, double sp) {
+  public c_robotClimbsUpMotionMagic(Climber cl) {
     // Use addRequirements() here to declare subsystem dependencies.
-    drive = dt;
-    inches = in;
-    speed = sp;
-    addRequirements(drive);
+    climber = cl;
+    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    drive.resetEncoderPosition();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.drive_straight_gyro(speed);
+    climber.climbUpMotionMagic();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    drive.stopAllDriveMotors();
+    climber.stopClimbMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (drive.getEncoderDistance() > drive.inchesToTicks(inches));
+    return climber.atSetPoint(Constants.upPosition);
   }
 }

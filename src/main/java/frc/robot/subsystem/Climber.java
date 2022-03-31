@@ -7,20 +7,24 @@
 //   right side of robot - 8 + 9
 package frc.robot.subsystem;
 
+import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 // Imports
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.extensions.Helper;
 import frc.robot.extensions.FlippedDIO;
 
 public class Climber extends SubsystemBase {
 
   // Declare Motors
   WPI_TalonFX climbMotor;
+  WPI_TalonFX climbMotorAux;
   WPI_TalonSRX rotationMotor;
   WPI_TalonSRX pinMotor;
   WPI_TalonFX elevatorWinchMotor;
@@ -38,10 +42,11 @@ public class Climber extends SubsystemBase {
   public Climber() {
 
     // Populate the variables with motor objects with the correct IDs
-    climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
-    climbMotor.configFactoryDefault();
-    climbMotor.setNeutralMode(NeutralMode.Brake);
-    climbMotor.configOpenloopRamp(1);
+    // climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
+    // climbMotor.configFactoryDefault();
+    // climbMotor.setNeutralMode(NeutralMode.Brake);
+    // climbMotor.configOpenloopRamp(1);
+    setMotionMagic();
 
     rotationMotor = new WPI_TalonSRX(Constants.rotationMotorCanID);
     rotationMotor.configFactoryDefault();
@@ -53,6 +58,48 @@ public class Climber extends SubsystemBase {
     rightClimberMagLimitTop = new FlippedDIO(Constants.rightClimberMagLimitTopID);
     rightClimberMagLimitBottom = new FlippedDIO(Constants.rightClimberMagLimitBottomID);
     rotateArmLimit = new FlippedDIO(Constants.extraClimberMagLimitBottomID);
+  }
+
+  public void setMotionMagic() {
+
+    // Populate the variables with motor objects with the correct IDs
+    climbMotor = new WPI_TalonFX(Constants.climbMotorCanID);
+    climbMotor.configFactoryDefault();
+    climbMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdxClimb,
+        Constants.kTimeoutMs);
+    climbMotor.configNeutralDeadband(0.001, Constants.kTimeoutMs);
+    climbMotor.setSensorPhase(false);
+    climbMotor.setInverted(true);
+    climbMotor.setNeutralMode(NeutralMode.Brake);
+    climbMotor.configOpenloopRamp(1);
+
+    /* Set the peak and nominal outputs */
+    climbMotor.configNominalOutputForward(0, Constants.kTimeoutMs);
+    climbMotor.configNominalOutputReverse(0, Constants.kTimeoutMs);
+    climbMotor.configPeakOutputForward(1, Constants.kTimeoutMs);
+    climbMotor.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+
+    /* Set Motion Magic gains in slot0 - see documentation */
+    climbMotor.selectProfileSlot(Constants.kSlotIdxClimb, Constants.kPIDLoopIdx);
+    climbMotor.config_kF(Constants.kSlotIdxClimb, Constants.climbPidGains.getkF(), Constants.kTimeoutMs);
+    climbMotor.config_kP(Constants.kSlotIdxClimb, Constants.climbPidGains.getkP(), Constants.kTimeoutMs);
+    climbMotor.config_kI(Constants.kSlotIdxClimb, Constants.climbPidGains.getkI(), Constants.kTimeoutMs);
+    climbMotor.config_kD(Constants.kSlotIdxClimb, Constants.climbPidGains.getkD(), Constants.kTimeoutMs);
+
+    /* Set acceleration and vcruise velocity - see documentation */
+    climbMotor.configMotionCruiseVelocity(Constants.velocityMotionMagic, Constants.kTimeoutMs);
+    climbMotor.configMotionAcceleration(Constants.accelMotionMagic, Constants.kTimeoutMs);
+
+    /* Zero the sensor once on robot boot up */
+    climbMotor.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+
+    /* integral Zone */
+    climbMotor.config_IntegralZone(Constants.kSlotIdxClimb, 200);
+
+    // Auxilary motor
+    climbMotorAux = new WPI_TalonFX(Constants.climbMotorAuxCanID);
+    climbMotorAux.configFactoryDefault();
+    climbMotor.setInverted(false);
   }
 
   // Stop all of the climb motors
@@ -75,6 +122,31 @@ public class Climber extends SubsystemBase {
 
   }
 
+  // Climb to up value pos of motion magic
+  public void climbUpMotionMagic() {
+    System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    climbMotor.set(TalonFXControlMode.MotionMagic, Constants.upPosition);
+    climbMotorAux.follow(climbMotor, FollowerType.AuxOutput1);
+  }
+
+  // Climb to down value pos of motion magic
+  public void climbDownMotionMagic() {
+    System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    climbMotor.set(TalonFXControlMode.MotionMagic, Constants.downPosition);
+    climbMotorAux.follow(climbMotor, FollowerType.AuxOutput1);
+  }
+
+  // Set Encoders to zero.
+  public void setEncoderToZeroR() {
+    climbMotor.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+
+  }  // Set Encoders to zero.
+  public void setEncoderToZeroL() {
+    climbMotorAux.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+    System.out.println(climbMotorAux.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+  }
+
   // The rotating climber motor moves the arms towards intake
   public void rotateArmsTowardsIntake() {
     rotationMotor.setInverted(false);
@@ -93,12 +165,18 @@ public class Climber extends SubsystemBase {
 
   // The climber arms go up
   public void moveClimbArmsUP(double speed) {
-    climbMotor.setInverted(false);
-
+    climbMotor.setInverted(false);    
+    if (getMotorRightBottomLimit()) {
+      setEncoderToZeroR();
+    }
+    if (getMotorLeftBottomLimit()) {
+      setEncoderToZeroL();
+    }
     if (getMotorTopLimit()) {
       climbMotor.stopMotor();
     } else {
       climbMotor.set(speed);
+      climbMotorAux.set(speed);
     }
   }
 
@@ -107,22 +185,83 @@ public class Climber extends SubsystemBase {
     return leftClimberMagLimitBottom.get() || rightClimberMagLimitBottom.get();
   }
 
+  // return Left limit switch
+  public boolean getMotorLeftBottomLimit() {
+    return leftClimberMagLimitBottom.get();
+  }
+
+  // Return Right Limit Switch
+  public boolean getMotorRightBottomLimit() {
+    return rightClimberMagLimitBottom.get();
+  }
+
+  // set Right Climber to Coast Mode
+  public void changeRightClimberCoast() {
+    climbMotor.setNeutralMode(NeutralMode.Coast);
+  }
+
+  // set Left Climber to Coast Mode
+  public void changeLeftClimberCoast() {
+    climbMotorAux.setNeutralMode(NeutralMode.Coast);
+  }
+
+  // set Both Climber to Coast Mode
+  public void changeBothClimberCoast() {
+    climbMotor.setNeutralMode(NeutralMode.Coast);
+    climbMotorAux.setNeutralMode(NeutralMode.Coast);
+  }
+
+  // set Right Climber to BrakeMode
+  public void changeRightClimberBrake() {
+    climbMotor.setNeutralMode(NeutralMode.Brake);
+  }
+
+  // set Left Climber to BrakeMode
+  public void changeLeftClimberBrake() {
+    climbMotorAux.setNeutralMode(NeutralMode.Brake);
+  }
+
+  // set Both Climber to BrakeMode
+  public void changeBothClimberBrake() {
+    climbMotor.setNeutralMode(NeutralMode.Brake);
+    climbMotorAux.setNeutralMode(NeutralMode.Brake);
+  }
+
+
+
   // The default climber motor goes down (test for correct direction then change
   // inverse if its the wrong way?)
   // then prints what POV direction was pressed
   public void moveClimbArmsDown() {
     climbMotor.setInverted(true);
     SmartDashboard.putNumber("Climber", climbMotor.getTemperature());
+    if (getMotorRightBottomLimit()) {
+      setEncoderToZeroR();
+    }
+    if (getMotorLeftBottomLimit()) {
+      setEncoderToZeroL();
+    }
     if (getMotorBottomLimit()) {
       climbMotor.stopMotor();
     } else {
       climbMotor.set(Constants.climbMotorSpeed);
+      climbMotorAux.set(Constants.climbMotorSpeed);
     }
   }
 
   // Stops the default climber motor
   public void stopClimbMotor() {
     climbMotor.stopMotor();
+    climbMotorAux.stopMotor();
+  }
+
+  // Return boolean value if motion magic setpoint is reached
+  public boolean atSetPoint(double setPoint) {
+    boolean atSt = Helper.RangeCompare(10, -10,
+        climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
+    System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
+    System.out.println(atSt);
+    return atSt;
   }
 
   @Override

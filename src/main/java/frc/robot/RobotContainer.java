@@ -8,16 +8,18 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.c_changeClimberToCoastMode;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_flipshootingSubsystemOn;
 import frc.robot.commands.c_forceShoot;
 import frc.robot.commands.c_robotClimbsUp;
+import frc.robot.commands.c_robotClimbsUpMotionMagic;
 import frc.robot.commands.c_robotClimbsDown;
+import frc.robot.commands.c_robotClimbsDownMotionMagic;
 import frc.robot.commands.c_pullUp;
 import frc.robot.commands.c_rotateAndUpClimb;
 import frc.robot.commands.c_runIntakeRetractionMotor;
-import frc.robot.commands.c_shootBall;
 import frc.robot.commands.ca_moveForwardInches;
 import frc.robot.commands.cg_1BallHighAuto;
 import frc.robot.commands.cg_1BallLowAuto;
@@ -106,11 +108,11 @@ public class RobotContainer {
     ///// CoDriver Controller /////
     // Set the A button
     c_xbox_a = new JoystickButton(coDriverController, XboxController.Button.kA.value);
-    c_xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
+    c_xbox_a.toggleWhenPressed(new c_robotClimbsUpMotionMagic(climber));
 
     // Set the B button
     c_xbox_b = new JoystickButton(coDriverController, XboxController.Button.kB.value);
-    c_xbox_b.toggleWhenPressed(new c_pullUp(climber));
+    c_xbox_b.toggleWhenPressed(new c_robotClimbsDownMotionMagic(climber));
 
     // Set the Y button
     // Lower the Robot
@@ -129,8 +131,8 @@ public class RobotContainer {
   private void configureButtonBindingsCompetitionDriver() {
 
     ////// Primary Controller /////
-    xbox_rbump = new JoystickButton(controller, XboxController.Button.kRightBumper.value);
-    xbox_rbump.whenHeld(new c_forceShoot());
+    xbox_rTrig = new rightTriggerBool(controller);
+    xbox_rTrig.whileActiveContinuous(new c_forceShoot());
 
   }
 
@@ -147,25 +149,28 @@ public class RobotContainer {
 
     // Configure the button bindings
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
-    xbox_a.toggleWhenPressed(new ca_moveForwardInches(drive, 12, 0));
+    // xbox_a.toggleWhenPressed(new ca_moveForwardInches(drive, 12, 0.25));
     // xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
+    xbox_a.toggleWhenPressed(new c_robotClimbsUpMotionMagic(climber));
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
-    xbox_b.toggleWhenPressed(new c_pullUp(climber));
+    // xbox_b.toggleWhenPressed(new c_pullUp(climber));
     // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
+    xbox_b.toggleWhenPressed(new c_robotClimbsDownMotionMagic(climber));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     // xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
-    xbox_y.toggleWhenPressed(new c_shootBall(shooter));
+    // xbox_y.toggleWhenPressed(new c_shootBall(shooter));
     // xbox_y.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_y.toggleWhenPressed(new c_runShooterPID(shooter, 2000));
     // xbox_y.whenHeld(new c_rotateClimbTowardsIntake(climber));
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
     // xbox_x.toggleWhenPressed(new c_runShooterPID(shooter, 4000));
-    xbox_x.whenHeld(new c_shootBall(shooter));
+    // xbox_x.whenHeld(new c_shootBall(shooter));
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
+    xbox_x.whenHeld(new c_changeClimberToCoastMode(climber));
 
     xbox_pov_down = new POVButton(controller, 180);
     xbox_pov_down.whileHeld(new c_robotClimbsUp(climber));
@@ -194,8 +199,8 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
 
-     // Poll the SmartDashboard for the Autonomus Run Selection
-     return AutoRun_Picker.getSelected();
+    // Poll the SmartDashboard for the Autonomus Run Selection
+    return AutoRun_Picker.getSelected();
 
     // releaseIntake.andThen(
     // return auto;
