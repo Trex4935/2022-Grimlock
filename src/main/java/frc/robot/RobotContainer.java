@@ -14,9 +14,9 @@ import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_flipshootingSubsystemOn;
 import frc.robot.commands.c_forceShoot;
 import frc.robot.commands.c_robotClimbsUp;
-import frc.robot.commands.c_robotClimbsUpMotionMagic;
+import frc.robot.commands.c_ArmsGoUpMotionMagic;
 import frc.robot.commands.c_robotClimbsDown;
-import frc.robot.commands.c_robotClimbsDownMotionMagic;
+import frc.robot.commands.c_ArmsGoDownMotionMagic;
 import frc.robot.commands.c_runIntakeRetractionMotor;
 import frc.robot.commands.cg_1BallHighAuto;
 import frc.robot.commands.cg_1BallLowAuto;
@@ -107,11 +107,11 @@ public class RobotContainer {
     ///// CoDriver Controller /////
     // Set the A button
     c_xbox_a = new JoystickButton(coDriverController, XboxController.Button.kA.value);
-    c_xbox_a.toggleWhenPressed(new c_robotClimbsUpMotionMagic(climber));
+    c_xbox_a.toggleWhenPressed(new c_ArmsGoUpMotionMagic(climber));
 
     // Set the B button
     c_xbox_b = new JoystickButton(coDriverController, XboxController.Button.kB.value);
-    c_xbox_b.toggleWhenPressed(new c_robotClimbsDownMotionMagic(climber));
+    c_xbox_b.toggleWhenPressed(new c_ArmsGoDownMotionMagic(climber));
 
     // Set the Y button
     // Lower the Robot
@@ -151,12 +151,12 @@ public class RobotContainer {
     // xbox_a.toggleWhenPressed(new ca_moveForwardInches(drive, 12, 0.25));
     // xbox_a.toggleWhenPressed(new c_rotateAndUpClimb(climber));
     // xbox_a.toggleWhenPressed(new c_returnToMiddle(turret));
-    xbox_a.toggleWhenPressed(new c_robotClimbsUpMotionMagic(climber));
+    xbox_a.toggleWhenPressed(new c_ArmsGoUpMotionMagic(climber));
 
     xbox_b = new JoystickButton(controller, XboxController.Button.kB.value);
     // xbox_b.toggleWhenPressed(new c_pullUp(climber));
     // xbox_b.toggleWhenPressed(new c_runIntakeMotor(intake));
-    xbox_b.toggleWhenPressed(new c_robotClimbsDownMotionMagic(climber));
+    xbox_b.toggleWhenPressed(new c_ArmsGoDownMotionMagic(climber));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
     // xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));

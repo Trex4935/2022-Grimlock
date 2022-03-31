@@ -23,7 +23,7 @@ public final class Constants {
 
   ///////////////////////////////////
   ////////////////////////
-  public static final boolean testingControlMode = false;
+  public static final boolean testingControlMode = true;
   // public static final String controlMode = "Testing";
   ///////////////////////////////////////////////////////////
 
@@ -152,7 +152,7 @@ public final class Constants {
   public static final int kPIDLoopIdxClimb = 0;
   public static final int kSlotIdxClimb = 0;
   public static final PID climbPidGains = new PID(0.13372549, 0.01, 1.3372549, 0.047017189);
-  public static final double upPosition = 274137;
+  public static final double upPosition = 273137;
   public static final double downPosition = -100;
   public static final double velocityMotionMagic = 16319;
   public static final double accelMotionMagic = 16319;

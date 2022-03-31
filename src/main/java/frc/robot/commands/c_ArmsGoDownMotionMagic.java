@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystem.Climber;
 
-public class c_robotClimbsDownMotionMagic extends CommandBase {
+public class c_ArmsGoDownMotionMagic extends CommandBase {
   /** Creates a new runIntakeMotors. */
   private final Climber climber;
 
-  public c_robotClimbsDownMotionMagic(Climber cl) {
+  public c_ArmsGoDownMotionMagic(Climber cl) {
     // Use addRequirements() here to declare subsystem dependencies.
     climber = cl;
     addRequirements(climber);
