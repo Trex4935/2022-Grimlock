@@ -124,32 +124,16 @@ public class Climber extends SubsystemBase {
 
   // Climb to up value pos of motion magic
   public void climbUpMotionMagic() {
-<<<<<<< HEAD
-    System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
     climbMotorRight.set(TalonFXControlMode.MotionMagic, Constants.upPosition);
     climbMotorLeft.follow(climbMotorRight, FollowerType.AuxOutput1);
-=======
-    // System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
-    SmartDebug.putDouble("Climber", climbMotor.getTemperature());
-    SmartDebug.putDouble("Climber", climbMotorAux.getTemperature());
-    climbMotor.set(TalonFXControlMode.MotionMagic, Constants.upPosition);
-    climbMotorAux.follow(climbMotor, FollowerType.AuxOutput1);
->>>>>>> ffda17a9f4de44d56a80893a0f6be1bbc356f260
   }
 
   // Climb to down value pos of motion magic
   public void climbDownMotionMagic() {
-<<<<<<< HEAD
-    System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
     climbMotorRight.set(TalonFXControlMode.MotionMagic, Constants.downPosition);
     climbMotorLeft.follow(climbMotorRight, FollowerType.AuxOutput1);
-=======
-    // System.out.println(climbMotor.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
-    SmartDebug.putDouble("Climber", climbMotor.getTemperature());
-    SmartDebug.putDouble("Climber", climbMotorAux.getTemperature());
-    climbMotor.set(TalonFXControlMode.MotionMagic, Constants.downPosition);
-    climbMotorAux.follow(climbMotor, FollowerType.AuxOutput1);
->>>>>>> ffda17a9f4de44d56a80893a0f6be1bbc356f260
   }
 
   // Set Encoders to zero.
@@ -159,11 +143,6 @@ public class Climber extends SubsystemBase {
 
   } // Set Encoders to zero.
 
-<<<<<<< HEAD
-=======
-  } // Set Encoders to zero.
-
->>>>>>> ffda17a9f4de44d56a80893a0f6be1bbc356f260
   public void setEncoderToZeroL() {
     climbMotorLeft.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
     System.out.println(climbMotorLeft.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
@@ -187,11 +166,6 @@ public class Climber extends SubsystemBase {
 
   // The climber arms go up
   public void moveClimbArmsUP(double speed) {
-<<<<<<< HEAD
-    climbMotorRight.setInverted(false);
-=======
-    climbMotor.setInverted(false);
->>>>>>> ffda17a9f4de44d56a80893a0f6be1bbc356f260
     if (getMotorRightBottomLimit()) {
       setEncoderToZeroR();
     }
@@ -257,10 +231,6 @@ public class Climber extends SubsystemBase {
   // inverse if its the wrong way?)
   // then prints what POV direction was pressed
   public void moveClimbArmsDown() {
-<<<<<<< HEAD
-    SmartDashboard.putNumber("Climber", climbMotorRight.getTemperature());
-=======
->>>>>>> ffda17a9f4de44d56a80893a0f6be1bbc356f260
     if (getMotorRightBottomLimit()) {
       climbMotorRight.stopMotor();
       setEncoderToZeroR();
