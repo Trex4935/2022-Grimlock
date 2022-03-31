@@ -26,6 +26,7 @@ import frc.robot.extensions.rightTriggerBool;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
+import frc.robot.subsystem.Pneumatics;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Turret;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -39,6 +40,7 @@ public class RobotContainer {
   private final Turret turret = new Turret();
   private final Shooter shooter = new Shooter();
   private final Climber climber = new Climber();
+  private final Pneumatics pneum = new Pneumatics();
 
   // Controller
   private static XboxController controller = new XboxController(0);
