@@ -33,11 +33,12 @@ public class c_ArmsGoDownMotionMagic extends CommandBase {
   public void end(boolean interrupted) {
     climber.stopClimbMotor();
     climber.setEncoderToZeroR();
+    climber.setEncoderToZeroL();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.getMotorRightBottomLimit();
+    return climber.getMotorRightBottomLimit() & climber.getMotorLeftBottomLimit();
   }
 }

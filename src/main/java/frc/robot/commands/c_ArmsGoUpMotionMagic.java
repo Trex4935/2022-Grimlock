@@ -38,6 +38,6 @@ public class c_ArmsGoUpMotionMagic extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.atSetPoint(Constants.upPosition);
+    return climber.atSetPointRight(Constants.upPositionRight) && climber.atSetPointLeft(Constants.upPositionLeft);
   }
 }
