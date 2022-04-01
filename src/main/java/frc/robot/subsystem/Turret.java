@@ -113,8 +113,8 @@ public class Turret extends SubsystemBase {
   public void aimWithController(XboxController coDriverController) {
 
     // Pull in values from left and right trigger and normalize them
-    double triggerValue = coDriverController.getRawAxis(Constants.rightTrigger)
-        + (coDriverController.getRawAxis(Constants.leftTrigger) * 1);
+    double triggerValue = (coDriverController.getRawAxis(Constants.rightTrigger) * -1)
+        + (coDriverController.getRawAxis(Constants.leftTrigger));
 
     // System.out.println(triggerValue);
 
