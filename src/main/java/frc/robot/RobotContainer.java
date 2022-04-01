@@ -13,6 +13,9 @@ import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_flipshootingSubsystemOn;
 import frc.robot.commands.c_forceShoot;
+import frc.robot.commands.c_intakeForward;
+import frc.robot.commands.c_intakeOff;
+import frc.robot.commands.c_intakeReverse;
 import frc.robot.commands.c_robotClimbsUp;
 import frc.robot.commands.c_ArmsGoUpMotionMagic;
 import frc.robot.commands.c_robotClimbsDown;
@@ -49,7 +52,7 @@ public class RobotContainer {
   // button variables for the controller
   private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b, xbox_start, xbox_rbump;
   private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start;
-  private POVButton xbox_pov_up, xbox_pov_down;
+  private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_left, xbox_pov_right;
   private rightTriggerBool xbox_rTrig;
 
   // SendableChooser to pick automomous runs
@@ -159,6 +162,7 @@ public class RobotContainer {
     xbox_b.toggleWhenPressed(new c_ArmsGoDownMotionMagic(climber));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
+    xbox_y.whenHeld(new c_intakeOff(pneum));
     // xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
     // xbox_y.toggleWhenPressed(new c_shootBall(shooter));
     // xbox_y.toggleWhenPressed(new c_rotateAndUpClimb(climber));
@@ -177,12 +181,14 @@ public class RobotContainer {
     xbox_pov_up = new POVButton(controller, 0);
     xbox_pov_up.whileHeld(new c_robotClimbsDown(climber));
 
-    // xbox_pov_left = new POVButton(controller, 270);
+    xbox_pov_left = new POVButton(controller, 270);
     // LEFT ON CONTROLLER D-PAD
+    xbox_pov_left.whenHeld(new c_intakeReverse(pneum));
     // xbox_pov_left.whileHeld(new c_rotateClimbTowardsShooter(climber));
 
-    // xbox_pov_right = new POVButton(controller, 90);
+    xbox_pov_right = new POVButton(controller, 90);
     // RIGHT ON CONTROLLER D-PAD
+    xbox_pov_right.whenHeld(new c_intakeForward(pneum));
     // xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
 
     // Turn off the shooting subsystem
