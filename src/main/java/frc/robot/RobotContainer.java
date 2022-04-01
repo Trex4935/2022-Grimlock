@@ -14,9 +14,13 @@ import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_flipshootingSubsystemOn;
 import frc.robot.commands.c_forceShoot;
 import frc.robot.commands.c_robotClimbsUp;
-import frc.robot.commands.c_ArmsGoUpMotionMagic;
+import frc.robot.commands.c_ArmsGoUpMotionMagicL;
+import frc.robot.commands.c_ArmsGoUpMotionMagicR;
 import frc.robot.commands.c_robotClimbsDown;
 import frc.robot.commands.c_ArmsGoDownMotionMagic;
+import frc.robot.commands.c_ArmsGoDownMotionMagicL;
+import frc.robot.commands.c_ArmsGoDownMotionMagicR;
+import frc.robot.commands.c_ArmsGoUpMotionMagic;
 import frc.robot.commands.c_runIntakeRetractionMotor;
 import frc.robot.commands.cg_1BallHighAuto;
 import frc.robot.commands.cg_1BallLowAuto;
@@ -49,7 +53,7 @@ public class RobotContainer {
   // button variables for the controller
   private JoystickButton xbox_a, xbox_x, xbox_y, xbox_b, xbox_start, xbox_rbump;
   private JoystickButton c_xbox_a, c_xbox_x, c_xbox_y, c_xbox_b, c_xbox_start;
-  private POVButton xbox_pov_up, xbox_pov_down;
+  private POVButton xbox_pov_up, xbox_pov_down, xbox_pov_right, xbox_pov_left;
   private rightTriggerBool xbox_rTrig;
 
   // SendableChooser to pick automomous runs
@@ -159,6 +163,7 @@ public class RobotContainer {
     xbox_b.toggleWhenPressed(new c_ArmsGoDownMotionMagic(climber));
 
     xbox_y = new JoystickButton(controller, XboxController.Button.kY.value);
+    xbox_y.toggleWhenPressed(new c_ArmsGoUpMotionMagicR(climber));
     // xbox_y.whenHeld(new c_runIntakeRetractionMotor(intake));
     // xbox_y.toggleWhenPressed(new c_shootBall(shooter));
     // xbox_y.toggleWhenPressed(new c_rotateAndUpClimb(climber));
@@ -166,10 +171,17 @@ public class RobotContainer {
     // xbox_y.whenHeld(new c_rotateClimbTowardsIntake(climber));
 
     xbox_x = new JoystickButton(controller, XboxController.Button.kX.value);
+    xbox_x.toggleWhenPressed(new c_ArmsGoUpMotionMagicL(climber));
     // xbox_x.toggleWhenPressed(new c_runShooterPID(shooter, 4000));
     // xbox_x.whenHeld(new c_shootBall(shooter));
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
-    xbox_x.whenHeld(new c_changeClimberToCoastMode(climber));
+    // xbox_x.whenHeld(new c_changeClimberToCoastMode(climber));
+
+    xbox_pov_right = new POVButton(controller, 90);
+    xbox_pov_right.toggleWhenPressed(new c_ArmsGoDownMotionMagicR(climber));
+
+    xbox_pov_left = new POVButton(controller, 270);
+    xbox_pov_left.toggleWhenPressed(new c_ArmsGoDownMotionMagicL(climber));
 
     xbox_pov_down = new POVButton(controller, 180);
     xbox_pov_down.whileHeld(new c_robotClimbsUp(climber));
