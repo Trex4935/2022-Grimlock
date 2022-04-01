@@ -161,7 +161,7 @@ public final class Constants {
 
   // Left
   public static final PID climbPidGainsLeft = new PID(0.13372549, 0.01, 1.3372549, 0.047017189);
-  public static final double upPositionLeft = 273137;
+  public static final double upPositionLeft = 253137;
   public static final double downPositionLeft = -100;
   public static final double velocityMotionMagicLeft = 16319;
   public static final double accelMotionMagicLeft = 16319;

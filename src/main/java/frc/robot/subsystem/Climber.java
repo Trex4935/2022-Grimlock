@@ -70,7 +70,7 @@ public class Climber extends SubsystemBase {
         Constants.kTimeoutMs);
     climbMotorRight.configNeutralDeadband(0.001, Constants.kTimeoutMs);
     climbMotorRight.setSensorPhase(false);
-    climbMotorRight.setInverted(false);
+    climbMotorRight.setInverted(true);
     climbMotorRight.setNeutralMode(NeutralMode.Brake);
     climbMotorRight.configOpenloopRamp(1);
 
@@ -105,10 +105,6 @@ public class Climber extends SubsystemBase {
     climbMotorLeft = new WPI_TalonFX(Constants.climbMotorAuxCanID);
     climbMotorLeft.configFactoryDefault();
     climbMotorLeft.setInverted(false);
-
-    // Populate the variables with motor objects with the correct IDs
-    climbMotorLeft = new WPI_TalonFX(Constants.climbMotorCanID);
-    climbMotorLeft.configFactoryDefault();
     climbMotorLeft.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdxClimb,
         Constants.kTimeoutMs);
     climbMotorLeft.configNeutralDeadband(0.001, Constants.kTimeoutMs);
@@ -144,7 +140,17 @@ public class Climber extends SubsystemBase {
   // Stop all of the climb motors
   public void stopAllClimbMotors() {
     climbMotorRight.stopMotor();
-    rotationMotor.stopMotor();
+    climbMotorLeft.stopMotor();
+  }
+
+  // Stop right of the climb motors
+  public void stopRightClimbMotors() {
+    climbMotorRight.stopMotor();
+  }
+
+  // Stop left of the climb motors
+  public void stopLeftClimbMotors() {
+    climbMotorLeft.stopMotor();
   }
 
   // The rotating climber motor movest the arms towards shooter
@@ -162,7 +168,7 @@ public class Climber extends SubsystemBase {
   }
 
   // Climb to up value pos of motion magic
-  public void climbUpMotionMagic() {
+  public void climbDownMotionMagic() {
     // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
     if (getMotorRightBottomLimit()) {
       climbMotorRight.stopMotor();
@@ -176,25 +182,65 @@ public class Climber extends SubsystemBase {
     } else {
       climbMotorLeft.set(TalonFXControlMode.MotionMagic, Constants.downPositionLeft);
     }
-    climbMotorRight.set(TalonFXControlMode.MotionMagic, Constants.upPositionRight);
-    climbMotorLeft.set(TalonFXControlMode.MotionMagic, Constants.upPositionLeft);
     // climbMotorLeft.follow(climbMotorRight, FollowerType.AuxOutput1);
   }
 
-  // Climb to down value pos of motion magic
-  public void climbDownMotionMagic() {
+  // Climb to up value pos of motion magic
+  public void climbDownMotionMagicR() {
     // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
-    if (!atSetPointRight(Constants.upPositionRight)) {
+    if (getMotorRightBottomLimit()) {
       climbMotorRight.stopMotor();
       setEncoderToZeroR();
     } else {
       climbMotorRight.set(TalonFXControlMode.MotionMagic, Constants.downPositionRight);
     }
-    if (!atSetPointLeft(Constants.upPositionLeft)) {
+  }
+
+  // Climb to up value pos of motion magic
+  public void climbDownMotionMagicL() {
+    // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    if (getMotorLeftBottomLimit()) {
       climbMotorLeft.stopMotor();
       setEncoderToZeroL();
     } else {
       climbMotorLeft.set(TalonFXControlMode.MotionMagic, Constants.downPositionLeft);
+    }
+    // climbMotorLeft.follow(climbMotorRight, FollowerType.AuxOutput1);
+  }
+
+  // Climb to down value pos of motion magic
+  public void climbUpMotionMagic() {
+    // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    if (atSetPointRight(Constants.upPositionRight)) {
+      climbMotorRight.stopMotor();
+    } else {
+      climbMotorRight.set(TalonFXControlMode.MotionMagic, Constants.upPositionRight);
+    }
+    if (atSetPointLeft(Constants.upPositionLeft)) {
+      climbMotorLeft.stopMotor();
+    } else {
+      climbMotorLeft.set(TalonFXControlMode.MotionMagic, Constants.upPositionLeft);
+    }
+    // climbMotorLeft.follow(climbMotorRight, FollowerType.AuxOutput1);
+  }
+
+  // Climb to down value pos of motion magic
+  public void climbUpMotionMagicR() {
+    // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    if (atSetPointRight(Constants.upPositionRight)) {
+      climbMotorRight.stopMotor();
+    } else {
+      climbMotorRight.set(TalonFXControlMode.MotionMagic, Constants.upPositionRight);
+    }
+    // climbMotorLeft.follow(climbMotorRight, FollowerType.AuxOutput1);
+  }
+
+  public void climbUpMotionMagicL() {
+    // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    if (atSetPointLeft(Constants.upPositionLeft)) {
+      climbMotorLeft.stopMotor();
+    } else {
+      climbMotorLeft.set(TalonFXControlMode.MotionMagic, Constants.upPositionLeft);
     }
     // climbMotorLeft.follow(climbMotorRight, FollowerType.AuxOutput1);
   }
@@ -229,18 +275,9 @@ public class Climber extends SubsystemBase {
 
   // The climber arms go up
   public void moveClimbArmsUP(double speed) {
-    if (getMotorRightBottomLimit()) {
-      setEncoderToZeroR();
-    }
-    if (getMotorLeftBottomLimit()) {
-      setEncoderToZeroL();
-    }
-    if (getMotorTopLimit()) {
-      climbMotorRight.stopMotor();
-    } else {
-      climbMotorRight.set(speed);
-      climbMotorLeft.set(speed);
-    }
+    climbMotorRight.set(-0.5);
+    climbMotorLeft.set(-0.5);
+
   }
 
   // Sees whether the bottom limit switches are tripped or not (true / false)
@@ -315,7 +352,7 @@ public class Climber extends SubsystemBase {
 
   // Return boolean value if motion magic setpoint is reached
   public boolean atSetPointRight(double setPoint) {
-    boolean atSt = Helper.RangeCompare(10, -10,
+    boolean atSt = Helper.RangeCompare(100, -100,
         climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
     System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
     System.out.println(atSt);
@@ -324,7 +361,7 @@ public class Climber extends SubsystemBase {
 
   // Return boolean value if motion magic setpoint is reached
   public boolean atSetPointLeft(double setPoint) {
-    boolean atSt = Helper.RangeCompare(10, -10,
+    boolean atSt = Helper.RangeCompare(100, -100,
         climbMotorLeft.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
     System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
     System.out.println(atSt);
