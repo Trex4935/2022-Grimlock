@@ -24,7 +24,7 @@
               "Colors/Color when false": "#8B0000FF"
             }
           },
-          "10,2": {
+          "4,6": {
             "size": [
               2,
               1
@@ -70,7 +70,7 @@
               "_title": "Alliance"
             }
           },
-          "8,2": {
+          "4,5": {
             "size": [
               2,
               1
@@ -137,7 +137,7 @@
               "_title": "Target_Ticks"
             }
           },
-          "4,2": {
+          "6,2": {
             "size": [
               2,
               1
@@ -148,7 +148,7 @@
               "_title": "Ball Color"
             }
           },
-          "6,2": {
+          "10,2": {
             "size": [
               2,
               1
@@ -157,19 +157,6 @@
               "_type": "Text View",
               "_source0": "network_table:///SmartDashboard/Ball in top of MAG",
               "_title": "Ball in top of MAG"
-            }
-          },
-          "4,5": {
-            "size": [
-              2,
-              1
-            ],
-            "content": {
-              "_type": "Boolean Box",
-              "_source0": "network_table:///SmartDashboard/Turret Centered",
-              "_title": "Turret Centered",
-              "Colors/Color when true": "#7CFC00FF",
-              "Colors/Color when false": "#8B0000FF"
             }
           },
           "0,3": {
@@ -183,7 +170,6 @@
               "_title": "Autonomous Picker"
             }
           },
-
           "0,0": {
             "size": [
               1,
@@ -235,17 +221,6 @@
             ],
             "content": {
               "_type": "Toggle Switch",
-              "_source0": "network_table:///SmartDashboard/Shoot Low",
-              "_title": "Shoot Low"
-            }
-          },
-          "14,2": {
-            "size": [
-              2,
-              2
-            ],
-            "content": {
-              "_type": "Toggle Button",
               "_source0": "network_table:///SmartDashboard/Shoot Low",
               "_title": "Shoot Low"
             }
@@ -450,6 +425,71 @@
                   "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [2]",
                   "_title": "Talon FX [2]",
                   "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Motor Controller",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Talon FX [22]",
+                  "_title": "Talon FX [22]",
+                  "Visuals/Orientation": "HORIZONTAL"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[15]/Pressure switch",
+                  "_title": "Compressor[15]/Pressure switch",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[1,0]/Value",
+                  "_title": "Solenoid[1,0]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[15]/Enabled",
+                  "_title": "Compressor[15]/Enabled",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DoubleSolenoid[15,0]/Value",
+                  "_title": "DoubleSolenoid[15,0]/Value"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[15,0]/Value",
+                  "_title": "Solenoid[15,0]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Pressure switch",
+                  "_title": "Compressor[0]/Pressure switch",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/DoubleSolenoid[0,0]/Value",
+                  "_title": "DoubleSolenoid[0,0]/Value"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Compressor[0]/Enabled",
+                  "_title": "Compressor[0]/Enabled",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
+                },
+                {
+                  "_type": "Boolean Box",
+                  "_source0": "network_table:///LiveWindow/Ungrouped/Solenoid[0,0]/Value",
+                  "_title": "Solenoid[0,0]/Value",
+                  "Colors/Color when true": "#7CFC00FF",
+                  "Colors/Color when false": "#8B0000FF"
                 }
               ]
             }
@@ -595,10 +635,9 @@
     }
   ],
   "windowGeometry": {
-
-    "x": -1489.0,
-    "y": 242.0,
-    "width": 1380.0,
-    "height": 735.0
+    "x": -7.333333492279053,
+    "y": -7.333333492279053,
+    "width": 1518.6666259765625,
+    "height": 977.3333129882812
   }
 }

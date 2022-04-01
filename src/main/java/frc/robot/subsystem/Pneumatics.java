@@ -15,8 +15,8 @@ public class Pneumatics extends SubsystemBase {
   Compressor compressor;
 
   public Pneumatics() {
-    intakePneumatic = new Solenoid(1, PneumaticsModuleType.REVPH, 0);
-    compressor = new Compressor(15, PneumaticsModuleType.REVPH);
+    intakePneumatic = new Solenoid(0, PneumaticsModuleType.CTREPCM, 0);
+    compressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
     compressor.enableDigital();
 
   }

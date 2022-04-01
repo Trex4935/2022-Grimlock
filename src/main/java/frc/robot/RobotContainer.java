@@ -81,16 +81,18 @@ public class RobotContainer {
 
     //////////////////////////////////////////////////////////////////////////
     // Use during competition and remove "debug code section"
-    // competitionConfiguration();
+    competitionConfiguration();
     //////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////
-    // DEBUG CODE SECTION //
-    if (Constants.testingControlMode) {
-      testConfiguration();
-    } else {
-      competitionConfiguration();
-    }
+    /*
+     * // DEBUG CODE SECTION //
+     * if (Constants.testingControlMode) {
+     * testConfiguration();
+     * } else {
+     * competitionConfiguration();
+     * }
+     */
     //////////////////////////////////////////////////////////////////////////
   }
 
