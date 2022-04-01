@@ -111,11 +111,11 @@ public class RobotContainer {
     ///// CoDriver Controller /////
     // Set the A button
     c_xbox_a = new JoystickButton(coDriverController, XboxController.Button.kA.value);
-    c_xbox_a.toggleWhenPressed(new c_ArmsGoUpMotionMagicL(climber));
+    c_xbox_a.toggleWhenPressed(new c_ArmsGoUpMotionMagic(climber));
 
     // Set the B button
     c_xbox_b = new JoystickButton(coDriverController, XboxController.Button.kB.value);
-    c_xbox_b.toggleWhenPressed(new c_ArmsGoDownMotionMagicL(climber));
+    c_xbox_b.toggleWhenPressed(new c_ArmsGoDownMotionMagic(climber));
 
     // Set the Y button
     // Lower the Robot
