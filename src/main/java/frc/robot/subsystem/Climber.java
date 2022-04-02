@@ -248,13 +248,13 @@ public class Climber extends SubsystemBase {
   // Set Encoders to zero.
   public void setEncoderToZeroR() {
     climbMotorRight.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
 
   } // Set Encoders to zero.
 
   public void setEncoderToZeroL() {
     climbMotorLeft.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-    System.out.println(climbMotorLeft.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
+    // System.out.println(climbMotorLeft.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
   }
 
   // The rotating climber motor moves the arms towards intake
@@ -354,8 +354,9 @@ public class Climber extends SubsystemBase {
   public boolean atSetPointRight(double setPoint) {
     boolean atSt = Helper.RangeCompare(100, -100,
         climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
-    System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
-    System.out.println(atSt);
+    // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb)
+    // - setPoint);
+    // System.out.println(atSt);
     return atSt;
   }
 
@@ -363,8 +364,9 @@ public class Climber extends SubsystemBase {
   public boolean atSetPointLeft(double setPoint) {
     boolean atSt = Helper.RangeCompare(100, -100,
         climbMotorLeft.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
-    System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
-    System.out.println(atSt);
+    // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb)
+    // - setPoint);
+    // System.out.println(atSt);
     return atSt;
   }
 

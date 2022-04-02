@@ -84,25 +84,27 @@ public class RobotContainer {
 
     //////////////////////////////////////////////////////////////////////////
     // Use during competition and remove "debug code section"
-    competitionConfiguration();
+    // competitionConfiguration();
     //////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////
-    /*
-     * // DEBUG CODE SECTION //
-     * if (Constants.testingControlMode) {
-     * testConfiguration();
-     * } else {
-     * competitionConfiguration();
-     * }
-     */
+
+    // DEBUG CODE SECTION //
+    if (Constants.testingControlMode) {
+      testConfiguration();
+    } else {
+      competitionConfiguration();
+    }
+
     //////////////////////////////////////////////////////////////////////////
   }
 
   private void competitionConfiguration() {
     // Setup default drive controls
-    drive.setDefaultCommand(new c_driveWithController(drive, controller, coDriverController));
-    shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret, coDriverController));
+    // drive.setDefaultCommand(new c_driveWithController(drive, controller,
+    // coDriverController));
+    // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
+    // coDriverController));
 
     // Configure the drive button bindings
     configureButtonBindingsCompetitionDriver();
@@ -125,11 +127,11 @@ public class RobotContainer {
     // Set the Y button
     // Lower the Robot
     c_xbox_y = new JoystickButton(coDriverController, XboxController.Button.kY.value);
-    c_xbox_y.toggleWhenPressed(new c_robotClimbsDown(climber).withTimeout(0.75));
+    c_xbox_y.toggleWhenPressed(new c_intakeForward(pneum).withTimeout(0.5));
 
     // Raise and lower the intake
     c_xbox_x = new JoystickButton(coDriverController, XboxController.Button.kX.value);
-    c_xbox_x.toggleWhenPressed(new c_runIntakeRetractionMotor(intake).withTimeout(0.75));
+    c_xbox_x.toggleWhenPressed(new c_intakeReverse(pneum).withTimeout(0.5));
 
     // Turn off the shooting subsystem
     c_xbox_start = new JoystickButton(coDriverController, XboxController.Button.kStart.value);
@@ -148,12 +150,13 @@ public class RobotContainer {
   private void testConfiguration() {
 
     // Setup default drive controls
-    drive.setDefaultCommand(new c_driveWithController(drive, controller, coDriverController));
+    // drive.setDefaultCommand(new c_driveWithController(drive, controller,
+    // coDriverController));
     // turret.setDefaultCommand(new c_aimWithController(turret, controller));
     // intake.setDefaultCommand(new c_runIntakeMotor(intake));
     // intake.setDefaultCommand(new c_runMagazineMotors(intake));
-    shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
-        controller));
+    // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
+    // controller));
 
     // Configure the button bindings
     xbox_a = new JoystickButton(controller, XboxController.Button.kA.value);
@@ -182,11 +185,11 @@ public class RobotContainer {
     // xbox_x.toggleWhenPressed(new c_detectShootingReady(intake, shooter));
     // xbox_x.whenHeld(new c_changeClimberToCoastMode(climber));
 
-    xbox_pov_right = new POVButton(controller, 90);
-    xbox_pov_right.toggleWhenPressed(new c_ArmsGoDownMotionMagicR(climber));
+    // xbox_pov_right = new POVButton(controller, 90);
+    // xbox_pov_right.toggleWhenPressed(new c_ArmsGoDownMotionMagicR(climber));
 
-    xbox_pov_left = new POVButton(controller, 270);
-    xbox_pov_left.toggleWhenPressed(new c_ArmsGoDownMotionMagicL(climber));
+    // xbox_pov_left = new POVButton(controller, 270);
+    // xbox_pov_left.toggleWhenPressed(new c_ArmsGoDownMotionMagicL(climber));
 
     xbox_pov_down = new POVButton(controller, 180);
     xbox_pov_down.whileHeld(new c_robotClimbsUp(climber));
@@ -196,12 +199,12 @@ public class RobotContainer {
 
     xbox_pov_left = new POVButton(controller, 270);
     // LEFT ON CONTROLLER D-PAD
-    xbox_pov_left.whenHeld(new c_intakeReverse(pneum));
+    xbox_pov_left.toggleWhenPressed(new c_intakeReverse(pneum).withTimeout(.5));
     // xbox_pov_left.whileHeld(new c_rotateClimbTowardsShooter(climber));
 
     xbox_pov_right = new POVButton(controller, 90);
     // RIGHT ON CONTROLLER D-PAD
-    xbox_pov_right.whenHeld(new c_intakeForward(pneum));
+    xbox_pov_right.toggleWhenPressed(new c_intakeForward(pneum).withTimeout(.5));
     // xbox_pov_right.whileHeld(new c_rotateClimbTowardsIntake(climber));
 
     // Turn off the shooting subsystem

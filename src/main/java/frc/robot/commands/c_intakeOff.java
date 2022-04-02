@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Pneumatics;
 
 public class c_intakeOff extends CommandBase {
