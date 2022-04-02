@@ -70,10 +70,10 @@ public class RobotContainer {
 
   public RobotContainer() {
 
-    auto1 = new cg_1BallHighAuto(drive);
-    auto2 = new cg_1BallLowAuto(drive);
-    auto3 = new cg_2BallHighAuto(drive);
-    auto4 = new cg_2BallLowAuto(drive);
+    auto1 = new cg_1BallHighAuto(drive, pneum);
+    auto2 = new cg_1BallLowAuto(drive, pneum);
+    auto3 = new cg_2BallHighAuto(drive, pneum);
+    auto4 = new cg_2BallLowAuto(drive, pneum);
 
     // Autonomous Chooser
     AutoRun_Picker.setDefaultOption("1 Ball High Auto Run", auto1);
@@ -84,27 +84,29 @@ public class RobotContainer {
 
     //////////////////////////////////////////////////////////////////////////
     // Use during competition and remove "debug code section"
-    // competitionConfiguration();
+    competitionConfiguration();
     //////////////////////////////////////////////////////////////////////////
 
     //////////////////////////////////////////////////////////////////////////
 
     // DEBUG CODE SECTION //
-    if (Constants.testingControlMode) {
-      testConfiguration();
-    } else {
-      competitionConfiguration();
-    }
+    /*
+     * if (Constants.testingControlMode) {
+     * testConfiguration();
+     * } else {
+     * competitionConfiguration();
+     * }
+     */
 
     //////////////////////////////////////////////////////////////////////////
   }
 
   private void competitionConfiguration() {
     // Setup default drive controls
-    // drive.setDefaultCommand(new c_driveWithController(drive, controller,
-    // coDriverController));
-    // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
-    // coDriverController));
+    drive.setDefaultCommand(new c_driveWithController(drive, controller,
+        coDriverController));
+    shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
+        coDriverController));
 
     // Configure the drive button bindings
     configureButtonBindingsCompetitionDriver();
@@ -125,17 +127,25 @@ public class RobotContainer {
     c_xbox_b.toggleWhenPressed(new c_ArmsGoDownMotionMagic(climber));
 
     // Set the Y button
-    // Lower the Robot
+    // Bring the intake UP (retract it)
     c_xbox_y = new JoystickButton(coDriverController, XboxController.Button.kY.value);
     c_xbox_y.toggleWhenPressed(new c_intakeForward(pneum).withTimeout(0.5));
 
-    // Raise and lower the intake
+    // Release pressure
     c_xbox_x = new JoystickButton(coDriverController, XboxController.Button.kX.value);
     c_xbox_x.toggleWhenPressed(new c_intakeReverse(pneum).withTimeout(0.5));
 
     // Turn off the shooting subsystem
     c_xbox_start = new JoystickButton(coDriverController, XboxController.Button.kStart.value);
     c_xbox_start.whenPressed(new c_flipshootingSubsystemOn());
+
+    // Bring climbers down manually
+    xbox_pov_down = new POVButton(controller, 180);
+    xbox_pov_down.whileHeld(new c_robotClimbsDown(climber));
+
+    // Bring climbers down manually
+    xbox_pov_up = new POVButton(controller, 0);
+    xbox_pov_up.whileHeld(new c_robotClimbsUp(climber));
   }
 
   private void configureButtonBindingsCompetitionDriver() {

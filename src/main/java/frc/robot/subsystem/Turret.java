@@ -17,7 +17,7 @@ import frc.robot.extensions.SmartDebug;
 public class Turret extends SubsystemBase {
 
   // PID
-  PIDController turretPID = new PIDController(0.06, 0.0, 0);
+  PIDController turretPID = new PIDController(0.03, 0.0, 0);
 
   // Motors
   PWMSparkMax turretRotation;

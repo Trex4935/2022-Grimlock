@@ -267,7 +267,7 @@ public class Shooter extends SubsystemBase {
     // 13ft = 3000 rpm
     // 15.5 = 3500 rpm
     // RPM = y = 0.1076x2 - 20.291x + 3549.8
-    return (0.1076 * (distance * distance)) - (20.291 * distance) + 3549.8 + getShooterAdjust();
+    return (0.1076 * (distance * distance)) - (20.291 * distance) + 4049.8 + getShooterAdjust();
   }
 
   public void shooting() {

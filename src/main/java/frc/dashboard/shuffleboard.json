@@ -203,17 +203,6 @@
               "_title": "limelight_Stream"
             }
           },
-          "3,0": {
-            "size": [
-              1,
-              1
-            ],
-            "content": {
-              "_type": "Text View",
-              "_source0": "network_table:///SmartDashboard/Shooter Adjust",
-              "_title": "Shooter Adjust"
-            }
-          },
           "0,7": {
             "size": [
               2,
@@ -223,6 +212,21 @@
               "_type": "Toggle Switch",
               "_source0": "network_table:///SmartDashboard/Shoot Low",
               "_title": "Shoot Low"
+            }
+          },
+          "6,8": {
+            "size": [
+              6,
+              2
+            ],
+            "content": {
+              "_type": "Number Slider",
+              "_source0": "network_table:///SmartDashboard/Shooter Adjust",
+              "_title": "Shooter Adjust",
+              "Slider Settings/Min": -500.0,
+              "Slider Settings/Max": 500.0,
+              "Slider Settings/Block increment": 25.0,
+              "Visuals/Display value": true
             }
           }
         }
