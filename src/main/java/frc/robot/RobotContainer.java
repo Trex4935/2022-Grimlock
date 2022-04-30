@@ -141,11 +141,11 @@ public class RobotContainer {
 
     // Bring climbers down manually
     xbox_pov_down = new POVButton(controller, 180);
-    xbox_pov_down.whileHeld(new c_robotClimbsDown(climber));
+    xbox_pov_down.whileHeld(new c_robotClimbsUp(climber));
 
     // Bring climbers down manually
     xbox_pov_up = new POVButton(controller, 0);
-    xbox_pov_up.whileHeld(new c_robotClimbsUp(climber));
+    xbox_pov_up.whileHeld(new c_robotClimbsDown(climber));
   }
 
   private void configureButtonBindingsCompetitionDriver() {

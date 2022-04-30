@@ -274,9 +274,9 @@ public class Climber extends SubsystemBase {
   }
 
   // The climber arms go up
-  public void moveClimbArmsUP(double speed) {
-    climbMotorRight.set(-0.5);
-    climbMotorLeft.set(-0.5);
+  public void moveClimbArmsUP() {
+    climbMotorRight.set(0.5);
+    climbMotorLeft.set(0.5);
 
   }
 
@@ -331,17 +331,18 @@ public class Climber extends SubsystemBase {
   // inverse if its the wrong way?)
   // then prints what POV direction was pressed
   public void moveClimbArmsDown() {
-    if (getMotorRightBottomLimit()) {
-      climbMotorRight.stopMotor();
-      setEncoderToZeroR();
-    }
-    if (getMotorLeftBottomLimit()) {
+    if (leftClimberMagLimitBottom.get()) {
       climbMotorLeft.stopMotor();
-      setEncoderToZeroL();
     } else {
-      climbMotorRight.set(-Constants.climbMotorSpeed);
-      climbMotorLeft.set(-Constants.climbMotorSpeed);
+      climbMotorLeft.set(-0.5);
     }
+    if (rightClimberMagLimitBottom.get()) {
+      climbMotorRight.stopMotor();
+    } else {
+      climbMotorRight.set(-
+      0.5);
+    }
+
   }
 
   // Stops the default climber motor

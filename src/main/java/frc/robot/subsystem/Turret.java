@@ -125,7 +125,7 @@ public class Turret extends SubsystemBase {
       turretRotation.stopMotor();
     } else {
       // Divide input by 10 to get a max of 0.1
-      turretRotation.set((triggerValue) * 0.8);
+      turretRotation.set((triggerValue) * 0.7);
 
     }
 

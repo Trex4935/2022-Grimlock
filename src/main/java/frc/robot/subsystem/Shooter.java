@@ -187,10 +187,10 @@ public class Shooter extends SubsystemBase {
       switch (color) {
         case NONE:
           SmartDebug.putDouble("Target RPM", Constants.shooterIdleSpeed);
-          return Constants.shooterIdleSpeed;
+          return rpmtoTicks(Constants.shooterIdleSpeed);
         default:
           double speed = allianceSpeed(color, distance);
-          SmartDebug.putDouble("Target RPM", speed);
+          SmartDebug.putDouble("Target RPM", tickstoRPM(speed));
           return speed;
       }
 
@@ -238,23 +238,20 @@ public class Shooter extends SubsystemBase {
   // determine the shooter speed based on distance ball color and alliance
   private double allianceSpeed(BallColor color, double distance) {
     // if we are shooting low color doesn't matter just return the low ball color
-    if (Constants.shootingLow) {
+
+    // Red & Red == speed by distance
+    if (color == BallColor.RED && DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+      Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
+      return rpmtoTicks(Constants.shooterIdleSpeed);
+    }
+    // Blue & Blue == speed by distance
+    else if (color == BallColor.BLUE && DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+      Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
+      return rpmtoTicks(Constants.shooterIdleSpeed);
+    }
+    // all other cases low speed shot!
+    else {
       return rpmtoTicks(Constants.shooterLowSpeed);
-    } else {
-      // Red & Red == speed by distance
-      if (color == BallColor.RED && DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-        Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
-        return rpmtoTicks(Constants.shooterIdleSpeed);
-      }
-      // Blue & Blue == speed by distance
-      else if (color == BallColor.BLUE && DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-        Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
-        return rpmtoTicks(Constants.shooterIdleSpeed);
-      }
-      // all other cases low speed shot!
-      else {
-        return rpmtoTicks(Constants.shooterLowSpeed);
-      }
     }
   }
 
@@ -270,7 +267,7 @@ public class Shooter extends SubsystemBase {
     // 13ft = 3000 rpm
     // 15.5 = 3500 rpm
     // RPM = y = 0.1076x2 - 20.291x + 3549.8
-    return (0.1076 * (distance * distance)) - (20.291 * distance) + 4049.8 + getShooterAdjust();
+    return (0.1076 * (distance * distance)) - (20.291 * distance) + 3549.8 + getShooterAdjust();
   }
 
   public void shooting() {

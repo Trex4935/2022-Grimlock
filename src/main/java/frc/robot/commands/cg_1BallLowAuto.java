@@ -18,7 +18,7 @@ public class cg_1BallLowAuto extends SequentialCommandGroup {
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
                 new c_forceShoot().withTimeout(4),
-                new ca_moveForwardInches(drive, 130, .50),
+                new ca_moveForwardInches(drive, 158, .15),
                 new ca_jerkIntake(drive, pneum));
 
         // START PARKED IN FRONT OF THE TARGET AND SHOOT.
