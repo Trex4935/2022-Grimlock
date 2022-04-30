@@ -196,7 +196,7 @@ public final class Constants {
 
   // Shooter speeds
   public static double shooterIdleSpeed = 2000;
-  public static final double shooterLowSpeed = 1500;
+  public static final double shooterLowSpeed = 2000;
   public static final double shooterRange = 200;
 
   public static final int maximumShootDistance = 180;

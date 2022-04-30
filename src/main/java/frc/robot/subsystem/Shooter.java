@@ -161,8 +161,11 @@ public class Shooter extends SubsystemBase {
     // shoot
     else if (color == BallColor.RED && allianceColor == DriverStation.Alliance.Red
         || color == BallColor.BLUE && allianceColor == DriverStation.Alliance.Blue) {
-      return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance)
-          || Constants.forceShoot);
+      return Constants.forceShoot;
+
+      // // (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) &&
+      // // atDistance(distance)
+      // // || Constants.forceShoot);
     }
     // all other cases low speed shot as soon as the shooter is ready
     else {
