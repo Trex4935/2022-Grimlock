@@ -23,7 +23,7 @@ public final class Constants {
 
   ///////////////////////////////////
   ////////////////////////
-  public static final boolean testingControlMode = true;
+  public static final boolean testingControlMode = false;
   // public static final String controlMode = "Testing";
   ///////////////////////////////////////////////////////////
 
@@ -196,11 +196,11 @@ public final class Constants {
 
   // Shooter speeds
   public static double shooterIdleSpeed = 2000;
-  public static final double shooterLowSpeed = 1000;
+  public static final double shooterLowSpeed = 2000;
   public static final double shooterRange = 200;
 
   public static final int maximumShootDistance = 180;
-  public static final int minimumShootDistance = 100;
+  public static final int minimumShootDistance = 110;
 
   public static final boolean shootingLow = false;
 

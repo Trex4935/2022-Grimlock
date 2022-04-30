@@ -26,7 +26,7 @@ public class c_robotClimbsDown extends CommandBase {
   @Override
   public void execute() {
 
-    climber.moveClimbArmsUP(0.3);
+    climber.moveClimbArmsUP();
 
   }
 

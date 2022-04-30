@@ -161,8 +161,11 @@ public class Shooter extends SubsystemBase {
     // shoot
     else if (color == BallColor.RED && allianceColor == DriverStation.Alliance.Red
         || color == BallColor.BLUE && allianceColor == DriverStation.Alliance.Blue) {
-      return (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) && atDistance(distance)
-          || Constants.forceShoot);
+      return Constants.forceShoot;
+
+      // // (Limelight.getLimelightA() && shooterAtSpeed(targetTicks, color) &&
+      // // atDistance(distance)
+      // // || Constants.forceShoot);
     }
     // all other cases low speed shot as soon as the shooter is ready
     else {
@@ -184,10 +187,10 @@ public class Shooter extends SubsystemBase {
       switch (color) {
         case NONE:
           SmartDebug.putDouble("Target RPM", Constants.shooterIdleSpeed);
-          return Constants.shooterIdleSpeed;
+          return rpmtoTicks(Constants.shooterIdleSpeed);
         default:
           double speed = allianceSpeed(color, distance);
-          SmartDebug.putDouble("Target RPM", speed);
+          SmartDebug.putDouble("Target RPM", tickstoRPM(speed));
           return speed;
       }
 
@@ -235,23 +238,20 @@ public class Shooter extends SubsystemBase {
   // determine the shooter speed based on distance ball color and alliance
   private double allianceSpeed(BallColor color, double distance) {
     // if we are shooting low color doesn't matter just return the low ball color
-    if (Constants.shootingLow) {
+
+    // Red & Red == speed by distance
+    if (color == BallColor.RED && DriverStation.getAlliance() == DriverStation.Alliance.Red) {
+      Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
+      return rpmtoTicks(Constants.shooterIdleSpeed);
+    }
+    // Blue & Blue == speed by distance
+    else if (color == BallColor.BLUE && DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
+      Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
+      return rpmtoTicks(Constants.shooterIdleSpeed);
+    }
+    // all other cases low speed shot!
+    else {
       return rpmtoTicks(Constants.shooterLowSpeed);
-    } else {
-      // Red & Red == speed by distance
-      if (color == BallColor.RED && DriverStation.getAlliance() == DriverStation.Alliance.Red) {
-        Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
-        return rpmtoTicks(Constants.shooterIdleSpeed);
-      }
-      // Blue & Blue == speed by distance
-      else if (color == BallColor.BLUE && DriverStation.getAlliance() == DriverStation.Alliance.Blue) {
-        Constants.shooterIdleSpeed = getSpeedSetPoint(distance);
-        return rpmtoTicks(Constants.shooterIdleSpeed);
-      }
-      // all other cases low speed shot!
-      else {
-        return rpmtoTicks(Constants.shooterLowSpeed);
-      }
     }
   }
 

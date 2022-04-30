@@ -5,19 +5,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystem.Drivetrain;
+import frc.robot.subsystem.Pneumatics;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ca_jerkIntake extends SequentialCommandGroup {
     /** Creates a new cg_autoOne. */
-    public ca_jerkIntake(Drivetrain drive) {
+    public ca_jerkIntake(Drivetrain drive, Pneumatics pneum) {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
-                new ca_moveForwardInches(drive, 10, .30),
-                new ca_moveForwardInches(drive, -5, -.50));
+                new c_intakeReverse(pneum).withTimeout(0.1),
+                new ca_moveForwardInches(drive, -10, -.25),
+                new ca_moveForwardInches(drive, 5, .75),
+                new WaitCommand(3));
 
         // new c_driveStraightAuto(drive).withTimeout(0.5), --move backwards
         // new WaitCommand(1), --drop intake

@@ -17,7 +17,7 @@ import frc.robot.extensions.SmartDebug;
 public class Turret extends SubsystemBase {
 
   // PID
-  PIDController turretPID = new PIDController(0.06, 0.0, 0);
+  PIDController turretPID = new PIDController(0.03, 0.0, 0);
 
   // Motors
   PWMSparkMax turretRotation;
@@ -125,7 +125,7 @@ public class Turret extends SubsystemBase {
       turretRotation.stopMotor();
     } else {
       // Divide input by 10 to get a max of 0.1
-      turretRotation.set((triggerValue) * 0.8);
+      turretRotation.set((triggerValue) * 0.7);
 
     }
 
