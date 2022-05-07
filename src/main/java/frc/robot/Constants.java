@@ -196,7 +196,7 @@ public final class Constants {
   public static int kPIDLoopIdx = 0;
 
   // Shooter speeds
-  public static double shooterIdleSpeed = 2000;
+  public static double shooterTargetSpeed = 2000;
   public static final double shooterLowSpeed = 2000;
   public static final double shooterRange = 200;
 
