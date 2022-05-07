@@ -48,14 +48,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
-    // Stop all recordings
-    Shuffleboard.addEventMarker("State", "DISABLED", EventImportance.kHigh);
-    Shuffleboard.stopRecording();
 
   }
 
   @Override
   public void disabledPeriodic() {
+    // Stop all recordings
+    Shuffleboard.addEventMarker("State", "DISABLED", EventImportance.kHigh);
+    Shuffleboard.stopRecording();
   }
 
   /**
@@ -64,16 +64,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
 
     // Start a shuffleboard recording if one isn't running
     Shuffleboard.startRecording();
     Shuffleboard.addEventMarker("State", "AUTO", EventImportance.kHigh);
 
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
   }
 
   @Override

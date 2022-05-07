@@ -4,7 +4,6 @@
 
 package frc.robot.subsystem;
 
-// Imports
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.XboxController;
@@ -14,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.SmartDebug;
 import edu.wpi.first.wpilibj.SPI;
+import frc.robot.extensions.Falcon;
 
 public class Drivetrain extends SubsystemBase {
 
@@ -23,15 +23,9 @@ public class Drivetrain extends SubsystemBase {
   WPI_TalonFX rightFront;
   WPI_TalonFX rightBack;
 
-  // Look at the front of the robot and then rotate the robot 90 degrees clockwise
-  // to determine middle left and right
-  // WPI_TalonFX middleLeft;
-  // WPI_TalonFX middleRight;
-
   // Declaring motor groups
   MotorControllerGroup rightMotorGroup;
   MotorControllerGroup leftMotorGroup;
-  // MotorControllerGroup centerMotorGroup;
 
   // Gyro
   public static AHRS ahrs;
@@ -42,36 +36,14 @@ public class Drivetrain extends SubsystemBase {
   public Drivetrain() {
 
     // Creating Motor Objects
-    leftFront = new WPI_TalonFX(Constants.leftFrontCanID);
-    leftBack = new WPI_TalonFX(Constants.leftBackCanID);
-    rightFront = new WPI_TalonFX(Constants.rightFrontCanID);
-    rightBack = new WPI_TalonFX(Constants.rightBackCanID);
+    leftFront = Falcon.createDefaultFalcon(Constants.leftFrontCanID);
+    leftBack = Falcon.createDefaultFalcon(Constants.leftBackCanID);
+    rightFront = Falcon.createDefaultFalcon(Constants.rightFrontCanID);
+    rightBack = Falcon.createDefaultFalcon(Constants.rightBackCanID);
 
     // Creating Motor Groups
     rightMotorGroup = new MotorControllerGroup(rightFront, rightBack);
     leftMotorGroup = new MotorControllerGroup(leftFront, leftBack);
-
-    // set all motors to factory default to avoid possible config issues
-    leftFront.configFactoryDefault();
-    leftBack.configFactoryDefault();
-    rightFront.configFactoryDefault();
-    rightBack.configFactoryDefault();
-
-    // Invert motors as needed
-    leftMotorGroup.setInverted(false);
-    rightMotorGroup.setInverted(false);
-
-    // Ramp speeds, how fast the motors take to get to full speed
-    leftFront.configOpenloopRamp(Constants.outsideRampLimiter);
-    leftBack.configOpenloopRamp(Constants.outsideRampLimiter);
-    rightFront.configOpenloopRamp(Constants.outsideRampLimiter);
-    rightBack.configOpenloopRamp(Constants.outsideRampLimiter);
-
-    // Set brake mode
-    leftFront.setNeutralMode(Constants.outsideBrakeMode);
-    leftBack.setNeutralMode(Constants.outsideBrakeMode);
-    rightFront.setNeutralMode(Constants.outsideBrakeMode);
-    rightBack.setNeutralMode(Constants.outsideBrakeMode);
 
     // Creating Drive Object
     drive = new DifferentialDrive(leftMotorGroup, rightMotorGroup);

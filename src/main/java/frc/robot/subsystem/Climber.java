@@ -7,7 +7,6 @@
 //   right side of robot - 8 + 9
 package frc.robot.subsystem;
 
-import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 // Imports
 import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
@@ -17,7 +16,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.Helper;
-import frc.robot.extensions.SmartDebug;
 import frc.robot.extensions.FlippedDIO;
 
 public class Climber extends SubsystemBase {
@@ -339,8 +337,7 @@ public class Climber extends SubsystemBase {
     if (rightClimberMagLimitBottom.get()) {
       climbMotorRight.stopMotor();
     } else {
-      climbMotorRight.set(-
-      0.5);
+      climbMotorRight.set(-0.5);
     }
 
   }
