@@ -5,9 +5,6 @@
 package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -18,6 +15,7 @@ import frc.robot.extensions.BallColor;
 import frc.robot.extensions.Helper;
 import frc.robot.extensions.Limelight;
 import frc.robot.extensions.SmartDebug;
+import frc.robot.extensions.Falcon;
 
 public class Shooter extends SubsystemBase {
 
@@ -27,12 +25,10 @@ public class Shooter extends SubsystemBase {
   // ** Creates a new Shooter. */
   public Shooter() {
     // Setup the shooter motor
-    shooterMotor = new WPI_TalonFX(Constants.shooterMotorCanID);
+    shooterMotor = Falcon.createDefaultFalcon(Constants.shooterMotorCanID);
+    shooterMotor = Falcon.configurePID(shooterMotor, 0.25, 0, 0, 0.043);
     shooterMotor.setInverted(true);
 
-    // Setup shooter configuration
-    TalonFXConfiguration config = new TalonFXConfiguration();
-    initMotorController(config);
   }
 
   private boolean getHighLowShooting() {
@@ -42,37 +38,6 @@ public class Shooter extends SubsystemBase {
 
   private double getShooterAdjust() {
     return NetworkTableInstance.getDefault().getTable("SmartDashboard").getEntry("Shooter Adjust").getDouble(0.0);
-  }
-
-  private void initMotorController(TalonFXConfiguration config) {
-
-    // Config default settings for the motor
-    shooterMotor.configFactoryDefault();
-
-    // Set motor brake mode
-    shooterMotor.setNeutralMode(NeutralMode.Brake);
-
-    // Set motor limits
-    //// normal output forward and reverse = 0% ... i.e. stopped
-    shooterMotor.configNominalOutputForward(0, Constants.kTimeoutMs);
-    shooterMotor.configNominalOutputReverse(0, Constants.kTimeoutMs);
-
-    //// Max output forward and reverse = 100%
-    shooterMotor.configPeakOutputForward(1, Constants.kTimeoutMs);
-    shooterMotor.configPeakOutputReverse(-1, Constants.kTimeoutMs);
-
-    // PID configs
-    // setting up the pid
-    shooterMotor.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, Constants.kPIDLoopIdx,
-        Constants.kTimeoutMs);
-
-    // Set kP(proportional); kI(Integral); kD(differential); kF(FeedForward)
-    shooterMotor.config_kP(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkP(), Constants.kTimeoutMs);
-    shooterMotor.config_kI(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkI(), Constants.kTimeoutMs);
-    shooterMotor.config_kD(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkD(), Constants.kTimeoutMs);
-    shooterMotor.config_kF(Constants.kPIDLoopIdx, Constants.kGains_Velocity_Shooter.getkF(), Constants.kTimeoutMs);
-
-    shooterMotor.config_IntegralZone(Constants.kPIDLoopIdx, 0, Constants.kTimeoutMs);
   }
 
   // converts the ticks to RPM values

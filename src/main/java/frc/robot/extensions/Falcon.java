@@ -10,10 +10,27 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 /** Add your docs here. */
 public class Falcon {
 
+    private static final int kTimeout = 20;
+
     public static class DefaultConfiguration {
+
+        // Set Motor Brake mode
         public NeutralMode neutralMode = NeutralMode.Brake;
+
+        // Input dead band
         public double neutralDeadband = 0.04;
+
+        // Motor ramp when using open loop
         public double openLoopRamp = 0.75;
+
+        // Set motor limits
+        //// normal output forward and reverse = 0% ... i.e. stopped
+        public double nominalOutputForward = 0;
+        public double nominalOutputReverse = 0;
+
+        //// Max output forward and reverse = 100%
+        public double peakOutputForward = 1;
+        public double peakOutputReverse = -1;
 
     }
 
@@ -32,6 +49,12 @@ public class Falcon {
         talon.setNeutralMode(config.neutralMode);
         talon.configOpenloopRamp(config.openLoopRamp);
 
+        talon.configNominalOutputForward(config.nominalOutputForward);
+        talon.configNominalOutputReverse(config.nominalOutputReverse);
+
+        talon.configPeakOutputForward(config.peakOutputForward);
+        talon.configPeakOutputReverse(config.peakOutputReverse);
+
         // What do these mean????
         // talon.configSupplyCurrentLimit(new
         // SupplyCurrentLimitConfiguration(config.ENABLE_SUPPLY_CURRENT_LIMIT, 20, 60,
@@ -42,5 +65,21 @@ public class Falcon {
 
         // Return the configured motor object
         return talon;
+    }
+
+    public static WPI_TalonFX configurePID(WPI_TalonFX motorObject, double kP, double kI, double kD, double kF) {
+
+        // PID configs
+        // setting up the pid
+        motorObject.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0, kTimeout);
+        // Set kP(proportional); kI(Integral); kD(differential); kF(FeedForward)
+        motorObject.config_kP(0, kP, kTimeout);
+        motorObject.config_kI(0, kI, kTimeout);
+        motorObject.config_kD(0, kD, kTimeout);
+        motorObject.config_kF(0, kF, kTimeout);
+
+        motorObject.config_IntegralZone(0, 0, kTimeout);
+
+        return motorObject;
     }
 }
