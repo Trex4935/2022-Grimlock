@@ -24,6 +24,7 @@ import frc.robot.commands.cg_1BallHighAuto;
 import frc.robot.commands.cg_1BallLowAuto;
 import frc.robot.commands.cg_2BallHighAuto;
 import frc.robot.commands.cg_2BallLowAuto;
+import frc.robot.extensions.SmartDebug;
 import frc.robot.extensions.rightTriggerBool;
 import frc.robot.subsystem.Climber;
 import frc.robot.subsystem.Drivetrain;
@@ -56,6 +57,7 @@ public class RobotContainer {
 
   // SendableChooser to pick automomous runs
   SendableChooser<Command> AutoRun_Picker = new SendableChooser<>();
+  SendableChooser<String> LED_Picker = new SendableChooser<>();
 
   // Auto configuration
   private cg_1BallHighAuto auto1;
@@ -70,12 +72,33 @@ public class RobotContainer {
     auto3 = new cg_2BallHighAuto(drive, pneum);
     auto4 = new cg_2BallLowAuto(drive, pneum);
 
+    String led_white = new String ("white");
+    String led_red = new String ("red");
+    String led_blue = new String ("blue");
+    String led_green = new String ("green");
+    String led_blink = new String ("blink");
+    String led_unblink = new String ("unblink");
+    String led_off = new String ("off");
+    String led_exit = new String ("exit");
+    String led_startup = new String("startup");
+
     // Autonomous Chooser
     AutoRun_Picker.setDefaultOption("1 Ball High Auto Run", auto1);
     AutoRun_Picker.addOption("1 Ball Low Auto Run", auto2);
     AutoRun_Picker.addOption("2 Ball High Auto Run", auto3);
     AutoRun_Picker.addOption("2 Ball Low Auto Run", auto4);
     SmartDashboard.putData(AutoRun_Picker);
+
+    LED_Picker.setDefaultOption("Startup", led_startup);
+    LED_Picker.addOption("White", led_white);
+    LED_Picker.addOption("Red", led_red);
+    LED_Picker.addOption("Blue", led_blue);
+    LED_Picker.addOption("Green", led_green);
+    LED_Picker.addOption("Blink", led_blink);
+    LED_Picker.addOption("UnBlink", led_unblink);
+    LED_Picker.addOption("Off", led_off);
+    LED_Picker.addOption("Exit", led_exit);
+    SmartDashboard.putData("LED_Picker", LED_Picker);
 
     //////////////////////////////////////////////////////////////////////////
     // Use during competition and remove "debug code section"
