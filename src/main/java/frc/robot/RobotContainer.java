@@ -87,8 +87,8 @@ public class RobotContainer {
     // Setup default drive controls
     drive.setDefaultCommand(new c_driveWithController(drive, controller,
         coDriverController));
-    shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
-        coDriverController));
+    // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
+    // coDriverController));
 
     // Configure the CO_Driver Controller
     Controller_Co_Driver.configCoDriverController(coDriverController, pneum, climber);

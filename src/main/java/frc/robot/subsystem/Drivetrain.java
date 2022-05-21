@@ -74,6 +74,7 @@ public class Drivetrain extends SubsystemBase {
 
     // setup the arcade drive
     drive.arcadeDrive(getRotationAxis(controller), getLogitudinalAxis(controller));
+    drive.setMaxOutput(Constants.driveSpeedLimit);
 
     // Make sure we aren't in an overtemp condition
     driveOverTempProtection();
@@ -125,7 +126,7 @@ public class Drivetrain extends SubsystemBase {
   private double getLogitudinalAxis(XboxController controller) {
 
     // Axis value * translational speed limiter
-    return controller.getRawAxis(Constants.leftVertical) * Constants.driveSpeedLimit;
+    return controller.getRawAxis(Constants.leftVertical);
   }
 
   // stop the outside four drive motors

@@ -48,7 +48,7 @@ public final class Constants {
   public static final double driveSpeedLimitHot = 0.25;
   public static double driveSpeedLimit = Constants.driveSpeedlimitDefault;
 
-  public static final double rotationSpeedLimitDefault = 0.6;
+  public static final double rotationSpeedLimitDefault = 0.8;
   public static final double rotationSpeedLimitHot = 0.25;
   public static double rotationSpeedLimit = Constants.rotationSpeedLimitDefault;
 
