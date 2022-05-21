@@ -4,14 +4,15 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystem.Pneumatics;
 
-public class c_intakeForward extends CommandBase {
+public class c_intakeExtended extends CommandBase {
   private final Pneumatics pneumatics;
 
   /** Creates a new c_rotateAndUpClimb. */
-  public c_intakeForward(Pneumatics pn) {
+  public c_intakeExtended(Pneumatics pn) {
     // Use addRequirements() here to declare subsystem dependencies.
     pneumatics = pn;
     addRequirements(pneumatics);
@@ -25,7 +26,9 @@ public class c_intakeForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pneumatics.intakeForward();
+    pneumatics.intakeReverse();
+    SmartDashboard.putBoolean("Intake Extended", false);
+
   }
 
   // Called once the command ends or is interrupted.

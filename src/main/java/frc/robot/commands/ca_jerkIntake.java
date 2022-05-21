@@ -18,7 +18,7 @@ public class ca_jerkIntake extends SequentialCommandGroup {
         // Add your commands in the addCommands() call, e.g.
         // addCommands(new FooCommand(), new BarCommand());
         addCommands(
-                new c_intakeReverse(pneum).withTimeout(0.1),
+                new c_intakeExtended(pneum).withTimeout(0.1),
                 new ca_moveForwardInches(drive, -10, -.25),
                 new ca_moveForwardInches(drive, 5, .75),
                 new WaitCommand(3));

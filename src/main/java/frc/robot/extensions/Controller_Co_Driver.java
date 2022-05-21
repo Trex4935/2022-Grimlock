@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.a_Default;
 import frc.robot.commands.c_flipshootingSubsystemOn;
 import frc.robot.commands.c_forceShoot;
-import frc.robot.commands.c_intakeForward;
-import frc.robot.commands.c_intakeReverse;
+import frc.robot.commands.c_intakeRetracted;
+import frc.robot.commands.c_intakeExtended;
 import frc.robot.commands.c_robotClimbsDown;
 import frc.robot.commands.c_robotClimbsUp;
 import frc.robot.subsystem.Climber;
@@ -33,11 +33,11 @@ public class Controller_Co_Driver {
 
         // X
         new JoystickButton(controller, Button.kX.value)
-                .toggleWhenPressed(new c_intakeReverse(pneum).withTimeout(0.5));
+                .toggleWhenPressed(new c_intakeExtended(pneum).withTimeout(0.5));
 
         // Y
         new JoystickButton(controller, Button.kY.value)
-                .toggleWhenPressed(new c_intakeForward(pneum).withTimeout(0.5));
+                .toggleWhenPressed(new c_intakeRetracted(pneum).withTimeout(0.5));
 
         // Start
         new JoystickButton(controller, Button.kStart.value)
