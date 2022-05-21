@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.a_Default;
 
 /** Add your docs here. */
-public class TestController {
+public class Controller_Test {
 
         public static void configTestController(XboxController controller) {
 
