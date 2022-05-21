@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
-import frc.robot.commands.c_Default;
+import frc.robot.commands.a_Default;
 import frc.robot.commands.c_detectShootingReady;
 import frc.robot.commands.c_driveWithController;
 import frc.robot.commands.c_flipshootingSubsystemOn;
@@ -76,12 +76,23 @@ public class RobotContainer {
     AutoRun_Picker.addOption("2 Ball Low Auto Run", auto4);
     SmartDashboard.putData(AutoRun_Picker);
 
-    if (competition == true) {
-      TestController.configTestController(controller);
-    } else {
+    if (competition) {
       competitionConfiguration();
+    } else {
+      testingConfiguration();
     }
 
+  }
+
+  private void testingConfiguration() {
+    // Setup default drive controls
+    // drive.setDefaultCommand(new c_driveWithController(drive, controller,
+    // coDriverController));
+    // shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
+    // coDriverController));
+
+    // Setup controller
+    TestController.configTestController(controller);
   }
 
   private void competitionConfiguration() {
@@ -103,11 +114,11 @@ public class RobotContainer {
     ///// CoDriver Controller /////
     // Set the A button
     c_xbox_a = new JoystickButton(coDriverController, XboxController.Button.kA.value);
-    c_xbox_a.whenPressed(new c_Default());
+    c_xbox_a.whenPressed(new a_Default());
 
     // Set the B button
     c_xbox_b = new JoystickButton(coDriverController, XboxController.Button.kB.value);
-    c_xbox_b.whenPressed(new c_Default());
+    c_xbox_b.whenPressed(new a_Default());
 
     // Set the Y button
     // Bring the intake UP (retract it)
