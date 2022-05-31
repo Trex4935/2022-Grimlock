@@ -27,7 +27,7 @@ import frc.robot.extensions.Controller_Test;
 public class RobotContainer {
 
   ///////////////////////
-  private boolean competition = true;
+  private boolean competition = false;
 
   // Declare Subsystems
   private final Drivetrain drive = new Drivetrain();
@@ -80,7 +80,7 @@ public class RobotContainer {
         coDriverController));
 
     // Setup controller
-    Controller_Test.configTestController(controller);
+    Controller_Test.configTestController(controller, climber);
   }
 
   private void competitionConfiguration() {

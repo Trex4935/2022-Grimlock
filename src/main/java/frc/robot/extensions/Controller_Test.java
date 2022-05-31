@@ -9,19 +9,25 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.a_Default;
+import frc.robot.commands.c_ArmsGoDownMotionMagic;
+import frc.robot.commands.c_ArmsGoUpMotionMagic;
+import frc.robot.commands.c_flipshootingSubsystemOn;
+import frc.robot.commands.c_robotClimbsDown;
+import frc.robot.commands.c_robotClimbsUp;
+import frc.robot.subsystem.Climber;
 
 /** Add your docs here. */
 public class Controller_Test {
 
-        public static void configTestController(XboxController controller) {
+        public static void configTestController(XboxController controller, Climber climber) {
 
                 // A
                 new JoystickButton(controller, Button.kA.value)
-                                .whenHeld(new a_Default());
+                                .whenPressed(new c_ArmsGoDownMotionMagic(climber));
 
                 // B
                 new JoystickButton(controller, Button.kB.value)
-                                .whenHeld(new a_Default());
+                                .whenPressed(new c_ArmsGoUpMotionMagic(climber));
 
                 // X
                 new JoystickButton(controller, Button.kX.value)
@@ -33,7 +39,7 @@ public class Controller_Test {
 
                 // Start
                 new JoystickButton(controller, Button.kStart.value)
-                                .whenHeld(new a_Default());
+                                .whenPressed(new c_flipshootingSubsystemOn());
 
                 // Back
                 new JoystickButton(controller, Button.kBack.value)
@@ -57,7 +63,7 @@ public class Controller_Test {
 
                 // Top POV
                 new POVButton(controller, 0)
-                                .whenHeld(new a_Default());
+                                .whileHeld(new c_robotClimbsDown(climber));
 
                 // Right POV
                 new POVButton(controller, 90)
@@ -65,7 +71,7 @@ public class Controller_Test {
 
                 // Bottom POV
                 new POVButton(controller, 180)
-                                .whenHeld(new a_Default());
+                                .whileHeld(new c_robotClimbsUp(climber));
 
                 // Left POV
                 new POVButton(controller, 270)

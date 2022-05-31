@@ -82,4 +82,58 @@ public class Falcon {
 
         return motorObject;
     }
+
+    /**
+     * Configures a Falcon with MotionMagic configuration
+     *
+     * @param motorObject
+     *                       WPI_TalonFX object to configure
+     * @param kP
+     *                       Double value of kP portion of PID
+     * 
+     * @param kI
+     *                       Double value of kI portion of PID
+     * 
+     * @param kD
+     *                       Double value of kD portion of PID
+     * 
+     * @param kF
+     *                       Double value of KF portion of PID
+     * 
+     * @param CruiseVelocity
+     *                       Double cruise speed of motor during motion
+     * 
+     * @param Acceleration
+     *                       Double acceleration to get to cruise speed
+     * 
+     * @return Configured WPI_TalonFX motor
+     */
+    public static WPI_TalonFX configMotinoMagic(WPI_TalonFX motorObject, double kP, double kI, double kD, double kF,
+            double CruiseVelocity, double Acceleration) {
+
+        // Auxilary motor
+        motorObject.configSelectedFeedbackSensor(TalonFXFeedbackDevice.IntegratedSensor, 0,
+                kTimeout);
+        motorObject.configNeutralDeadband(0.001, kTimeout);
+        motorObject.configOpenloopRamp(1);
+
+        /* Set Motion Magic gains in slot0 - see documentation */
+        motorObject.selectProfileSlot(0, 0);
+        motorObject.config_kF(0, kF, kTimeout);
+        motorObject.config_kP(0, kP, kTimeout);
+        motorObject.config_kI(0, kI, kTimeout);
+        motorObject.config_kD(0, kD, kTimeout);
+
+        /* Set acceleration and vcruise velocity - see documentation */
+        motorObject.configMotionCruiseVelocity(CruiseVelocity, kTimeout);
+        motorObject.configMotionAcceleration(Acceleration, kTimeout);
+
+        /* Zero the sensor once on robot boot up */
+        motorObject.setSelectedSensorPosition(0, 0, kTimeout);
+
+        /* integral Zone */
+        motorObject.config_IntegralZone(0, 200);
+
+        return motorObject;
+    }
 }

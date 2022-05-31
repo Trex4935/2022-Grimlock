@@ -26,14 +26,14 @@ public class c_rotateClimbTowardsIntake extends CommandBase {
   @Override
   public void execute() {
 
-    climber.rotateArmsTowardsIntake();
+    // climber.rotateArmsTowardsIntake();
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.stopArmRotation();
+    // climber.stopArmRotation();
   }
 
   // Returns true when the command should end.

@@ -21,6 +21,7 @@ public class c_ArmsGoUpMotionMagicL extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    climber.resetEncoderL();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

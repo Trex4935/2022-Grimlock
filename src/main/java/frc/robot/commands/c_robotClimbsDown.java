@@ -39,6 +39,6 @@ public class c_robotClimbsDown extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.getMotorTopLimit();
+    return false;
   }
 }

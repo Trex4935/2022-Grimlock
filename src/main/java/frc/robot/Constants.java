@@ -154,14 +154,14 @@ public final class Constants {
   public static final int kSlotIdxClimb = 0;
   // Right
   public static final PID climbPidGainsRight = new PID(0.13372549, 0.01, 1.3372549, 0.047017189);
-  public static final double upPositionRight = 273137;
+  public static final double upPositionRight = 290000;
   public static final double downPositionRight = -100;
   public static final double velocityMotionMagicRight = 16319;
   public static final double accelMotionMagicRight = 16319;
 
   // Left
   public static final PID climbPidGainsLeft = new PID(0.13372549, 0.01, 1.3372549, 0.047017189);
-  public static final double upPositionLeft = 253137;
+  public static final double upPositionLeft = 270000;
   public static final double downPositionLeft = -100;
   public static final double velocityMotionMagicLeft = 16319;
   public static final double accelMotionMagicLeft = 16319;
