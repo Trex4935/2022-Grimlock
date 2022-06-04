@@ -36,11 +36,30 @@ public class Falcon {
 
     private static DefaultConfiguration defaultConfig = new DefaultConfiguration();
 
-    // create a CANTalon with the default (out of the box) configuration
+    //
+    /**
+     * create a CANTalon with the default (out of the box) configuration
+     *
+     * @param id
+     *           CAN ID of the motor to configure
+     * 
+     * @return Configured WPI_TalonFX motor
+     */
     public static WPI_TalonFX createDefaultFalcon(int id) {
         return createFalcon(id, defaultConfig);
     }
 
+    /**
+     * Configures a Falcon with MotionMagic configuration
+     *
+     * @param id
+     *               CAN ID of the motor to configure
+     * 
+     * @param config
+     *               Config object to use to set values on the motor
+     * 
+     * @return Configured WPI_TalonFX motor
+     */
     public static WPI_TalonFX createFalcon(int id, DefaultConfiguration config) {
         WPI_TalonFX talon = new WPI_TalonFX(id);
 
@@ -55,18 +74,30 @@ public class Falcon {
         talon.configPeakOutputForward(config.peakOutputForward);
         talon.configPeakOutputReverse(config.peakOutputReverse);
 
-        // What do these mean????
-        // talon.configSupplyCurrentLimit(new
-        // SupplyCurrentLimitConfiguration(config.ENABLE_SUPPLY_CURRENT_LIMIT, 20, 60,
-        // .2), kTimeoutMs);
-        // talon.configStatorCurrentLimit(new
-        // StatorCurrentLimitConfiguration(config.ENABLE_STATOR_CURRENT_LIMIT, 20, 60,
-        // .2), kTimeoutMs);
-
         // Return the configured motor object
         return talon;
     }
 
+    /**
+     * Configures a Falcon with a PID configuration in the 0 slot
+     *
+     * @param motorObject
+     *                    WPI_TalonFX object to configure
+     * @param kP
+     *                    Double value of kP portion of PID
+     * 
+     * @param kI
+     *                    Double value of kI portion of PID
+     * 
+     * @param kD
+     *                    Double value of kD portion of PID
+     * 
+     * @param kF
+     *                    Double value of KF portion of PID
+     * 
+     * 
+     * @return Configured WPI_TalonFX motor with PID in ID 0
+     */
     public static WPI_TalonFX configurePID(WPI_TalonFX motorObject, double kP, double kI, double kD, double kF) {
 
         // PID configs
