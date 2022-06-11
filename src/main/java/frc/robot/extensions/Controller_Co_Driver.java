@@ -16,6 +16,7 @@ import frc.robot.commands.c_intakeExtended;
 import frc.robot.commands.c_robotClimbsDown;
 import frc.robot.commands.c_robotClimbsUp;
 import frc.robot.subsystem.Climber;
+import frc.robot.commands.c_ArmsGoUpMotionMagic;
 import frc.robot.subsystem.Pneumatics;
 
 /** Add your docs here. */
@@ -61,6 +62,7 @@ public class Controller_Co_Driver {
         // .whileActiveContinuous(new a_Default());
 
         // Right trigger as button
+        
         //// Need these disabled so that they can be read in turret
         // new rightTriggerBool(controller)
         // .whileActiveContinuous(new a_Default());
@@ -71,7 +73,7 @@ public class Controller_Co_Driver {
 
         // Right POV
         new POVButton(controller, 90)
-                .whenHeld(new a_Default());
+                .whenHeld(new c_ArmsGoUpMotionMagic(climber));
 
         // Bottom POV
         new POVButton(controller, 180)
