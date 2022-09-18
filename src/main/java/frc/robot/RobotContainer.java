@@ -94,7 +94,7 @@ public class RobotContainer {
     Controller_Co_Driver.configCoDriverController(coDriverController, pneum, climber);
 
     // Configure the Driver Controller
-    Controller_Driver.configDriverController(controller);
+    Controller_Driver.configDriverController(controller,climber);
 
   }
 

@@ -149,13 +149,6 @@ public class Climber extends SubsystemBase {
     // System.out.println(climbMotorLeft.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
   }
 
-  // The climber arms go up
-  public void moveClimbArmsUP() {
-    climbMotorRight.set(0.5);
-    climbMotorLeft.set(0.5);
-
-  }
-
   // Sees whether the bottom limit switches are tripped or not (true / false)
   public boolean getMotorBottomLimit() {
     return leftClimberMagLimitBottom.get() || rightClimberMagLimitBottom.get();
@@ -183,6 +176,23 @@ public class Climber extends SubsystemBase {
     climbMotorLeft.setNeutralMode(NeutralMode.Brake);
   }
 
+  // The climber arms go up
+  public void moveClimbArmsUP() {
+    climbMotorRight.set(0.5);
+    climbMotorLeft.set(0.5);
+
+  }
+
+  // Left climber goes up
+public void moveClimbArmLeftUp() {
+  climbMotorLeft.set(0.5);  
+}
+
+  // Right climber goes up
+public void moveClimbArmRightUp() {
+  climbMotorRight.set(0.5);
+}
+
   // The default climber motor goes down (test for correct direction then change
   // inverse if its the wrong way?)
   public void moveClimbArmsDown() {
@@ -204,6 +214,17 @@ public class Climber extends SubsystemBase {
     climbMotorRight.stopMotor();
     climbMotorLeft.stopMotor();
   }
+
+  // Moves left climber down manually w/ controller
+  public void moveClimbArmLeftDown(){
+    climbMotorLeft.set(-0.5);
+  }
+
+  // Moves right climber down manually w/ controller
+  public void moveClimbArmRightDown(){
+    climbMotorRight.set(-0.5);
+  }
+
 
   // Return boolean value if motion magic setpoint is reached
   public boolean atSetPointRight(double setPoint) {

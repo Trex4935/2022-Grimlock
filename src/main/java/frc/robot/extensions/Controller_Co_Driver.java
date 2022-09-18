@@ -69,15 +69,15 @@ public class Controller_Co_Driver {
 
         // Top POV
         new POVButton(controller, 0)
-                .whileHeld(new c_robotClimbsDown(climber));
+                .whileHeld(new a_Default());
 
         // Right POV
         new POVButton(controller, 90)
-                .whenHeld(new c_ArmsGoUpMotionMagic(climber));
+                .whenHeld(new a_Default());
 
         // Bottom POV
         new POVButton(controller, 180)
-                .whileHeld(new c_robotClimbsUp(climber));
+                .whileHeld(new a_Default());
 
         // Left POV
         new POVButton(controller, 270)

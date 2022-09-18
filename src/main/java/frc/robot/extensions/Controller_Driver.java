@@ -8,12 +8,17 @@ import static edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.subsystem.Climber;
 import frc.robot.commands.a_Default;
+import frc.robot.commands.c_robotLeftClimbDown;
+import frc.robot.commands.c_robotLeftClimbUp;
+import frc.robot.commands.c_robotRightClimbDown;
+import frc.robot.commands.c_robotRightClimbUp;
 
 /** Add your docs here. */
 public class Controller_Driver {
 
-    public static void configDriverController(XboxController controller) {
+    public static void configDriverController(XboxController controller, Climber climber) {
 
         // A
         new JoystickButton(controller, Button.kA.value)
@@ -41,19 +46,19 @@ public class Controller_Driver {
 
         // Left Bumper
         new JoystickButton(controller, Button.kLeftBumper.value)
-                .whenHeld(new a_Default());
+                .whenHeld(new c_robotLeftClimbDown(climber));
 
         // Right Bumper
         new JoystickButton(controller, Button.kRightBumper.value)
-                .whenHeld(new a_Default());
+                .whenHeld(new c_robotRightClimbDown(climber));
 
         // Left trigger as button
         new leftTriggerBool(controller)
-                .whileActiveContinuous(new a_Default());
+                .whileActiveContinuous(new c_robotLeftClimbUp(climber));
 
         // Right trigger as button
         new rightTriggerBool(controller)
-                .whileActiveContinuous(new a_Default());
+                .whileActiveContinuous(new c_robotRightClimbUp(climber));
 
         // Top POV
         new POVButton(controller, 0)
