@@ -10,10 +10,10 @@ X button - N/A
 Y button - N/A
 Start button - N/A
 Back button - N/A
-LB - left climber down
-RB - right climber down
-LT - left climber up
-RT - right climber up
+LB - left climber up
+RB - right climber up
+LT - left climber down
+RT - right climber down
 D pad - N/A
 
 

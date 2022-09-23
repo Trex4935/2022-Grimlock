@@ -17,10 +17,9 @@ import frc.robot.extensions.Helper;
 import frc.robot.extensions.Falcon;
 import frc.robot.extensions.FlippedDIO;
 
-public class Climber extends SubsystemBase {
+public class LeftClimber extends SubsystemBase {
 
   // Declare Motors
-  WPI_TalonFX climbMotorRight;
   WPI_TalonFX climbMotorLeft;
 
   // Declare Sensors
@@ -30,34 +29,34 @@ public class Climber extends SubsystemBase {
   private static FlippedDIO rightClimberMagLimitBottom;
 
   // Construct a climber object
-  public Climber() {
+  public LeftClimber() {
 
     // Setup the falcon climb motors
-    climbMotorRight = Falcon.createDefaultFalcon(Constants.climbMotorCanID);
-    climbMotorRight.setInverted(true);
+    //climbMotorRight = Falcon.createDefaultFalcon(Constants.climbMotorCanID);
+    // climbMotorRight.setInverted(true);
     climbMotorLeft = Falcon.createDefaultFalcon(Constants.climbMotorAuxCanID);
-    climbMotorRight.setInverted(true);
+    // climbMotorRight.setInverted(true);
 
     // Set the climb motors up for MotionMagic
     // public static final PID climbPidGainsRight = new PID(0.13372549, 0.01,
     // 1.3372549, 0.047017189);
-    climbMotorRight = Falcon.configMotinoMagic(climbMotorRight, 0.133, 0.01, 1.337, 0.047, 16319, 16319);
+    //climbMotorRight = Falcon.configMotinoMagic(climbMotorRight, 0.133, 0.01, 1.337, 0.047, 16319, 16319);
     climbMotorLeft = Falcon.configMotinoMagic(climbMotorLeft, 0.133, 0.01, 1.337, 0.047, 16319, 16319);
 
     // Climber Magnet Limit
     leftClimberMagLimitBottom = new FlippedDIO(6);
-    rightClimberMagLimitBottom = new FlippedDIO(8);
+    //rightClimberMagLimitBottom = new FlippedDIO(8);
   }
 
   // Stop all of the climb motors
   public void stopAllClimbMotors() {
-    climbMotorRight.stopMotor();
+   // climbMotorRight.stopMotor();
     climbMotorLeft.stopMotor();
   }
 
   // Stop right of the climb motors
   public void stopRightClimbMotors() {
-    climbMotorRight.stopMotor();
+   // climbMotorRight.stopMotor();
   }
 
   // Stop left of the climb motors
@@ -69,10 +68,10 @@ public class Climber extends SubsystemBase {
   public void climbDownMotionMagic() {
     // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
     if (getMotorRightBottomLimit()) {
-      climbMotorRight.stopMotor();
+    //  climbMotorRight.stopMotor();
       setEncoderToZeroR();
     } else {
-      climbMotorRight.set(TalonFXControlMode.MotionMagic, Constants.downPositionRight);
+    //  climbMotorRight.set(TalonFXControlMode.MotionMagic, Constants.downPositionRight);
     }
     if (getMotorLeftBottomLimit()) {
       climbMotorLeft.stopMotor();
@@ -87,12 +86,12 @@ public class Climber extends SubsystemBase {
   public void climbDownMotionMagicR() {
     // Stop when we hit the botom limit switch
     if (getMotorRightBottomLimit()) {
-      climbMotorRight.stopMotor();
+    //  climbMotorRight.stopMotor();
       setEncoderToZeroR();
     }
     // Engage motion magic with a target position
     else {
-      climbMotorRight.set(TalonFXControlMode.MotionMagic, -5000);
+    //  climbMotorRight.set(TalonFXControlMode.MotionMagic, -5000);
     }
   }
 
@@ -112,11 +111,11 @@ public class Climber extends SubsystemBase {
   // Climb to down value pos of motion magic
   public void climbUpMotionMagicR() {
     // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
-    if (atSetPointRight(Constants.upPositionRight)) {
-      climbMotorRight.stopMotor();
-    } else {
-      climbMotorRight.set(TalonFXControlMode.MotionMagic, Constants.upPositionRight);
-    }
+   // if (atSetPointRight(Constants.upPositionRight)) {
+    //  climbMotorRight.stopMotor();
+  //  } else {
+    //  climbMotorRight.set(TalonFXControlMode.MotionMagic, Constants.upPositionRight);
+   // }
     // climbMotorLeft.follow(climbMotorRight, FollowerType.AuxOutput1);
   }
 
@@ -134,12 +133,12 @@ public class Climber extends SubsystemBase {
   }
 
   public void resetEncoderR() {
-    climbMotorRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
+  //  climbMotorRight.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
   }
 
   // Set Encoders to zero.
   public void setEncoderToZeroR() {
-    climbMotorRight.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+  //  climbMotorRight.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
     // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
 
   } // Set Encoders to zero.
@@ -166,19 +165,19 @@ public class Climber extends SubsystemBase {
 
   // set Both Climber to Coast Mode
   public void changeBothClimberCoast() {
-    climbMotorRight.setNeutralMode(NeutralMode.Coast);
+  //  climbMotorRight.setNeutralMode(NeutralMode.Coast);
     climbMotorLeft.setNeutralMode(NeutralMode.Coast);
   }
 
   // set Both Climber to BrakeMode
   public void changeBothClimberBrake() {
-    climbMotorRight.setNeutralMode(NeutralMode.Brake);
+   // climbMotorRight.setNeutralMode(NeutralMode.Brake);
     climbMotorLeft.setNeutralMode(NeutralMode.Brake);
   }
 
   // The climber arms go up
   public void moveClimbArmsUP() {
-    climbMotorRight.set(0.5);
+  //  climbMotorRight.set(0.5);
     climbMotorLeft.set(0.5);
 
   }
@@ -190,7 +189,7 @@ public void moveClimbArmLeftUp() {
 
   // Right climber goes up
 public void moveClimbArmRightUp() {
-  climbMotorRight.set(0.5);
+//  climbMotorRight.set(0.5);
 }
 
   // The default climber motor goes down (test for correct direction then change
@@ -202,16 +201,16 @@ public void moveClimbArmRightUp() {
       climbMotorLeft.set(-0.5);
     }
     if (rightClimberMagLimitBottom.get()) {
-      climbMotorRight.stopMotor();
+    //  climbMotorRight.stopMotor();
     } else {
-      climbMotorRight.set(-0.5);
+    //  climbMotorRight.set(-0.5);
     }
 
   }
 
   // Stops the default climber motor
   public void stopClimbMotor() {
-    climbMotorRight.stopMotor();
+  //  climbMotorRight.stopMotor();
     climbMotorLeft.stopMotor();
   }
 
@@ -222,20 +221,20 @@ public void moveClimbArmRightUp() {
 
   // Moves right climber down manually w/ controller
   public void moveClimbArmRightDown(){
-    climbMotorRight.set(-0.5);
+   // climbMotorRight.set(-0.5);
   }
 
 
   // Return boolean value if motion magic setpoint is reached
-  public boolean atSetPointRight(double setPoint) {
-    boolean atSt = Helper.RangeCompare(1000, -1000,
-        climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
+  //public boolean atSetPointRight(double setPoint) {
+   // boolean atSt = Helper.RangeCompare(1000, -1000,
+        //climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb) - setPoint);
     // System.out.println("Right");
     // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb)
     // - setPoint);
     // System.out.println(atSt);
-    return atSt;
-  }
+   // return atSt;
+  //}
 
   // Return boolean value if motion magic setpoint is reached
   public boolean atSetPointLeft(double setPoint) {
