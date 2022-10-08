@@ -33,7 +33,8 @@ public class Talon {
         public double peakOutputReverse = -1;
 
         public boolean enableCurrentLimit = false;
-        public SupplyCurrentLimitConfiguration currLimitCfg = new SupplyCurrentLimitConfiguration(enableCurrentLimit, 20, 60, 0.2);
+        public SupplyCurrentLimitConfiguration currLimitCfg = new SupplyCurrentLimitConfiguration(enableCurrentLimit,
+                20, 60, 0.2);
 
     }
 
