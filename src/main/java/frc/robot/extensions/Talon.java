@@ -32,6 +32,8 @@ public class Talon {
         public double peakOutputForward = 1;
         public double peakOutputReverse = -1;
 
+        public SupplyCurrentLimitConfiguration currLimitCfg = new SupplyCurrentLimitConfiguration(true, 20, 25, 3);
+
     }
 
     private static DefaultConfiguration defaultConfig = new DefaultConfiguration();
@@ -73,6 +75,8 @@ public class Talon {
 
         talon.configPeakOutputForward(config.peakOutputForward);
         talon.configPeakOutputReverse(config.peakOutputReverse);
+
+        // talon.configSupplyCurrentLimit(config.currLimitCfg);
 
         // Return the configured motor object
         return talon;

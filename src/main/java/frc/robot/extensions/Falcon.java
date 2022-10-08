@@ -4,6 +4,8 @@
 
 package frc.robot.extensions;
 
+import java.util.Currency;
+
 import com.ctre.phoenix.motorcontrol.*;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -11,6 +13,43 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 public class Falcon {
 
     private static final int kTimeout = 20;
+
+    /*
+    public static class Configuration {
+        public NeutralMode NEUTRAL_MODE = NeutralMode.Coast;
+        // factory default
+        public double NEUTRAL_DEADBAND = 0.04;
+
+        public SensorInitializationStrategy SENSOR_INITIALIZATION_STRATEGY = SensorInitializationStrategy.BootToZero;
+        public double SENSOR_OFFSET_DEGREES = 0;
+
+        public boolean ENABLE_SUPPLY_CURRENT_LIMIT = false;
+        public boolean ENABLE_STATOR_CURRENT_LIMIT = false;
+
+        public boolean ENABLE_SOFT_LIMIT = false;
+        public boolean ENABLE_LIMIT_SWITCH = false;
+        public int FORWARD_SOFT_LIMIT = 0;
+        public int REVERSE_SOFT_LIMIT = 0;
+
+        public boolean INVERTED = false;
+        public boolean SENSOR_PHASE = false;
+
+        public int CONTROL_FRAME_PERIOD_MS = 10;
+        public int MOTION_CONTROL_FRAME_PERIOD_MS = 1000;
+        public int GENERAL_STATUS_FRAME_RATE_MS = 10;
+        public int FEEDBACK_STATUS_FRAME_RATE_MS = 1000;
+        public int QUAD_ENCODER_STATUS_FRAME_RATE_MS = 1000;
+        public int ANALOG_TEMP_VBAT_STATUS_FRAME_RATE_MS = 1000;
+        public int PULSE_WIDTH_STATUS_FRAME_RATE_MS = 1000;
+
+        public VelocityMeasPeriod VELOCITY_MEASUREMENT_PERIOD = VelocityMeasPeriod.Period_100Ms;
+        public int VELOCITY_MEASUREMENT_ROLLING_AVERAGE_WINDOW = 64;
+
+        public double OPEN_LOOP_RAMP_RATE = 0.0;
+        public double CLOSED_LOOP_RAMP_RATE = 0.0;
+    }
+
+    */
 
     public static class DefaultConfiguration {
 
@@ -31,6 +70,9 @@ public class Falcon {
         //// Max output forward and reverse = 100%
         public double peakOutputForward = 1;
         public double peakOutputReverse = -1;
+
+        public boolean enableCurrentLimit = false;
+        public SupplyCurrentLimitConfiguration currLimitCfg = new SupplyCurrentLimitConfiguration(enableCurrentLimit, 20, 60, .2);
 
     }
 
@@ -61,21 +103,23 @@ public class Falcon {
      * @return Configured WPI_TalonFX motor
      */
     public static WPI_TalonFX createFalcon(int id, DefaultConfiguration config) {
-        WPI_TalonFX talon = new WPI_TalonFX(id);
+        WPI_TalonFX falcon = new WPI_TalonFX(id);
 
-        talon.configFactoryDefault();
-        talon.set(ControlMode.PercentOutput, 0.0);
-        talon.setNeutralMode(config.neutralMode);
-        talon.configOpenloopRamp(config.openLoopRamp);
+        falcon.configFactoryDefault();
+        falcon.set(ControlMode.PercentOutput, 0.0);
+        falcon.setNeutralMode(config.neutralMode);
+        falcon.configOpenloopRamp(config.openLoopRamp);
 
-        talon.configNominalOutputForward(config.nominalOutputForward);
-        talon.configNominalOutputReverse(config.nominalOutputReverse);
+        falcon.configNominalOutputForward(config.nominalOutputForward);
+        falcon.configNominalOutputReverse(config.nominalOutputReverse);
 
-        talon.configPeakOutputForward(config.peakOutputForward);
-        talon.configPeakOutputReverse(config.peakOutputReverse);
+        falcon.configPeakOutputForward(config.peakOutputForward);
+        falcon.configPeakOutputReverse(config.peakOutputReverse);
+
+        falcon.configSupplyCurrentLimit(config.currLimitCfg);
 
         // Return the configured motor object
-        return talon;
+        return falcon;
     }
 
     /**
