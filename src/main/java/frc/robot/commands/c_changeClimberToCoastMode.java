@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Climber;
+import frc.robot.subsystem.LeftClimber;
 
 public class c_changeClimberToCoastMode extends CommandBase {
-  Climber climber;
+  LeftClimber climber;
   
   /** Creates a new c_changeClimberToCoastMode. */
-  public c_changeClimberToCoastMode(Climber cl) {
+  public c_changeClimberToCoastMode(LeftClimber cl) {
     climber = cl;
     // Use addRequirements() here to declare subsystem dependencies.
   }

@@ -5,14 +5,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.subsystem.Climber;
+import frc.robot.subsystem.LeftClimber;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class c_ArmsGoUpMotionMagic extends ParallelCommandGroup {
   /** Creates a new c_ArmsGoUpMotionMagic. */
-  public c_ArmsGoUpMotionMagic(Climber cl) {
+  public c_ArmsGoUpMotionMagic(LeftClimber cl) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

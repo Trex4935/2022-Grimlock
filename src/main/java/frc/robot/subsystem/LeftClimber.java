@@ -25,8 +25,8 @@ public class LeftClimber extends SubsystemBase {
   // Declare Sensors
 
   // Climber Magnet Limits
-  private static FlippedDIO leftClimberMagLimitBottom;
-  private static FlippedDIO rightClimberMagLimitBottom;
+    //private static FlippedDIO leftClimberMagLimitBottom;
+    //private static FlippedDIO rightClimberMagLimitBottom;
 
   // Construct a climber object
   public LeftClimber() {
@@ -44,7 +44,7 @@ public class LeftClimber extends SubsystemBase {
     climbMotorLeft = Falcon.configMotinoMagic(climbMotorLeft, 0.133, 0.01, 1.337, 0.047, 16319, 16319);
 
     // Climber Magnet Limit
-    leftClimberMagLimitBottom = new FlippedDIO(6);
+      //leftClimberMagLimitBottom = new FlippedDIO(6);
     //rightClimberMagLimitBottom = new FlippedDIO(8);
   }
 
@@ -63,7 +63,7 @@ public class LeftClimber extends SubsystemBase {
   public void stopLeftClimbMotors() {
     climbMotorLeft.stopMotor();
   }
-
+/*
   // Climb to up value pos of motion magic
   public void climbDownMotionMagic() {
     // System.out.println(climbMotorRight.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
@@ -126,7 +126,7 @@ public class LeftClimber extends SubsystemBase {
     } else {
       climbMotorLeft.set(TalonFXControlMode.MotionMagic, Constants.upPositionLeft);
     }
-  }
+  } */
 
   public void resetEncoderL() {
     climbMotorLeft.setSelectedSensorPosition(0, 0, Constants.kTimeoutMs);
@@ -148,20 +148,25 @@ public class LeftClimber extends SubsystemBase {
     // System.out.println(climbMotorLeft.getSelectedSensorPosition(Constants.kPIDLoopIdxClimb));
   }
 
+/*
   // Sees whether the bottom limit switches are tripped or not (true / false)
   public boolean getMotorBottomLimit() {
     return leftClimberMagLimitBottom.get() || rightClimberMagLimitBottom.get();
   }
+  */
 
   // return Left limit switch
+
+  /*
   public boolean getMotorLeftBottomLimit() {
     return leftClimberMagLimitBottom.get();
-  }
+  } */
 
   // Return Right Limit Switch
-  public boolean getMotorRightBottomLimit() {
+
+  /* public boolean getMotorRightBottomLimit() {
     return rightClimberMagLimitBottom.get();
-  }
+  } */
 
   // set Both Climber to Coast Mode
   public void changeBothClimberCoast() {
@@ -192,6 +197,8 @@ public void moveClimbArmRightUp() {
 //  climbMotorRight.set(0.5);
 }
 
+/*
+
   // The default climber motor goes down (test for correct direction then change
   // inverse if its the wrong way?)
   public void moveClimbArmsDown() {
@@ -206,7 +213,7 @@ public void moveClimbArmRightUp() {
     //  climbMotorRight.set(-0.5);
     }
 
-  }
+  } */
 
   // Stops the default climber motor
   public void stopClimbMotor() {

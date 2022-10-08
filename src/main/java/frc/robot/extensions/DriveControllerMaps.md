@@ -27,6 +27,6 @@ Start button - turns off/on belts and shooting ability
 Back button - N/A
 LB - shoot ball
 RB - N/A
-LT - N/A
-RT - N/A
+LT - hood swivel left
+RT - hood swivel right
 D pad - N/A

@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Climber;
+import frc.robot.subsystem.LeftClimber;
 
 public class c_rotateAndDownClimb extends CommandBase {
-  private final Climber climber;
+  private final LeftClimber climber;
 
   /** Creates a new c_rotateAndUpClimb. */
-  public c_rotateAndDownClimb(Climber cl) {
+  public c_rotateAndDownClimb(LeftClimber cl) {
     // Use addRequirements() here to declare subsystem dependencies.
     climber = cl;
     addRequirements(climber);
@@ -25,7 +25,7 @@ public class c_rotateAndDownClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.moveClimbArmsDown();
+    // climber.moveClimbArmsDown();
     // climber.rotateArmsTowardsShooter();
   }
 
@@ -39,6 +39,7 @@ public class c_rotateAndDownClimb extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.getMotorBottomLimit();
+    //return climber.getMotorBottomLimit();
+    return true;
   }
 }

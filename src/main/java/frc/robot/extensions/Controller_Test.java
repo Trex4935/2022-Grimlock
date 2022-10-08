@@ -14,12 +14,12 @@ import frc.robot.commands.c_ArmsGoUpMotionMagic;
 import frc.robot.commands.c_flipshootingSubsystemOn;
 import frc.robot.commands.c_robotClimbsDown;
 import frc.robot.commands.c_robotClimbsUp;
-import frc.robot.subsystem.Climber;
+import frc.robot.subsystem.LeftClimber;
 
 /** Add your docs here. */
 public class Controller_Test {
 
-        public static void configTestController(XboxController controller, Climber climber) {
+        public static void configTestController(XboxController controller, LeftClimber climber) {
 
                 // A
                 new JoystickButton(controller, Button.kA.value)

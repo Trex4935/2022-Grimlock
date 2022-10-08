@@ -15,14 +15,14 @@ import frc.robot.commands.c_intakeRetracted;
 import frc.robot.commands.c_intakeExtended;
 import frc.robot.commands.c_robotClimbsDown;
 import frc.robot.commands.c_robotClimbsUp;
-import frc.robot.subsystem.Climber;
+import frc.robot.subsystem.LeftClimber;
 import frc.robot.commands.c_ArmsGoUpMotionMagic;
 import frc.robot.subsystem.Pneumatics;
 
 /** Add your docs here. */
 public class Controller_Co_Driver {
 
-    public static void configCoDriverController(XboxController controller, Pneumatics pneum, Climber climber) {
+    public static void configCoDriverController(XboxController controller, Pneumatics pneum) {
 
         // A
         new JoystickButton(controller, Button.kA.value)

@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Climber;
+import frc.robot.subsystem.LeftClimber;
 
 public class c_rotateClimbTowardsIntake extends CommandBase {
   /** Creates a new runIntakeMotors. */
-  private final Climber climber;
+  private final LeftClimber climber;
 
-  public c_rotateClimbTowardsIntake(Climber cl) {
+  public c_rotateClimbTowardsIntake(LeftClimber cl) {
     // Use addRequirements() here to declare subsystem dependencies.
     climber = cl;
     addRequirements(climber);

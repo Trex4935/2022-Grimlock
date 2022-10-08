@@ -12,10 +12,11 @@ import frc.robot.commands.cg_1BallHighAuto;
 import frc.robot.commands.cg_1BallLowAuto;
 import frc.robot.commands.cg_2BallHighAuto;
 import frc.robot.commands.cg_2BallLowAuto;
-import frc.robot.subsystem.Climber;
+import frc.robot.subsystem.LeftClimber;
 import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Pneumatics;
+import frc.robot.subsystem.RightClimber;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Turret;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -34,7 +35,8 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Turret turret = new Turret();
   private final Shooter shooter = new Shooter();
-  private final Climber climber = new Climber();
+  private final LeftClimber lClimber = new LeftClimber();
+  private final RightClimber rClimber = new RightClimber();
   private final Pneumatics pneum = new Pneumatics();
 
   // Controller
@@ -80,7 +82,7 @@ public class RobotContainer {
         coDriverController));
 
     // Setup controller
-    Controller_Test.configTestController(controller, climber);
+    // Controller_Test.configTestController(controller, climber);
   }
 
   private void competitionConfiguration() {
@@ -91,10 +93,10 @@ public class RobotContainer {
     coDriverController));
 
     // Configure the CO_Driver Controller
-    Controller_Co_Driver.configCoDriverController(coDriverController, pneum, climber);
+    Controller_Co_Driver.configCoDriverController(coDriverController, pneum);
 
     // Configure the Driver Controller
-    Controller_Driver.configDriverController(controller,climber);
+    Controller_Driver.configDriverController(controller,lClimber,rClimber);
 
   }
 

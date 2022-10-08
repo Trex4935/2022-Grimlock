@@ -5,13 +5,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystem.Climber;
+import frc.robot.subsystem.LeftClimber;
 
 public class c_ArmsGoDownMotionMagicR extends CommandBase {
   /** Creates a new runIntakeMotors. */
-  private final Climber climber;
+  private final LeftClimber climber;
 
-  public c_ArmsGoDownMotionMagicR(Climber cl) {
+  public c_ArmsGoDownMotionMagicR(LeftClimber cl) {
     // Use addRequirements() here to declare subsystem dependencies.
     climber = cl;
     // addRequirements(climber);
@@ -25,7 +25,7 @@ public class c_ArmsGoDownMotionMagicR extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.climbDownMotionMagicR();
+    //climber.climbDownMotionMagicR();
   }
 
   // Called once the command ends or is interrupted.
@@ -38,6 +38,7 @@ public class c_ArmsGoDownMotionMagicR extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.getMotorRightBottomLimit();
+    //return climber.getMotorRightBottomLimit();
+    return true;
   }
 }
