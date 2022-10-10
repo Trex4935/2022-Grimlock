@@ -9,13 +9,11 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 // Imports
-import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.Helper;
 import frc.robot.extensions.Falcon;
-import frc.robot.extensions.FlippedDIO;
 
 public class RightClimber extends SubsystemBase {
 

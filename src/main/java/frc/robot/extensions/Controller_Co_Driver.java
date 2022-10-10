@@ -13,10 +13,6 @@ import frc.robot.commands.c_flipshootingSubsystemOn;
 import frc.robot.commands.c_forceShoot;
 import frc.robot.commands.c_intakeRetracted;
 import frc.robot.commands.c_intakeExtended;
-import frc.robot.commands.c_robotClimbsDown;
-import frc.robot.commands.c_robotClimbsUp;
-import frc.robot.subsystem.LeftClimber;
-import frc.robot.commands.c_ArmsGoUpMotionMagic;
 import frc.robot.subsystem.Pneumatics;
 
 /** Add your docs here. */
