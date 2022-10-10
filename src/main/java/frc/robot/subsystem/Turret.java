@@ -6,7 +6,8 @@ package frc.robot.subsystem;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.FlippedDIO;
@@ -20,7 +21,7 @@ public class Turret extends SubsystemBase {
   PIDController turretPID = new PIDController(0.03, 0.0, 0);
 
   // Motors
-  PWMSparkMax turretRotation;
+  CANSparkMax turretRotation;
 
   // magnet sensors
   private static FlippedDIO leftMagLimit;
@@ -40,7 +41,7 @@ public class Turret extends SubsystemBase {
     // turretPID.setIntegratorRange(-30, 30);
 
     // Init motor
-    turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
+    turretRotation = new CANSparkMax(Constants.turretRotationPWMID);
     turretRotation.setInverted(true);
 
     leftMagLimit = new FlippedDIO(Constants.leftMagLimitID);
@@ -135,6 +136,20 @@ public class Turret extends SubsystemBase {
   public void stopRotationMotor() {
     turretRotation.stopMotor();
   }
+  // small gear = 16 teeth
+  // 16:1
+  // 110 teeth
+  // 360 degrees circle
+  // 768 ticks to turn big gear
+
+  // 48 * 16 = 768 (ticks to turn big gear once), 360/110 = 3.27 degrees per big
+  // gear turn, 16 * 3.27 = one small gear turning
+  // resulting in degrees, 52.32/768 = 0.068 = degrees for one tick, divide
+  // degrees by 0.068 = 1 tick for amount of ticks
+  // then run encoder to amount of ticks calculated
+
+  public double ticks = 0.068;
+  double ticksToMove = ticks * Limelight.getLimelightX();
 
 }
 
