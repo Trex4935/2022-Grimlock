@@ -6,6 +6,7 @@ package frc.robot.subsystem;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -17,14 +18,15 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.FlippedDIO;
+import frc.robot.extensions.Talon;
 //import frc.robot.extensions.multiplexedColorSensor;
 import frc.robot.extensions.SmartDebug;
 
 public class Intake extends SubsystemBase {
 
-  WPI_TalonFX intakeMotor;
-  WPI_TalonFX magazineMotor;
-  WPI_TalonFX intakeRetractionMotor;
+  WPI_TalonSRX intakeMotor;
+  WPI_TalonSRX magazineMotor;
+  // WPI_TalonSRX intakeRetractionMotor;
 
   // intake color sensor
   private ColorSensorV3 sensor2;
@@ -46,17 +48,18 @@ public class Intake extends SubsystemBase {
   public Intake() {
 
     // run the intake rollers at the front
-    intakeMotor = new WPI_TalonFX(Constants.intakeMotorCanID);
+    intakeMotor = Talon.createDefaultTalon(Constants.intakeMotorCanID);
     intakeMotor.setInverted(true);
 
     // motor to run the magazine belts
-    magazineMotor = new WPI_TalonFX(Constants.magazineMotorCanID);
+    magazineMotor = Talon.createDefaultTalon(Constants.magazineMotorCanID);
     magazineMotor.setInverted(true);
 
     // intake retraction motor
-    intakeRetractionMotor = new WPI_TalonFX(Constants.intakeRetractionMotorID);
-    intakeRetractionMotor.setInverted(false);
-    intakeRetractionMotor.setNeutralMode(NeutralMode.Brake);
+    // intakeRetractionMotor =
+    // Talon.createDefaultTalon(Constants.intakeRetractionMotorID);
+    // intakeRetractionMotor.setInverted(false);
+    // intakeRetractionMotor.setNeutralMode(NeutralMode.Brake);
 
     // sensors for the trap portion of the intake
     leftTrapSmaknaDIO = new FlippedDIO(Constants.leftTrapSmakna);
@@ -106,18 +109,20 @@ public class Intake extends SubsystemBase {
     intakeMotor.stopMotor();
   }
 
-  public void runIntakeRetractionMotor() {
-    if (Constants.retractionState) {
-
-      intakeRetractionMotor.set(Constants.retractionSpeed);
-      // new WaitCommand(Constants.retractionRunTime);
-
-    } else {
-
-      intakeRetractionMotor.set(-Constants.retractionSpeed);
-      // new WaitCommand(Constants.retractionRunTime);
-    }
-  }
+  /*
+   * public void runIntakeRetractionMotor() {
+   * if (Constants.retractionState) {
+   * 
+   * intakeRetractionMotor.set(Constants.retractionSpeed);
+   * // new WaitCommand(Constants.retractionRunTime);
+   * 
+   * } else {
+   * 
+   * intakeRetractionMotor.set(-Constants.retractionSpeed);
+   * // new WaitCommand(Constants.retractionRunTime);
+   * }
+   * }
+   */
 
   public void flipIntakeRetrationMotorState() {
     Constants.retractionState = !Constants.retractionState;
@@ -211,8 +216,8 @@ public class Intake extends SubsystemBase {
   }
 
   // stop the intake retraction motor
-  public void stopIntakeRetrationMotor() {
-    intakeRetractionMotor.stopMotor();
-  }
+  // public void stopIntakeRetrationMotor() {
+  // intakeRetractionMotor.stopMotor();
+  // }
 
 }

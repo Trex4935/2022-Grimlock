@@ -24,14 +24,14 @@ public class c_runIntakeRetractionMotor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.runIntakeRetractionMotor();
+    // intake.runIntakeRetractionMotor();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.stopIntakeRetrationMotor();
-    intake.flipIntakeRetrationMotorState();
+    // intake.stopIntakeRetrationMotor();
+    // intake.flipIntakeRetrationMotorState();
   }
 
   // Returns true when the command should end.
