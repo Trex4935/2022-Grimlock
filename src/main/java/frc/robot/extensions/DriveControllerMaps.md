@@ -17,8 +17,7 @@ RT - right climber down
 D pad - N/A
 
 
-CO DRIVER
-------
+OPERATOR------
 A button - N/A
 B button - N/A
 X button - intake pneumatics release
