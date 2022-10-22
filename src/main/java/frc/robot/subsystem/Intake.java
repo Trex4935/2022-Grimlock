@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.subsystem.Sensors;
 import frc.robot.extensions.BallColor;
 import frc.robot.extensions.FlippedDIO;
 import frc.robot.extensions.Talon;
@@ -29,13 +30,14 @@ public class Intake extends SubsystemBase {
   // WPI_TalonSRX intakeRetractionMotor;
 
   // intake color sensor
-  private ColorSensorV3 sensor2;
+  // private ColorSensorV3 sensor2;
 
   // magazine smacna
-  private static FlippedDIO leftTrapSmaknaDIO;
-  private static FlippedDIO rightTrapSmaknaDIO;
-  private static FlippedDIO insideMagSmaknaDIO;
-
+  /*
+   * private static FlippedDIO leftTrapSmaknaDIO;
+   * private static FlippedDIO rightTrapSmaknaDIO;
+   * private static FlippedDIO insideMagSmaknaDIO;
+   */
   // initializing the color sensor table
   public NetworkTable color_table;
   public NetworkTableEntry received_color;
@@ -62,12 +64,14 @@ public class Intake extends SubsystemBase {
     // intakeRetractionMotor.setNeutralMode(NeutralMode.Brake);
 
     // sensors for the trap portion of the intake
-    leftTrapSmaknaDIO = new FlippedDIO(Constants.leftTrapSmakna);
-    rightTrapSmaknaDIO = new FlippedDIO(Constants.rightTrapSmakna);
-    insideMagSmaknaDIO = new FlippedDIO(Constants.insideMagSmakna);
+    /*
+     * leftTrapSmaknaDIO = new FlippedDIO(Constants.leftTrapSmakna);
+     * rightTrapSmaknaDIO = new FlippedDIO(Constants.rightTrapSmakna);
+     * insideMagSmaknaDIO = new FlippedDIO(Constants.insideMagSmakna);
+     */
 
     // color sensor at the top of the magazine
-    sensor2 = new ColorSensorV3(I2C.Port.kMXP);
+    // sensor2 = new ColorSensorV3(I2C.Port.kMXP);
 
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
     NetworkTable color_table = inst.getTable("Intake");
@@ -145,7 +149,7 @@ public class Intake extends SubsystemBase {
       // more of
       // if positive == red
       // if negative == blue
-      double colorCompare = sensor2.getRed() - sensor2.getBlue();
+      double colorCompare = Sensors.sensor2.getRed() - Sensors.sensor2.getBlue();
 
       // determine color based on +/- of value
       if (colorCompare <= 0) {
@@ -170,7 +174,7 @@ public class Intake extends SubsystemBase {
 
   // Checks prox. color sens. for its value and if in range, returns true
   public boolean readProxColorSensor() {
-    double prox_value = sensor2.getProximity();
+    double prox_value = Sensors.sensor2.getProximity();
     // System.out.println(sensor2.getProximity());
     // System.out.println(readSensor());
     if (prox_value > Constants.proxSensorMin) {
@@ -184,17 +188,17 @@ public class Intake extends SubsystemBase {
 
   // Get the value of smakna 1
   public boolean getMagazineSensor1DIO() {
-    return leftTrapSmaknaDIO.get();
+    return Sensors.leftTrapSmaknaDIO.get();
   }
 
   // Get the value of smakna 2
   public boolean getMagazineSensor2DIO() {
-    return rightTrapSmaknaDIO.get();
+    return Sensors.rightTrapSmaknaDIO.get();
   }
 
   // Get the value of smakna 3
   public boolean getMagazineSensor3DIO() {
-    return insideMagSmaknaDIO.get();
+    return Sensors.insideMagSmaknaDIO.get();
   }
 
   // When the magazine sensor sees a ball run the HB
