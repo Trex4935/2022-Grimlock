@@ -26,10 +26,6 @@ public class Sensors extends SubsystemBase {
 
   /** Creates a new Sensors. */
   public Sensors() {
-  }
-
-  @Override
-  public void periodic() {
     // This method will be called once per scheduler run
 
     // Gets smackna values every run.
@@ -39,5 +35,10 @@ public class Sensors extends SubsystemBase {
 
     // Gets color value every run.
     sensor2 = new ColorSensorV3(I2C.Port.kMXP);
+  }
+
+  @Override
+  public void periodic() {
+    
   }
 }
