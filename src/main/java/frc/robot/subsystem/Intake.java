@@ -188,17 +188,17 @@ public class Intake extends SubsystemBase {
 
   // Get the value of smakna 1
   public boolean getMagazineSensor1DIO() {
-    return Sensors.leftTrapSmaknaDIO.get();
+    return Sensors.valueLeftSmakna;
   }
 
   // Get the value of smakna 2
   public boolean getMagazineSensor2DIO() {
-    return Sensors.rightTrapSmaknaDIO.get();
+    return Sensors.valueRightSmakna;
   }
 
   // Get the value of smakna 3
   public boolean getMagazineSensor3DIO() {
-    return Sensors.insideMagSmaknaDIO.get();
+    return Sensors.valueInsideSmakna;
   }
 
   // When the magazine sensor sees a ball run the HB

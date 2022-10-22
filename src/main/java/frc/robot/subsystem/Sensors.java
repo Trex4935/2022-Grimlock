@@ -19,6 +19,10 @@ public class Sensors extends SubsystemBase {
   static FlippedDIO rightTrapSmaknaDIO;
   static FlippedDIO insideMagSmaknaDIO;
 
+  public static boolean valueLeftSmakna;
+  public static boolean valueRightSmakna;
+  public static boolean valueInsideSmakna;
+
   // Sensors.sensor2
 
   // Created color sensor variable.
@@ -28,17 +32,19 @@ public class Sensors extends SubsystemBase {
   public Sensors() {
     // This method will be called once per scheduler run
 
-    // Gets smackna values every run.
+    // Gets smackna sensor at start.
     leftTrapSmaknaDIO = new FlippedDIO(Constants.leftTrapSmakna);
     rightTrapSmaknaDIO = new FlippedDIO(Constants.rightTrapSmakna);
     insideMagSmaknaDIO = new FlippedDIO(Constants.insideMagSmakna);
 
-    // Gets color value every run.
+    // Gets color sensor at start.
     sensor2 = new ColorSensorV3(I2C.Port.kMXP);
   }
 
   @Override
   public void periodic() {
-    
+    valueLeftSmakna = leftTrapSmaknaDIO.get();
+    valueRightSmakna = rightTrapSmaknaDIO.get();
+    valueInsideSmakna = insideMagSmaknaDIO.get();
   }
 }
