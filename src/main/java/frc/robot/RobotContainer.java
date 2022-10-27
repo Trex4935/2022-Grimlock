@@ -17,6 +17,7 @@ import frc.robot.subsystem.Drivetrain;
 import frc.robot.subsystem.Intake;
 import frc.robot.subsystem.Pneumatics;
 import frc.robot.subsystem.RightClimber;
+import frc.robot.subsystem.Sensors;
 import frc.robot.subsystem.Shooter;
 import frc.robot.subsystem.Turret;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -31,6 +32,7 @@ public class RobotContainer {
   private boolean competition = true;
 
   // Declare Subsystems
+  private final Sensors sensor = new Sensors();
   private final Drivetrain drive = new Drivetrain();
   private final Intake intake = new Intake();
   private final Turret turret = new Turret();
@@ -90,13 +92,13 @@ public class RobotContainer {
     drive.setDefaultCommand(new c_driveWithController(drive, controller,
         coDriverController));
     shooter.setDefaultCommand(new c_detectShootingReady(intake, shooter, turret,
-    coDriverController));
+        coDriverController));
 
     // Configure the CO_Driver Controller
     Controller_Co_Driver.configCoDriverController(coDriverController, pneum);
 
     // Configure the Driver Controller
-    Controller_Driver.configDriverController(controller,lClimber,rClimber);
+    Controller_Driver.configDriverController(controller, lClimber, rClimber);
 
   }
 

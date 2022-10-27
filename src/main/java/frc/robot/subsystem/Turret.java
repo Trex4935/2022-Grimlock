@@ -13,6 +13,7 @@ import frc.robot.extensions.FlippedDIO;
 import frc.robot.extensions.Helper;
 import frc.robot.extensions.Limelight;
 import frc.robot.extensions.SmartDebug;
+import frc.robot.subsystem.Sensors;
 
 public class Turret extends SubsystemBase {
 
@@ -23,10 +24,11 @@ public class Turret extends SubsystemBase {
   PWMSparkMax turretRotation;
 
   // magnet sensors
-  private static FlippedDIO leftMagLimit;
-  private static FlippedDIO middleMag;
-  private static FlippedDIO rightMagLimit;
-
+  /*
+   * private static FlippedDIO leftMagLimit;
+   * private static FlippedDIO middleMag;
+   * private static FlippedDIO rightMagLimit;
+   */
   /** Creates a new turret. */
   public Turret() {
     /*
@@ -43,10 +45,11 @@ public class Turret extends SubsystemBase {
     turretRotation = new PWMSparkMax(Constants.turretRotationPWMID);
     turretRotation.setInverted(true);
 
-    leftMagLimit = new FlippedDIO(Constants.leftMagLimitID);
-    middleMag = new FlippedDIO(Constants.middleMagID);
-    rightMagLimit = new FlippedDIO(Constants.rightMagLimitID);
-
+    /*
+     * leftMagLimit = new FlippedDIO(Constants.leftMagLimitID);
+     * middleMag = new FlippedDIO(Constants.middleMagID);
+     * rightMagLimit = new FlippedDIO(Constants.rightMagLimitID);
+     */
   }
 
   // Using PID values, the turret autolocks on a target and turns based off of
@@ -70,9 +73,9 @@ public class Turret extends SubsystemBase {
       SmartDebug.putDouble("Turret Motor Output", tt);
 
       // Handle the limit switches to make sure we don't over rotate
-      if (leftMagLimit.get() == true && tt >= 0) {
+      if (Sensors.valueLeftMagLimit == true && tt >= 0) {
         turretRotation.stopMotor();
-      } else if (rightMagLimit.get() == true && tt <= 0) {
+      } else if (Sensors.valueRightMagLimit == true && tt <= 0) {
         turretRotation.stopMotor();
       } else {
         turretRotation.set(tt);
@@ -95,11 +98,11 @@ public class Turret extends SubsystemBase {
     // directions until it reaches the middle.
     // When the rotation motor reaches the middle it will stop moving.
 
-    if (rightMagLimit.get() == true) {
+    if (Sensors.valueRightMagLimit == true) {
       Constants.returnToMiddleSpeed = Constants.returnToMiddleSpeedLeft;
       turretRotation.set(Constants.returnToMiddleSpeed);
       return true;
-    } else if (middleMag.get() == true) {
+    } else if (Sensors.valueMiddleMag == true) {
       Constants.returnToMiddleSpeed = Math.abs(Constants.returnToMiddleSpeed);
       turretRotation.set(0);
       return false;
@@ -119,9 +122,9 @@ public class Turret extends SubsystemBase {
     // System.out.println(triggerValue);
 
     // ensure we stop at the right limit switches
-    if (leftMagLimit.get() == true && (triggerValue) >= 0) {
+    if (Sensors.valueLeftMagLimit == true && (triggerValue) >= 0) {
       turretRotation.stopMotor();
-    } else if (rightMagLimit.get() == true && (triggerValue) <= 0) {
+    } else if (Sensors.valueRightMagLimit == true && (triggerValue) <= 0) {
       turretRotation.stopMotor();
     } else {
       // Divide input by 10 to get a max of 0.1

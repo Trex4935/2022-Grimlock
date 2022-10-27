@@ -30,17 +30,31 @@ public class Sensors extends SubsystemBase {
   public static int redColorSensor;
   public static int proxColorSensor;
 
+  // Create magnet sensor variables
+  static FlippedDIO leftMagLimit;
+  static FlippedDIO middleMag;
+  static FlippedDIO rightMagLimit;
+
+  public static boolean valueLeftMagLimit;
+  public static boolean valueMiddleMag;
+  public static boolean valueRightMagLimit;
+
   /** Creates a new Sensors. */
   public Sensors() {
     // This method will be called once per scheduler run
 
-    // Gets smackna sensor at start.
+    // Creates smackna sensor object at start.
     leftTrapSmaknaDIO = new FlippedDIO(Constants.leftTrapSmakna);
     rightTrapSmaknaDIO = new FlippedDIO(Constants.rightTrapSmakna);
     insideMagSmaknaDIO = new FlippedDIO(Constants.insideMagSmakna);
 
-    // Gets color sensor at start.
+    // Creates color sensor object at start.
     colorSensor = new ColorSensorV3(I2C.Port.kMXP);
+
+    // Creates color sensor object at start.
+    leftMagLimit = new FlippedDIO(Constants.leftMagLimitID);
+    middleMag = new FlippedDIO(Constants.middleMagID);
+    rightMagLimit = new FlippedDIO(Constants.rightMagLimitID);
   }
 
   @Override
@@ -54,5 +68,10 @@ public class Sensors extends SubsystemBase {
     blueColorSensor = colorSensor.getBlue();
     redColorSensor = colorSensor.getRed();
     proxColorSensor = colorSensor.getProximity();
+
+    // Constantly gets magnet sensor values. (Boolean)
+    valueLeftMagLimit = leftMagLimit.get();
+    valueMiddleMag = middleMag.get();
+    valueRightMagLimit = rightMagLimit.get();
   }
 }
