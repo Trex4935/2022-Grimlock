@@ -23,10 +23,12 @@ public class Sensors extends SubsystemBase {
   public static boolean valueRightSmakna;
   public static boolean valueInsideSmakna;
 
-  // Sensors.sensor2
+  // Created color sensor variables
+  static ColorSensorV3 colorSensor;
 
-  // Created color sensor variable.
-  static ColorSensorV3 sensor2;
+  public static int blueColorSensor;
+  public static int redColorSensor;
+  public static int proxColorSensor;
 
   /** Creates a new Sensors. */
   public Sensors() {
@@ -38,13 +40,19 @@ public class Sensors extends SubsystemBase {
     insideMagSmaknaDIO = new FlippedDIO(Constants.insideMagSmakna);
 
     // Gets color sensor at start.
-    sensor2 = new ColorSensorV3(I2C.Port.kMXP);
+    colorSensor = new ColorSensorV3(I2C.Port.kMXP);
   }
 
   @Override
   public void periodic() {
+    // Constantly gets smakna sensor values. (Boolean)
     valueLeftSmakna = leftTrapSmaknaDIO.get();
     valueRightSmakna = rightTrapSmaknaDIO.get();
     valueInsideSmakna = insideMagSmaknaDIO.get();
+
+    // Constantly gets color sensor values. (Int)
+    blueColorSensor = colorSensor.getBlue();
+    redColorSensor = colorSensor.getRed();
+    proxColorSensor = colorSensor.getProximity();
   }
 }

@@ -30,7 +30,7 @@ public class Intake extends SubsystemBase {
   // WPI_TalonSRX intakeRetractionMotor;
 
   // intake color sensor
-  // private ColorSensorV3 sensor2;
+  // private ColorSensorV3 colorSensor;
 
   // magazine smacna
   /*
@@ -71,7 +71,7 @@ public class Intake extends SubsystemBase {
      */
 
     // color sensor at the top of the magazine
-    // sensor2 = new ColorSensorV3(I2C.Port.kMXP);
+    // colorSensor = new ColorSensorV3(I2C.Port.kMXP);
 
     NetworkTableInstance inst = NetworkTableInstance.getDefault();
     NetworkTable color_table = inst.getTable("Intake");
@@ -139,8 +139,8 @@ public class Intake extends SubsystemBase {
   }
 
   public BallColor readSensor() {
-    // System.out.println(sensor2.getRed() + ";" + sensor2.getBlue() + ";" +
-    // sensor2.getGreen());
+    // System.out.println(colorSensor.getRed() + ";" + colorSensor.getBlue() + ";" +
+    // colorSensor.getGreen());
 
     // If we detect a ball with the prox sensor determine the color
     if (readProxColorSensor()) {
@@ -149,7 +149,7 @@ public class Intake extends SubsystemBase {
       // more of
       // if positive == red
       // if negative == blue
-      double colorCompare = Sensors.sensor2.getRed() - Sensors.sensor2.getBlue();
+      double colorCompare = Sensors.redColorSensor - Sensors.blueColorSensor;
 
       // determine color based on +/- of value
       if (colorCompare <= 0) {
@@ -174,8 +174,8 @@ public class Intake extends SubsystemBase {
 
   // Checks prox. color sens. for its value and if in range, returns true
   public boolean readProxColorSensor() {
-    double prox_value = Sensors.sensor2.getProximity();
-    // System.out.println(sensor2.getProximity());
+    double prox_value = Sensors.proxColorSensor;
+    // System.out.println(colorSensor.getProximity());
     // System.out.println(readSensor());
     if (prox_value > Constants.proxSensorMin) {
       // System.out.println("BALL");
