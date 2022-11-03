@@ -7,6 +7,7 @@ package frc.robot.subsystem;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -14,14 +15,19 @@ import frc.robot.extensions.FlippedDIO;
 import frc.robot.extensions.Helper;
 import frc.robot.extensions.Limelight;
 import frc.robot.extensions.SmartDebug;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxRelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 
 public class Turret extends SubsystemBase {
 
   // PID
-  PIDController turretPID = new PIDController(0.03, 0.0, 0);
+  // PIDController turretPID = new PIDController(0.03, 0.0, 0);
+  SparkMaxPIDController turretPID;
 
   // Motors
   CANSparkMax turretRotation;
+  private RelativeEncoder encoder;
 
   // magnet sensors
   private static FlippedDIO leftMagLimit;
@@ -41,8 +47,22 @@ public class Turret extends SubsystemBase {
     // turretPID.setIntegratorRange(-30, 30);
 
     // Init motor
-    turretRotation = new CANSparkMax(Constants.turretRotationPWMID);
-    turretRotation.setInverted(true);
+    // turretRotation = new CANSparkMax(Constants.turretRotationPWMID);\
+
+    // CAN SPARK MAX!! and pid controller and encoder
+    turretRotation = new CANSparkMax(0, MotorType.kBrushless);
+    encoder = turretRotation.getEncoder(NEOEncoder.Type.kQuadrature, 4096);
+
+    turretRotation.restoreFactoryDefaults();
+
+    turretPID = turretRotation.getPIDController();
+    turretPID.setFeedbackDevice(encoder);
+
+    turretPID.setP(0.03);
+    turretPID.setI(0.0);
+    turretPID.setD(0);
+
+    // turretRotation.setInverted(true);
 
     leftMagLimit = new FlippedDIO(Constants.leftMagLimitID);
     middleMag = new FlippedDIO(Constants.middleMagID);
@@ -136,21 +156,32 @@ public class Turret extends SubsystemBase {
   public void stopRotationMotor() {
     turretRotation.stopMotor();
   }
-  // small gear = 16 teeth
-  // 16:1
-  // 110 teeth
-  // 360 degrees circle
-  // 768 ticks to turn big gear
 
-  // 48 * 16 = 768 (ticks to turn big gear once), 360/110 = 3.27 degrees per big
-  // gear turn, 16 * 3.27 = one small gear turning
-  // resulting in degrees, 52.32/768 = 0.068 = degrees for one tick, divide
-  // degrees by 0.068 = 1 tick for amount of ticks
-  // then run encoder to amount of ticks calculated
+  public double ticksToRotate() {
 
-  public double ticks = 0.068;
-  double ticksToMove = ticks * Limelight.getLimelightX();
+    // small gear = 16 teeth
+    // 16:1
+    // 110 teeth
+    // 360 degrees circle
+    // 768 ticks to turn big gear
 
+    // 48 * 16 = 768 (ticks to turn big gear once),
+    // 360/110 = 3.27 degrees per big gear turn,
+    // 16 * 3.27 = one small gear turning resulting in degrees,
+    // 52.32/768 = 0.068 = degrees for one tick,
+    // divide degrees by 0.068 = 1 tick for amount of ticks
+    // then run encoder to amount of ticks calculated
+    // ???????
+
+    // 1.09
+
+    double ticks = 1;
+    return (ticks * Limelight.getLimelightX());
+  }
+
+  public void turretTurn() {
+    ticksToRotate();
+  }
 }
 
 // hello
