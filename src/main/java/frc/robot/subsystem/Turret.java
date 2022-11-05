@@ -51,16 +51,16 @@ public class Turret extends SubsystemBase {
 
     // CAN SPARK MAX!! and pid controller and encoder
     turretRotation = new CANSparkMax(0, MotorType.kBrushless);
-    encoder = turretRotation.getEncoder(NEOEncoder.Type.kQuadrature, 4096);
+    encoder = turretRotation.getEncoder(SparkMaxRelativeEncoder.Type.kQuadrature, 48);
 
     turretRotation.restoreFactoryDefaults();
 
-    turretPID = turretRotation.getPIDController();
-    turretPID.setFeedbackDevice(encoder);
+    // turretPID = turretRotation.getPIDController();
+    // turretPID.setFeedbackDevice(encoder);
 
-    turretPID.setP(0.03);
-    turretPID.setI(0.0);
-    turretPID.setD(0);
+    // turretPID.setP(0.03);
+    // turretPID.setI(0.0);
+    // turretPID.setD(0);
 
     // turretRotation.setInverted(true);
 
@@ -72,34 +72,35 @@ public class Turret extends SubsystemBase {
 
   // Using PID values, the turret autolocks on a target and turns based off of
   // where the target is
-  public void turnOnPIDAutoAim(XboxController coDrivController) {
+  // public void turnOnPIDAutoAim(XboxController coDrivController) {
 
-    // System.out.println(coDrivController.getRawAxis(Constants.leftTrigger));
+  // System.out.println(coDrivController.getRawAxis(Constants.leftTrigger));
 
-    // If the controller is trying to turn the turret use that otherwise use the PID
-    // if (coDrivController.getRawAxis(Constants.leftTrigger) > 0.1
-    // || coDrivController.getRawAxis(Constants.rightTrigger) > 0.1) {
-    if (coDrivController.getRawAxis(Constants.leftTrigger) > 0.1
-        || coDrivController.getRawAxis(Constants.rightTrigger) > 0.1) {
-      // System.out.println("True");
-      aimWithController(coDrivController);
-    }
-    // use the PID to move the turret
-    else {
-      // Get the speed that we are going to run the motor
-      double tt = turretPID.calculate(Limelight.getLimelightX(), 0);
-      SmartDebug.putDouble("Turret Motor Output", tt);
+  // If the controller is trying to turn the turret use that otherwise use the PID
+  // if (coDrivController.getRawAxis(Constants.leftTrigger) > 0.1
+  // || coDrivController.getRawAxis(Constants.rightTrigger) > 0.1) {
+  // if (coDrivController.getRawAxis(Constants.leftTrigger) > 0.1
+  // || coDrivController.getRawAxis(Constants.rightTrigger) > 0.1) {
+  // System.out.println("True");
+  // aimWithController(coDrivController);
+  // }
+  // use the PID to move the turret
+  // else
 
-      // Handle the limit switches to make sure we don't over rotate
-      if (leftMagLimit.get() == true && tt >= 0) {
-        turretRotation.stopMotor();
-      } else if (rightMagLimit.get() == true && tt <= 0) {
-        turretRotation.stopMotor();
-      } else {
-        turretRotation.set(tt);
-      }
-    }
-  }
+  // {
+  // Get the speed that we are going to run the motor
+  // double tt = turretPID.calculate(Limelight.getLimelightX(), 0);
+  // SmartDebug.putDouble("Turret Motor Output", tt);
+
+  // Handle the limit switches to make sure we don't over rotate
+  // if (leftMagLimit.get() == true && tt >= 0) {
+  // turretRotation.stopMotor();
+  // } else if (rightMagLimit.get() == true && tt <= 0) {
+  // turretRotation.stopMotor();
+  // }else
+  // {
+  // turretRotation.set(tt);
+  // }}
 
   // The limelight's on target > returns true or false
   public boolean limelightTarget() {
